@@ -9,7 +9,6 @@ align-items: center;
 
 export const authority = css`
 width: 1200px;
-border-bottom: 1px solid #dbdbdb;
 
 `;
 
