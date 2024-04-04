@@ -6,7 +6,9 @@ import React from 'react';
 function RootLayout({children}) {
     return (
         <>
-            <div css={s.background}></div>
+            <div css={s.background}>
+            
+            </div>
             <div css={s.layout}>
                 {children}
             </div>

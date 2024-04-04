@@ -1,7 +1,7 @@
 import RootContainer from "./components/RootContainer/RootContainer";
-import RootHeader from "./components/RootHeader/RootHeader";
 import RootLayout from "./components/RootLayout/RootLayout";
-import BoardListPage from "./pages/BoardListPage/BoardListPage";
+import SideProfile from "./components/SideProfile/SideProfile";
+import MeetingRoute from "./routes/MeetingRoute";
 
 
 function App() {
@@ -9,9 +9,9 @@ function App() {
   return (
     <>
       <RootLayout>
+      <SideProfile/>
         <RootContainer>
-          <RootHeader/>
-          <BoardListPage/>
+           <MeetingRoute />
         </RootContainer>
       </RootLayout>
     </>
