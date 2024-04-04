@@ -5,11 +5,11 @@ import React from 'react';
 
 function SideProfile(props) {
     return (
-        <div css={s.side}>
-            <div css={s.profile}>
+            <div css={s.side}>
+                <div css={s.profile}>
 
+                </div>
             </div>
-        </div>
     );
 }
 
