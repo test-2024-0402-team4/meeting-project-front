@@ -8,31 +8,44 @@ align-items: center;
 `
 
 export const authority = css`
-    width: 100%;
+width: 1200px;
+border-bottom: 1px solid #dbdbdb;
 
 `;
 
 
-export const boardListLayout = css`
-box-sizing: border-box;
-height: 500px;
-width: 900px;
-border: 1px solid #dbdbdb;
-
-`;
 
 export const authorityButton = css`
     width: 100px;
-    height: 40px;
+    height: 50px;
     margin-left: 20px;
     
 `;
+
+    export const boardListLayout = css`
+    box-sizing: border-box;
+    height: 500px;
+    width: 900px;
+    border: 1px solid #97e5e7;
+    
+    `;
 export const headerTitle = css`
     text-align: center;
     font-size: 40px;
     align-items: center;
     margin-bottom: 15px;
     margin-top: 15px;
+`;
+
+export const searchInput = css`
+display: flex;
+justify-content: flex-end;
+width: 70%;
+padding-bottom: 10px;
+`;
+
+export const inputBox = css`
+margin-left: 15px;
 `;
 
 export const boardListHeader = css`
@@ -135,3 +148,18 @@ export const boardListItem = css`
 export const test1 = css`
 background-color: #97e5e7;
 `
+
+export const pageNumber = css`
+padding: 15px;
+`;
+
+export const writeButtonLayout =css`
+display: flex;
+justify-content: flex-end;
+width: 68%;
+margin-top: 10px;
+`;
+export const writeButton = css`
+width: 90px;
+height: 40px;
+`;

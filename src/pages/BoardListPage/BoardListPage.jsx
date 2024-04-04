@@ -4,6 +4,10 @@ import * as s from "./style";
 import React from 'react';
 
 function BoardListPage(props) {
+
+    const moveToBoardPage = () => {
+        window.location.replace("/board/comment")
+    };
     return (
         <div css={s.layout}>
         <div css={s.authority}>
@@ -12,10 +16,10 @@ function BoardListPage(props) {
             <button css={s.authorityButton}>공부방</button>
         </div>
         <h1 css={s.headerTitle}>게시글목록</h1>
-        
-        <div>
+       
+        <div css={s.searchInput}>
             검색
-            <input type="text" />
+            <input css={s.inputBox} type="text" />
         </div>
 
         <div css={s.boardListLayout}>
@@ -27,7 +31,7 @@ function BoardListPage(props) {
                 <div>조회수</div>
             </li>
             <div css={s.boardListItem}>
-            <li>
+            <li onClick={moveToBoardPage}>
                 <div>number </div>
                 <div>title</div>
                 <div>author</div>
@@ -37,11 +41,15 @@ function BoardListPage(props) {
             </div>
             
         </div>
-        <div>
-
+            <div css={s.writeButtonLayout}>
+                <button css={s.writeButton}>작성하기</button>
+            </div>
+        <div css={s.pageNumber}>
             페이지
         </div>
-        <button>작성하기</button>
+        <footer>
+            sdf
+        </footer>
         </div>
     );
 }
