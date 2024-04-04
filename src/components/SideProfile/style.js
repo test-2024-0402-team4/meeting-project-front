@@ -1,8 +1,6 @@
 import { css } from "@emotion/react";
 
 
-
-
 export const side = css`
 display: flex;
 justify-content: center;

@@ -8,7 +8,7 @@ align-items: center;
 `
 
 export const authority = css`
-width: 1200px;
+width: 1300px;
 
 `;
 
@@ -18,13 +18,16 @@ export const authorityButton = css`
     width: 100px;
     height: 50px;
     margin-left: 20px;
+    &:nth-of-type(1){
+    margin-left: 150px;
+    }
     
 `;
 
     export const boardListLayout = css`
     box-sizing: border-box;
     height: 500px;
-    width: 900px;
+    width: 1000px;
     border: 1px solid #97e5e7;
     
     `;
