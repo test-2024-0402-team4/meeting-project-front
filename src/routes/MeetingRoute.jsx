@@ -13,8 +13,8 @@ function MeetingRoute(props) {
       <>
       
        <Routes>
-            <Route path="/board/boardList" element={<BoardListPage/>} />
-            <Route path="/board/write" element={<BoardWritePage/>} />
+            <Route path="/board/student/boardList" element={<BoardListPage/>} />
+            <Route path="/board/student" element={<BoardWritePage/>} />
             <Route path="/board/comment" element={<BoardPage/>} />
        </Routes>
       </>

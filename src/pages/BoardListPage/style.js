@@ -74,7 +74,7 @@ border-bottom:2px solid #dbdbdb ;
 & > div:nth-of-type(2){
     border-right: 1px solid #dbdbdb ;
     flex-grow: 0;
-    width: 460px;
+    width: 500px;
 }
 & > div:nth-of-type(3){
     border-right: 1px solid #dbdbdb ;
@@ -84,12 +84,12 @@ border-bottom:2px solid #dbdbdb ;
 & > div:nth-of-type(4){
     border-right: 1px solid #dbdbdb ;
     flex-grow: 0;
-    width: 120px;
+    width: 150px;
 }
 & > div:nth-of-type(5){
     border-right: 1px solid #dbdbdb ;
-    flex-grow: 0;
-    width: 80px;
+    
+    
 }
 `;
 export const boardListItem = css`
@@ -126,7 +126,7 @@ export const boardListItem = css`
         & > div:nth-of-type(2){
             border-right: 1px solid #dbdbdb ;
             flex-grow: 0;
-            width: 460px;
+            width: 500px;
         }
         & > div:nth-of-type(3){
             border-right: 1px solid #dbdbdb ;
@@ -136,12 +136,12 @@ export const boardListItem = css`
         & > div:nth-of-type(4){
             border-right: 1px solid #dbdbdb ;
             flex-grow: 0;
-            width: 120px;
+            width: 150px;
         }
         & > div:nth-of-type(5){
             border-right: 1px solid #dbdbdb ;
-            flex-grow: 0;
-            width: 80px;
+            
+            
         }
     }
 

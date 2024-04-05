@@ -1,13 +1,51 @@
 /** @jsxImportSource @emotion/react */
+import { useSearchParams } from "react-router-dom";
 import * as s from "./style";
 
-import React from 'react';
+import React, { useState } from 'react';
+import { useQuery } from "react-query";
+import { searchBoardListRequest } from "../../apis/api/boardApi";
+import { useSearchBoardInput } from "../../hooks/useSearchBoardInput";
 
 function BoardListPage(props) {
-
+    const [searchParams, setSearchParams] = useSearchParams();
+    const searchCount = 5;
+    const [boardList, setBoardList] = useState([]);
     const moveToBoardPage = () => {
         window.location.replace("/board/comment")
     };
+
+    const searchSubmit = () => {
+        setSearchParams({
+            page:1
+        })
+        searchBoardQuery.refetch();
+    }
+
+    const searchText = useSearchBoardInput(searchSubmit);
+    
+    const searchBoardQuery = useQuery(
+        ["searchBoardQuery",searchParams.get("page")],
+        async() => await searchBoardListRequest({
+            page: searchParams.get("page"),
+            count: searchCount,
+            searchText: searchText.value 
+        }),
+        {
+            refetchOnWindowFocus : false,
+            onSuccess: response => {
+                setBoardList(() => response.data.map(
+                    book => {
+                        return {
+                            ...book
+                        }
+                    }
+                ));
+                console.log(response.data);
+            }
+        }
+    );
+    
     return (
         <div css={s.layout}>
             <div css={s.authority}>
@@ -18,8 +56,11 @@ function BoardListPage(props) {
             <h1 css={s.headerTitle}>게시글목록</h1>
         
             <div css={s.searchInput}>
-                검색
-                <input css={s.inputBox} type="text" />
+                <input css={s.inputBox} type="text" 
+                value={searchText.value}
+                onChange={searchText.handleOnChange}
+                onKeyDown={searchText.handleOnKeyDown}/>
+                <button onClick={() => searchSubmit}>검색</button>
             </div>
 
             <div css={s.boardListLayout}>
@@ -30,16 +71,22 @@ function BoardListPage(props) {
                     <div>작성시간</div>
                     <div>조회수</div>
                 </li>
-                <div css={s.boardListItem}>
-                <li onClick={moveToBoardPage}>
-                    <div>number </div>
-                    <div>title</div>
-                    <div>author</div>
-                    <div>time</div>
-                    <div>much</div>
-                </li>
-                </div>
-                
+                {
+                boardList.map(
+                    board =>
+                    <div css={s.boardListItem}>
+                        <li onClick={moveToBoardPage}>
+                            <div>{board.studentBoardId} </div>
+                            <div>{board.title}</div>
+                            <div>author</div>
+                            <div>{board.createDate}</div>
+                            <div>{board.viewCount}</div>
+                         </li>
+                    </div>
+                    
+                    )
+                }
+            
             </div>
                 <div css={s.writeButtonLayout}>
                     <button css={s.writeButton}>작성하기</button>
