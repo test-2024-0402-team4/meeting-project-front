@@ -1,11 +1,9 @@
 import React from 'react';
 import { Route, Routes } from 'react-router-dom';
-import RootHeader from '../components/RootHeader/RootHeader';
 import BoardListPage from '../pages/BoardListPage/BoardListPage';
-import BoardPage from '../pages/BoardPage/BoardPage';
 import BoardWritePage from '../pages/BoardWritePage/BoardWritePage';
-import SideProfile from '../components/SideProfile/SideProfile';
-import Homepage from '../pages/Homepage/Homepage';
+import BoardPage from '../pages/BoardPage/BoardPage';
+
 
 function MeetingRoute(props) {
 
@@ -15,7 +13,8 @@ function MeetingRoute(props) {
        <Routes>
             <Route path="/board/student/boardList" element={<BoardListPage/>} />
             <Route path="/board/student" element={<BoardWritePage/>} />
-            <Route path="/board/comment" element={<BoardPage/>} />
+            <Route path="/board/student/comment/5" element={<BoardPage/>} />
+            
        </Routes>
       </>
     );

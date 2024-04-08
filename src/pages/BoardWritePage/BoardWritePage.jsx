@@ -1,18 +1,22 @@
 /** @jsxImportSource @emotion/react */
 import * as s from "./style";
 import ReactQuill from "react-quill";
-import React, { useRef, useState } from 'react';
-import { QUILL_MODULES } from "../../constants/quillModules";
+import React, { useCallback, useRef, useState } from 'react';
 import { useQuill } from "../../hooks/quillHook";
 import { useMaxValueValidateInput } from "../../hooks/inputHook";
 import { useMutation } from "react-query";
 import { registerStudentBoard } from "../../apis/api/boardApi";
+import { QUILL_MODULES } from "../../constants/quillModules";
+import {v4 as uuid} from "uuid"
+import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
+import { storage } from "../../apis/firebase/firebaseConfig";
 
 function BoardWritePage(props) {
     
     const [quillValue , handleQuillValueChange] = useQuill();
     const [inputValue , handleInputChange] = useMaxValueValidateInput(20);
     const [num , setNum] = useState(0);
+    const reactQuillRef = useRef();
 
     const registerBoardMutation = useMutation({
       mutationKey: "registerBoardMutation",
@@ -40,6 +44,27 @@ function BoardWritePage(props) {
     console.log(inputValue);
     console.log(quillValue);
 
+    const quillImageHandler = useCallback(() => {
+      const input = document.createElement("input");
+      input.setAttribute("type", "file");
+      input.setAttribute("accept", "image/");
+  
+      input.onchange = async () => {
+        const file = input.files[0];
+        const storageRef = ref(storage, `project_image/${uuid()}_${file.name}`);
+        const uploadResponse = await uploadBytes(storageRef,file);
+  
+        const downloadUrl =  await getDownloadURL(uploadResponse.ref);
+        const editor = reactQuillRef.current.getEditor();
+        const range = editor.getSelection(true);
+        editor.insertEmbed(range, "image", downloadUrl);
+        editor.setSelection(range.index + 1);
+  
+      }
+  
+      input.click();
+    }, []);
+   
     return (
         <>
         <div css={s.layout}>
@@ -66,8 +91,9 @@ function BoardWritePage(props) {
                 width: "1260px",
                 height: "700px"
             }}
-            modules={QUILL_MODULES}
-            onChange={handleQuillValueChange}/>
+            modules={QUILL_MODULES(quillImageHandler)}
+            onChange={handleQuillValueChange}
+            ref={reactQuillRef}/>
         </div>
         </>
     );
