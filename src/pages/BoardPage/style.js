@@ -20,14 +20,6 @@ export const authorityButton = css`
     
 `;
 
-export const boardListLayout = css`
-    box-sizing: border-box;
-    height: 500px;
-    width: 900px;
-    border: 1px solid #97e5e7;
-    
-`;
-
 export const boardPageTitle = css`
 display: flex;
 justify-content: center;
@@ -35,6 +27,21 @@ align-items: center;
 width: 300px;
 height: 40px;
 border: 1px solid black;
+`;
+
+export const boardListLayout = css`
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    height: 500px;
+    width: 900px;
+    border: 1px solid #97e5e7;
+`;
+
+export const singleBoardItem = css`
+
 
 `;
+
 

@@ -1,5 +1,5 @@
 /** @jsxImportSource @emotion/react */
-import { useSearchParams } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 import * as s from "./style";
 
 import React, { useState } from 'react';
@@ -11,9 +11,7 @@ function BoardListPage(props) {
     const [searchParams, setSearchParams] = useSearchParams();
     const searchCount = 5;
     const [boardList, setBoardList] = useState([]);
-    const moveToBoardPage = () => {
-        window.location.replace("/board/comment")
-    };
+   
 
     const searchSubmit = () => {
         setSearchParams({
@@ -74,15 +72,17 @@ function BoardListPage(props) {
                 {
                 boardList.map(
                     board =>
-                    <div css={s.boardListItem}>
-                        <li onClick={moveToBoardPage}>
+                    <Link to={`/board/student/comment/${board.studentBoardId}`} css={s.boardListItem}>
+
+                        <li>
                             <div>{board.studentBoardId} </div>
                             <div>{board.title}</div>
                             <div>author</div>
                             <div>{board.createDate}</div>
                             <div>{board.viewCount}</div>
                          </li>
-                    </div>
+                    </Link>
+                    
                     
                     )
                 }

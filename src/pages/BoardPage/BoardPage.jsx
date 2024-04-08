@@ -1,8 +1,40 @@
 /** @jsxImportSource @emotion/react */
+import { useMutation, useQuery } from "react-query";
 import * as s from "./style";
-import React from 'react';
+import React, { useState } from 'react';
+import { deleteBoardRequest, getSingleBoardReqeust } from "../../apis/api/boardApi";
 
 function BoardPage(props) {
+    const [singleBoard , setSingleBoard] = useState("");
+    const [isDelete , setDelete] = useState(false);
+    const getBoardQuery = useQuery(
+        ["getBoardQuery"],
+        async() => await getSingleBoardReqeust({
+          
+        }),
+        {
+            refetchOnWindowFocus : false,
+            onSuccess: response => {
+               setSingleBoard(() => response.data)
+                console.log(response.data);
+            }
+        }
+    );
+
+    const deleteBoardMutation = useMutation({
+        mutationKey:"deleteBoardMutation",
+        mutationFn: deleteBoardRequest,
+        onSuccess: response => {
+            alert("삭제 완료")
+            window.location.replace("/board/student/boardList");
+
+        }
+    });
+    const handleDeleteClick = () => {
+        deleteBoardMutation.mutate();
+    }
+    
+
     return (
     <div css={s.layout}>
         <div css={s.authority}>
@@ -11,16 +43,21 @@ function BoardPage(props) {
             <button css={s.authorityButton}>공부방</button>
         </div>
         <div css={s.boardPageTitle}>
-            제목
+            {singleBoard.title}
         </div>
-        <div> 작성시간 </div>
+        <div> {singleBoard.createDate} </div>
         <div css={s.boardListLayout}>
-            <li>
-                <div>글쓴이</div>
-                <div>조회수</div>
-                <div>댓글수</div>
-            </li>
+           
+            <div> author </div>
+            <code dangerouslySetInnerHTML ={{__html: singleBoard.content}}></code>
+            <div>{singleBoard.viewCount}</div>
+            
         </div>
+        <div>
+            <button>수정</button>
+            <button onClick={handleDeleteClick}>삭제</button>
+        </div>
+
     </div>
     );
 }
