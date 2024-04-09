@@ -11,5 +11,5 @@ export function useMaxValueValidateInput(maxSize) {
         }
         
     }
-    return [inputValue, onChange];
+    return [inputValue, onChange, setInputValue];
 }

@@ -14,5 +14,8 @@ export const getSingleBoardReqeust = async(studentBoardId) => {
 
 export const deleteBoardRequest = async(studentBoardId) => {
     return await instance.delete(`/board/student/comment/${studentBoardId}`)
-    
+}
+
+export const updateBoardRequest = async({studentBoardId, data}) => {
+    return await instance.put(`/board/student/update/${studentBoardId}`,data)
 }

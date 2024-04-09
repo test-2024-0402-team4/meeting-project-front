@@ -1,11 +1,11 @@
 /** @jsxImportSource @emotion/react */
 import * as s from "./style";
 import ReactQuill from "react-quill";
-import React, { useCallback, useEffect, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useQuill } from "../../hooks/quillHook";
 import { useMaxValueValidateInput } from "../../hooks/inputHook";
 import { useMutation, useQuery } from "react-query";
-import { getSingleBoardReqeust, registerStudentBoard } from "../../apis/api/boardApi";
+import { getSingleBoardReqeust, registerStudentBoard, updateBoardRequest } from "../../apis/api/boardApi";
 import { QUILL_MODULES } from "../../constants/quillModules";
 import {v4 as uuid} from "uuid"
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
@@ -14,16 +14,10 @@ import { useParams } from "react-router-dom";
 
 function BoardUpdatePage(props) {
     
-    const [quillValue , handleQuillValueChange] = useQuill();
-    const [inputValue , handleInputChange] = useMaxValueValidateInput(20);
-    const reactQuillRef = useRef();
-    const [singleBoard , setSingleBoard] = useState("");
     const params = useParams();
-    const [title, setTitle] = useState("");
-
-    // useEffect(() => {
-    //   setTitle(() => singleBoard.title);
-    // },[])
+    const [quillValue , handleQuillValueChange, setQuillValue] = useQuill();
+    const [inputValue , handleInputChange, setInputValue] = useMaxValueValidateInput(20);
+    const reactQuillRef = useRef();
 
     const getBoardQuery = useQuery(
         ["getBoardQuery"],
@@ -31,42 +25,13 @@ function BoardUpdatePage(props) {
         {
             refetchOnWindowFocus : false,
             onSuccess: response => {
-               setSingleBoard(() => response.data)
+               setInputValue(() => response.data.title)
+               setQuillValue(() => response.data.content)
                 console.log(response.data);
+ 
             }
         }
     );
-    const updateTitle = {
-      ...singleBoard
-    }
-
-
-    const registerBoardMutation = useMutation({
-      mutationKey: "registerBoardMutation",
-      mutationFn: registerStudentBoard,
-      onSuccess: response => {
-        alert("글이 작성되었습니다");
-        window.location.replace("/board/student/boardList");
-      }
-    });
-
-    const handleSubmitClick = () => {
-      const board = {
-        studentId: 27,
-        title : inputValue,
-        content : quillValue,
-        theme: "인사",
-        viewCount : 3
-      };
-
-      console.log(board)
-      
-      registerBoardMutation.mutate(board);
-    }
-
-    console.log(inputValue);
-    console.log(quillValue);
-
     const quillImageHandler = useCallback(() => {
       const input = document.createElement("input");
       input.setAttribute("type", "file");
@@ -87,40 +52,79 @@ function BoardUpdatePage(props) {
   
       input.click();
     }, []);
+    const modules = useMemo(()=> QUILL_MODULES(quillImageHandler), []);
+
+    const updateBoardMutation = useMutation({
+      mutationKey: "updateBoardMutation",
+      mutationFn: updateBoardRequest,
+      onSuccess: response => {
+        alert("변경이 완료되었습니다!");
+        window.location.replace("/board/student/boardList");
+      },
+      onError: error =>{
+        console.log(error)
+      }
+    });
+    
+
+
+    const handleSubmitClick = () => {
+      const board = {
+        studentBoardId : params.studentBoardId,
+        title : inputValue,
+        content : quillValue,
+        theme: "인사"
+      };
+
+      console.log(board)
+      
+      updateBoardMutation.mutate({
+        studentBoardId: params.studentBoardId,
+        data: board
+      });
+    }
+    console.log(params.studentBoardId);
+
+    console.log(inputValue);
+    console.log(quillValue);
+
+    const handleCancelClick = () => {
+      if(window.confirm("정말 취소하시겠습니까?")){
+        window.location.replace("/board/student/boardList")
+      }
+    }
    
     return (
-        <>
         <div css={s.layout}>
           <div css={s.writePageTitle}>
             게시글 작성
             
             <div css={s.titleButton}>
                 <button onClick={handleSubmitClick}>완료</button>
-                <button>취소</button>
+                <button onClick={handleCancelClick}>취소</button>
             </div>
           </div>  
-            <div css={s.themaChoice}>주제</div>  
-            <div css={s.imgInsert}>이미지첨부</div>
+          <div css={s.themaChoice}>주제</div>  
+          <div css={s.imgInsert}>이미지첨부</div>
 
           <div css={s.writeMain}>
            <input css={s.mainInput} 
            type="text" 
            placeholder="제목을 입력하세요"
            onChange={handleInputChange}
-           value={inputValue} >
-           
-          </input>
-        </div>  
-
-            <ReactQuill style={{
+           value={inputValue} />
+          
+          <ReactQuill style={{
                 width: "1260px",
                 height: "700px"
             }}
-            modules={QUILL_MODULES(quillImageHandler)}
+            modules={modules}
             onChange={handleQuillValueChange}
-            ref={reactQuillRef}/>
+            value={quillValue}
+            ref={reactQuillRef}
+            />
+          </div>
         </div>
-        </>
     );
 }
 
