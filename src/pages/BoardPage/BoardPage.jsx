@@ -3,15 +3,15 @@ import { useMutation, useQuery } from "react-query";
 import * as s from "./style";
 import React, { useState } from 'react';
 import { deleteBoardRequest, getSingleBoardReqeust } from "../../apis/api/boardApi";
+import { Link, useParams } from "react-router-dom";
 
 function BoardPage(props) {
+    const params = useParams();
     const [singleBoard , setSingleBoard] = useState("");
-    const [isDelete , setDelete] = useState(false);
+    
     const getBoardQuery = useQuery(
         ["getBoardQuery"],
-        async() => await getSingleBoardReqeust({
-          
-        }),
+        async() => await getSingleBoardReqeust(params.studentBoardId),
         {
             refetchOnWindowFocus : false,
             onSuccess: response => {
@@ -30,8 +30,9 @@ function BoardPage(props) {
 
         }
     });
+    
     const handleDeleteClick = () => {
-        deleteBoardMutation.mutate();
+        deleteBoardMutation.mutate(params.studentBoardId);
     }
     
 
@@ -54,7 +55,9 @@ function BoardPage(props) {
             
         </div>
         <div>
-            <button>수정</button>
+            <Link to={`/board/student/update/${singleBoard.studentBoardId}`}>
+                <button>수정</button>
+            </Link>
             <button onClick={handleDeleteClick}>삭제</button>
         </div>
 

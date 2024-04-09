@@ -14,8 +14,8 @@ root.render(
 <QueryClientProvider client={queryClient}>
   <RecoilRoot>
     <BrowserRouter>
-      {/* <App /> */}
-      <SignupPage />
+      <App /> 
+      {/* <SignupPage /> */}
     </BrowserRouter>
   </RecoilRoot>
 </QueryClientProvider>
