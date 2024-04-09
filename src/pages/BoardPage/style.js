@@ -34,7 +34,7 @@ export const boardListLayout = css`
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    height: 500px;
+    height: 900px;
     width: 900px;
     border: 1px solid #97e5e7;
 `;

@@ -3,6 +3,7 @@ import { Route, Routes } from 'react-router-dom';
 import BoardListPage from '../pages/BoardListPage/BoardListPage';
 import BoardWritePage from '../pages/BoardWritePage/BoardWritePage';
 import BoardPage from '../pages/BoardPage/BoardPage';
+import BoardUpdatePage from '../pages/BoardUpdatePage/BoardUpdatePage';
 
 
 function MeetingRoute(props) {
@@ -13,7 +14,8 @@ function MeetingRoute(props) {
        <Routes>
             <Route path="/board/student/boardList" element={<BoardListPage/>} />
             <Route path="/board/student" element={<BoardWritePage/>} />
-            <Route path="/board/student/comment/5" element={<BoardPage/>} />
+            <Route path="/board/student/comment/:studentBoardId" element={<BoardPage/>} />
+            <Route path="/board/student/update/:studentBoardId" element={<BoardUpdatePage/>} />
             
        </Routes>
       </>

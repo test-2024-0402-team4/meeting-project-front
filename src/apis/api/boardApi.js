@@ -8,11 +8,11 @@ export const searchBoardListRequest = async(params) => {
     return await instance.get("/board/student/boardList",{params})
 }
 
-export const getSingleBoardReqeust = async(params) => {
-    return await instance.get(`/board/student/comment/5`,{params})
+export const getSingleBoardReqeust = async(studentBoardId) => {
+    return await instance.get(`/board/student/comment/${studentBoardId}`)
 }
 
-export const deleteBoardRequest = async(data) => {
-    return await instance.delete(`/board/student/comment/${data.studentBoardId}`,{data})
+export const deleteBoardRequest = async(studentBoardId) => {
+    return await instance.delete(`/board/student/comment/${studentBoardId}`)
     
 }
