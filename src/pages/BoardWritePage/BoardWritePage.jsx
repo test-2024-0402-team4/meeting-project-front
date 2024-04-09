@@ -15,7 +15,6 @@ function BoardWritePage(props) {
     
     const [quillValue , handleQuillValueChange] = useQuill();
     const [inputValue , handleInputChange] = useMaxValueValidateInput(20);
-    const [num , setNum] = useState(0);
     const reactQuillRef = useRef();
 
     const registerBoardMutation = useMutation({

@@ -6,5 +6,5 @@ export function useQuill(){
         setQuillValue(() => value);
 
     }
-    return [quillValue,onChange];
+    return [quillValue,onChange, setQuillValue];
 }
