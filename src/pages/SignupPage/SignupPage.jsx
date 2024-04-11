@@ -2,13 +2,14 @@
 
 import Select from "react-select";
 import { useEffect, useState } from "react";
+import { useQuery } from "react-query"
 import AuthPageInput from "../../components/AuthPageInput/AuthPageInput";
 import { useSignupInput } from "../../hooks/useSignupInput";
 import * as s from "./style";
-import { validate } from "uuid";
 import { signupRequest } from "../../apis/api/signup";
+import { getGraduateState, getRegion, getStudentType, getUniversity } from "../../apis/api/Option";
 
-function SignupPage(props) {
+function SignupPage() {
 
     const [ name, nameChange, nameMessage ] = useSignupInput("name");
     const [ username, usernameChange, usernameMessage, setUsernameValue, setUsernameMessage ] = useSignupInput("username");
@@ -18,17 +19,125 @@ function SignupPage(props) {
 
     const [ birthDate, birthDateChange, birthDateMessage ] = useSignupInput("birthDate");
     const [ phoneNumber, phoneNumberChange, phoneNumberMessage ] = useSignupInput("phoneNumber");
+    const [ departmentName, departmentNameChange, departmentNameMessage ] = useSignupInput();
 
-    const [ roleId, setRole ] = useState();
+    const [ roleId, setRoleId ] = useState();
+    const [ genderId, setGenderId ] = useState();
+    
+    const [ studentTypeId, setStudentTypeId ] = useState();
+    const [ regionId, setRegionId ] = useState();
+    const [ universityId, setUniversityId ] = useState();
+    const [ graduateStateId, setGraduateStateId ] = useState();
     
     const [ addInfo, setAddInfo ] = useState(false);
 
-    const handleAddInfo = () => {
-        if(roleId == 1) {
-            setAddInfo(() => true);
+    const [ regionOption, setRegionOption ] = useState([]);
+    const [ studentTypeOption, setStudentTypeOption ] = useState([]);
+    const [ universityOption, setUniversityOption ] = useState([]);
+    const [ graduateStateOption, setGraduateStateOption ] = useState([]);
+    
+    const regionQuery = useQuery(
+        ["regionQuery"],
+        getRegion,
+        {
+            onSuccess: response => {
+                // console.log(response);
+                setRegionOption(() => response.data.map(region => {
+                    return {
+                        value: region.regionId,
+                        label: region.regionName
+                    }
+                }));
+            },
+            retry: 0,
+            refetchOnWindowFocus: false
         }
+    );
+    
+    const handleRegionOnChange = (regionId) => {
+        setRegionId(() => regionId.value);
+        // console.log(regionId.value);
+    }
 
-        if(roleId == 2) {
+    const studentTypeQuery = useQuery(
+        ["studentTypeQuery"],
+        getStudentType,
+        {
+            onSuccess: response => {
+                // console.log(response);
+                setStudentTypeOption(() => response.data.map(studentType => {
+                    return {
+                        value: studentType.studentTypeId,
+                        label: studentType.studentType
+                    }
+                }));
+            },
+            retry: 0,
+            refetchOnWindowFocus: false
+        }
+    );
+    const handleStudentTypeOnChange = (studentTypeId) => {
+        setStudentTypeId(() => studentTypeId.value);
+        // console.log(studentTypeId.value);
+    }
+
+    const universityQuery = useQuery(
+        ["universityQuery"],
+        getUniversity,
+        {
+            onSuccess: response => {
+                // console.log(response);
+                setUniversityOption(() => response.data.map(university => {
+                    return {
+                        value: university.universityId,
+                        label: university.universityName
+                    }
+                }));
+            },
+            retry: 0,
+            refetchOnWindowFocus: false
+        }
+    );
+    const handleUniversityOnChange = (universityId) => {
+        setUniversityId(() => universityId.value);
+        // console.log(universityId.value);
+    }
+
+    const graduateStateQuery = useQuery(
+        ["graduateStateQuery"],
+        getGraduateState,
+        {
+            onSuccess: response => {
+                // console.log(response);
+                setGraduateStateOption(() => response.data.map(graduateState => {
+                    return {
+                        value: graduateState.graduateStateId,
+                        label: graduateState.graduateState
+                    }
+                }));
+            },
+            retry: 0,
+            refetchOnWindowFocus: false
+        }
+    );
+    const handleGraduateStateOnChange = (graduateState) => {
+        setGraduateStateId(() => graduateState.value);
+        // console.log(graduateState.value);
+    }
+
+    const selectStyle = {
+        control: baseStyles => ({
+            ...baseStyles,
+            border: "1px solid lightgreen",
+            borderRadius: "0px",
+            width: "220px",
+        })
+    }
+
+    const handleAddInfo = () => {
+        if(roleId === 1) {
+            setAddInfo(() => true);
+        }else if(roleId === 2) {
             setAddInfo(() => true);
         }
     }
@@ -39,24 +148,38 @@ function SignupPage(props) {
 
 
     const handleStudentOnClick = (e) => {   // 학생
-        setRole(() => 1);
+        setRoleId(() => 1);
     }
     const handleTeacherOnClick = (e) => {   // 선생님
-        setRole(() => 2);
+        setRoleId(() => 2);
     }
 
+    const handleMaleOnClick = (e) => {      // 남자
+        setGenderId(() => 1);
+    }
+    const handleFamaleOnClick = (e) => {    // 여자
+        setGenderId(() => 2);
+    }
 
     const handleFirstSignup = () => {
-        
         signupRequest({
             name,
             username,
             password,
             nickname,
             email,
-            roleId
+            roleId,
+            birthDate,
+            phoneNumber,
+            genderId,
+            studentTypeId,
+            departmentName,
+            regionId,
+            universityId,
+            graduateStateId
         }).then(response => {
             console.log(response);
+            alert("가입 성공");
         }).catch(error => {
             if(error.response.status === 500) {
                 alert("입력창을 다시 확인해주십시오.");
@@ -87,7 +210,6 @@ function SignupPage(props) {
                                         <input id="radio2" type="radio" name="Role" value="teacher" onClick={handleTeacherOnClick}/>
                                         <label htmlFor="radio2">선생님</label>
                                     </div>
-
                                 </div>
                             </div>
                             <div css={s.foot}>
@@ -112,26 +234,67 @@ function SignupPage(props) {
                                         <input id="radio2" type="radio" name="Role" value="teacher" onClick={handleTeacherOnClick}/>
                                         <label htmlFor="radio2">선생님</label>
                                     </div>
-
                                 </div>
                             </div>
                             <div css={s.foot}>
                                 <button css={s.signupButton} onClick={handleAddInfo}>다음</button>
                             </div>
                         </div>
-                        <div css={s.layout}>
-                            <div css={s.logo}></div>
-                            <div css={s.signupLayout}>
-                                <div css={s.signupBox}>
-                                    <AuthPageInput type={"text"} name={"birthDate"} placeholder={"생년월일"} value={birthDate} onChange={birthDateChange} message={birthDateMessage}/>
-                                    <AuthPageInput type={"text"} name={"phoneNumber"} placeholder={"휴대폰번호"} value={phoneNumber} onChange={phoneNumberChange} message={phoneNumberMessage}/>
+                        <>
+                            {
+                                roleId === 1
+                                ?
+                                <div css={s.layout}>
+                                    <div css={s.logo}>학생</div>
+                                    <div css={s.signupLayout}>
+                                        <div css={s.signupBox}>
+                                            <AuthPageInput type={"text"} name={"birthDate"} placeholder={"생년월일"} value={birthDate} onChange={birthDateChange} message={birthDateMessage}/>
+                                            <AuthPageInput type={"text"} name={"phoneNumber"} placeholder={"휴대폰번호"} value={phoneNumber} onChange={phoneNumberChange} message={phoneNumberMessage}/>
+
+                                            <div css={s.buttonBox}>
+                                                <input id="radio3" type="radio" name="gender" value="male" onClick={handleMaleOnClick}/>
+                                                <label htmlFor="radio3">남</label>
+                                                <input id="radio4" type="radio" name="gender" value="famale" onClick={handleFamaleOnClick}/>
+                                                <label htmlFor="radio4">여</label>
+                                            </div>
+                                            <div css={s.selectBox}>
+                                                <Select styles={selectStyle} options={regionOption} placeholder="지역" onChange={handleRegionOnChange}/>
+                                                <Select styles={selectStyle} options={studentTypeOption} placeholder="학습자" onChange={handleStudentTypeOnChange} />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div css={s.foot}>
+                                        <button css={s.signupButton} onClick={handleBackInfo}>뒤로</button>
+                                        <button css={s.signupButton} onClick={handleFirstSignup}>가입하기</button>
+                                    </div>
                                 </div>
-                            </div>
-                            <div css={s.foot}>
-                                <button css={s.signupButton} onClick={handleBackInfo}>뒤로</button>
-                                <button css={s.signupButton} onClick={handleFirstSignup}>가입하기</button>
-                            </div>
-                        </div>
+                                :
+                                <div css={s.layout}>
+                                    <div css={s.logo}>선생님</div>
+                                    <div css={s.signupLayout}>
+                                        <div css={s.signupBox}>
+                                            <AuthPageInput type={"text"} name={"birthDate"} placeholder={"생년월일"} value={birthDate} onChange={birthDateChange} message={birthDateMessage}/>
+                                            <AuthPageInput type={"text"} name={"phoneNumber"} placeholder={"휴대폰번호"} value={phoneNumber} onChange={phoneNumberChange} message={phoneNumberMessage}/>
+                                            <AuthPageInput type={"text"} name={"departmentName"} placeholder={"학과명"} value={departmentName} onChange={departmentNameChange} message={departmentNameMessage}/>
+                                            <div css={s.buttonBox}>
+                                                <input id="radio3" type="radio" name="gender" value="male" onClick={handleMaleOnClick}/>
+                                                <label htmlFor="radio3">남</label>
+                                                <input id="radio4" type="radio" name="gender" value="famale" onClick={handleFamaleOnClick}/>
+                                                <label htmlFor="radio4">여</label>
+                                            </div>
+                                            <div css={s.selectBox}>
+                                                <Select styles={selectStyle} options={universityOption} placeholder="학교명" onChange={handleUniversityOnChange}/>
+                                                <Select styles={selectStyle} options={graduateStateOption} placeholder="졸업구분" onChange={handleGraduateStateOnChange}/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div css={s.foot}>
+                                        <button css={s.signupButton} onClick={handleBackInfo}>뒤로</button>
+                                        <button css={s.signupButton} onClick={handleFirstSignup}>가입하기</button>
+                                    </div>
+                                </div>
+                            }
+                        </>
                     </>
                 }
             </>

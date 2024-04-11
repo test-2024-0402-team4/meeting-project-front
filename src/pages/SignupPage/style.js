@@ -95,6 +95,7 @@ export const buttonBox = css`
     }
 `;
 
+
 export const signupButton = css`
     box-sizing: border-box;
     display: flex;
@@ -120,6 +121,15 @@ export const signupButton = css`
     &:active {
         background-color: #b8b5b5;
     }
+`;
+
+export const selectBox = css`
+    
+    display: flex;
+    justify-content: space-around;
+
+    margin-top: 10px;
+    width: 100%;
 `;
 
 export const foot = css`
