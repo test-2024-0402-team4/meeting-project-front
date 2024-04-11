@@ -22,11 +22,12 @@ function BoardWritePage(props) {
       mutationFn: registerStudentBoard,
       onSuccess: response => {
         alert("글이 작성되었습니다");
-        window.location.replace("/board/student/boardList");
+        window.location.replace("/board/student/boardList?page=1");
       }
     });
 
     const handleSubmitClick = () => {
+      
       const board = {
         studentId: 27,
         title : inputValue,
@@ -63,6 +64,11 @@ function BoardWritePage(props) {
   
       input.click();
     }, []);
+    const handleCancelClick = () => {
+      if(window.confirm("정말 취소하시겠습니까?")){
+        window.location.replace("/board/student/boardList?page=1");
+      }
+    }
    
     return (
         <>
@@ -72,7 +78,7 @@ function BoardWritePage(props) {
             
             <div css={s.titleButton}>
                 <button onClick={handleSubmitClick}>완료</button>
-                <button>취소</button>
+                <button onClick={handleCancelClick}>취소</button>
             </div>
           </div>  
             <div css={s.themaChoice}>주제</div>  
