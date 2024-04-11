@@ -26,7 +26,7 @@ function BoardPage(props) {
         mutationFn: deleteBoardRequest,
         onSuccess: response => {
             alert("삭제 완료")
-            window.location.replace("/board/student/boardList");
+            window.location.replace("/board/student/boardList?page=1");
 
         }
     });

@@ -8,6 +8,10 @@ export const searchBoardListRequest = async(params) => {
     return await instance.get("/board/student/boardList",{params})
 }
 
+export const getStudentCount = async(params) => {
+    return await instance.get("/board/student/boardList/count",{params})
+}
+
 export const getSingleBoardReqeust = async(studentBoardId) => {
     return await instance.get(`/board/student/comment/${studentBoardId}`)
 }

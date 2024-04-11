@@ -4,13 +4,16 @@ import * as s from "./style";
 
 import React, { useState } from 'react';
 import { useQuery } from "react-query";
-import { searchBoardListRequest } from "../../apis/api/boardApi";
+import { getStudentCount, searchBoardListRequest } from "../../apis/api/boardApi";
 import { useSearchBoardInput } from "../../hooks/useSearchBoardInput";
+import BoardPageCount from "../../components/BoardPageCount/BoardPageCount";
 
 function BoardListPage(props) {
     const [searchParams, setSearchParams] = useSearchParams();
-    const searchCount = 5;
+    const searchCount = 2;
     const [boardList, setBoardList] = useState([]);
+
+   
    
 
     const searchSubmit = () => {
@@ -43,6 +46,23 @@ function BoardListPage(props) {
             }
         }
     );
+
+    const getStudentCountQuery = useQuery(
+        ["getStudentCountQuery",searchBoardQuery.data],
+        async() => await getStudentCount({
+            count: searchCount,
+            searchText: searchText.value
+        }),
+        {
+            refetchOnWindowFocus: false,
+            onSuccess: response => {
+                console.log(response);
+            },
+            onError: error => {
+                console.log(error);
+            }
+        }
+    );
     
     return (
         <div css={s.layout}>
@@ -71,10 +91,10 @@ function BoardListPage(props) {
                 </li>
                 {
                 boardList.map(
-                    board =>
-                    <Link to={`/board/student/comment/${board.studentBoardId}`} css={s.boardListItem}>
+                    board => 
+                    <Link to={`/board/student/comment/${board.studentBoardId}`} css={s.boardListItem} key={board.studentBoardId}>
 
-                        <li>
+                        <li >
                             <div>{board.studentBoardId} </div>
                             <div>{board.title}</div>
                             <div>author</div>
@@ -88,11 +108,13 @@ function BoardListPage(props) {
                 }
             
             </div>
-                <div css={s.writeButtonLayout}>
+                <Link to={"/board/student"} css={s.writeButtonLayout}>
                     <button css={s.writeButton}>작성하기</button>
-                </div>
+                </Link>
+                
             <div css={s.pageNumber}>
                 페이지
+              <BoardPageCount boardCount={getStudentCountQuery.data?.data}/>
             </div>
         </div>
     );
