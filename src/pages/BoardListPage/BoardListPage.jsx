@@ -36,9 +36,9 @@ function BoardListPage(props) {
             refetchOnWindowFocus : false,
             onSuccess: response => {
                 setBoardList(() => response.data.map(
-                    book => {
+                    boards => {
                         return {
-                            ...book
+                            ...boards
                         }
                     }
                 ));
@@ -92,7 +92,7 @@ function BoardListPage(props) {
                 {
                 boardList.map(
                     board => 
-                    <Link to={`/board/student/comment/${board.studentBoardId}`} css={s.boardListItem} key={board.studentBoardId}>
+                    <Link to={`/student/board/${board.studentBoardId}`} css={s.boardListItem} key={board.studentBoardId}>
 
                         <li >
                             <div>{board.studentBoardId} </div>
@@ -108,7 +108,7 @@ function BoardListPage(props) {
                 }
             
             </div>
-                <Link to={"/board/student"} css={s.writeButtonLayout}>
+                <Link to={"/student/board"} css={s.writeButtonLayout}>
                     <button css={s.writeButton}>작성하기</button>
                 </Link>
                 
