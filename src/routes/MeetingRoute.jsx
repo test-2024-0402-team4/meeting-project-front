@@ -12,10 +12,10 @@ function MeetingRoute(props) {
       <>
       
        <Routes>
-            <Route path="/board/student/boardList" element={<BoardListPage/>} />
-            <Route path="/board/student" element={<BoardWritePage/>} />
-            <Route path="/board/student/comment/:studentBoardId" element={<BoardPage/>} />
-            <Route path="/board/student/update/:studentBoardId" element={<BoardUpdatePage/>} />
+            <Route path="/student/boards" element={<BoardListPage/>} />
+            <Route path="/student/board" element={<BoardWritePage/>} />
+            <Route path="/student/board/:studentBoardId" element={<BoardPage/>} />
+            <Route path="/student/board/update/:studentBoardId" element={<BoardUpdatePage/>} />
             
        </Routes>
       </>

@@ -5,7 +5,8 @@ import reportWebVitals from './reportWebVitals';
 import { BrowserRouter } from 'react-router-dom';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { RecoilRoot } from 'recoil';
-import SignupPage from './pages/SignupPage/SignupPage';
+import App from './App';
+
 
 const queryClient = new QueryClient();
 
@@ -16,7 +17,6 @@ root.render(
   <RecoilRoot>
     <BrowserRouter>
       <App /> 
-      {/* <SignupPage /> */}
     </BrowserRouter>
   </RecoilRoot>
 </QueryClientProvider>

@@ -4,6 +4,7 @@ import * as s from "./style";
 import React, { useState } from 'react';
 import { deleteBoardRequest, getSingleBoardReqeust } from "../../apis/api/boardApi";
 import { Link, useParams } from "react-router-dom";
+import StudentComment from "../../components/StudentComment/StudentComment";
 
 function BoardPage(props) {
     const params = useParams();
@@ -26,7 +27,7 @@ function BoardPage(props) {
         mutationFn: deleteBoardRequest,
         onSuccess: response => {
             alert("삭제 완료")
-            window.location.replace("/board/student/boardList?page=1");
+            window.location.replace("/student/boards?page=1");
 
         }
     });
@@ -46,7 +47,7 @@ function BoardPage(props) {
         <div css={s.boardPageTitle}>
             {singleBoard.title}
         </div>
-        <div> {singleBoard.createDate} </div>
+        <div css={s.showDate}> {singleBoard.createDate} </div>
         <div css={s.boardListLayout}>
            
             <div> author </div>
@@ -55,12 +56,15 @@ function BoardPage(props) {
             
         </div>
         <div>
-            <Link to={`/board/student/update/${singleBoard.studentBoardId}`}>
+            <Link to={`/student/board/update/${singleBoard.studentBoardId}`}>
                 <button>수정</button>
             </Link>
             <button onClick={handleDeleteClick}>삭제</button>
         </div>
-
+        <div>
+            
+        </div>
+            <StudentComment />
     </div>
     );
 }
