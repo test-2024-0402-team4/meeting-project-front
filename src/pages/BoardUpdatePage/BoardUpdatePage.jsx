@@ -59,7 +59,7 @@ function BoardUpdatePage(props) {
       mutationFn: updateBoardRequest,
       onSuccess: response => {
         alert("변경이 완료되었습니다!");
-        window.location.replace("/board/student/boardList");
+        window.location.replace("/student/boards?page=1");
       },
       onError: error =>{
         console.log(error)
@@ -90,7 +90,7 @@ function BoardUpdatePage(props) {
 
     const handleCancelClick = () => {
       if(window.confirm("정말 취소하시겠습니까?")){
-        window.location.replace("/board/student/boardList")
+        window.location.replace("/student/boards?page=1")
       }
     }
    

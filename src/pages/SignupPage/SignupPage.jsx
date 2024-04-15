@@ -1,7 +1,7 @@
 /** @jsxImportSource @emotion/react */
 
 import Select from "react-select";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useQuery } from "react-query"
 import AuthPageInput from "../../components/AuthPageInput/AuthPageInput";
 import { useSignupInput } from "../../hooks/useSignupInput";
@@ -12,7 +12,7 @@ import { getGraduateState, getRegion, getStudentType, getUniversity } from "../.
 function SignupPage() {
 
     const [ name, nameChange, nameMessage ] = useSignupInput("name");
-    const [ username, usernameChange, usernameMessage, setUsernameValue, setUsernameMessage ] = useSignupInput("username");
+    const [ username, usernameChange, usernameMessage] = useSignupInput("username");
     const [ password, passwordChange, passwordMessage ] = useSignupInput("password");
     const [ nickname, nicknameChange, nicknameMessage ] = useSignupInput("nickname");
     const [ email, emailChange, emailMessage ] = useSignupInput("email");

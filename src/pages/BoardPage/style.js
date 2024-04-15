@@ -9,15 +9,23 @@ align-items: center;
 
 export const authority = css`
 width: 1200px;
-border-bottom: 1px solid #dbdbdb;
-
 `;
 
 export const authorityButton = css`
-    width: 100px;
-    height: 50px;
-    margin-left: 20px;
-    
+width: 100px;
+height: 50px;
+margin-left: 20px;
+margin-bottom: 10px;
+
+&:nth-of-type(1){
+margin-left: 150px;
+}
+`;
+
+export const showDate = css`
+display: flex;
+justify-content: flex-end;
+width: 900px;
 `;
 
 export const boardPageTitle = css`

@@ -22,7 +22,7 @@ function BoardWritePage(props) {
       mutationFn: registerStudentBoard,
       onSuccess: response => {
         alert("글이 작성되었습니다");
-        window.location.replace("/board/student/boardList?page=1");
+        window.location.replace("/student/boards?page=1");
       }
     });
 
@@ -66,7 +66,7 @@ function BoardWritePage(props) {
     }, []);
     const handleCancelClick = () => {
       if(window.confirm("정말 취소하시겠습니까?")){
-        window.location.replace("/board/student/boardList?page=1");
+        window.location.replace("/student/boards?page=1");
       }
     }
    

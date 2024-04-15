@@ -5,8 +5,10 @@ import reportWebVitals from './reportWebVitals';
 import { BrowserRouter } from 'react-router-dom';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { RecoilRoot } from 'recoil';
-import App from './App'
-import AuthRoute from './routes/AuthRoute';
+
+import App from './App';
+
+
 
 const queryClient = new QueryClient();
 
@@ -16,8 +18,7 @@ root.render(
 <QueryClientProvider client={queryClient}>
   <RecoilRoot>
     <BrowserRouter>
-      <App />
-      <AuthRoute />
+      <App /> 
     </BrowserRouter>
   </RecoilRoot>
 </QueryClientProvider>
