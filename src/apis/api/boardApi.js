@@ -24,6 +24,18 @@ export const updateBoardRequest = async({studentBoardId, data}) => {
     return await instance.put(`/student/board/${studentBoardId}`,data)
 }
 
+export const registerStudentCommentRequest = async(data) => {
+    return await instance.post(`/student/board/comment/${data.studentBoardId}`, data)
+}
+
 export const getStudentCommentRequest = async(studentBoardId) => {
     return await instance.get(`/student/board/comments/${studentBoardId}`)
+}
+
+export const deleteStudentCommentRequest = async(studentCommentId) => {
+    return await instance.delete(`/student/board/comment/${studentCommentId}`)
+}
+
+export const updateStudentCommentRequest = async(data) => {
+    return await instance.put(`/student/board/comment/${data.studentCommentId}`,data)
 }

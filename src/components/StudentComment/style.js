@@ -19,7 +19,7 @@ flex-direction: column;
 flex-grow: 1;
 padding: 10px;
 width: 900px;
-height: 110px;
+height: 140px;
 outline: none;
 border: none;
 background-color: white;
@@ -29,10 +29,22 @@ resize: none;
 }
 `;
 export const inputButton = css`
-margin-bottom: 15px;
+margin-bottom: 12px;
 margin-left: 830px;
 width: 50px;
 height: 30px;
+`;
+export const afterChangeButton = css`
+margin-bottom: 12px;
+&:nth-of-type(1){
+    margin-left: 782px;
+}
+
+`;
+export const afterChangeButtons = css`
+width: 50px;
+height: 30px;
+margin-right: 7px;
 `;
 
 export const commentItems = css`
@@ -41,10 +53,21 @@ height: 120px;
 `;
 
 export const commentTitle = css`
+display: flex;
+flex-direction: column;
+width: 100%;
 height: 40px;
-
 border-bottom: 1px solid #dbdbdb;
 padding: 10px 0px;
+`;
+
+export const commentOption = css`
+display: flex;
+justify-content: space-between;
+`;
+export const commentOptionButton = css`
+margin-right: 10px;
+
 `;
 
 export const commentItem = css`
