@@ -1,15 +1,18 @@
 /** @jsxImportSource @emotion/react */
-
 import Select from "react-select";
-import { useEffect, useState } from "react";
-import { useQuery } from "react-query"
-import AuthPageInput from "../../components/AuthPageInput/AuthPageInput";
+import { useSearchParams } from "react-router-dom";
 import { useSignupInput } from "../../hooks/useSignupInput";
+import { useMutation, useQuery } from "react-query";
 import * as s from "./style";
-import { signupRequest } from "../../apis/api/signup";
+import AuthPageInput from "../../components/AuthPageInput/AuthPageInput";
+import { oAuth2SignupRequest } from "../../apis/api/signup";
+import { useState } from "react";
 import { getGraduateState, getRegion, getStudentType, getUniversity } from "../../apis/api/Option";
 
-function SignupPage() {
+
+function OAuth2SignupPage() {
+
+    const [ searchParams ] = useSearchParams();
 
     const [ name, nameChange, nameMessage ] = useSignupInput("name");
     const [ username, usernameChange, usernameMessage, setUsernameValue, setUsernameMessage ] = useSignupInput("username");
@@ -35,7 +38,19 @@ function SignupPage() {
     const [ studentTypeOption, setStudentTypeOption ] = useState([]);
     const [ universityOption, setUniversityOption ] = useState([]);
     const [ graduateStateOption, setGraduateStateOption ] = useState([]);
-    
+
+
+    const oAuth2SignupMutation = useMutation({
+        mutationKey: "oAuth2SignupMutation",
+        mutationFn: oAuth2SignupRequest,
+        onSuccess: response => {
+
+        },
+        onError: error => {
+
+        }
+    });
+
     const regionQuery = useQuery(
         ["regionQuery"],getRegion,
         {
@@ -157,8 +172,9 @@ function SignupPage() {
         setGenderId(() => 2);
     }
 
-    const handleFirstSignup = () => {
-        signupRequest({
+    const handleSignup = () => {
+
+        oAuth2SignupMutation.mutate({
             name,
             username,
             password,
@@ -172,15 +188,11 @@ function SignupPage() {
             departmentName,
             regionId,
             universityId,
-            graduateStateId
-        }).then(response => {
-            console.log(response);
-            alert("가입 성공");
-        }).catch(error => {
-            if(error.response.status === 500) {
-                alert("입력창을 다시 확인해주십시오.");
-            }
-        })
+            graduateStateId,
+            oauth2Name: searchParams.get("name"),
+            providerName: searchParams.get("provider")
+        });
+
     }
 
 
@@ -261,7 +273,7 @@ function SignupPage() {
                                     </div>
                                     <div css={s.foot}>
                                         <button css={s.signupButton} onClick={handleBackInfo}>뒤로</button>
-                                        <button css={s.signupButton} onClick={handleFirstSignup}>가입하기</button>
+                                        <button css={s.signupButton} onClick={handleSignup}>가입하기</button>
                                     </div>
                                 </div>
                                 :
@@ -286,7 +298,7 @@ function SignupPage() {
                                     </div>
                                     <div css={s.foot}>
                                         <button css={s.signupButton} onClick={handleBackInfo}>뒤로</button>
-                                        <button css={s.signupButton} onClick={handleFirstSignup}>가입하기</button>
+                                        <button css={s.signupButton} onClick={handleSignup}>가입하기</button>
                                     </div>
                                 </div>
                             }
@@ -298,4 +310,4 @@ function SignupPage() {
     );
 }
 
-export default SignupPage;
+export default OAuth2SignupPage;
