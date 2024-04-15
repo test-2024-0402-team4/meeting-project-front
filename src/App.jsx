@@ -15,13 +15,12 @@ function App() {
       <RootContainer>
         <RootHeader />
           <MeetingLayout>
-            <MeetingRoute />        
-            <SideProfile />
+            <MeetingRoute />
+            {/* <SideProfile /> */}
           </MeetingLayout>
       </RootContainer>
     </RootLayout>
     </>
-
   )
 }
 
