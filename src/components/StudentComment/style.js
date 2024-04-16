@@ -56,7 +56,7 @@ export const commentTitle = css`
 display: flex;
 flex-direction: column;
 width: 100%;
-height: 40px;
+height: 80px;
 border-bottom: 1px solid #dbdbdb;
 padding: 10px 0px;
 `;
@@ -64,13 +64,30 @@ padding: 10px 0px;
 export const commentOption = css`
 display: flex;
 justify-content: space-between;
+height: 70px;
 `;
 export const commentOptionButton = css`
 margin-right: 10px;
-
+width: 43px;
+height: 24px;
 `;
 
+export const optionButtonBox = css`
+    position: relative;
+`
 export const commentItem = css`
+    box-sizing: border-box;
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid #dbdbdb;
+    border-radius: 4px;
+    padding: 5px;
+    width: 70px;
+    background-color: #fafafa;
 
-
+    & > button {
+        width: 100%;
+        height: 30px;
+    }
 `;
