@@ -7,7 +7,7 @@ import { deleteStudentCommentRequest, getStudentCommentRequest, registerStudentC
 import { useMaxValueValidateInput } from "../../hooks/inputHook";
 import { BsThreeDotsVertical } from "react-icons/bs";
 import DeleteModal from "../DeleteModal/DeleteModal";
-
+import Dropdown from 'react-dropdown';
 function StudentComment(props) {
     const params = useParams();
     const [comments, setComments] = useState([]);
@@ -15,6 +15,7 @@ function StudentComment(props) {
     const [isShow, setShow] = useState(false);
     const [currentCommentId , setCurrentCommentId] = useState();
     const [changeButton, setChangeButton] = useState(0);
+    const [isShowDropDownById, setShowDropDownById] = useState(0);
     const getCommentQuery = useQuery(
         ["getCommentQuery"],
         async() => await getStudentCommentRequest(params.studentBoardId),
@@ -75,16 +76,16 @@ function StudentComment(props) {
         }
     })
 
-    const handleUpdateCompleteClick = () => {
+    const handleUpdateCompleteClick = (studentCommentId) => {
         const updateComment = {
-            studentCommentId: currentCommentId,
+            studentCommentId,
             comment: inputValue
         };
         console.log(updateComment);
         updateStudentCommentMutation.mutate(updateComment);
     }
 
-    const handleUpdateClick = (studentCommentId,comment) => {
+    const handleUpdateClick = (studentCommentId, comment) => {
         console.log(studentCommentId);
         console.log(comment);
         setCurrentCommentId(studentCommentId);
@@ -97,10 +98,11 @@ function StudentComment(props) {
         setInputValue(() => "");
         setChangeButton(() => 0);
     }
-
+  
    
     return (
         <div css={s.commentLayout}>
+              
             <div css={s.inputContainer}>
                 <textarea 
                 css={s.inputComment}
@@ -113,7 +115,7 @@ function StudentComment(props) {
                 changeButton === 1 
                 ?
                 <div css={s.afterChangeButton}>
-                    <button  css={s.afterChangeButtons} onClick={() => handleUpdateCompleteClick()}> 완료 </button>
+                    <button  css={s.afterChangeButtons} onClick={() => handleUpdateCompleteClick(currentCommentId)}> 완료 </button>
                     <button  css={s.afterChangeButtons} onClick={() => handleCancelClick()}> 취소 </button>
                 </div>
                 :
@@ -128,14 +130,21 @@ function StudentComment(props) {
                             <div css={s.commentTitle}>
                                 <div css={s.commentOption}>
                                     author
-                                    <button css={s.commentOptionButton} onClick={() => handleUpdateClick(comment.studentCommentId,comment.comment)}> 수정 </button>
-                                    <button css={s.commentOptionButton} onClick={() => handleDeleteClick(comment.studentCommentId)}> 삭제 </button>
-                                        
+                                    <div css={s.optionButtonBox}>
+                                        <button onClick={() => setShowDropDownById(id => id === comment.studentCommentId ? 0 : comment.studentCommentId)}><BsThreeDotsVertical /></button>
+                                        {
+                                            isShowDropDownById === comment.studentCommentId &&
+                                            <div css={s.commentItem}>
+                                                <button css={s.commentOptionButton} onClick={() => handleUpdateClick(comment.studentCommentId,comment.comment)}> 수정 </button>
+                                                <button css={s.commentOptionButton} onClick={() => handleDeleteClick(comment.studentCommentId)}> 삭제 </button>
+                                            </div>
+                                        }
+                                    </div>
                                 </div>
                                 <div>{comment.createDate}</div>
                             </div>
 
-                            <div css={s.commentItem}>{comment.comment}</div>
+                            <div>{comment.comment}</div>
                         </li>
                     )
                 }

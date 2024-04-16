@@ -5,13 +5,13 @@ import React, { useCallback, useRef, useState } from 'react';
 import { useQuill } from "../../hooks/quillHook";
 import { useMaxValueValidateInput } from "../../hooks/inputHook";
 import { useMutation } from "react-query";
-import { registerStudentBoard } from "../../apis/api/boardApi";
 import { QUILL_MODULES } from "../../constants/quillModules";
 import {v4 as uuid} from "uuid"
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import { storage } from "../../apis/firebase/firebaseConfig";
+import { registerTeacherBoard } from "../../apis/api/teacherBoardApi";
 
-function BoardWritePage(props) {
+function TeacherBoardWritePage(props) {
     
     const [quillValue , handleQuillValueChange] = useQuill();
     const [inputValue , handleInputChange] = useMaxValueValidateInput(20);
@@ -19,7 +19,7 @@ function BoardWritePage(props) {
 
     const registerBoardMutation = useMutation({
       mutationKey: "registerBoardMutation",
-      mutationFn: registerStudentBoard,
+      mutationFn: registerTeacherBoard,
       onSuccess: response => {
         alert("글이 작성되었습니다");
         window.location.replace("/teacher/boards?page=1");
@@ -29,10 +29,9 @@ function BoardWritePage(props) {
     const handleSubmitClick = () => {
       
       const board = {
-        studentId: 27,
+        teacherId: 27,
         title : inputValue,
         content : quillValue,
-        theme: "인사",
         viewCount : 3
       };
 
@@ -66,7 +65,7 @@ function BoardWritePage(props) {
     }, []);
     const handleCancelClick = () => {
       if(window.confirm("정말 취소하시겠습니까?")){
-        window.location.replace("/student/boards?page=1");
+        window.location.replace("/teacher/boards?page=1");
       }
     }
    
@@ -80,9 +79,7 @@ function BoardWritePage(props) {
                 <button onClick={handleSubmitClick}>완료</button>
                 <button onClick={handleCancelClick}>취소</button>
             </div>
-          </div>  
-            <div css={s.themaChoice}>주제</div>  
-            <div css={s.imgInsert}>이미지첨부</div>
+          </div>
 
           <div css={s.writeMain}>
            <input css={s.mainInput} 
@@ -104,4 +101,4 @@ function BoardWritePage(props) {
     );
 }
 
-export default BoardWritePage;
+export default TeacherBoardWritePage;
