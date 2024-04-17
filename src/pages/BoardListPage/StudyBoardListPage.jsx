@@ -7,9 +7,10 @@ import { useQuery } from "react-query";
 import { useSearchBoardInput } from "../../hooks/useSearchBoardInput";
 import BoardPageCount from "../../components/BoardPageCount/BoardPageCount";
 import { getTeacherCount, searchTeacherBoardListRequest } from "../../apis/api/teacherBoardApi";
-import TeacherBoardPageCount from "../../components/BoardPageCount/TeacherBoardPageCount";
+import { getStudyCount, searchStudyBoardListRequest } from "../../apis/api/studyBoardApi";
+import StudyBoardPageCount from "../../components/BoardPageCount/StudyBoardPageCount";
 
-function TeacherBoardListPage(props) {
+function StudyBoardListPage(props) {
     const [searchParams, setSearchParams] = useSearchParams();
     const searchCount = 2;
     const [boardList, setBoardList] = useState([]);
@@ -21,14 +22,14 @@ function TeacherBoardListPage(props) {
         setSearchParams({
             page:1
         })
-        searchBoardQuery.refetch();
+        searchStudyBoardQuery.refetch();
     }
 
     const searchText = useSearchBoardInput(searchSubmit);
     
-    const searchBoardQuery = useQuery(
-        ["searchBoardQuery",searchParams.get("page")],
-        async() => await searchTeacherBoardListRequest({
+    const searchStudyBoardQuery = useQuery(
+        ["searchStudyBoardQuery",searchParams.get("page")],
+        async() => await searchStudyBoardListRequest({
             page: searchParams.get("page"),
             count: searchCount,
             searchText: searchText.value 
@@ -48,9 +49,9 @@ function TeacherBoardListPage(props) {
         }
     );
 
-    const getStudentCountQuery = useQuery(
-        ["getStudentCountQuery",searchBoardQuery.data],
-        async() => await getTeacherCount({
+    const getStudyCountQuery = useQuery(
+        ["getStudyCountQuery",searchStudyBoardQuery.data],
+        async() => await getStudyCount({
             count: searchCount,
             searchText: searchText.value
         }),
@@ -68,6 +69,7 @@ function TeacherBoardListPage(props) {
     return (
         <div css={s.layout}>
             <div css={s.authority}>
+                <button css={s.authorityButton}>학생용</button>
                 <button css={s.authorityButton}>선생님용</button>
                 <button css={s.authorityButton}>공부방</button>
             </div>
@@ -92,10 +94,10 @@ function TeacherBoardListPage(props) {
                 {
                 boardList.map(
                     board => 
-                    <Link to={`/teacher/board/${board.teacherBoardId}`} css={s.boardListItem} key={board.teacherBoardId}>
+                    <Link to={`/study/board/${board.studyBoardId}`} css={s.boardListItem} key={board.studyBoardId}>
 
                         <li >
-                            <div>{board.teacherBoardId} </div>
+                            <div>{board.studyBoardId} </div>
                             <div>{board.title}</div>
                             <div>author</div>
                             <div>{board.createDate}</div>
@@ -108,16 +110,16 @@ function TeacherBoardListPage(props) {
                 }
             
             </div>
-                <Link to={"/teacher/board"} css={s.writeButtonLayout}>
+                <Link to={"/study/board"} css={s.writeButtonLayout}>
                     <button css={s.writeButton}>작성하기</button>
                 </Link>
                 
             <div css={s.pageNumber}>
                 페이지
-              <TeacherBoardPageCount boardCount={getStudentCountQuery.data?.data}/>
+              <StudyBoardPageCount boardCount={getStudyCountQuery.data?.data}/>
             </div>
         </div>
     );
 }
 
-export default TeacherBoardListPage;
+export default StudyBoardListPage;

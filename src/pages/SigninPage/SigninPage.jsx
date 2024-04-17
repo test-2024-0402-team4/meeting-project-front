@@ -5,11 +5,15 @@ import { useSignupInput } from '../../hooks/useSignupInput';
 import { signinRequest } from "../../apis/api/signin";
 import AuthPageInput from "../../components/AuthPageInput/AuthPageInput";
 import { Link } from "react-router-dom";
+import instance from "../../apis/utils/instance";
+import { useQueryClient } from "react-query";
 
 function SigninPage() {
 
     const [ username, usernameChange ] = useSignupInput();
     const [ password, passwordChange ] = useSignupInput();
+
+    const queryClient = useQueryClient();
 
     const handleSignin = () => {
         signinRequest({
@@ -37,8 +41,27 @@ function SigninPage() {
                     <Link to={"/auth/signup"}>회원가입</Link>
                 </div>
 
-                <div>
-                    <a href="http://localhost:8080/oauth2/authorization/kakao">카카오 로그인</a>
+                <div css={s.oauth2box}>
+                    <ul css={s.oauth2Site}>
+                        <li>
+                            <a href="http://localhost:8080/oauth2/authorization/kakao" target="_blank" rel="noopener noreferrer">
+                                <img src="" alt="" />
+                                <span>카카오계정 로그인</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="http://localhost:8080/oauth2/authorization/naver" target="_blank" rel="noopener noreferrer">
+                                <img src="" alt="" />
+                                <span>네이버 로그인</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="http://localhost:8080/oauth2/authorization/google" target="_blank" rel="noopener noreferrer">
+                                <img src="" alt="" />
+                                <span>구글 로그인</span>
+                            </a>
+                        </li>
+                    </ul>
                 </div>
             </div>
         </>

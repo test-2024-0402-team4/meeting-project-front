@@ -1,22 +1,24 @@
 /** @jsxImportSource @emotion/react */
 import Select from "react-select";
-import { useSearchParams } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { useSignupInput } from "../../hooks/useSignupInput";
 import { useMutation, useQuery } from "react-query";
 import * as s from "./style";
 import AuthPageInput from "../../components/AuthPageInput/AuthPageInput";
 import { oAuth2SignupRequest } from "../../apis/api/signup";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { getGraduateState, getRegion, getStudentType, getUniversity } from "../../apis/api/Option";
 
 
 function OAuth2SignupPage() {
 
     const [ searchParams ] = useSearchParams();
+    const navigate = useNavigate();
 
     const [ name, nameChange, nameMessage ] = useSignupInput("name");
     const [ username, usernameChange, usernameMessage, setUsernameValue, setUsernameMessage ] = useSignupInput("username");
     const [ password, passwordChange, passwordMessage ] = useSignupInput("password");
+    const [ checkPassword, checkPasswordChange ] = useSignupInput("checkPassword");
     const [ nickname, nicknameChange, nicknameMessage ] = useSignupInput("nickname");
     const [ email, emailChange, emailMessage ] = useSignupInput("email");
 
@@ -39,15 +41,56 @@ function OAuth2SignupPage() {
     const [ universityOption, setUniversityOption ] = useState([]);
     const [ graduateStateOption, setGraduateStateOption ] = useState([]);
 
+    const [ checkPasswordMessage, setCheckPasswordMessage ] = useState(null);
+
+    useEffect(() => {
+        if(!checkPassword || !password) {
+            setCheckPasswordMessage(() => null);
+            return;
+        }else if(password === checkPassword) {
+            setCheckPasswordMessage(() => {
+                return {
+                    type: "success",
+                    text: ""
+                }
+            });
+        }else {
+            setCheckPasswordMessage(() => {
+                return {
+                    type: "error",
+                    text: "비밀번호가 일치하지 않습니다."
+                }
+            });
+        }
+    },[password, checkPassword]);
+
 
     const oAuth2SignupMutation = useMutation({
         mutationKey: "oAuth2SignupMutation",
         mutationFn: oAuth2SignupRequest,
         onSuccess: response => {
+            navigate("/auth/signin");
 
         },
         onError: error => {
+            if( error.response.status === 400) {
 
+                const errorMap = error.response.data;
+                const errorEntries = Object.entries(errorMap);
+
+                for(let [k , v] of errorEntries) {
+                    if(k === "username") {
+                        setUsernameMessage(() => {
+                            return {
+                                type: "error",
+                                text: v
+                            }
+                        })
+                    }
+                }
+            }else {
+                alert("회원가입 오류");
+            }
         }
     });
 
@@ -210,6 +253,7 @@ function OAuth2SignupPage() {
                                     <AuthPageInput type={"text"} name={"name"} placeholder={"사용자이름"} value={name} onChange={nameChange} message={nameMessage}/>
                                     <AuthPageInput type={"text"} name={"username"} placeholder={"아이디"} value={username} onChange={usernameChange} message={usernameMessage}/>
                                     <AuthPageInput type={"password"} name={"password"} placeholder={"비밀번호"} value={password} onChange={passwordChange} message={passwordMessage}/>
+                                    <AuthPageInput type={"password"} name={"checkPassword"} placeholder={"비밀번호확인"} value={checkPassword} onChange={checkPasswordChange} message={checkPasswordMessage}/>
                                     <AuthPageInput type={"text"} name={"nickname"} placeholder={"닉네임"} value={nickname} onChange={nicknameChange} message={nicknameMessage}/>
                                     <AuthPageInput type={"text"} name={"email"} placeholder={"이메일"} value={email} onChange={emailChange} message={emailMessage}/>
                                     <div css={s.buttonBox}>
@@ -234,6 +278,7 @@ function OAuth2SignupPage() {
                                     <AuthPageInput type={"text"} name={"name"} placeholder={"사용자이름"} value={name} onChange={nameChange} message={nameMessage}/>
                                     <AuthPageInput type={"text"} name={"username"} placeholder={"아이디"} value={username} onChange={usernameChange} message={usernameMessage}/>
                                     <AuthPageInput type={"password"} name={"password"} placeholder={"비밀번호"} value={password} onChange={passwordChange} message={passwordMessage}/>
+                                    <AuthPageInput type={"password"} name={"checkPassword"} placeholder={"비밀번호확인"} value={checkPassword} onChange={checkPasswordChange} message={checkPasswordMessage}/>
                                     <AuthPageInput type={"text"} name={"nickname"} placeholder={"닉네임"} value={nickname} onChange={nicknameChange} message={nicknameMessage}/>
                                     <AuthPageInput type={"text"} name={"email"} placeholder={"이메일"} value={email} onChange={emailChange} message={emailMessage}/>
                                     <div css={s.buttonBox}>

@@ -8,6 +8,9 @@ import { RecoilRoot } from 'recoil';
 
 import App from './App';
 import ProfileRoute from './routes/ProfileRoute';
+import AuthPage from './pages/AuthPage/AuthPage';
+import AuthRoute from './routes/AuthRoute';
+
 
 
 
@@ -21,7 +24,7 @@ root.render(
     <BrowserRouter>
       <App /> 
       <ProfileRoute />
-
+      <AuthRoute />
     </BrowserRouter>
   </RecoilRoot>
 </QueryClientProvider>
