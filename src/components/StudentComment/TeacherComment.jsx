@@ -3,11 +3,11 @@ import * as s from "./style";
 import { useParams, useSearchParams } from "react-router-dom";
 import React, { useState } from 'react';
 import { useMutation, useQuery } from "react-query";
-import { deleteStudentCommentRequest, getStudentCommentRequest, registerStudentComment, registerStudentCommentRequest, updateStudentCommentRequest } from "../../apis/api/boardApi";
 import { useMaxValueValidateInput } from "../../hooks/inputHook";
 import { BsThreeDotsVertical } from "react-icons/bs";
+import { deleteTeacherCommentRequest, getTeacherCommentRequest, registerTeacherCommentRequest, updateTeacherCommentRequest } from "../../apis/api/teacherBoardApi";
 
-function StudentComment(props) {
+function TeacherComment(props) {
     const params = useParams();
     const [comments, setComments] = useState([]);
     const [inputValue, handleInputChange,setInputValue] = useMaxValueValidateInput(150);
@@ -15,9 +15,10 @@ function StudentComment(props) {
     const [currentCommentId , setCurrentCommentId] = useState();
     const [changeButton, setChangeButton] = useState(0);
     const [isShowDropDownById, setShowDropDownById] = useState(0);
-    const getCommentQuery = useQuery(
-        ["getCommentQuery"],
-        async() => await getStudentCommentRequest(params.studentBoardId),
+    
+    const getTeacherCommentQuery = useQuery(
+        ["getTeacherCommentQuery"],
+        async() => await getTeacherCommentRequest(params.teacherBoardId),
         {
             refetchOnWindowFocus: false,
             onSuccess: response => {
@@ -33,9 +34,9 @@ function StudentComment(props) {
         }
     );
 
-    const registerStudentCommentMutation = useMutation({
-        mutationKey:"registerStudentCommentMutation",
-        mutationFn: registerStudentCommentRequest,
+    const registerTeacherCommentMutation = useMutation({
+        mutationKey:"registerTeacherCommentMutation",
+        mutationFn: registerTeacherCommentRequest,
         onSuccess: response => {
             alert("댓글이 작성되었습니다");
             window.location.reload();
@@ -44,50 +45,50 @@ function StudentComment(props) {
 
     const handleRegisterClick = () => {
         const comment = {
-            studentBoardId: params.studentBoardId,
-            studentUserId : 27,
+            teacherBoardId: params.teacherBoardId,
+            teacherId : 27,
             comment : inputValue
         };
         console.log(comment);
-        registerStudentCommentMutation.mutate(comment);
+        registerTeacherCommentMutation.mutate(comment);
     }
 
-    const deleteStudentCommentMutation = useMutation({
-        mutationKey:"deleteStudentCommentMutation",
-        mutationFn: deleteStudentCommentRequest,
+    const deleteTeacherCommentMutation = useMutation({
+        mutationKey:"deleteTeacherCommentMutation",
+        mutationFn: deleteTeacherCommentRequest,
         onSuccess: response => {
             alert("삭제가 완료되었습니다")
             window.location.reload();
         }
     });
 
-    const handleDeleteClick = (studentCommentId) => {
+    const handleDeleteClick = (teacherCommentId) => {
         
-        deleteStudentCommentMutation.mutate(studentCommentId);
+        deleteTeacherCommentMutation.mutate(teacherCommentId);
     }
 
-    const updateStudentCommentMutation = useMutation({
-        mutationKey: "updateStudentCommentMutation",
-        mutationFn: updateStudentCommentRequest,
+    const updateTeacherCommentMutation = useMutation({
+        mutationKey: "updateTeacherCommentMutation",
+        mutationFn: updateTeacherCommentRequest,
         onSuccess: response => {
             alert("수정이 완료되었습니다")
             window.location.reload();
         }
     })
 
-    const handleUpdateCompleteClick = (studentCommentId) => {
+    const handleUpdateCompleteClick = (teacherCommentId) => {
         const updateComment = {
-            studentCommentId,
+            teacherCommentId,
             comment: inputValue
         };
         console.log(updateComment);
-        updateStudentCommentMutation.mutate(updateComment);
+        updateTeacherCommentMutation.mutate(updateComment);
     }
 
-    const handleUpdateClick = (studentCommentId, comment) => {
-        console.log(studentCommentId);
+    const handleUpdateClick = (teacherCommentId, comment) => {
+        console.log(teacherCommentId);
         console.log(comment);
-        setCurrentCommentId(studentCommentId);
+        setCurrentCommentId(teacherCommentId);
         setInputValue(() => comment);
         setChangeButton(() => 1);
     }
@@ -125,17 +126,17 @@ function StudentComment(props) {
                 {
                     comments.map(
                         comment => 
-                        <li key={comment.studentCommentId} css={s.commentItems}>
+                        <li key={comment.teacherCommentId} css={s.commentItems}>
                             <div css={s.commentTitle}>
                                 <div css={s.commentOption}>
                                     author
                                     <div css={s.optionButtonBox}>
-                                        <button onClick={() => setShowDropDownById(id => id === comment.studentCommentId ? 0 : comment.studentCommentId)}><BsThreeDotsVertical /></button>
+                                        <button onClick={() => setShowDropDownById(id => id === comment.teacherCommentId ? 0 : comment.teacherCommentId)}><BsThreeDotsVertical /></button>
                                         {
-                                            isShowDropDownById === comment.studentCommentId &&
+                                            isShowDropDownById === comment.teacherCommentId &&
                                             <div css={s.commentItem}>
-                                                <button css={s.commentOptionButton} onClick={() => handleUpdateClick(comment.studentCommentId,comment.comment)}> 수정 </button>
-                                                <button css={s.commentOptionButton} onClick={() => handleDeleteClick(comment.studentCommentId)}> 삭제 </button>
+                                                <button css={s.commentOptionButton} onClick={() => handleUpdateClick(comment.teacherCommentId,comment.comment)}> 수정 </button>
+                                                <button css={s.commentOptionButton} onClick={() => handleDeleteClick(comment.teacherCommentId)}> 삭제 </button>
                                             </div>
                                         }
                                     </div>
@@ -153,4 +154,4 @@ function StudentComment(props) {
     );
 }
 
-export default StudentComment;
+export default TeacherComment;

@@ -6,14 +6,15 @@ import { Link, useParams } from "react-router-dom";
 import StudentComment from "../../components/StudentComment/StudentComment";
 import { deleteTeacherBoardRequest, getSingleTeacherBoardReqeust } from "../../apis/api/teacherBoardApi";
 import TeacherComment from "../../components/StudentComment/TeacherComment";
+import { deleteStudyBoardRequest, getSingleStudyBoardReqeust } from "../../apis/api/studyBoardApi";
 
-function TeacherBoardPage(props) {
+function StudyBoardPage(props) {
     const params = useParams();
     const [singleBoard , setSingleBoard] = useState("");
     
     const getBoardQuery = useQuery(
         ["getBoardQuery"],
-        async() => await getSingleTeacherBoardReqeust(params.teacherBoardId),
+        async() => await getSingleStudyBoardReqeust(params.studyBoardId),
         {
             refetchOnWindowFocus : false,
             onSuccess: response => {
@@ -25,16 +26,16 @@ function TeacherBoardPage(props) {
 
     const deleteBoardMutation = useMutation({
         mutationKey:"deleteBoardMutation",
-        mutationFn: deleteTeacherBoardRequest,
+        mutationFn: deleteStudyBoardRequest,
         onSuccess: response => {
             alert("삭제 완료")
-            window.location.replace("/teacher/boards?page=1");
+            window.location.replace("/study/boards?page=1");
 
         }
     });
     
     const handleDeleteClick = () => {
-        deleteBoardMutation.mutate(params.teacherBoardId);
+        deleteBoardMutation.mutate(params.studyBoardId);
     }
     
 
@@ -56,7 +57,7 @@ function TeacherBoardPage(props) {
             
         </div>
         <div>
-            <Link to={`/teacher/board/update/${singleBoard.teacherBoardId}`}>
+            <Link to={`/study/board/update/${singleBoard.studyBoardId}`}>
                 <button>수정</button>
             </Link>
             <button onClick={handleDeleteClick}>삭제</button>
@@ -64,9 +65,9 @@ function TeacherBoardPage(props) {
         <div>
             
         </div>
-            <TeacherComment />
+            
     </div>
     );
 }
 
-export default TeacherBoardPage;
+export default StudyBoardPage;
