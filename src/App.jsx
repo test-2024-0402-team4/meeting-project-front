@@ -6,6 +6,7 @@ import SideProfile from "./components/SideProfile/SideProfile";
 import AuthPage from "./pages/AuthPage/AuthPage";
 import Homepage from "./pages/Homepage/Homepage";
 import MeetingRoute from "./routes/MeetingRoute";
+import ProfileRoute from "./routes/ProfileRoute";
 
 
 function App() {
