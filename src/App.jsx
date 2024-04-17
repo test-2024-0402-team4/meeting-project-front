@@ -14,13 +14,8 @@ function App() {
   return (
     <>
     <RootLayout>
-      <RootContainer>
-        <RootHeader />
-          <MeetingLayout>
-            <MeetingRoute />
-            {/* <SideProfile /> */}
-          </MeetingLayout>
-      </RootContainer>
+      <MeetingRoute />
+      {/* <SideProfile /> */}
     </RootLayout>
     </>
   )
