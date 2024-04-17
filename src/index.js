@@ -7,6 +7,7 @@ import { QueryClient, QueryClientProvider } from 'react-query';
 import { RecoilRoot } from 'recoil';
 
 import App from './App';
+import ProfileRoute from './routes/ProfileRoute';
 
 
 
@@ -19,6 +20,8 @@ root.render(
   <RecoilRoot>
     <BrowserRouter>
       <App /> 
+      <ProfileRoute />
+
     </BrowserRouter>
   </RecoilRoot>
 </QueryClientProvider>

@@ -5,6 +5,7 @@ import RootLayout from "./components/RootLayout/RootLayout";
 import SideProfile from "./components/SideProfile/SideProfile";
 import Homepage from "./pages/Homepage/Homepage";
 import MeetingRoute from "./routes/MeetingRoute";
+import ProfileRoute from "./routes/ProfileRoute";
 
 
 function App() {
