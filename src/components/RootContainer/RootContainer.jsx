@@ -5,7 +5,7 @@ import * as s from "./style";
 function RootContainer({children}) {
     return (
         <div css={s.container}>
-            {children}
+                {children}
         </div>
     );
 }
