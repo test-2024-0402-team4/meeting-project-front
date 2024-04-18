@@ -13,8 +13,10 @@ import StudyBoardListPage from '../pages/BoardListPage/StudyBoardListPage';
 import StudyBoardWritePage from '../pages/BoardWritePage/StudyBoardWritePage';
 import StudyBoardPage from '../pages/BoardPage/StudyBoardPage';
 import StudyBoardUpdatePage from '../pages/BoardUpdatePage/StudyUpdatePage';
-import NoticeBoardListPage from '../pages/NoticeBoardList/NoticeBoardList';
-import NoticeBoardPage from '../pages/NoticeBoardPage/NoticeBoardPage';
+
+import RootHeader from '../components/RootHeader/RootHeader';
+import RootFooter from '../components/RootFooter/RootFooter';
+import Homepage from '../pages/Homepage/Homepage';
 
 
 
@@ -23,23 +25,22 @@ function MeetingRoute(props) {
 
     return (
       <>
-      
-       <Routes>
-            <Route path="/student/boards" element={<BoardListPage/>} />
-            <Route path="/student/board" element={<BoardWritePage/>} />
-            <Route path="/student/board/:studentBoardId" element={<BoardPage/>} />
-            <Route path="/student/board/update/:studentBoardId" element={<BoardUpdatePage/>} />
-            <Route path="/teacher/boards" element={<TeacherBoardListPage/>} />
-            <Route path="/teacher/board" element={<TeacherBoardWritePage/>} />
-            <Route path="/teacher/board/:teacherBoardId" element={<TeacherBoardPage/>} />
-            <Route path="/teacher/board/update/:teacherBoardId" element={<TeacherBoardUpdatePage/>} />
-            <Route path="/study/boards" element={<StudyBoardListPage/>} />
-            <Route path="/study/board" element={<StudyBoardWritePage/>} />
-            <Route path="/study/board/:studyBoardId" element={<StudyBoardPage/>} />
-            <Route path="/study/board/update/:studyBoardId" element={<StudyBoardUpdatePage/>} />
-            <Route path="/notice/boards" element={<NoticeBoardListPage/>} />
-            <Route path="/notice/board/:noticeId" element={<NoticeBoardPage/>} />
-       </Routes>
+        <Routes>
+              <Route path='/main' element={<Homepage />}/>
+              <Route path="/student/boards" element={<BoardListPage/>} />
+              <Route path="/student/board" element={<BoardWritePage/>} />
+              <Route path="/student/board/:studentBoardId" element={<BoardPage/>} />
+              <Route path="/student/board/update/:studentBoardId" element={<BoardUpdatePage/>} />
+              <Route path="/teacher/boards" element={<TeacherBoardListPage/>} />
+              <Route path="/teacher/board" element={<TeacherBoardWritePage/>} />
+              <Route path="/teacher/board/:teacherBoardId" element={<TeacherBoardPage/>} />
+              <Route path="/teacher/board/update/:teacherBoardId" element={<TeacherBoardUpdatePage/>} />
+              <Route path="/study/boards" element={<StudyBoardListPage/>} />
+              <Route path="/study/board" element={<StudyBoardWritePage/>} />
+              <Route path="/study/board/:studyBoardId" element={<StudyBoardPage/>} />
+              <Route path="/study/board/update/:studyBoardId" element={<StudyBoardUpdatePage/>} />
+        </Routes>
+
       </>
     );
 }

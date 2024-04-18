@@ -21,9 +21,10 @@ function SigninPage() {
         }).then(response => {
             console.log(response.data);
             const accessToken = response.data;
-            localStorage.setItem("AccessToken", accessToken)
-            alert("로그인 성공");
-            // window.location.replace("/");
+
+            localStorage.setItem("AccessToken", accessToken);
+            window.location.replace("/main");
+
         }).catch(error => {
             alert(error.response.data);
             console.log(error.response.data);
