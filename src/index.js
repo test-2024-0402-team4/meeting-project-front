@@ -10,6 +10,7 @@ import App from './App';
 import ProfileRoute from './routes/ProfileRoute';
 import AuthPage from './pages/AuthPage/AuthPage';
 import AuthRoute from './routes/AuthRoute';
+import RootFooter from './components/RootFooter/RootFooter';
 
 
 
@@ -22,9 +23,7 @@ root.render(
 <QueryClientProvider client={queryClient}>
   <RecoilRoot>
     <BrowserRouter>
-      <App /> 
-      <ProfileRoute />
-      <AuthRoute />
+      <App />       
     </BrowserRouter>
   </RecoilRoot>
 </QueryClientProvider>
