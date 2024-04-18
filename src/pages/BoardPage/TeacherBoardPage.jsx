@@ -48,12 +48,18 @@ function TeacherBoardPage(props) {
             {singleBoard.title}
         </div>
         <div css={s.showDate}> {singleBoard.createDate} </div>
+
         <div css={s.boardListLayout}>
+           <div css={s.boardPageProfile}>
+                <div css={s.boardPageProfileImg}> img </div>
+                <div> author </div>
+           </div>
            
-            <div> author </div>
+        <div css={s.boardPageMain}>
             <code dangerouslySetInnerHTML ={{__html: singleBoard.content}}></code>
-            <div>{singleBoard.viewCount}</div>
-            
+        </div>   
+        
+            <div css={s.boardPageViewCount}>{singleBoard.viewCount}</div>
         </div>
         <div>
             <Link to={`/teacher/board/update/${singleBoard.teacherBoardId}`}>

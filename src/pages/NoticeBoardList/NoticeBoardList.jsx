@@ -5,15 +5,13 @@ import * as s from "./style";
 import React, { useState } from 'react';
 import { useQuery } from "react-query";
 import { useSearchBoardInput } from "../../hooks/useSearchBoardInput";
-import BoardPageCount from "../../components/BoardPageCount/BoardPageCount";
-import { getTeacherCount, searchTeacherBoardListRequest } from "../../apis/api/teacherBoardApi";
-import { getStudyCount, searchStudyBoardListRequest } from "../../apis/api/studyBoardApi";
-import StudyBoardPageCount from "../../components/BoardPageCount/StudyBoardPageCount";
+import { getNoticeCount, searchNoticeBoardListRequest } from "../../apis/api/boardApi";
+import NoticeBoardPageCount from "../../components/BoardPageCount/NoticePageCount";
 import { IoSearchOutline } from "react-icons/io5";
 
-function StudyBoardListPage(props) {
+function NoticeBoardListPage(props) {
     const [searchParams, setSearchParams] = useSearchParams();
-    const searchCount = 2;
+    const searchCount = 5;
     const [boardList, setBoardList] = useState([]);
 
    
@@ -23,14 +21,14 @@ function StudyBoardListPage(props) {
         setSearchParams({
             page:1
         })
-        searchStudyBoardQuery.refetch();
+        searchNoticeBoardQuery.refetch();
     }
 
     const searchText = useSearchBoardInput(searchSubmit);
     
-    const searchStudyBoardQuery = useQuery(
-        ["searchStudyBoardQuery",searchParams.get("page")],
-        async() => await searchStudyBoardListRequest({
+    const searchNoticeBoardQuery = useQuery(
+        ["searchNoticeBoardQuery",searchParams.get("page")],
+        async() => await searchNoticeBoardListRequest({
             page: searchParams.get("page"),
             count: searchCount,
             searchText: searchText.value 
@@ -50,9 +48,9 @@ function StudyBoardListPage(props) {
         }
     );
 
-    const getStudyCountQuery = useQuery(
-        ["getStudyCountQuery",searchStudyBoardQuery.data],
-        async() => await getStudyCount({
+    const getNoticeCountQuery = useQuery(
+        ["getNoticeCountQuery",searchNoticeBoardQuery.data],
+        async() => await getNoticeCount({
             count: searchCount,
             searchText: searchText.value
         }),
@@ -69,56 +67,50 @@ function StudyBoardListPage(props) {
     
     return (
         <div css={s.layout}>
-            <div css={s.authority}>
-                <button css={s.authorityButton}>학생용</button>
-                <button css={s.authorityButton}>선생님용</button>
-                <button css={s.authorityButton}>공부방</button>
-            </div>
-            <h1 css={s.headerTitle}>게시글목록</h1>
+           
+            <h1 css={s.headerTitle}>공지사항</h1>
         
             <div css={s.searchInput}>
-                <input css={s.inputBox} type="text" 
-                placeholder="검색어를 입력하세요"
-                value={searchText.value}
-                onChange={searchText.handleOnChange}
-                onKeyDown={searchText.handleOnKeyDown}/>
-                <button onClick={searchSubmit} css={s.searchButton}><IoSearchOutline /></button>
+                <div css={s.searchContainer}>
+                    <input css={s.inputBox} type="text" 
+                    placeholder="공지사항 검색"
+                    value={searchText.value}
+                    onChange={searchText.handleOnChange}
+                    onKeyDown={searchText.handleOnKeyDown}/>
+                    <button onClick={searchSubmit} css={s.searchButton} ><IoSearchOutline /></button>
+                </div>
             </div>
 
             <div css={s.boardListLayout}>
                 <li css={s.boardListHeader}>
+                   
                     <div>제목</div>
-                    <div>글쓴이</div>
                     <div>작성시간</div>
                     <div>조회수</div>
                 </li>
                 {
                 boardList.map(
                     board => 
-                    <Link to={`/study/board/${board.studyBoardId}`} css={s.boardListItem} key={board.studyBoardId}>
+                    <Link to={`/notice/board/${board.noticeId}`} css={s.boardListItem} key={board.noticeId}>
 
                         <li >
                             <div>{board.title}</div>
-                            <div>author</div>
                             <div>{board.createDate}</div>
                             <div>{board.viewCount}</div>
                          </li>
                     </Link>
                     
-                    
                     )
                 }
             
             </div>
-                <Link to={"/study/board"} css={s.writeButtonLayout}>
-                    <button css={s.writeButton}>작성하기</button>
-                </Link>
                 
             <div css={s.pageNumber}>
-              <StudyBoardPageCount boardCount={getStudyCountQuery.data?.data}/>
+                
+              <NoticeBoardPageCount boardCount={getNoticeCount.data?.data}/>
             </div>
         </div>
     );
 }
 
-export default StudyBoardListPage;
+export default NoticeBoardListPage;

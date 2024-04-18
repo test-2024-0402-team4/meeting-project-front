@@ -48,11 +48,18 @@ function BoardPage(props) {
             {singleBoard.title}
         </div>
         <div css={s.showDate}> {singleBoard.createDate} </div>
+
         <div css={s.boardListLayout}>
-           
-            <div> author </div>
-            <code dangerouslySetInnerHTML ={{__html: singleBoard.content}}></code>
-            <div>{singleBoard.viewCount}</div>
+
+            <div css={s.boardPageProfile}>
+                <div css={s.boardPageProfileImg}>img</div>
+                <div> author </div>
+            </div>
+            
+            <div css={s.boardPageMain}>
+                <code dangerouslySetInnerHTML ={{__html: singleBoard.content}}></code>
+            </div>
+            <div css={s.boardPageViewCount}>{singleBoard.viewCount}</div>
             
         </div>
         <div>

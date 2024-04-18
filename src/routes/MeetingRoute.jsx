@@ -13,6 +13,9 @@ import StudyBoardListPage from '../pages/BoardListPage/StudyBoardListPage';
 import StudyBoardWritePage from '../pages/BoardWritePage/StudyBoardWritePage';
 import StudyBoardPage from '../pages/BoardPage/StudyBoardPage';
 import StudyBoardUpdatePage from '../pages/BoardUpdatePage/StudyUpdatePage';
+import NoticeBoardListPage from '../pages/NoticeBoardList/NoticeBoardList';
+import NoticeBoardPage from '../pages/NoticeBoardPage/NoticeBoardPage';
+
 
 
 
@@ -34,8 +37,8 @@ function MeetingRoute(props) {
             <Route path="/study/board" element={<StudyBoardWritePage/>} />
             <Route path="/study/board/:studyBoardId" element={<StudyBoardPage/>} />
             <Route path="/study/board/update/:studyBoardId" element={<StudyBoardUpdatePage/>} />
-            
-
+            <Route path="/notice/boards" element={<NoticeBoardListPage/>} />
+            <Route path="/notice/board/:noticeId" element={<NoticeBoardPage/>} />
        </Routes>
       </>
     );
