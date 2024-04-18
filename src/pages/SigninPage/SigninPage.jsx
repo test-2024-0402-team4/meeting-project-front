@@ -38,10 +38,17 @@ function SigninPage() {
                     <AuthPageInput type={"text"} name={"username"} placeholder={"아이디"} value={username} onChange={usernameChange}/>
                     <AuthPageInput type={"password"} name={"password"} placeholder={"비밀번호"} value={password} onChange={passwordChange}/>
 
-                    <div css={s.buttonBox}>
+                    <div css={s.buttonBox1}>
                         <button onClick={handleSignin}>로그인</button>
+                    </div>
+                    <div css={s.buttonBox2}>
                         <Link to={"/auth/findId"}>아이디 찾기</Link>
+                        <Link to={"/auth/findPassword"}>비밀번호 찾기</Link>
+
+                    </div>
+                    <div css={s.buttonBox3}>
                         <Link to={"/auth/signup"}>회원가입</Link>
+
                     </div>
                 </div>
 

@@ -31,8 +31,7 @@ function AuthFindPage() {
             
         }).catch(error => {
             console.log(error.response.data);
-            alert("입력된 정보를 다시 확인하세요.");
-            // alert(error.response.data);
+            alert(error.response.data.name);
         })
     }
 

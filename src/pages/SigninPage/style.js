@@ -19,10 +19,22 @@ export const layout = css`
     
 `;
 
-export const buttonBox = css`
+export const buttonBox1 = css`
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around;
     align-items: center;
+
+    & > button {
+        width: 100%;
+    }
+`;
+export const buttonBox2 = css`
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+`;
+export const buttonBox3 = css`
+    display: flex;
 `;
 
 export const oauth2box = css`
