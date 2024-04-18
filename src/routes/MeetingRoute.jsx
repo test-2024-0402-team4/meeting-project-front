@@ -13,9 +13,11 @@ import StudyBoardListPage from '../pages/BoardListPage/StudyBoardListPage';
 import StudyBoardWritePage from '../pages/BoardWritePage/StudyBoardWritePage';
 import StudyBoardPage from '../pages/BoardPage/StudyBoardPage';
 import StudyBoardUpdatePage from '../pages/BoardUpdatePage/StudyUpdatePage';
+
 import RootHeader from '../components/RootHeader/RootHeader';
 import RootFooter from '../components/RootFooter/RootFooter';
 import Homepage from '../pages/Homepage/Homepage';
+
 
 
 
@@ -38,6 +40,7 @@ function MeetingRoute(props) {
               <Route path="/study/board/:studyBoardId" element={<StudyBoardPage/>} />
               <Route path="/study/board/update/:studyBoardId" element={<StudyBoardUpdatePage/>} />
         </Routes>
+
       </>
     );
 }

@@ -1,7 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import * as s from "./style";
 import { useParams, useSearchParams } from "react-router-dom";
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useMutation, useQuery } from "react-query";
 import { deleteStudentCommentRequest, getStudentCommentRequest, registerStudentComment, registerStudentCommentRequest, updateStudentCommentRequest } from "../../apis/api/boardApi";
 import { useMaxValueValidateInput } from "../../hooks/inputHook";
@@ -15,6 +15,50 @@ function StudentComment(props) {
     const [currentCommentId , setCurrentCommentId] = useState();
     const [changeButton, setChangeButton] = useState(0);
     const [isShowDropDownById, setShowDropDownById] = useState(0);
+    const buttonRef = useRef();
+    
+    const [ lsStudentId, setLsStudentId ] =useState(0);
+    const studentUserId = lsStudentId;
+
+    useEffect(() => {
+        const token = localStorage.getItem("AccessToken");
+        if (token) {
+            const tokenPayLoad = token.split('.')[1];
+            try {
+                const decodedPayload = JSON.parse(atob(tokenPayLoad));
+                setLsStudentId(decodedPayload.studentId);
+            } catch (error) {
+                console.error("Failed to decode AccessToken:", error);
+                setLsStudentId(0); // 예외 발생 시 roleId를 기본값으로 설정
+            }
+        } else {
+            console.error("AccessToken not found in localStorage");
+            setLsStudentId(0); // AccessToken이 없을 경우 roleId를 기본값으로 설정
+        }
+    }, []);
+    console.log(lsStudentId);
+
+    const handleButtonClick = (e, id) => {
+        console.log(e.target)
+        buttonRef.current = e.target;
+        setShowDropDownById(prevId => prevId === id ? 0 : id)
+        
+    }
+    useEffect(() => {
+        function handleClickOutside(event) {
+            if (event.target !== buttonRef.current) {
+                setShowDropDownById(0);
+            }
+        }
+        document.addEventListener("mousedown", handleClickOutside);
+        return () => {
+            document.removeEventListener("mousedown", handleClickOutside);
+        };
+    }, [buttonRef.current]);
+
+  
+
+
     const getCommentQuery = useQuery(
         ["getCommentQuery"],
         async() => await getStudentCommentRequest(params.studentBoardId),
@@ -127,23 +171,37 @@ function StudentComment(props) {
                         comment => 
                         <li key={comment.studentCommentId} css={s.commentItems}>
                             <div css={s.commentTitle}>
-                                <div css={s.commentOption}>
+                                <div css={s.commentOption}>                                                                                 
                                     author
                                     <div css={s.optionButtonBox}>
-                                        <button onClick={() => setShowDropDownById(id => id === comment.studentCommentId ? 0 : comment.studentCommentId)}><BsThreeDotsVertical /></button>
+                                        <button onClick={(e) => handleButtonClick(e, comment.studentCommentId)}><BsThreeDotsVertical /></button>
                                         {
                                             isShowDropDownById === comment.studentCommentId &&
                                             <div css={s.commentItem}>
-                                                <button css={s.commentOptionButton} onClick={() => handleUpdateClick(comment.studentCommentId,comment.comment)}> 수정 </button>
-                                                <button css={s.commentOptionButton} onClick={() => handleDeleteClick(comment.studentCommentId)}> 삭제 </button>
+                                                    {
+                                                        comment.studentUserId === studentUserId &&
+                                                            <>
+                                                                <button css={s.commentOptionButton} onClick={() => handleUpdateClick(comment.studentCommentId,comment.comment)}> 수정 </button>
+                                                                <button css={s.commentOptionButton} onClick={() => handleDeleteClick(comment.studentCommentId)}> 삭제 </button>
+                                                            </>
+                                                    }
+                                                    {
+                                                        comment.studentUserId !== studentUserId &&
+                                                            <>
+                                                                <button css={s.commentOptionButton}> 차단 </button>
+                                                                <button css={s.commentOptionButton}> 신고 </button>
+                                                            </>
+                                                    }
                                             </div>
                                         }
                                     </div>
                                 </div>
                                 <div>{comment.createDate}</div>
                             </div>
+                                <div css={s.commentMain}>
+                                    <pre>{comment.comment}</pre>
 
-                            <div>{comment.comment}</div>
+                                </div>
                         </li>
                     )
                 }

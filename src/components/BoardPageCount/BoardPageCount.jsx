@@ -50,7 +50,7 @@ function BoardPageCount({boardCount}) {
                     <Link css={s.pageButton(false)} 
                     to={`/student/boards?page=${page -1}`}>&#60;</Link>
                 }
-
+                
                 {
                     numbers.map(number =>
                         <Link key={number} css={s.pageButton(number === page)} to={`/student/boards?page=${number}`}>{number}</Link>)
@@ -77,11 +77,6 @@ function BoardPageCount({boardCount}) {
                 <Link css={s.pageButton(false)}
                  to={`/student/boards?page=${maxPageNumber}`}>마지막으로</Link>
                 }
-            </div>
-            <div css={s.pageCount}>
-                <div css={s.page}>Page: {page} of {maxPageNumber}</div>
-                <div css={s.count}>Count: {boardCount?.totalCount}</div>
-
             </div>
             
         </div>

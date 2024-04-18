@@ -78,11 +78,6 @@ function StudyBoardPageCount({boardCount}) {
                  to={`/study/boards?page=${maxPageNumber}`}>마지막으로</Link>
                 }
             </div>
-            <div css={s.pageCount}>
-                <div css={s.page}>Page: {page} of {maxPageNumber}</div>
-                <div css={s.count}>Count: {boardCount?.totalCount}</div>
-
-            </div>
             
         </div>
     );

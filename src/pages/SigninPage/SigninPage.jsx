@@ -2,10 +2,9 @@
 
 import * as s from "./style";
 import { useSignupInput } from '../../hooks/useSignupInput';
-import { signinRequest } from "../../apis/api/signin";
+import { findIdRequest, signinRequest } from "../../apis/api/signin";
 import AuthPageInput from "../../components/AuthPageInput/AuthPageInput";
 import { Link } from "react-router-dom";
-import instance from "../../apis/utils/instance";
 import { useQueryClient } from "react-query";
 
 function SigninPage() {
@@ -22,8 +21,10 @@ function SigninPage() {
         }).then(response => {
             console.log(response.data);
             const accessToken = response.data;
+
             localStorage.setItem("AccessToken", accessToken);
             window.location.replace("/main");
+
         }).catch(error => {
             alert(error.response.data);
             console.log(error.response.data);
@@ -37,8 +38,12 @@ function SigninPage() {
                 <div css={s.layout}>
                     <AuthPageInput type={"text"} name={"username"} placeholder={"아이디"} value={username} onChange={usernameChange}/>
                     <AuthPageInput type={"password"} name={"password"} placeholder={"비밀번호"} value={password} onChange={passwordChange}/>
-                    <button onClick={handleSignin}>로그인</button>
-                    <Link to={"/auth/signup"}>회원가입</Link>
+
+                    <div css={s.buttonBox}>
+                        <button onClick={handleSignin}>로그인</button>
+                        <Link to={"/auth/findId"}>아이디 찾기</Link>
+                        <Link to={"/auth/signup"}>회원가입</Link>
+                    </div>
                 </div>
 
                 <div css={s.oauth2box}>

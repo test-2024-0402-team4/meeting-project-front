@@ -3,10 +3,8 @@ import { useMutation, useQuery } from "react-query";
 import * as s from "./style";
 import React, { useState } from 'react';
 import { Link, useParams } from "react-router-dom";
-import StudentComment from "../../components/StudentComment/StudentComment";
-import { deleteTeacherBoardRequest, getSingleTeacherBoardReqeust } from "../../apis/api/teacherBoardApi";
-import TeacherComment from "../../components/StudentComment/TeacherComment";
 import { deleteStudyBoardRequest, getSingleStudyBoardReqeust } from "../../apis/api/studyBoardApi";
+import StudyComment from "../../components/StudentComment/StudyComment";
 
 function StudyBoardPage(props) {
     const params = useParams();
@@ -50,10 +48,15 @@ function StudyBoardPage(props) {
         </div>
         <div css={s.showDate}> {singleBoard.createDate} </div>
         <div css={s.boardListLayout}>
-           
-            <div> author </div>
-            <code dangerouslySetInnerHTML ={{__html: singleBoard.content}}></code>
-            <div>{singleBoard.viewCount}</div>
+           <div css={s.boardPageProfile}>
+                <div css={s.boardPageProfileImg}> img </div>
+                <div> author </div>
+           </div>
+
+           <div css={s.boardPageMain}>
+                <code dangerouslySetInnerHTML ={{__html: singleBoard.content}}></code>
+           </div>
+            <div css={s.boardPageViewCount}>{singleBoard.viewCount}</div>
             
         </div>
         <div>
@@ -65,7 +68,7 @@ function StudyBoardPage(props) {
         <div>
             
         </div>
-            
+            <StudyComment />
     </div>
     );
 }

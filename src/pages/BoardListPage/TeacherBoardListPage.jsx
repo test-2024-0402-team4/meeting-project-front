@@ -8,7 +8,7 @@ import { useSearchBoardInput } from "../../hooks/useSearchBoardInput";
 import BoardPageCount from "../../components/BoardPageCount/BoardPageCount";
 import { getTeacherCount, searchTeacherBoardListRequest } from "../../apis/api/teacherBoardApi";
 import TeacherBoardPageCount from "../../components/BoardPageCount/TeacherBoardPageCount";
-
+import { IoSearchOutline } from "react-icons/io5";
 function TeacherBoardListPage(props) {
     const [searchParams, setSearchParams] = useSearchParams();
     const searchCount = 2;
@@ -75,15 +75,15 @@ function TeacherBoardListPage(props) {
         
             <div css={s.searchInput}>
                 <input css={s.inputBox} type="text" 
+                placeholder="검색어를 입력하세요"
                 value={searchText.value}
                 onChange={searchText.handleOnChange}
                 onKeyDown={searchText.handleOnKeyDown}/>
-                <button onClick={() => searchSubmit}>검색</button>
+                <button onClick={searchSubmit} css={s.searchButton}><IoSearchOutline /></button>
             </div>
 
             <div css={s.boardListLayout}>
                 <li css={s.boardListHeader}>
-                    <div>번호</div>
                     <div>제목</div>
                     <div>글쓴이</div>
                     <div>작성시간</div>
@@ -95,7 +95,6 @@ function TeacherBoardListPage(props) {
                     <Link to={`/teacher/board/${board.teacherBoardId}`} css={s.boardListItem} key={board.teacherBoardId}>
 
                         <li >
-                            <div>{board.teacherBoardId} </div>
                             <div>{board.title}</div>
                             <div>author</div>
                             <div>{board.createDate}</div>
@@ -113,7 +112,7 @@ function TeacherBoardListPage(props) {
                 </Link>
                 
             <div css={s.pageNumber}>
-                페이지
+                
               <TeacherBoardPageCount boardCount={getStudentCountQuery.data?.data}/>
             </div>
         </div>

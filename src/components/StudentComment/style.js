@@ -49,8 +49,16 @@ margin-right: 7px;
 
 export const commentItems = css`
 list-style-type: none;
-height: 120px;
+height: 100%;
+& > pre {
+    box-sizing: border-box;
+    border-bottom: 1px solid red;
+    height: 50px;
+    white-space: pre-wrap;
+    
+}
 `;
+
 
 export const commentTitle = css`
 display: flex;
@@ -59,7 +67,15 @@ width: 100%;
 height: 80px;
 border-bottom: 1px solid #dbdbdb;
 padding: 10px 0px;
+margin-top: 30px;
+
 `;
+
+export const commentMain = css`
+box-sizing: border-box;
+border-bottom: 1px solid #dbdbdb;
+
+`
 
 export const commentOption = css`
 display: flex;
@@ -74,6 +90,8 @@ height: 24px;
 
 export const optionButtonBox = css`
     position: relative;
+   
+  
 `
 export const commentItem = css`
     box-sizing: border-box;
@@ -87,6 +105,7 @@ export const commentItem = css`
     background-color: #fafafa;
 
     & > button {
+        
         width: 100%;
         height: 30px;
     }
