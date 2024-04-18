@@ -2,8 +2,9 @@ import { css } from "@emotion/react";
 
 export const background = css`
     position: fixed;
-    display: flex;
     flex-direction: column;
+
+    display: flex;
     justify-content: center;
     align-items: center;
 
@@ -13,28 +14,19 @@ export const background = css`
     background-color: #b4b2b2;
 `;
 
+export const inputBox = css`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    border: 1px solid black;
+
+    width: 300px;
+    height: 200px;
+`;
+
 export const layout = css`
     position: relative;
     box-sizing: border-box;
-    
-`;
-
-export const buttonBox = css`
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-`;
-
-export const oauth2box = css`
-    position: relative;
-    box-sizing: border-box;
-    
-    width: 237px;
-`;
-
-export const oauth2Site = css`
-    display: flex;
     flex-direction: column;
-    padding: 0px;
-    list-style-type: none;
 `;

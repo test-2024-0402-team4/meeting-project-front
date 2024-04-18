@@ -16,8 +16,8 @@ function SignupPage() {
     const [ username, usernameChange, usernameMessage, setUsernameValue, setUsernameMessage ] = useSignupInput("username");
     const [ password, passwordChange, passwordMessage ] = useSignupInput("password");
     const [ checkPassword, checkPasswordChange ] = useSignupInput("checkPassword");
-    const [ nickname, nicknameChange, nicknameMessage ] = useSignupInput("nickname");
-    const [ email, emailChange, emailMessage ] = useSignupInput("email");
+    const [ nickname, nicknameChange, setNicknameValue, nicknameMessage ] = useSignupInput("nickname");
+    const [ email, emailChange, setEmailValue, emailMessage ] = useSignupInput("email");
 
     const [ birthDate, birthDateChange, birthDateMessage ] = useSignupInput("birthDate");
     const [ phoneNumber, phoneNumberChange, phoneNumberMessage ] = useSignupInput("phoneNumber");
