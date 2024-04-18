@@ -39,3 +39,19 @@ export const deleteStudentCommentRequest = async(studentCommentId) => {
 export const updateStudentCommentRequest = async(data) => {
     return await instance.put(`/student/board/comment/${data.studentCommentId}`,data)
 }
+
+
+export const searchNoticeBoardListRequest = async(params) => {
+    return await instance.get("/notice/boards",{params})
+}
+
+export const getNoticeCount = async(params) => {
+    return await instance.get("/notice/boards/count",{params})
+}
+
+export const getSingleNoticeBoardReqeust = async(noticeId) => {
+    return await instance.get(`/notice/board/${noticeId}`)
+}
+
+
+

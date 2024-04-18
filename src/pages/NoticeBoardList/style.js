@@ -42,20 +42,22 @@ export const headerTitle = css`
 export const searchInput = css`
 display: flex;
 justify-content: flex-end;
-width: 74%;
+width: 95%;
 padding-bottom: 10px;
 `;
 export const searchContainer = css`
 border: 1px solid black;
-width: 199px;
+width: 200px;
 padding-left: 2px;
 padding-bottom:1px ;
 border-radius: 4px;
 `;
+
 export const inputBox = css`
 outline: none;
 border: none;
 `;
+
 export const searchButton = css`
 box-sizing: border-box;
 padding: 0px 0px 0px 12px;
@@ -83,23 +85,19 @@ border-bottom:2px solid #dbdbdb ;
 & > div:nth-of-type(1){
     border-right: 1px solid #dbdbdb ;
     flex-grow: 0;
-    width: 630px;
+    width: 700px;
 }
 & > div:nth-of-type(2){
     border-right: 1px solid #dbdbdb ;
     flex-grow: 0;
-    width: 130px;
+    width: 160px;
 }
 & > div:nth-of-type(3){
     border-right: 1px solid #dbdbdb ;
     flex-grow: 0;
-    width: 180px;
+    width: 150px;
 }
-& > div:nth-of-type(4){
-    border-right: 1px solid #dbdbdb ;
     
-    
-}
 `;
 export const boardListItem = css`
 
@@ -121,32 +119,29 @@ export const boardListItem = css`
             justify-content: center;
             align-items: center;
             
-            height: 40px;
+            height: 55px;
             width: 80px;
             flex-grow: 1;
            
             
         }
+        
         & > div:nth-of-type(1){
             border-right: 1px solid #dbdbdb ;
             flex-grow: 0;
-            width: 630px;
+            width: 700px;
         }
         & > div:nth-of-type(2){
             border-right: 1px solid #dbdbdb ;
             flex-grow: 0;
-            width: 130px;
+            width: 160px;
         }
         & > div:nth-of-type(3){
             border-right: 1px solid #dbdbdb ;
             flex-grow: 0;
-            width: 180px;
+            width: 150px;
         }
-        & > div:nth-of-type(4){
-            border-right: 1px solid #dbdbdb ;
-            
-            
-        }
+       
     }
 
 `;
@@ -164,19 +159,8 @@ display: flex;
 justify-content: flex-end;
 width: 68%;
 margin-top: 10px;
-text-decoration: none;
 `;
 export const writeButton = css`
 width: 90px;
 height: 40px;
-background-color: #59dbba;
-border: none;
-color: white;
-font-size: 14px;
-font-weight: 600;
-border-radius: 5px;
-cursor: pointer;
-&:hover {
-    background-color: #28b290; 
-}
 `;

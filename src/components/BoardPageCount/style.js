@@ -17,19 +17,23 @@ export const pageButton = (isSelected) => css`
 display: flex;
 box-sizing: border-box;
 justify-content: center;
+border-radius: 50px;
 align-items: center;
 margin-right:3px ;
 padding: 2px 5px;
 min-width: 25px;
 height: 25px;
 font-size: 10px;
-border: ${isSelected ? "none" : "1px solid #dbdbdb"};
-background-color: ${isSelected ? "#dbdbdb" : "white"};
+border: ${isSelected ? "none" : "none"};
+background-color: ${isSelected ? "#75e9af" : "white"};
 text-decoration: none;
-color: ${isSelected ? "black" : "#777777"};
-
+color: ${isSelected ? "white" : "#777777"};
+&:hover {
+    background-color: ${isSelected ? "#75e9af" : "#eeeeee"};
+}
 
 `;
+
 
 export const pageCount = css`
 box-sizing: border-box;
@@ -37,6 +41,7 @@ display: flex;
 justify-content: center;
 align-items: center;
 border: 1px solid #dbdbdb;
+border-radius: 4px;
 padding: 10px;
 height: 25px;
 background-color: white;
