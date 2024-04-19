@@ -12,6 +12,6 @@ export const findIdRequest = async (data) => {
 }
 
 export const findPasswordRequest = async (data) => {
-    const response = await instansce.get("/auth/findPassword", data);
+    const response = await instansce.get(`/auth/findPassword?username=${data.username}&email=${data.email}`);
     return response
 }

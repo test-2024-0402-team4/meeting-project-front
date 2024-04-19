@@ -35,6 +35,7 @@ function SigninPage() {
     return (
         <>
             <div css={s.background}>
+                <Link to={"/auth/main"}>로고(메인으로가기)</Link>
                 <div css={s.layout}>
                     <AuthPageInput type={"text"} name={"username"} placeholder={"아이디"} value={username} onChange={usernameChange}/>
                     <AuthPageInput type={"password"} name={"password"} placeholder={"비밀번호"} value={password} onChange={passwordChange}/>
