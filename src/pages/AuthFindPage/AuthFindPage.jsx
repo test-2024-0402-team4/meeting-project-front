@@ -46,6 +46,7 @@ function AuthFindPage() {
     return (
         <>
             <div css={s.background}>
+                <Link to={"/auth/main"}>로고(메인으로가기)</Link>
                 <div css={s.inputBox}>
                     <div css={s.layout}>
                         <AuthPageInput type={"text"} name={"name"} placeholder={"이름"} value={name} onChange={nameChange}/>
