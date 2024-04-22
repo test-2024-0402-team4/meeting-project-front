@@ -19,8 +19,14 @@ export const mainLeftItem = css`
 `;
 
 export const leftItemTitle = css`
-    max-height: 10px;
+    height: 0px;
     margin-right: 20px;
+    background-color: rgb(248 248 248);
+
+    & :hover {
+        background-color: #f0f0f0;
+
+    }
     & > * {
 
         font-size: 30px;
@@ -38,7 +44,6 @@ export const leftItemContent = css`
         margin-bottom: 20px;
     }
     & > div:nth-of-type(3){
-        margin-bottom: 20px;
         color: rgb(128 128 128);
     }
 
@@ -52,6 +57,10 @@ export const dataInputBox = css`
     border-radius: 20px;
     min-width: 380px;
     background-color: rgb(248 248 248);
+    cursor: pointer;
+    &:hover {
+        background-color: #f0f0f0;
+    }
 `;
 
 export const dataInputItem = css`
@@ -59,6 +68,7 @@ export const dataInputItem = css`
     display: flex;
     flex-direction: row;
     padding: 20px 10px 10px 10px;
+    
     
 `;
 
@@ -88,11 +98,21 @@ export const searchTeacherButton = css`
     background-color: #EEFCFA;
     color: #11b69a;
     font-weight: 700;
+    cursor: pointer;
+
+    &:hover::after {
+        content: '';
+        display: block;
+        width: 119px;
+        height: 1px; /* 밑줄의 두께 */
+        background-color: #11b69a; /* 밑줄 색상 */
+        margin-top: 3px; /* 텍스트와 밑줄 사이의 여백 */
+    }
     `;
 
 export const searchMypageButton = css`
     position: absolute;
-    left: 400px;
+    left: 52%;
     box-sizing: border-box;     
     margin-top: 16px;
     padding:20px;
@@ -103,6 +123,16 @@ export const searchMypageButton = css`
     background-color: #EAFBFF;
     color: #0094ff;
     font-weight: 700;
+    cursor: pointer;
+    
+    &:hover::after {
+        content: '';
+        display: block;
+        width: 84px;
+        height: 1px; /* 밑줄의 두께 */
+        background-color: #0094ff; /* 밑줄 색상 */
+        margin-top: 3px; /* 텍스트와 밑줄 사이의 여백 */
+    }
 `;
 export const searchStudyButton = css`
     position: absolute;
@@ -116,12 +146,24 @@ export const searchStudyButton = css`
     border: 1px solid #dbdbdb;
     background-color: #FFF8EA;
     color: #FF6D00;
+    font-weight: 700;
+    cursor: pointer;
+    &:hover::after {
+        content: '';
+        display: block;
+        width: 48px;
+        height: 1px; /* 밑줄의 두께 */
+        background-color: #FF6D00; /* 밑줄 색상 */
+        margin-top: 3px; /* 텍스트와 밑줄 사이의 여백 */
+    }
+    
+
 `;
 
 export const searchCommunityButton = css`
     position: absolute;
     top: 150px;
-    left: 400px;
+    left: 52%;
     box-sizing: border-box;     
     padding:20px;
     border-radius: 20px;
@@ -130,4 +172,14 @@ export const searchCommunityButton = css`
     border: 1px solid #dbdbdb;
     background-color: #FFF7F8;
     color: #FF1F70;
-    `;
+    font-weight: 700;
+    cursor: pointer;
+    &:hover::after {
+        content: '';
+        display: block;
+        width: 72px;
+        height: 1px; /* 밑줄의 두께 */
+        background-color: #FF1F70; /* 밑줄 색상 */
+        margin-top: 3px; /* 텍스트와 밑줄 사이의 여백 */
+    }
+`;
