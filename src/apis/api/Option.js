@@ -15,3 +15,15 @@ export const getUniversity = async () => {
 export const getGraduateState = async () => {
     return await instance.get("/auth/option/graduateStates");
 }
+
+export const getSubject = async () => {
+    return await instance.get("/auth/option/subjects");
+}
+
+export const getClassType = async () => {
+    return await instance.get("/auth/option/classType");
+}
+
+export const getDate = async () => {
+    return await instance.get("/auth/option/date");
+}
