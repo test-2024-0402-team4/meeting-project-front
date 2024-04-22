@@ -11,13 +11,14 @@ export const header = css`
     padding: 10px 0px 10px 0px;
     display: flex;
     max-width: 70%;
+    min-width: 550px;
     margin: 0 auto;  
 `;
 
 export const headerAcoountLayout = css`
     margin-top: 10px;
     height: 20px;
-
+    min-width: 100px;
     & > span {
         color: rgb(170 170 170);
         font-size: 14px;

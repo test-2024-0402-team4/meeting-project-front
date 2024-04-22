@@ -2,9 +2,11 @@ import { css } from "@emotion/react";
 
 export const container = css`
     box-sizing: border-box;
-    display: block;
-    min-height: 1024px;
+    display: flex;
+    min-height: 618px;
     width: 100%;
+    z-index: 0;
+
 `;
 
 

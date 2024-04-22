@@ -1,9 +1,17 @@
 /** @jsxImportSource @emotion/react */
+
 import { Link, Route, Routes } from "react-router-dom";
+
 import * as s from "./style";
+import { Route, Routes, useNavigate } from "react-router-dom";
 import { BsPatchCheck } from "react-icons/bs";
 
 function Homepage(props) {
+    const navigate = useNavigate("");
+
+    const handelPageMove = (page) => {
+        navigate(`/${page}`);
+    }
     return (
         <div css={s.layout}>
             <div css={s.mainLeftItem}>
@@ -11,12 +19,8 @@ function Homepage(props) {
                     새로운 소식
                 </div>
                 <div css={s.dataInputBox}>
-                    
                     <div css={s.dataInputItem}>
-                        <div 
-                            style={{backgroundColor: "rgb(248 248 248)"}} 
-                            css={s.leftItemTitle}
-                            >
+                        <div css={s.leftItemTitle}>
                                 <BsPatchCheck />
                         </div>
                         <div css={s.leftItemContent}>
@@ -34,12 +38,14 @@ function Homepage(props) {
                 </div>
             </div>
             <div css={s.mainRightLayout}>
-                <div css={s.serviceTitle}>
+                <div onClick={() => handelPageMove(`teacher/profiles`)} css={s.serviceTitle}>
                     서비스 바로가기
                 </div>
                 <div css={s.mainRightButton}>
                     <div css={s.searchTeacherButton}>
-                        과외선생님 찾기
+                        <div>
+                            과외선생님 찾기
+                        </div>
                     </div>
                     <div css={s.searchMypageButton}>
                         마이페이지
