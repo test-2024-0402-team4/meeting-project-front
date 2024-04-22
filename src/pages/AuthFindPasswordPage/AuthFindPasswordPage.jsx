@@ -18,7 +18,7 @@ function AuthFindPasswordPage() {
         }).then(response => {
             console.log(response.data)
             alert(response.data);
-            // window.location.replace("");
+            window.location.replace("/auth/modifyPassword");
         }).catch(error => {
             console.log(error.data)
             alert(error.response.data);

@@ -2,8 +2,8 @@
 import { Link, useSearchParams } from "react-router-dom";
 import * as s from "./style";
 
-import React, { useState } from 'react';
-import { useQuery } from "react-query";
+import React, { useEffect, useState } from 'react';
+import { useQuery, useQueryClient } from "react-query";
 import { useSearchBoardInput } from "../../hooks/useSearchBoardInput";
 import BoardPageCount from "../../components/BoardPageCount/BoardPageCount";
 import { getTeacherCount, searchTeacherBoardListRequest } from "../../apis/api/teacherBoardApi";
@@ -14,6 +14,17 @@ function TeacherBoardListPage(props) {
     const searchCount = 2;
     const [boardList, setBoardList] = useState([]);
 
+    const queryClient = useQueryClient();
+    const principalData = queryClient.getQueryData("principalQuery");
+
+    useEffect(() => {
+        if(!!principalData) {
+            alert("잘못된 접근입니다.");
+            window.location.replace("/");
+        }
+    },[]);
+
+    console.log(principalData);
    
    
 

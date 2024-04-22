@@ -3,12 +3,16 @@ import SignupPage from '../SignupPage/SignupPage';
 import OAuth2Page from '../OAuth2Page/OAuth2Page';
 import OAuth2SignupPage from '../OAuth2SignupPage/OAuth2SignupPage';
 import SigninPage from '../SigninPage/SigninPage';
-import { useQueryClient } from 'react-query';
+import { useQuery, useQueryClient } from 'react-query';
 import { useEffect } from 'react';
 import OAuth2MergePage from '../OAuth2MergePage/OAuth2MergePage';
 import AuthFindPage from '../AuthFindPage/AuthFindPage';
 import AuthFindCheckPage from '../AuthFindPage/AuthFindCheckPage';
 import AuthFindPasswordPage from '../AuthFindPasswordPage/AuthFindPasswordPage';
+import { getPrincipalRequest } from '../../apis/api/principal';
+import { useRecoilState } from 'recoil';
+import { principalState } from '../../atoms/principalAtom';
+import ModifyPasswordPage from '../AuthFindPasswordPage/ModifyPasswordPage';
 
 function AuthPage(props) {
 
@@ -33,6 +37,7 @@ function AuthPage(props) {
                 <Route path='/findId' element={ <AuthFindPage /> } />
                 <Route path='/findId/check' element={ <AuthFindCheckPage /> }/>
                 <Route path='/findPassword' element={ <AuthFindPasswordPage /> }/>
+                <Route path="/modifyPassword" element={ <ModifyPasswordPage /> } />
 
                 <Route path='/oauth2/merge' element={ <OAuth2MergePage /> }/>
                 <Route path='/oauth2/signup' element={ <OAuth2SignupPage /> }/>
