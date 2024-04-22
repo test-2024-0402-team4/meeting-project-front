@@ -85,7 +85,7 @@ function RootHeader({children}) {
                         {
                             roleId === 1 ? (
                                 <>
-                                    <span>선생님 찾기</span>
+                                    <span onClick={() => handelPageMove("teacher/profiles")} >선생님 찾기</span>
                                     <span>공고 조회</span>
                                     <span onClick={() => handelPageMove("student/boards?page=1")}>커뮤니티</span>
                                 </>

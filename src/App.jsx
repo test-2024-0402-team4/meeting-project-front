@@ -8,7 +8,6 @@ import AuthPage from "./pages/AuthPage/AuthPage";
 import Homepage from "./pages/Homepage/Homepage";
 import AuthRoute from "./routes/AuthRoute";
 import MeetingRoute from "./routes/MeetingRoute";
-import ProfileRoute from "./routes/ProfileRoute";
 
 
 function App() {

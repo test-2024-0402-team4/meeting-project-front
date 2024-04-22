@@ -1,8 +1,11 @@
 /** @jsxImportSource @emotion/react */
+import { useNavigate } from "react-router-dom";
 import * as s from "./style";
 import React, { useState } from 'react';
 
 function Mypage(props) {
+    
+
     const [ content, setContent ] = useState(0);
 
     const handleApplyReadButtone = () => {
@@ -13,6 +16,7 @@ function Mypage(props) {
         setContent(() => 1)
     }
 
+  
 
 
     return (
