@@ -68,6 +68,10 @@ export const profileImgLayout = css`
     border-radius: 50%;
     justify-content: center;
     align-items: center;
+    overflow: hidden;
+    & > img{
+        height: 100%;
+    }
     
 `;
 
@@ -87,7 +91,7 @@ export const mypageContentLayout = css`
 
 `;
 
-export const mypageContentTitle = (content) => css`
+export const mypageContentTitle = () => css`
     box-sizing: border-box;
     display: flex;
     padding-top: 28px;
