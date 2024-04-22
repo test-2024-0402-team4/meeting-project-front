@@ -21,6 +21,8 @@ import Homepage from '../pages/Homepage/Homepage';
 import Mypage from '../pages/Mypage/Mypage';
 import ProfileTest from '../pages/ProfileTest/ProfileTest';
 import { useQueryClient } from 'react-query';
+import TeacherProfiles from '../pages/TeacherProfiles/TeacherProfiles';
+import TeacherProfile from '../pages/TeacherProfile/TeacherProfile';
 
 
 
@@ -44,6 +46,8 @@ function MeetingRoute(props) {
         <Routes>
               <Route path='/main' element={<Homepage />}/>
               <Route path='/mypage' element={<Mypage />} />
+              <Route path='/teacher/profiles' element={<TeacherProfiles />} />
+              <Route path='/teacher/profile' element={<TeacherProfile />} />
               <Route path="/student/boards" element={<BoardListPage/>} />
               <Route path="/student/board" element={<BoardWritePage/>} />
               <Route path="/student/board/:studentBoardId" element={<BoardPage/>} />

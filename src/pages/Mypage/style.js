@@ -13,7 +13,6 @@ export const mypageLayout = css`
 `;
 export const profileLayout = css`
     position: relative;
-
     box-sizing: border-box;
     padding: 28px 20px 0px 0px;
     width: 300px;

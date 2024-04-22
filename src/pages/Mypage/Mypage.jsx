@@ -1,4 +1,5 @@
 /** @jsxImportSource @emotion/react */
+
 import { getPrincipalRequest } from "../../apis/api/principal";
 import { getStudentProfile } from "../../apis/api/profileApi";
 import * as s from "./style";
@@ -6,6 +7,7 @@ import React, { useState } from 'react';
 import { useQuery, useQueryClient } from 'react-query';
 
 function Mypage(props) {
+
     const queryClient = useQueryClient();
     const [profile,setProfile] = useState({});
     const principalQuery = useQuery(

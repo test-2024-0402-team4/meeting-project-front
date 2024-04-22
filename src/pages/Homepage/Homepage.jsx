@@ -1,9 +1,14 @@
 /** @jsxImportSource @emotion/react */
 import * as s from "./style";
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, useNavigate } from "react-router-dom";
 import { BsPatchCheck } from "react-icons/bs";
 
 function Homepage(props) {
+    const navigate = useNavigate("");
+
+    const handelPageMove = (page) => {
+        navigate(`/${page}`);
+    }
     return (
         <div css={s.layout}>
             <div css={s.mainLeftItem}>
@@ -30,7 +35,7 @@ function Homepage(props) {
                 </div>
             </div>
             <div css={s.mainRightLayout}>
-                <div css={s.serviceTitle}>
+                <div onClick={() => handelPageMove(`teacher/profiles`)} css={s.serviceTitle}>
                     서비스 바로가기
                 </div>
                 <div css={s.mainRightButton}>
