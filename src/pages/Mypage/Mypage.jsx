@@ -1,19 +1,48 @@
 /** @jsxImportSource @emotion/react */
+import { getPrincipalRequest } from "../../apis/api/principal";
+import { getStudentProfile } from "../../apis/api/profileApi";
 import * as s from "./style";
 import React, { useState } from 'react';
+import { useQuery, useQueryClient } from 'react-query';
 
 function Mypage(props) {
-    const [ content, setContent ] = useState(0);
+    const queryClient = useQueryClient();
+    const [profile,setProfile] = useState({});
+    const principalQuery = useQuery(
+        ["principalQuery"],
+        getPrincipalRequest,
+        {
+            retry: 0,
+            refetchOnWindowFocus: false,
+            onSuccess: response => {
+                console.log("principal Success");
+            },
+            onError: error => {
+                console.log("principal Error");
+            }
+        }
+    );
 
-    const handleApplyReadButtone = () => {
-        setContent(() => 0)
-    }
- 
-    const handleBoardReadButtone = () => {
-        setContent(() => 1)
-    }
-
-
+   
+    
+    const studentProfileQuery = useQuery(
+        ["studentProfileQuery"],
+        async() => await getStudentProfile(principalQuery.data.data.userId),
+        {
+            refetchOnWindowFocus: false,
+            retry: 0,
+            onSuccess: response => {
+                console.log("프로필 가져오기");
+                console.log(response);
+                setProfile(response);
+            },
+            onError: error => {
+                console.log("에러");
+            },
+            enabled: !!principalQuery?.data?.data
+        }
+    )
+console.log(profile);
 
     return (
         <div css={s.layout}>
@@ -26,32 +55,32 @@ function Mypage(props) {
                             </button> 
                         </div>
                         <div css={s.profileImgLayout}>
-                            asd
+                            <img src={profile?.data?.userImgUrl} alt="" />
                         </div>
                         <div>
                             <span>
-                                닉네임
+                                {profile.data?.nickname}
                             </span>
                             <span css={s.roleName}>
-                                권한
+                            {profile.data?.roleNameKor}
                             </span>
                         </div>
                         <div>
                             <span>
-                                남학생
+                            {profile.data?.genderType}
                             </span>
                             <span>
-                                진구
+                            {profile.data?.regionName}
                             </span>
                         </div>
                     </div>
                 </div>
                 <div css={s.mypageContentLayout}>
-                    <div css={s.mypageContentTitle(content)}>
-                        <div onClick={() => handleApplyReadButtone}>
+                    <div css={s.mypageContentTitle}>
+                        <div>
                             신청 내역
                         </div>
-                        <div onClick={() => handleBoardReadButtone}>
+                        <div>
                             내가 쓴 글
                         </div>
                     </div>

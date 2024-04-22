@@ -1,14 +1,18 @@
 import { css } from "@emotion/react";
 
 export const layout = css`
+margin: 0px auto;
 display: flex;
 flex-direction: column;
 justify-content: center;
 align-items: center;
+width: 70%;
 `
 
 export const authority = css`
-width: 1300px;
+display: flex;
+justify-content: flex-start;
+width: 100%;
 
 `;
 
