@@ -17,6 +17,8 @@ import StudyBoardUpdatePage from '../pages/BoardUpdatePage/StudyUpdatePage';
 import RootHeader from '../components/RootHeader/RootHeader';
 import RootFooter from '../components/RootFooter/RootFooter';
 import Homepage from '../pages/Homepage/Homepage';
+
+import Mypage from '../pages/Mypage/Mypage';
 import ProfileTest from '../pages/ProfileTest/ProfileTest';
 import { useQueryClient } from 'react-query';
 
@@ -41,6 +43,7 @@ function MeetingRoute(props) {
       <>
         <Routes>
               <Route path='/main' element={<Homepage />}/>
+              <Route path='/mypage' element={<Mypage />} />
               <Route path="/student/boards" element={<BoardListPage/>} />
               <Route path="/student/board" element={<BoardWritePage/>} />
               <Route path="/student/board/:studentBoardId" element={<BoardPage/>} />
