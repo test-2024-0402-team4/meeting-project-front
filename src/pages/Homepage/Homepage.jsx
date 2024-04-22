@@ -1,4 +1,7 @@
 /** @jsxImportSource @emotion/react */
+
+import { Link, Route, Routes } from "react-router-dom";
+
 import * as s from "./style";
 import { Route, Routes, useNavigate } from "react-router-dom";
 import { BsPatchCheck } from "react-icons/bs";
@@ -27,9 +30,9 @@ function Homepage(props) {
                             <div>
                                 과외에 필요한 정보들을 입력해주세요!
                             </div> 
-                            <div>
+                            <Link to={"/account/teacher/registerProfile"}>
                                  지금 바로 입력하기 &#62;
-                            </div> 
+                            </Link>
                         </div>
                     </div>
                 </div>
