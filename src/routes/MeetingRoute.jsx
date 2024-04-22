@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import BoardListPage from '../pages/BoardListPage/BoardListPage';
 import BoardWritePage from '../pages/BoardWritePage/BoardWritePage';
@@ -18,11 +18,24 @@ import RootHeader from '../components/RootHeader/RootHeader';
 import RootFooter from '../components/RootFooter/RootFooter';
 import Homepage from '../pages/Homepage/Homepage';
 import ProfileTest from '../pages/ProfileTest/ProfileTest';
+import { useQueryClient } from 'react-query';
+
 
 
 
 
 function MeetingRoute(props) {
+
+  const queryClient = useQueryClient();
+  const principalData = queryClient.getQueryData("principalQuery");
+
+  useEffect(() => {
+      if(!!principalData) {
+          alert("잘못된 접근입니다.");
+          window.location.replace("/");
+      }
+  },[]);
+
 
     return (
       <>
