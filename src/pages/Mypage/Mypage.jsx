@@ -1,8 +1,8 @@
 /** @jsxImportSource @emotion/react */
+import * as s from "./style";
 
 import { getPrincipalRequest } from "../../apis/api/principal";
 import { getStudentProfile } from "../../apis/api/profileApi";
-import * as s from "./style";
 import React, { useState } from 'react';
 import { useQuery, useQueryClient } from 'react-query';
 
@@ -57,7 +57,7 @@ console.log(profile);
                             </button> 
                         </div>
                         <div css={s.profileImgLayout}>
-                            <img src={profile?.data?.userImgUrl} alt="" />
+                            <img src={profile?.data?.userImgUrl} />
                         </div>
                         <div>
                             <span>

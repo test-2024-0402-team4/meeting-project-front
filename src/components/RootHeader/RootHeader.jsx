@@ -78,7 +78,6 @@ function RootHeader({children}) {
                                     </>
                                 )
                             }
-                            
                         </div>
                     </div>
                     <div css={s.headerItem}>
@@ -86,13 +85,13 @@ function RootHeader({children}) {
                             roleId === 1 ? (
                                 <>
                                     <span onClick={() => handelPageMove("teacher/profiles")} >선생님 찾기</span>
-                                    <span>공고 조회</span>
+                                    <span onClick={() => handelPageMove(`student/myposters?userId=${userId} `)}>공고 조회</span>
                                     <span onClick={() => handelPageMove("student/boards?page=1")}>커뮤니티</span>
                                 </>
                             ) : (
                                 roleId === 2 ? (
                                     <>
-                                        <span>학생 찾기</span>
+                                        <span onClick={() => handelPageMove(`teacher/poster/list`)}>과외 학생 찾기</span>
                                         <span onClick={() => handelPageMove("teacher/boards?page=1")}>커뮤니티</span>
                                     </>
                                 ) : (
