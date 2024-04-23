@@ -16,19 +16,37 @@ function AuthFindCheckPage() {
         setUsername(searchParams.get("username"));
     },[searchParams]);
 
+    const handleOnClick = () => {
+        window.location.replace("/auth/signin");
+    }
+
     
 
     return (
-        <>
-            <div css={s.background}>
-                <div css={s.inputBox}>
-                    <div css={s.layout}>
-                        <li>{username}</li>
-                        <Link to={"/auth/signin"}>로그인 하기</Link>
-                    </div>
+        <div css={s.layout}>
+            <div css={s.header}>
+                <span>아이디 찾기</span>
+                <div css={s.headerBox1}>
+                    <span>비밀번호를 잊으셨나요?</span>
+                    <Link to={"/auth/findPassword"}>비밀번호 찾기</Link>
                 </div>
             </div>
-        </>
+
+
+            <div css={s.body}>
+                <div css={s.checkBox1}>
+                    <span>고객님의 정보와 일치하는 아이디입니다.</span>
+                </div>
+
+                <div css={s.checkBox2}>
+                    <span>ID: {username}</span>
+                </div>
+
+                <div css={s.checkBox3}>
+                    <button onClick={handleOnClick}>로그인 하기</button>
+                </div>
+            </div>
+        </div>
     );
 }
 
