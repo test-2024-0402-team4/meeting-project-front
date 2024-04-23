@@ -24,6 +24,10 @@ import { useQueryClient } from 'react-query';
 import TeacherRegisterProfilePage from '../pages/TeacherRegisterProfilePage/TeacherRegisterProfilePage';
 import TeacherProfiles from '../pages/TeacherProfiles/TeacherProfiles';
 import TeacherProfile from '../pages/TeacherProfile/TeacherProfile';
+import StudentPostersPage from '../pages/StudentPostersPage/StudentPostersPage';
+import StudentMyPostersPage from '../pages/StudentMyPostersPage/StudentMyPostersPage';
+import StudentPosterPage from '../pages/StudentPosterPage/StudentPosterPage';
+import StudentMyPosterPage from '../pages/StudentMyPosterPage/StudentMyPosterPage';
 
 
 
@@ -46,10 +50,15 @@ function MeetingRoute(props) {
     return (
       <>
         <Routes>
-              <Route path='/main' element={<Homepage />}/>
+        <Route path='/main' element={<Homepage />} />
               <Route path='/mypage' element={<Mypage />} />
               <Route path='/teacher/profiles' element={<TeacherProfiles />} />
               <Route path='/teacher/profile' element={<TeacherProfile />} />
+              <Route path='/teacher/poster/list' element={<StudentPostersPage />} />
+              <Route path='/student/myposters' element={<StudentMyPostersPage />}/>
+              <Route path='/student/myposter' element={<StudentMyPosterPage />}/>
+              <Route path='/teacher/poster' element={<StudentPosterPage />} />
+
               <Route path="/student/boards" element={<BoardListPage/>} />
               <Route path="/student/board" element={<BoardWritePage/>} />
               <Route path="/student/board/:studentBoardId" element={<BoardPage/>} />
