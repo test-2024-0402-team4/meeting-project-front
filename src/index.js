@@ -7,7 +7,6 @@ import { QueryClient, QueryClientProvider } from 'react-query';
 import { RecoilRoot } from 'recoil';
 
 import App from './App';
-import AuthPage from './pages/AuthPage/AuthPage';
 import AuthRoute from './routes/AuthRoute';
 import RootFooter from './components/RootFooter/RootFooter';
 

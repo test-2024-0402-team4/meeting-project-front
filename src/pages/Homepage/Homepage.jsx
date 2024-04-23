@@ -1,8 +1,10 @@
 /** @jsxImportSource @emotion/react */
 
-import { Link, Route, Routes, useNavigate } from "react-router-dom";
+
+import { Link } from "react-router-dom";
 
 import * as s from "./style";
+import { useNavigate } from "react-router-dom";
 import { BsPatchCheck } from "react-icons/bs";
 
 function Homepage(props) {

@@ -4,7 +4,6 @@ import RootFooter from "./components/RootFooter/RootFooter";
 import RootHeader from "./components/RootHeader/RootHeader";
 import RootLayout from "./components/RootLayout/RootLayout";
 import SideProfile from "./components/SideProfile/SideProfile";
-import AuthPage from "./pages/AuthPage/AuthPage";
 import Homepage from "./pages/Homepage/Homepage";
 import AuthRoute from "./routes/AuthRoute";
 import MeetingRoute from "./routes/MeetingRoute";
@@ -14,10 +13,10 @@ function App() {
 
   return (
     <>
-    <AuthRoute />
     <RootLayout>
       <RootHeader />
         <RootContainer >
+         <AuthRoute />
           <MeetingRoute />
         </RootContainer>
       <RootFooter />
