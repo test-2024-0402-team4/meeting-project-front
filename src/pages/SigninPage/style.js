@@ -8,7 +8,6 @@ export const layout = css`
     margin: 0px auto;
     width: 70%;
     height: 100%;
-    
 `;
 export const header = css`
     display: flex;
@@ -63,6 +62,8 @@ export const bodyBox1 = css`
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    
+    margin-top: 10px;
 
     width: 375px;
     height: 100%;
@@ -74,8 +75,9 @@ export const bodyBox1 = css`
         border: none;
         border-radius: 5px;
         background-color: #d9fcf6;
-        font-size: 18px;
+        font-size: 15px;
         width: 250px;
+        height: 40px;
         color: #11b69a;
 
         &:hover {

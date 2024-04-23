@@ -31,20 +31,27 @@ function AuthFindPasswordPage() {
 
 
     return (
-        <>
-            <div css={s.background}>
-                <Link to={"/auth/main"}>로고(메인으로가기)</Link>
-                <div css={s.inputBox}>
-
-                    <div css={s.layout}>
-                        <AuthPageInput type={"text"} name={"username"} placeholder={"아이디"} value={username} onChange={usernameChange}/>
-                        <AuthPageInput type={"text"} name={"email"} placeholder={"이메일"} value={email} onChange={emailChange}/>
-                        <button onClick={handleBack}>뒤로</button>
-                        <button onClick={handleFindId}>다음</button>
-                    </div>
+        <div css={s.layout}>
+            <div css={s.header}>
+                <span>비밀번호 찾기</span>
+                <div css={s.headerBox1}>
+                    <span>아이디를 잊으셨나요?</span>
+                    <Link to={"/auth/findId"}>아이디 찾기</Link>
                 </div>
             </div>
-        </>
+
+            <div css={s.body}>
+                <div css={s.inputBox}>
+                    <AuthPageInput type={"text"} name={"username"} placeholder={"아이디"} value={username} onChange={usernameChange}/>
+                    <AuthPageInput type={"text"} name={"email"} placeholder={"이메일"} value={email} onChange={emailChange}/>
+                </div>
+                <div css={s.buttonBox}>
+                    <button onClick={handleBack}>뒤로</button>
+                    <button onClick={handleFindId}>다음</button>
+                </div>
+
+            </div>
+        </div>
     );
 }
 
