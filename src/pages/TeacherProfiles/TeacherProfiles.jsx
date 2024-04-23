@@ -9,6 +9,7 @@ import TeacherProfile from "../TeacherProfile/TeacherProfile";
 import { useQuery, useQueryClient } from "react-query";
 
 import Select from "react-select";
+import { getClassType, getDate, getRegion, getSubject } from "../../apis/api/Option";
 
 function TeacherProfiles() {
     const navigate = useNavigate();
@@ -16,16 +17,39 @@ function TeacherProfiles() {
     const [searchData, setSearchData] = useState({
         nickname : null,
         genderId : 0,
-        subjectIds : [],
-        regionIds : [],
-        dateIds: [],
-        classTypeIds: []
+        subjectIds : "",
+        regionIds : "",
+        dateIds: "",
+        classTypeIds: ""
     });
     const [teacherProfiles, setTeacherProfiles] = useState([]);
+    const [ subjects, setSubjects ] = useState([]);
+    const [ region, setRegion ] = useState([]);
+    const [ date, setDate ] = useState([]);
+    const [ classType, setClassType ] = useState([]);
+    console.log(searchData.subjectIds);
+
+    useEffect(() => {
+        getTeacherProfile();
+        getSubjects();
+        getRegions();
+        getDates();
+        getClassTypes();
+        console.log(searchData)
+    }, [searchData]);
+
+    const selectStyle = {
+        control: baseStyles => ({
+            ...baseStyles,
+            border: "1px solid #9decdb",
+            borderRadius: "4px",
+            width: "100%",
+            heighy:"100%"
+        })
+    }
 
     const getTeacherProfile = async () => {
         try {
-            console.log(searchData)
             const response = await getTeacherProfiles(searchData);
             setTeacherProfiles(response.data);
         } catch (error) {
@@ -33,10 +57,62 @@ function TeacherProfiles() {
         }
     };
 
-    useEffect(() => {
-        console.log(teacherProfiles)
-        getTeacherProfile();
-    }, [searchData]);
+    const getSubjects = async () => {
+        try {
+            const response = await getSubject();
+            setSubjects(() => response.data.map(subject => {
+                return {
+                    value: subject.subjectId,
+                    label: subject.subjectName
+                }
+            }))
+        } catch (error) {
+            console.log("에러", error);
+        }
+    }
+
+    const getRegions = async () => {
+        try {
+            const response = await getRegion(); 
+            setRegion(() => response.data.map(region => ({
+                value: region.regionId,
+                label: region.regionName
+            })));
+        } catch (error) {
+            console.log("에러", error);
+        }
+    }
+    
+    const getDates = async () => {
+        try {
+            const response = await getDate();
+            setDate(() => response.data.map(date => ({
+                value: date.dateId,
+                label: date.dateType
+            })));
+        } catch (error) {
+            console.log("에러", error);
+        }
+    }
+    
+    const getClassTypes = async () => {
+        try {
+            const response = await getClassType(); 
+            setClassType(() => response.data.map(classType => ({
+                value: classType.classTypeId,
+                label: classType.classType
+            })));
+        } catch (error) {
+            console.log("에러", error);
+        }
+    }
+    const handleSubjectOption = (selectedOptions) => {
+        const selectedSubjectIds = selectedOptions.map(option => option.value).join(',');
+        setSearchData(prevState => ({
+            ...prevState,
+            subjectIds: selectedSubjectIds
+        }));
+    };
 
     const handleGenderChange = (event) => {
         setSearchData({
@@ -45,10 +121,33 @@ function TeacherProfiles() {
         });
     };
 
+    const handleRegionOption = (selectedOptions) => {
+        const selectedRegionIds = selectedOptions.map(option => option.value).join(',');
+        setSearchData(prevState => ({
+            ...prevState,
+            regionIds: selectedRegionIds
+        }));
+    };
+    
+    const handleDateOption = (selectedOptions) => {
+        const selectedDateIds = selectedOptions.map(option => option.value).join(',');
+        setSearchData(prevState => ({
+            ...prevState,
+            dateIds: selectedDateIds
+        }));
+    };
+    
+    const handleClassTypeOption = (selectedOptions) => {
+        const selectedClassTypeIds = selectedOptions.map(option => option.value).join(',');
+        setSearchData(prevState => ({
+            ...prevState,
+            classTypeIds: selectedClassTypeIds
+        }));
+    };
     return (
         <>
             <div css={s.layout}>
-                <div css={s.teacherProfilesRootLayout}>
+                <div  css={s.teacherProfilesRootLayout}>
                     <div css = {s.filterLayout}>
                         <div css={s.SearchNicknameLayout}>
                             <div css={s.SearchNickname}>
@@ -72,21 +171,25 @@ function TeacherProfiles() {
                                 ) : filterModal === 2 ? (
                                     <>
                                         <div css={s.filiterModal}>
+                                            <Select styles={selectStyle} options={subjects} placeholder="과목명" onChange={handleSubjectOption} isMulti/>
                                         </div>
                                     </>
                                 ) : filterModal === 3 ? (
                                     <>
                                         <div css={s.filiterModal}>
+                                            <Select styles={selectStyle} options={region} placeholder="지역" onChange={handleRegionOption} isMulti/>                        
                                         </div>
                                     </>
                                 ) : filterModal === 4 ? (
                                     <>
                                         <div css={s.filiterModal}>
+                                            <Select styles={selectStyle} options={date} placeholder="요일" onChange={handleDateOption} isMulti/>
                                         </div>
                                     </>
                                 ) : filterModal === 5 ? (
                                     <>
                                         <div css={s.filiterModal}>
+                                            <Select styles={selectStyle} options={classType}  placeholder="수업방식" onChange={handleClassTypeOption}isMulti/>
                                         </div>
                                     </>
                                 ) : (
@@ -129,7 +232,7 @@ function TeacherProfiles() {
                     <div>
                     </div>
                 </div>
-                <div css={s.teacherProfiles}>
+                <div onClick={() => setFilterModal(() => 0)} css={s.teacherProfiles}>
                     <div css={s.teacherProfileContainer}>
                         {
                             teacherProfiles.length === 0 
@@ -167,9 +270,6 @@ function TeacherProfiles() {
                                 </div>
                             )
                         }
-                        
-                        
-
                     </div>
                 </div>
             </div>
