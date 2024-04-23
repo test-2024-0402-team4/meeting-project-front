@@ -7,8 +7,8 @@ export const registerImgUrlRequest = async(data) => {
 
 export const registerProfileRequest = async (data) => {
     return await instance.post("/account/profile", data);
+}
 
-export const getStudentProfile = async(userId) => {
+export const getStudentProfile = async (userId) => {
     return await instance.get(`/account/student/profile/${userId}`)
-
 }
