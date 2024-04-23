@@ -59,7 +59,6 @@ export const SearchBox = css`
     }
 `;
 export const filterContentLayout = css`
-    
     margin-top: 10px;
     width: 100%;
     height: 100%;
@@ -77,6 +76,7 @@ export const filiterModal = css`
 
 
 `;
+
 
 export const filterBox = css`
     display: flex;

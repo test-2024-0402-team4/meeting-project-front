@@ -1,7 +1,7 @@
 import instance from "../utils/instance"
 
-export const getTeacherProfiles = async({params}) =>{
-    return await instance.get("/account/teacher/profiles",params)
+export const getTeacherProfiles = async(params) =>{
+    return await instance.get("/account/teacher/profiles",{params})
     
 }   
 
