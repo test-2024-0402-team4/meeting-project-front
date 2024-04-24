@@ -73,12 +73,12 @@ function SigninPage() {
 
                         <div css={s.kakao}>
                             <div css={s.kakaoBox1}>
-                                <a href="http://localhost:8080/oauth2/authorization/kakao" css={s.kakaoImgBox} target="_blank" rel="noopener noreferrer">
+                                <a href="http://localhost:8080/oauth2/authorization/kakao" css={s.kakaoImgBox}>
                                     <SiKakaotalk />
                                 </a>
                             </div>
                             <div css={s.kakaoBox2}>
-                                <a href="http://localhost:8080/oauth2/authorization/kakao" target="_blank" rel="noopener noreferrer">
+                                <a href="http://localhost:8080/oauth2/authorization/kakao">
                                 <button>Kakao 로그인</button>
                                 </a>
                             </div>
@@ -87,12 +87,12 @@ function SigninPage() {
 
                         <div css={s.naver}>
                             <div css={s.naverBox1}>
-                                <a href="http://localhost:8080/oauth2/authorization/naver" css={s.naverImgBox} target="_blank" rel="noopener noreferrer">
+                                <a href="http://localhost:8080/oauth2/authorization/naver" css={s.naverImgBox}>
                                     <SiNaver />
                                 </a>
                             </div>
                             <div css={s.naverBox2}>
-                                <a href="http://localhost:8080/oauth2/authorization/naver" target="_blank" rel="noopener noreferrer">
+                                <a href="http://localhost:8080/oauth2/authorization/naver">
                                 <button>Naver 로그인</button>
                                 </a>
                             </div>
@@ -100,12 +100,12 @@ function SigninPage() {
 
                         <div css={s.google}>
                             <div css={s.googleBox1}>
-                                <a href="http://localhost:8080/oauth2/authorization/google" css={s.googleImgBox} target="_blank" rel="noopener noreferrer">
+                                <a href="http://localhost:8080/oauth2/authorization/google" css={s.googleImgBox}>
                                     <FcGoogle />
                                 </a>
                             </div>
                             <div css={s.googleBox2}>
-                                <a href="http://localhost:8080/oauth2/authorization/google" target="_blank" rel="noopener noreferrer">
+                                <a href="http://localhost:8080/oauth2/authorization/google">
                                 <button>Google 로그인</button>
                                 </a>
                             </div>

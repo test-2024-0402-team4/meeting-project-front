@@ -1,9 +1,5 @@
 import { css } from "@emotion/react";
 
-export const background = css`
-
-`;
-
 export const layout = css`
     margin: 0px auto;
     width: 70%;
@@ -14,12 +10,12 @@ export const header = css`
     flex-direction: column;
     align-items: center;
 
+    margin-top: 100px;
     // 다 하고 없애기 --------------------------------
     /* border: 1px solid black; */
 
     width: 100%;
     height: 150px;
-    margin-top: 120px;
 
     & > span {
         font-size: 50px;
@@ -32,13 +28,14 @@ export const headerBox1 = css`
     align-items: center;
 
     & > span{
-        font-size: 20px;
+        font-size: 18px;
         color: black;
     }
     * {
         text-decoration-line: none;
         color: #5999FF;
-        margin-left: 10px;
+        margin-left: 5px;
+        font-size: medium;
     }
 `;
 
@@ -83,10 +80,8 @@ export const bodyBox1 = css`
         &:hover {
             background-color: #9decdb;
         }
-
         cursor: pointer;
     }
-
 `;
 
 export const linkBox = css`
