@@ -45,10 +45,13 @@ function RootHeader({children}) {
       
       const handleLogout = () => {
         localStorage.removeItem("AccessToken");
+        setRoleId(0);
+        setUserId(0);
         navigate("/auth/signin");
     }
     
     const handelPageMove = (page) => {
+        
         navigate(`/${page}`);
     }
 
@@ -96,8 +99,7 @@ function RootHeader({children}) {
                                     </>
                                 ) : (
                                     <>
-                                        <span>커뮤니티</span>
-                                        <span onClick={() => handelPageMove("student/boards?page=1")}>커뮤니티</span>
+                                        <span onClick={() => handelPageMove("study/boards?page=1")}>커뮤니티</span>
                                     </>
                                 )
                             )

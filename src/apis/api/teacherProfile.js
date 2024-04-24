@@ -5,9 +5,8 @@ export const getTeacherProfiles = async(params) =>{
     
 }   
 
-export const getTeacherProfile = async(userId) =>{
-    return await instance.get(`/account/teacher/profile?userId=${userId}`)
-    
+export const getTeacherProfile = async (params) => {
+    return await instance.get("/account/teacher/profile", { params });
 }
 
 // 선생 필수 정보 요청

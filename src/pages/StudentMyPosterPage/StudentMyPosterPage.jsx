@@ -4,10 +4,15 @@ import { useQuery, useQueryClient } from "react-query";
 import React, { useState } from 'react';
 import { getPrincipalRequest } from "../../apis/api/principal";
 import { getStudentProfile } from "../../apis/api/profileApi";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
+import { getMyPoster, getMyposter } from "../../apis/api/posterApi";
 
 function StudentMyPosterPage(props) {
-    const navigate = useNavigate();
+
+    const [searchParams] = useSearchParams();
+    const posterId = parseInt(searchParams.get("posterId"))
+    const [poster, setPoster] = useState();
+
 
     const queryClient = useQueryClient();
     const [profile,setProfile] = useState({});
@@ -25,12 +30,7 @@ function StudentMyPosterPage(props) {
             }
         }
     );
-    const handelPageMove = (page) => {
-        navigate(`/${page}`);
-    }
 
-   
-    
     const studentProfileQuery = useQuery(
         ["studentProfileQuery"],
         async() => await getStudentProfile(principalQuery.data.data.userId),
@@ -48,6 +48,23 @@ function StudentMyPosterPage(props) {
             enabled: !!principalQuery?.data?.data
         }
     )
+    const getStudentMyPoster = useQuery(
+        ["getStudentMyPoster"],
+        async () => await getMyPoster({ posterId: posterId}),
+        {
+            retry: 0,
+            refetchOnWindowFocusf: false,
+            onSuccess: response => {
+                console.log("마이포스터 가져오기")
+                console.log(response.data)
+                setPoster(response.data)
+            },
+            onError: error => {
+                console.log("에러");
+            }
+        }
+    )
+    console.log(poster)
 
     return (
         <div css={s.layout}>
@@ -100,15 +117,15 @@ function StudentMyPosterPage(props) {
                                 성별
                             </div>
                             <div>
-                                남
+                                {poster?.genderType}
                             </div>
                         </div>
                         <div css={s.studentInfoContent}>
                             <div>
-                                나이
+                                학생 타입
                             </div>
                             <div>
-                                만??세
+                                {poster?.studentType}
                             </div>
                         </div>
                     </div>
@@ -122,7 +139,7 @@ function StudentMyPosterPage(props) {
                                     요일
                                 </div>    
                                 <div>
-                                    월, 화, 수
+                                    {poster?.dateType.map(value => value).join(", ")}
                                 </div>                                
                             </div>
                         </div>
@@ -135,7 +152,7 @@ function StudentMyPosterPage(props) {
                                     지역
                                 </div>
                                 <div>
-                                    db지역
+                                    {poster?.regionName}
                                 </div>
                             </div>
                         </div>
@@ -148,7 +165,7 @@ function StudentMyPosterPage(props) {
                                     과목
                                 </div>
                                 <div>
-                                    db과목 리스트
+                                    {poster?.subjectName.map(value => value).join(", ")}
                                 </div>
                             </div>
                         </div>
@@ -158,7 +175,7 @@ function StudentMyPosterPage(props) {
                             </div>
                             <div css={s.studentInfoContent}>
                                 <div>
-                                    대면, 비대면
+                                    {poster?.classType.map(value => value).join(", ")}
                                 </div>
                             </div>
                         </div>

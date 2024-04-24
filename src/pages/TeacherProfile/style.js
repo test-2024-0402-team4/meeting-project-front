@@ -30,6 +30,12 @@ export const imgBox = css`
     height: 152px;
     border-radius: 8px;
     border: 1px solid #dbdbdb;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    & > img {
+        height: 100%;
+    }
 `;
 export const profileContent = css`
     width: 100%;

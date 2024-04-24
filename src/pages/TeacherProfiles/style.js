@@ -64,17 +64,18 @@ export const filterContentLayout = css`
     height: 100%;
 `;
 
-export const filiterModal = css`
+export const filiterModal = (filterNum) => css`
     position: absolute;
     background-color: white;
-    top: 110px;
+    top: ${filterNum === 1 ? '110px' :
+          filterNum === 2 ? '155px' :
+          filterNum === 3 ? '200px' :
+          filterNum === 4 ? '245px' :
+          filterNum === 5 ? '290px' : '110px'};
     left: 160px;
     border: 1px solid #dbdbdb;
-    width: 300px;
-    height: 250px;
+    width: ${filterNum === 1 ? "180px" : "250px"};
     border-radius: 8px;
-
-
 `;
 
 
@@ -100,6 +101,7 @@ export const filterBox = css`
 
 export const teacherProfiles = css`
     width: 100%;
+    min-height: 600px;
     padding: 18px 20px 0px 40px;
 `;
 export const teacherProfileContainer = css`
