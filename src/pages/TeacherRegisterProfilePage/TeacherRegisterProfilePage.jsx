@@ -164,7 +164,10 @@ function TeacherRegisterProfilePage() {
                     <Select options={dateOptions} placeholder="수업 가능 일정"  onChange={handleDateIdOnChange} isMulti />
                 </div>
             </div>
-            <button onClick={handleSubmitOnClick}>등록하기</button>
+
+            <div css={s.buttonBox}>
+                <button onClick={handleSubmitOnClick}>등록하기</button>
+            </div>
         </div>
     );
 }

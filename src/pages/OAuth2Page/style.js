@@ -29,6 +29,7 @@ export const header = css`
 
 export const headerBox1 = css`
     display: flex;
+    justify-content: center;
     align-items: center;
 
     // 다 하고 없애기 --------------------------------
@@ -46,114 +47,99 @@ export const headerBox1 = css`
     }
 `;
 
-// auth 페이지 고정--------------------------------------------------
-
 export const body = css`
     display: flex;
-    flex-direction: column;
     justify-content: center;
     align-items: center;
+
+    // 다하고 없애기 ---------------------------------------------------
+    /* border: 1px solid black; */
 
     width: 100%;
     height: 250px;
 
-    // 다 하고 없애기 --------------------------------
-    /* border: 1px solid black; */
 `;
 
-export const inputBox = css`
+export const bodyBox1 = css`
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    
+    margin-top: 10px;
+    margin-right: 10px;
 
-    width: 250px;
-    // 다 하고 없애기 --------------------------------
+    border: 1px solid #dbdbdb;
+    border-radius: 5px;
+
+    width: 375px;
+    height: 100%;
+    
+    // 다하고 없애기 ---------------------------------------------------
     /* border: 1px solid black; */
+
+    * > button {
+        border: none;
+        border-radius: 5px;
+        background-color: #d9fcf6;
+        font-size: 15px;
+        width: 250px;
+        height: 40px;
+        color: #11b69a;
+
+        &:hover {
+            background-color: #9decdb;
+        }
+        cursor: pointer;
+    }
 `;
 
-export const buttonBox = css`
+export const bodyBox2 = css`
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    
+    margin-top: 10px;
+    margin-left: 10px;
+
+    border: 1px solid #dbdbdb;
+    border-radius: 5px;
+
+    width: 375px;
+    height: 100%;
+    
+    // 다하고 없애기 ---------------------------------------------------
+    /* border: 1px solid black; */
+
+    * > button {
+        border: none;
+        border-radius: 5px;
+        background-color: #d9fcf6;
+        font-size: 15px;
+        width: 250px;
+        height: 40px;
+        color: #11b69a;
+
+        &:hover {
+            background-color: #9decdb;
+        }
+        cursor: pointer;
+    }
+`;
+
+export const linkBox = css`
 
     display: flex;
     justify-content: space-between;
-    align-items: center;
+    margin-top: 10px;
 
-    width: 250px;
-
-    // 다 하고 없애기 --------------------------------
-    /* border: 1px solid black; */
-
-    & > button {
-        width: 100px;
-        height: 40px;
-        font-size: 15px;
-
-        border: none;
-        border-radius: 5px;
-
-        background-color: #d9fcf6;
-        color: #11b69a;
-
-        &:hover{
-            background-color: #9decdb;
-        }
+    * {
+        text-decoration-line: none;
+        color: rgb(170 170 170);
     }
-`;
 
-
-export const checkBox1 = css`
-
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    // 다 하고 없애기 --------------------------------
-    /* border: 1px solid black; */
-    margin-bottom: 30px;
-
-    width: 100%;
-    height: 40px;
-`;
-
-
-export const checkBox2 = css`
-
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    // 다 하고 없애기 --------------------------------
-    /* border: 1px solid black; */
-    font-size: 20px;
-    font-weight: 700;
-
-    margin-bottom: 30px;
-
-    width: 250px;
-    height: 40px;
-`;
-
-export const checkBox3 = css`
-
-    display: flex;
-    justify-content: end;
-
-    width: 250px;
-
-    // 다 하고 없애기 --------------------------------
-    /* border: 1px solid black; */
-
-    & > button {
-        width: 270px;
-        height: 40px;
-        font-size: 15px;
-
-        border: none;
-        border-radius: 5px;
-
-        background-color: #d9fcf6;
-        color: #11b69a;
-
-        &:hover{
-            background-color: #9decdb;
-        }
-
+    *:hover {
+        color: black;
     }
-    
 `;

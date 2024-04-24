@@ -19,7 +19,7 @@ export const header = css`
 
     width: 100%;
     height: 150px;
-    margin-top: 120px;
+    margin-top: 100px;
 
     & > span {
         font-size: 50px;
@@ -35,13 +35,14 @@ export const headerBox1 = css`
     /* border: 1px solid black; */
 
     & > span{
-        font-size: 20px;
+        font-size: 18px;
         color: black;
     }
     * {
         text-decoration-line: none;
         color: #5999FF;
-        margin-left: 10px;
+        margin-left: 5px;
+        font-size: medium;
     }
 `;
 
