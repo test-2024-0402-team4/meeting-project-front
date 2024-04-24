@@ -5,9 +5,14 @@ import { FaChevronRight } from "react-icons/fa";
 import { useQuery, useQueryClient } from "react-query";
 import { getStudentProfile } from "../../apis/api/profileApi";
 import { getPrincipalRequest } from "../../apis/api/principal";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
+import { getMyPosters } from "../../apis/api/posterApi";
 
 function StudentMyPostersPage(props) {
+
+    const [searchParams] = useSearchParams();
+    const userId = parseInt(searchParams.get("userId"))
+    const [posters, setPosters] = useState([]);
 
     const navigate = useNavigate();
     const queryClient = useQueryClient();
@@ -26,9 +31,6 @@ function StudentMyPostersPage(props) {
             }
         }
     );
-
-   
-    
     const studentProfileQuery = useQuery(
         ["studentProfileQuery"],
         async() => await getStudentProfile(principalQuery.data.data.userId),
@@ -44,6 +46,23 @@ function StudentMyPostersPage(props) {
                 console.log("에러");
             },
             enabled: !!principalQuery?.data?.data
+        }
+    )
+
+    const getMyPoster = useQuery(
+        ["getMyPoster"],
+        async() => await getMyPosters({ userId: userId}),
+        {
+            refetchOnWindowFocus: false,
+            retry: 0,
+            onSuccess: response => {
+                console.log("my poster 가져오기");
+                console.log(response);
+                setPosters(() => response.data)
+            },
+            onError: error => {
+                console.log("에러");
+            }
         }
     )
 
@@ -78,34 +97,38 @@ function StudentMyPostersPage(props) {
                     </div>
                 </div>
             </div>
-            <div  css={s.studentPosterLayout}>
-                <div onClick={() => handelPageMove(`student/myposter?posterId=9`)} css={s.studentPosters}>
-                    <div css={s.studentPosterContainer}>
-                        <div css={s.studentPoster}>
-                            <div css={s.studentPosterContent}>
-                                <div>포스터 제목</div>
-                                <div css={s.subjects}>
-                                    <span>과목</span>
-                                    <span>과목</span>
-                                    <span>과목</span>
-                                </div>
-                                <div css={s.studnetinfo}>
-                                    <span>대학생</span>
-                                    <span>성별</span>
-                                    <span>지역</span>
-                                    <span>수업방식</span>
-                                </div>
-                                <div css={s.buttonLayout}>
-                                    <button>수정</button>
-                                    <button>삭제</button>
+            {
+                posters?.map(
+                    poster => 
+                    <div key={poster.posterId} css={s.studentPosterLayout}>
+                    <div onClick={() => handelPageMove(`student/myposter?posterId=${poster.posterId}`)} css={s.studentPosters}>
+                        <div css={s.studentPosterContainer}>
+                            <div css={s.studentPoster}>
+                                <div css={s.studentPosterContent}>
+                                    <div>{poster.title}</div>
+                                    <div css={s.subjects}>
+                                        <span>{poster.subjectName.map(value => value).join(", ")}</span>
+                                    </div>
+                                    <div css={s.studnetinfo}>
+                                        <span>{poster.studentType}</span>
+                                        <span>{poster.genderType}</span>
+                                        <span>{poster.regionName}</span>
+                                        <span>{poster.classType}</span>
+                                    </div>
+                                    <div css={s.buttonLayout}>
+                                        <button>수정</button>
+                                        <button>삭제</button>
+                                    </div>
                                 </div>
                             </div>
+    
                         </div>
-
                     </div>
+                    
                 </div>
-                
-            </div>
+                )
+            }
+            
         </div>
     </>
 

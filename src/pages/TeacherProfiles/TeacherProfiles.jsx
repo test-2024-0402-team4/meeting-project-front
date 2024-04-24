@@ -17,17 +17,16 @@ function TeacherProfiles() {
     const [searchData, setSearchData] = useState({
         nickname : null,
         genderId : 0,
-        subjectIds : "",
-        regionIds : "",
-        dateIds: "",
-        classTypeIds: ""
+        subjects : [],
+        regions : [],
+        dates: [],
+        classTypes: []
     });
     const [teacherProfiles, setTeacherProfiles] = useState([]);
     const [ subjects, setSubjects ] = useState([]);
     const [ region, setRegion ] = useState([]);
     const [ date, setDate ] = useState([]);
     const [ classType, setClassType ] = useState([]);
-    console.log(searchData.subjectIds);
 
     useEffect(() => {
         getTeacherProfile();
@@ -35,8 +34,11 @@ function TeacherProfiles() {
         getRegions();
         getDates();
         getClassTypes();
-        console.log(searchData)
-    }, [searchData]);
+    }, []);
+
+    useEffect(() => {
+        getTeacherProfile();
+    }, [searchData.genderId, searchData.subjects, searchData.regions, searchData.dates, searchData.classTypes]);
 
     const selectStyle = {
         control: baseStyles => ({
@@ -50,7 +52,15 @@ function TeacherProfiles() {
 
     const getTeacherProfile = async () => {
         try {
-            const response = await getTeacherProfiles(searchData);
+            const params = {
+                nickname : searchData.nickname,
+                genderId : searchData.genderId,
+                subjectIds : searchData.subjects.map(option => option.value),
+                regionIds : searchData.regions.map(option => option.value),
+                dateIds: searchData.dates.map(option => option.value),
+                classTypeIds: searchData.classTypes.map(option => option.value)
+            }
+            const response = await getTeacherProfiles(params);
             setTeacherProfiles(response.data);
         } catch (error) {
             console.log("에러", error);
@@ -107,10 +117,9 @@ function TeacherProfiles() {
         }
     }
     const handleSubjectOption = (selectedOptions) => {
-        const selectedSubjectIds = selectedOptions.map(option => option.value).join(',');
         setSearchData(prevState => ({
             ...prevState,
-            subjectIds: selectedSubjectIds
+            subjects: selectedOptions
         }));
     };
 
@@ -122,26 +131,23 @@ function TeacherProfiles() {
     };
 
     const handleRegionOption = (selectedOptions) => {
-        const selectedRegionIds = selectedOptions.map(option => option.value).join(',');
         setSearchData(prevState => ({
             ...prevState,
-            regionIds: selectedRegionIds
+            regions: selectedOptions
         }));
     };
     
     const handleDateOption = (selectedOptions) => {
-        const selectedDateIds = selectedOptions.map(option => option.value).join(',');
         setSearchData(prevState => ({
             ...prevState,
-            dateIds: selectedDateIds
+            dates: selectedOptions
         }));
     };
     
     const handleClassTypeOption = (selectedOptions) => {
-        const selectedClassTypeIds = selectedOptions.map(option => option.value).join(',');
         setSearchData(prevState => ({
             ...prevState,
-            classTypeIds: selectedClassTypeIds
+            classTypes: selectedOptions
         }));
     };
     return (
@@ -162,7 +168,7 @@ function TeacherProfiles() {
                             필터로 검색
                             {filterModal === 1 ? (
                                 <>
-                                    <div css={s.filiterModal}>
+                                    <div css={s.filiterModal(1)}>
                                         <input type="radio" name="gender" value="0" onChange={handleGenderChange} /> 전체
                                         <input type="radio" name="gender" value="1" onChange={handleGenderChange} /> 남자
                                         <input type="radio" name="gender" value="2" onChange={handleGenderChange} /> 여자
@@ -170,26 +176,26 @@ function TeacherProfiles() {
                                 </>
                                 ) : filterModal === 2 ? (
                                     <>
-                                        <div css={s.filiterModal}>
-                                            <Select styles={selectStyle} options={subjects} placeholder="과목명" onChange={handleSubjectOption} isMulti/>
+                                        <div css={s.filiterModal(2)}>
+                                            <Select styles={selectStyle} key={"subjects"} options={subjects} placeholder="과목명" value={searchData.subjects} onChange={handleSubjectOption} isMulti/>
                                         </div>
                                     </>
                                 ) : filterModal === 3 ? (
                                     <>
-                                        <div css={s.filiterModal}>
-                                            <Select styles={selectStyle} options={region} placeholder="지역" onChange={handleRegionOption} isMulti/>                        
+                                        <div css={s.filiterModal(3)}>
+                                            <Select styles={selectStyle} key={"region"} options={region} placeholder="지역" value={searchData.regions} onChange={handleRegionOption} isMulti/>                        
                                         </div>
                                     </>
                                 ) : filterModal === 4 ? (
                                     <>
-                                        <div css={s.filiterModal}>
-                                            <Select styles={selectStyle} options={date} placeholder="요일" onChange={handleDateOption} isMulti/>
+                                        <div css={s.filiterModal(4)}>
+                                            <Select styles={selectStyle} key={"date"} options={date} placeholder="요일" value={searchData.dates} onChange={handleDateOption} isMulti/>
                                         </div>
                                     </>
                                 ) : filterModal === 5 ? (
                                     <>
-                                        <div css={s.filiterModal}>
-                                            <Select styles={selectStyle} options={classType}  placeholder="수업방식" onChange={handleClassTypeOption}isMulti/>
+                                        <div css={s.filiterModal(5)}>
+                                            <Select styles={selectStyle} key={"classType"} options={classType}  placeholder="수업방식" value={searchData.classTypes} onChange={handleClassTypeOption}isMulti/>
                                         </div>
                                     </>
                                 ) : (
@@ -240,11 +246,11 @@ function TeacherProfiles() {
                             :
                             teacherProfiles?.map(
                                 teacherProfile => 
-                                <div css={s.teacherProfile}>
+                                <div key={teacherProfile.userId} css={s.teacherProfile}>
                                     <div css={s.imgLayout}>
                                         <img src={teacherProfile.userImgUrl}/>
                                     </div>
-                                    <div onClick={() => navigate(`/teacher/profile?userid=8`)} css={s.teacherProfileContent}>
+                                    <div onClick={() => navigate(`/teacher/profile?userId=${teacherProfile.userId}`)} css={s.teacherProfileContent}>
                                         <div>{teacherProfile.nickname}</div>
                                         <div>
                                             <span>{teacherProfile.universityName} </span>

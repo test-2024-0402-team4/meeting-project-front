@@ -17,13 +17,6 @@ function TeacherBoardListPage(props) {
     const queryClient = useQueryClient();
     const principalData = queryClient.getQueryData("principalQuery");
 
-    useEffect(() => {
-        if(!!principalData) {
-            alert("잘못된 접근입니다.");
-            window.location.replace("/");
-        }
-    },[]);
-
     console.log(principalData);
    
    

@@ -85,7 +85,7 @@ export const mainRightButton = css`
     display: flex;
 `;
 
-export const searchTeacherButton = css`
+export const searchTeacherButton = (roleId) => css`
     box-sizing: border-box;     
     position: absolute;
     left: 0px;
@@ -99,18 +99,17 @@ export const searchTeacherButton = css`
     color: #11b69a;
     font-weight: 700;
     cursor: pointer;
-
     &:hover::after {
         content: '';
         display: block;
-        width: 119px;
+        width: ${roleId === 2 ? "110px" : "119px"};
         height: 1px; /* 밑줄의 두께 */
         background-color: #11b69a; /* 밑줄 색상 */
         margin-top: 3px; /* 텍스트와 밑줄 사이의 여백 */
     }
     `;
 
-export const searchMypageButton = css`
+export const searchMypageButton = (roleId) => css`
     position: absolute;
     left: 52%;
     box-sizing: border-box;     
@@ -128,7 +127,7 @@ export const searchMypageButton = css`
     &:hover::after {
         content: '';
         display: block;
-        width: 84px;
+        width: ${roleId === 0 ? "110px" : "84px"};
         height: 1px; /* 밑줄의 두께 */
         background-color: #0094ff; /* 밑줄 색상 */
         margin-top: 3px; /* 텍스트와 밑줄 사이의 여백 */
@@ -160,7 +159,7 @@ export const searchStudyButton = css`
 
 `;
 
-export const searchCommunityButton = css`
+export const searchCommunityButton = (roleId) => css`
     position: absolute;
     top: 150px;
     left: 52%;
@@ -177,7 +176,7 @@ export const searchCommunityButton = css`
     &:hover::after {
         content: '';
         display: block;
-        width: 72px;
+        width: ${roleId === 2 ? "85px" : "72px"};
         height: 1px; /* 밑줄의 두께 */
         background-color: #FF1F70; /* 밑줄 색상 */
         margin-top: 3px; /* 텍스트와 밑줄 사이의 여백 */

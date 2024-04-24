@@ -38,7 +38,6 @@ function MeetingRoute(props) {
 
   const queryClient = useQueryClient();
   const principalData = queryClient.getQueryData("principalQuery");
-
   useEffect(() => {
       if(!!principalData) {
           alert("잘못된 접근입니다.");

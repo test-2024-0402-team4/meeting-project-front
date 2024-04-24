@@ -16,7 +16,7 @@ function App() {
     <RootLayout>
       <RootHeader />
         <RootContainer >
-         <AuthRoute />
+          <AuthRoute />
           <MeetingRoute />
         </RootContainer>
       <RootFooter />
