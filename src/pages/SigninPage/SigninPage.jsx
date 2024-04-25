@@ -6,6 +6,9 @@ import { findIdRequest, signinRequest } from "../../apis/api/signin";
 import AuthPageInput from "../../components/AuthPageInput/AuthPageInput";
 import { Link } from "react-router-dom";
 import { useQueryClient } from "react-query";
+import { SiNaver } from "react-icons/si";
+import { SiKakaotalk } from "react-icons/si";
+import { FcGoogle } from "react-icons/fc";
 
 function SigninPage() {
 
@@ -23,7 +26,7 @@ function SigninPage() {
             const accessToken = response.data;
 
             localStorage.setItem("AccessToken", accessToken);
-            window.location.replace("/main");
+            window.location.replace("/");
 
         }).catch(error => {
             alert(error.response.data);
@@ -33,52 +36,85 @@ function SigninPage() {
 
 
     return (
-        <>
-            <div css={s.background}>
-                <Link to={"/auth/main"}>로고(메인으로가기)</Link>
-                <div css={s.layout}>
-                    <AuthPageInput type={"text"} name={"username"} placeholder={"아이디"} value={username} onChange={usernameChange}/>
-                    <AuthPageInput type={"password"} name={"password"} placeholder={"비밀번호"} value={password} onChange={passwordChange}/>
-
-                    <div css={s.buttonBox1}>
-                        <button onClick={handleSignin}>로그인</button>
-                    </div>
-                    <div css={s.buttonBox2}>
-                        <Link to={"/auth/findId"}>아이디 찾기</Link>
-                        <Link to={"/auth/findPassword"}>비밀번호 찾기</Link>
-
-                    </div>
-                    <div css={s.buttonBox3}>
-                        <Link to={"/auth/signup"}>회원가입</Link>
-
-                    </div>
-                </div>
-
-                <div css={s.oauth2box}>
-                    <ul css={s.oauth2Site}>
-                        <li>
-                            <a href="http://localhost:8080/oauth2/authorization/kakao" target="_blank" rel="noopener noreferrer">
-                                <img src="" alt="" />
-                                <span>카카오계정 로그인</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="http://localhost:8080/oauth2/authorization/naver" target="_blank" rel="noopener noreferrer">
-                                <img src="" alt="" />
-                                <span>네이버 로그인</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="http://localhost:8080/oauth2/authorization/google" target="_blank" rel="noopener noreferrer">
-                                <img src="" alt="" />
-                                <span>구글 로그인</span>
-                            </a>
-                        </li>
-                    </ul>
+        <div css={s.layout}>
+            <div css={s.header}>
+                <span>로그인</span>
+                <div css={s.headerBox1}>
+                    <span>아직 계정이 없으신가요? </span>
+                    <Link to={"/auth/signup"}>가입하기</Link>
                 </div>
             </div>
-        </>
-        
+
+            <div css={s.body}>
+                <div css={s.bodyBox1}>
+                    <div>
+                        <AuthPageInput type={"text"} name={"username"} placeholder={"아이디"} value={username} onChange={usernameChange}/>
+                        <AuthPageInput type={"password"} name={"password"} placeholder={"비밀번호"} value={password} onChange={passwordChange}/>
+                       
+                        <button onClick={handleSignin}>로그인하기</button>
+
+                        <div css={s.linkBox}>
+                            <Link to={"/auth/findId"}>아이디 찾기</Link>
+                            <Link to={"/auth/findPassword"}>비밀번호 찾기</Link>
+                        </div>
+                    </div>
+                </div>
+
+                <div css={s.bodyLine}>
+                    <div css={s.line1}></div>
+                    <div css={s.line2}>
+                        <span>또는</span>
+                    </div>
+                    <div css={s.line3}></div>
+                </div>
+
+                <div css={s.bodyBox2}>
+                    <div >
+
+                        <div css={s.kakao}>
+                            <div css={s.kakaoBox1}>
+                                <a href="http://localhost:8080/oauth2/authorization/kakao" css={s.kakaoImgBox}>
+                                    <SiKakaotalk />
+                                </a>
+                            </div>
+                            <div css={s.kakaoBox2}>
+                                <a href="http://localhost:8080/oauth2/authorization/kakao">
+                                <button>Kakao 로그인</button>
+                                </a>
+                            </div>
+                        </div>
+
+
+                        <div css={s.naver}>
+                            <div css={s.naverBox1}>
+                                <a href="http://localhost:8080/oauth2/authorization/naver" css={s.naverImgBox}>
+                                    <SiNaver />
+                                </a>
+                            </div>
+                            <div css={s.naverBox2}>
+                                <a href="http://localhost:8080/oauth2/authorization/naver">
+                                <button>Naver 로그인</button>
+                                </a>
+                            </div>
+                        </div>
+
+                        <div css={s.google}>
+                            <div css={s.googleBox1}>
+                                <a href="http://localhost:8080/oauth2/authorization/google" css={s.googleImgBox}>
+                                    <FcGoogle />
+                                </a>
+                            </div>
+                            <div css={s.googleBox2}>
+                                <a href="http://localhost:8080/oauth2/authorization/google">
+                                <button>Google 로그인</button>
+                                </a>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>  
     );
 }
 

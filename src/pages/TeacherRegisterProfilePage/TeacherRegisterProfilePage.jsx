@@ -32,7 +32,7 @@ function TeacherRegisterProfilePage() {
         const principalData = queryClient.getQueriesData("principalQuery");
         
         // console.log(principalData[0][1].data.userId);
-        setUserId(() => principalData[0][1].data.userId);
+        setUserId(() => principalData[0][1]?.data.userId);
     },[]);
 
 
@@ -88,7 +88,7 @@ function TeacherRegisterProfilePage() {
         {
             onSuccess: response => {
                 // console.log(response);
-                setRegionOptions(() => response.data.map(region => {
+                setRegionOptions(() => response?.data.map(region => {
                     return {
                         value: region.regionId,
                         label: region.regionName
@@ -164,7 +164,10 @@ function TeacherRegisterProfilePage() {
                     <Select options={dateOptions} placeholder="수업 가능 일정"  onChange={handleDateIdOnChange} isMulti />
                 </div>
             </div>
-            <button onClick={handleSubmitOnClick}>등록하기</button>
+
+            <div css={s.buttonBox}>
+                <button onClick={handleSubmitOnClick}>등록하기</button>
+            </div>
         </div>
     );
 }

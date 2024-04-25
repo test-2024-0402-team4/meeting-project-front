@@ -11,9 +11,8 @@ export const header = css`
     padding: 10px 0px 10px 0px;
     display: flex;
     width: 70%;
-    max-width: 1150px;
     min-width: 550px;
-    margin: 0 auto;  
+    margin: 0 auto;
 `;
 
 export const headerAcoountLayout = css`
@@ -71,7 +70,6 @@ export const logoLayout = css`
     & > img {
         height: 100%;
         cursor: pointer;
-        
     }
 `;
 

@@ -17,7 +17,7 @@ export const teacherProfilesRootLayout = css`
 
 export const filterLayout = css`
     box-sizing: border-box;
-    position: fixed;
+    position: relative;
     margin-top: 20px;
     width: 150px;
     height: 500px;
@@ -64,6 +64,21 @@ export const filterContentLayout = css`
     height: 100%;
 `;
 
+export const filiterModal = (filterNum) => css`
+    position: absolute;
+    background-color: white;
+    top: ${filterNum === 1 ? '110px' :
+          filterNum === 2 ? '155px' :
+          filterNum === 3 ? '200px' :
+          filterNum === 4 ? '245px' :
+          filterNum === 5 ? '290px' : '110px'};
+    left: 160px;
+    border: 1px solid #dbdbdb;
+    width: ${filterNum === 1 ? "180px" : "250px"};
+    border-radius: 8px;
+`;
+
+
 export const filterBox = css`
     display: flex;
     justify-content: space-between;
@@ -86,6 +101,7 @@ export const filterBox = css`
 
 export const teacherProfiles = css`
     width: 100%;
+    min-height: 600px;
     padding: 18px 20px 0px 40px;
 `;
 export const teacherProfileContainer = css`
@@ -102,10 +118,14 @@ export const teacherProfile = css`
 `;
 export const imgLayout = css`
     box-sizing: border-box;
+    display: flex;
     width: 100px;
     height: 100px;
     border: 1px solid #dbdbdb;
     border-radius: 8px;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
 
     & > img {
         border-radius: 8px;
@@ -133,11 +153,17 @@ export const teacherProfileContent = css`
         margin-top: 5px;
         font-size: 14px;
         color: #444444;
+        & > * {
+            margin-right: 5px;
+        }
     }
     div:nth-of-type(4) {
         margin-top: 5px;
         font-size: 14px;
         color: #444444;
+        & > * {
+            margin-right: 5px;
+        }
     }
 
 `;

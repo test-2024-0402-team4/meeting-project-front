@@ -1,5 +1,5 @@
 /** @jsxImportSource @emotion/react */
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { getTeacherProfile } from '../../apis/api/teacherProfile';
 import { CiLocationOn } from "react-icons/ci";
 import { FiBook } from "react-icons/fi";
@@ -11,13 +11,13 @@ function TeacherProfile() {
 
     const [searchParams] = useSearchParams();
     const [ teacherProfile, setTeacherProfile] = useState();
+    const userId = parseInt(searchParams.get("userId"))
+    useEffect(()=> {
+         
+        getTeacherProfileData();
+        console.log(teacherProfile)
 
-    const handleTeacherProfile = async () => {
-        await getTeacherProfile(searchParams.get("userId"))
-        .then(response => {
-            setTeacherProfile(() => response.data)
-        })
-    }  
+    }, [])
     // 만나이 계산기
     const birthDate = (teacherProfile?.birthDate)
     const year = birthDate?.substr(0, 4)
@@ -33,7 +33,17 @@ function TeacherProfile() {
         age--;
     }
 
-    console.log(age)
+
+    const getTeacherProfileData = async () => {
+        try {
+            const response = await getTeacherProfile({ userId: userId });
+            setTeacherProfile(response.data);
+            console.log(response);
+        } catch (error) {
+            console.log("에러", error);
+        }
+    }
+
 
     return (
         <>
@@ -42,21 +52,21 @@ function TeacherProfile() {
                     <div css={s.teacherProfile}>
                         <div css={s.profileHeader}>
                             <div css={s.imgBox}>
-                                이미지
+                                <img src={teacherProfile?.userImgUrl} alt="" />
                             </div>
                             <div css={s.profileContent}>
-                                <div>닉네임</div>
-                                <div>db 대학 데이터</div>
+                                <div>{teacherProfile?.nickname}</div>
+                                <div>{teacherProfile?.universityName}</div>
                                 <div>
                                     <div>
                                         <CiLocationOn />
                                     </div>
                                     <div>
                                         <span>
-                                            지역 :
+                                            지역 : 
                                         </span>
                                         <span>
-                                            db지역 데이터
+                                            {teacherProfile?.regionNames.map(regionName => regionName).join(", ")}
                                         </span>
                                     </div>
                                 </div>
@@ -69,7 +79,7 @@ function TeacherProfile() {
                                             과목 :
                                         </span>
                                         <span>
-                                            db과목 데이터
+                                            {teacherProfile?.subjectNames.map(subjectName => subjectName).join(", ")}
                                         </span>
                                     </div>
                                 </div>
@@ -96,7 +106,7 @@ function TeacherProfile() {
                                         성별
                                     </div>
                                     <div>
-                                        남
+                                        {teacherProfile?.genderType}
                                     </div>
                                 </div>
                                 <div css={s.teacherInfoContent}>
@@ -104,7 +114,7 @@ function TeacherProfile() {
                                         나이
                                     </div>
                                     <div>
-                                        만??세
+                                        만 {age}세
                                     </div>
                                 </div>
                             </div>
@@ -117,7 +127,7 @@ function TeacherProfile() {
                                         대학명
                                     </div>
                                     <div>
-                                        db대학교 이름
+                                        {teacherProfile?.universityName}
                                     </div>
                                 </div>
                                 <div css={s.teacherInfoContent}>
@@ -125,7 +135,7 @@ function TeacherProfile() {
                                         학과명
                                     </div>
                                     <div>
-                                        db학과 이름
+                                        {teacherProfile?.departmentName}
                                     </div>
                                 </div>
                                 <div css={s.teacherInfoContent}>
@@ -133,7 +143,7 @@ function TeacherProfile() {
                                         재학상태
                                     </div>
                                     <div>
-                                        db 재학상태
+                                        {teacherProfile?.graduateState}
                                     </div>
                                 </div>
                             </div>
@@ -146,7 +156,7 @@ function TeacherProfile() {
                                         지역
                                     </div>
                                     <div>
-                                        db지역 리스트
+                                    {teacherProfile?.regionNames.map(regionName => regionName).join(", ")}
                                     </div>
                                 </div>
                             </div>
@@ -159,7 +169,7 @@ function TeacherProfile() {
                                         과목
                                     </div>
                                     <div>
-                                        db과목 리스트
+                                        {teacherProfile?.subjectNames.map(subjectName => subjectName).join(", ")}
                                     </div>
                                 </div>
                             </div>

@@ -45,10 +45,13 @@ function RootHeader({children}) {
       
       const handleLogout = () => {
         localStorage.removeItem("AccessToken");
+        setRoleId(0);
+        setUserId(0);
         navigate("/auth/signin");
     }
     
     const handelPageMove = (page) => {
+        
         navigate(`/${page}`);
     }
 
@@ -56,7 +59,7 @@ function RootHeader({children}) {
         <div css={s.headerLayout}>
             <div css={s.header}>
                 <div css={s.logoLayout}>
-                    <img onClick={() => handelPageMove("main")} src={logo}/>
+                    <img onClick={() => handelPageMove("")} src={logo}/>
                 </div>
                 <div css={s.headerItemLayout}>
                     <div css={s.headerInfoLayout}>
@@ -68,7 +71,16 @@ function RootHeader({children}) {
                                 roleId ? (
                                     <>
                                     <span onClick={handleLogout}>로그아웃</span>
-                                    <span onClick={() => handelPageMove(`mypage?userId=${userId}`)}>내 정보</span>
+                                    {
+                                        roleId === 1 ? 
+                                        (
+                                            <span onClick={() => handelPageMove(`student/mypage?userId=${userId}`)}>내 정보</span>
+                                        )
+                                        : 
+                                        (
+                                            <span onClick={() => handelPageMove(`teacher/mypage?userId=${userId}`)}>내 정보</span>
+                                        )
+                                    }
                                     <span>고객센터</span>
                                     </>
                                 ) : (
@@ -78,27 +90,25 @@ function RootHeader({children}) {
                                     </>
                                 )
                             }
-                            
                         </div>
                     </div>
                     <div css={s.headerItem}>
                         {
                             roleId === 1 ? (
                                 <>
-                                    <span onClick={() => handelPageMove("teacher/profiles")} >선생님 찾기</span>
-                                    <span>공고 조회</span>
+                                    <span onClick={() => handelPageMove("student/tutor/list")} >선생님 찾기</span>
+                                    <span onClick={() => handelPageMove(`student/myposters?userId=${userId} `)}>공고 조회</span>
                                     <span onClick={() => handelPageMove("student/boards?page=1")}>커뮤니티</span>
                                 </>
                             ) : (
                                 roleId === 2 ? (
                                     <>
-                                        <span>학생 찾기</span>
+                                        <span onClick={() => handelPageMove(`teacher/tutee/poster/list`)}>과외 학생 찾기</span>
                                         <span onClick={() => handelPageMove("teacher/boards?page=1")}>커뮤니티</span>
                                     </>
                                 ) : (
                                     <>
-                                        <span>커뮤니티</span>
-                                        <span onClick={() => handelPageMove("student/boards?page=1")}>커뮤니티</span>
+                                        <span onClick={() => handelPageMove("study/boards?page=1")}>커뮤니티</span>
                                     </>
                                 )
                             )
