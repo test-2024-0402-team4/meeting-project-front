@@ -5,7 +5,13 @@ export const getMyPosters = async(params) =>{
 }
 
 export const getMyPoster = async(params) => {
+
     return await instance.get("/student/myposter", {params})
+}
+
+// 학생 - 공고 등록
+export const studentRegisterPosterRequest = async (data) => {
+    return await instance.post("/account/student/poster", data);
 }
 
 export const getTuteePosters = async(params) => {

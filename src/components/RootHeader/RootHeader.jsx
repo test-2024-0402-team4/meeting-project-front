@@ -19,7 +19,7 @@ function RootHeader({children}) {
                 const decodedPayload = JSON.parse(atob(tokenPayLoad));
                 setRoleId(decodedPayload.roleId);
                 setUserId(decodedPayload.userId);
-                console.log(decodedPayload.userId)
+                // console.log(decodedPayload.userId)
 
             } catch (error) {
                 console.error("Failed to decode AccessToken:", error);
