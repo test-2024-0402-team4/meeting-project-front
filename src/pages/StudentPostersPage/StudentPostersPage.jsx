@@ -46,7 +46,7 @@ function StudentPostersPage(props) {
                 </div>
 
             </div>
-            <div onClick={() => navigate(`/teacher/poster?userId=7`)} css={s.studentPosterLayout}>
+            <div onClick={() => navigate(`/teacher/tutee/poster?posterId=7`)} css={s.studentPosterLayout}>
                 <div css={s.studentPosters}>
                     <div css={s.studentPosterContainer}>
                         <div css={s.studentPoster}>

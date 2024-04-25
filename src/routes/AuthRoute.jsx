@@ -13,22 +13,7 @@ import OAuth2SignupPage from '../pages/OAuth2SignupPage/OAuth2SignupPage';
 import { useEffect } from 'react';
 
 function AuthRoute(props) {
-
-    const principalQuery = useQuery(
-        ["principalQuery"],
-        getPrincipalRequest,
-        {
-            retry: 0,
-            refetchOnWindowFocus: false,
-            onSuccess: response => {
-                console.log("principal Success");
-            },
-            onError: error => {
-                console.log("principal Error");
-            }
-        }
-    );
-
+    
 
     return (
         <>

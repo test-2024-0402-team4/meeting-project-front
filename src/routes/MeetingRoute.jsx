@@ -49,14 +49,18 @@ function MeetingRoute(props) {
     return (
       <>
         <Routes>
-        <Route path='/main' element={<Homepage />} />
-              <Route path='/mypage' element={<Mypage />} />
-              <Route path='/teacher/profiles' element={<TeacherProfiles />} />
-              <Route path='/teacher/profile' element={<TeacherProfile />} />
-              <Route path='/teacher/poster/list' element={<StudentPostersPage />} />
-              <Route path='/student/myposters' element={<StudentMyPostersPage />}/>
+        <Route path='/' element={<Homepage />} />
+              <Route path='/student/mypage' element={<Mypage />} />
+              <Route path='/teacher/mypage' element={<Mypage />} />
+
+              <Route path='/student/tutor/list' element={<TeacherProfiles />} />
+              <Route path='/student/tutor' element={<TeacherProfile />} />
               <Route path='/student/myposter' element={<StudentMyPosterPage />}/>
-              <Route path='/teacher/poster' element={<StudentPosterPage />} />
+              <Route path='/student/myposters' element={<StudentMyPostersPage />}/>
+              
+              <Route path='/teacher/tutee/poster/list' element={<StudentPostersPage />} />
+              <Route path='/teacher/tutee/poster' element={<StudentPosterPage />} />
+              <Route path='/teacher/register/profile' element={ <TeacherRegisterProfilePage /> } />
 
               <Route path="/student/boards" element={<BoardListPage/>} />
               <Route path="/student/board" element={<BoardWritePage/>} />
@@ -66,7 +70,7 @@ function MeetingRoute(props) {
               <Route path="/teacher/board" element={<TeacherBoardWritePage/>} />
               <Route path="/teacher/board/:teacherBoardId" element={<TeacherBoardPage/>} />
               <Route path="/teacher/board/update/:teacherBoardId" element={<TeacherBoardUpdatePage/>} />
-              <Route path='/account/teacher/registerProfile' element={ <TeacherRegisterProfilePage /> } />
+              
               <Route path="/study/boards" element={<StudyBoardListPage/>} />
               <Route path="/study/board" element={<StudyBoardWritePage/>} />
               <Route path="/study/board/:studyBoardId" element={<StudyBoardPage/>} />
