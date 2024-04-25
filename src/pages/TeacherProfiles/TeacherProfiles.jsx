@@ -7,6 +7,8 @@ import { getTeacherProfiles } from "../../apis/api/teacherProfile";
 import { Link, Route, useNavigate } from "react-router-dom";
 import TeacherProfile from "../TeacherProfile/TeacherProfile";
 import { useQuery, useQueryClient } from "react-query";
+import { FaRegCircleXmark } from "react-icons/fa6";
+
 
 import Select from "react-select";
 import { getClassType, getDate, getRegion, getSubject } from "../../apis/api/Option";
@@ -22,6 +24,7 @@ function TeacherProfiles() {
         dates: [],
         classTypes: []
     });
+
     const [teacherProfiles, setTeacherProfiles] = useState([]);
     const [ subjects, setSubjects ] = useState([]);
     const [ region, setRegion ] = useState([]);
@@ -45,7 +48,7 @@ function TeacherProfiles() {
             ...baseStyles,
             border: "1px solid #9decdb",
             borderRadius: "4px",
-            width: "100%",
+            width: "220px",
             heighy:"100%"
         })
     }
@@ -169,33 +172,50 @@ function TeacherProfiles() {
                             {filterModal === 1 ? (
                                 <>
                                     <div css={s.filiterModal(1)}>
-                                        <input type="radio" name="gender" value="0" onChange={handleGenderChange} /> 전체
-                                        <input type="radio" name="gender" value="1" onChange={handleGenderChange} /> 남자
-                                        <input type="radio" name="gender" value="2" onChange={handleGenderChange} /> 여자
+                                        <div>
+                                            <input type="radio" name="gender" value="0" onChange={handleGenderChange} /> 전체
+                                            <input style={{marginLeft:"10px"}} type="radio" name="gender" value="1" onChange={handleGenderChange} /> 남자
+                                            <input style={{marginLeft:"10px"}} type="radio" name="gender" value="2" onChange={handleGenderChange} /> 여자
+                                        </div>
+                                        <div onClick={() => setFilterModal(() => 0)} css={s.xMark}>
+                                            <FaRegCircleXmark />
+                                        </div>
                                     </div>
                                 </>
                                 ) : filterModal === 2 ? (
                                     <>
                                         <div css={s.filiterModal(2)}>
                                             <Select styles={selectStyle} key={"subjects"} options={subjects} placeholder="과목명" value={searchData.subjects} onChange={handleSubjectOption} isMulti/>
+                                            <div onClick={() => setFilterModal(() => 0)} css={s.xMark}>
+                                                <FaRegCircleXmark />
+                                            </div>
                                         </div>
                                     </>
                                 ) : filterModal === 3 ? (
                                     <>
                                         <div css={s.filiterModal(3)}>
                                             <Select styles={selectStyle} key={"region"} options={region} placeholder="지역" value={searchData.regions} onChange={handleRegionOption} isMulti/>                        
+                                            <div onClick={() => setFilterModal(() => 0)} css={s.xMark}>
+                                                <FaRegCircleXmark />
+                                            </div>
                                         </div>
                                     </>
                                 ) : filterModal === 4 ? (
                                     <>
                                         <div css={s.filiterModal(4)}>
                                             <Select styles={selectStyle} key={"date"} options={date} placeholder="요일" value={searchData.dates} onChange={handleDateOption} isMulti/>
+                                            <div onClick={() => setFilterModal(() => 0)} css={s.xMark}>
+                                                <FaRegCircleXmark />
+                                            </div>
                                         </div>
                                     </>
                                 ) : filterModal === 5 ? (
                                     <>
                                         <div css={s.filiterModal(5)}>
                                             <Select styles={selectStyle} key={"classType"} options={classType}  placeholder="수업방식" value={searchData.classTypes} onChange={handleClassTypeOption}isMulti/>
+                                            <div onClick={() => setFilterModal(() => 0)} css={s.xMark}>
+                                                <FaRegCircleXmark />
+                                            </div>
                                         </div>
                                     </>
                                 ) : (

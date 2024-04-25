@@ -161,4 +161,18 @@ export const studentInfoContent = css`
         font-size: 14px;
     }
 `;
+export const Postercontent = css`
+    color: #aaaaaa;
+
+    display: flex;
+    width: 100%;
+    margin-top: 16px;
+
+    div:nth-of-type(1) {
+        width: 100%;
+        font-size: 15px;
+        
+    }
+    
+`;
 

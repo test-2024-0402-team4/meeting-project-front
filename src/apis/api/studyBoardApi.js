@@ -25,7 +25,6 @@ export const updateStudyBoardRequest = async({studyBoardId, data}) => {
 }
 
 
-
 export const registerStudyCommentRequest = async(data) => {
     return await instance.post(`/study/board/comment/${data.studyBoardId}`, data)
 }
