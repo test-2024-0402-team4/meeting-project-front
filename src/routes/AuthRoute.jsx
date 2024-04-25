@@ -11,6 +11,7 @@ import AuthFindPasswordPage from '../pages/AuthFindPasswordPage/AuthFindPassword
 import OAuth2MergePage from '../pages/OAuth2MergePage/OAuth2MergePage';
 import OAuth2SignupPage from '../pages/OAuth2SignupPage/OAuth2SignupPage';
 import { useEffect } from 'react';
+import OAuth2SigninPage from '../pages/OAuth2SigninPage/OAuth2SigninPage';
 
 function AuthRoute(props) {
 
@@ -42,6 +43,7 @@ function AuthRoute(props) {
                 <Route path='/auth/findPassword' element={ <AuthFindPasswordPage /> }/>
                 <Route path="/auth/modifyPassword" element={ <ModifyPasswordPage /> } />
 
+                <Route path='/auth/oauth2/signin' element={ <OAuth2SigninPage/>} />
                 <Route path='/auth/oauth2/merge' element={ <OAuth2MergePage /> }/>
                 <Route path='/auth/oauth2/signup' element={ <OAuth2SignupPage /> }/>
             </Routes>

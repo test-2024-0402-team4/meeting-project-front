@@ -8,7 +8,7 @@ function OAuth2SigninPage() {
 
     useEffect(() => {
         localStorage.setItem("AccessToken", accessToken);
-        window.location.replace("/");
+        window.location.replace("/main");
     },[]);
 
     return (
