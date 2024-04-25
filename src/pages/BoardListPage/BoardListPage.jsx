@@ -2,20 +2,21 @@
 import { Link, useSearchParams } from "react-router-dom";
 import * as s from "./style";
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useQuery } from "react-query";
 import { getStudentCount, searchBoardListRequest } from "../../apis/api/boardApi";
 import { useSearchBoardInput } from "../../hooks/useSearchBoardInput";
 import BoardPageCount from "../../components/BoardPageCount/BoardPageCount";
 import { IoSearchOutline } from "react-icons/io5";
+import GetTime from "../../components/GetTime/GetTime";
 
 function BoardListPage(props) {
     const [searchParams, setSearchParams] = useSearchParams();
-    const searchCount = 2;
+    const searchCount = 11;
     const [boardList, setBoardList] = useState([]);
-
-   
-   
+    const [timeStamp,setTimeStamp] = useState([]);
+    
+ 
 
     const searchSubmit = () => {
         setSearchParams({
@@ -36,13 +37,22 @@ function BoardListPage(props) {
         {
             refetchOnWindowFocus : false,
             onSuccess: response => {
+                
                 setBoardList(() => response.data.map(
                     boards => {
                         return {
                             ...boards
                         }
                     }
-                ));
+                ))
+                setTimeStamp(() => response.data.map(
+                    boards => {
+                        return {
+                            ...boards
+                        }
+                    }
+                ))
+               
                 console.log(response.data);
             }
         }
@@ -71,7 +81,7 @@ function BoardListPage(props) {
                 <button css={s.authorityButton}>학생용</button>
                 <button css={s.authorityButton}>공부방</button>
             </div>
-            <h1 css={s.headerTitle}>게시글목록</h1>
+            
         
             <div css={s.searchInput}>
                 <div css={s.searchContainer}>
@@ -97,10 +107,10 @@ function BoardListPage(props) {
                     board => 
                     <Link to={`/student/board/${board.studentBoardId}`} css={s.boardListItem} key={board.studentBoardId}>
 
-                        <li >
+                        <li>
                             <div>{board.title}</div>
                             <div>author</div>
-                            <div>{board.createDate}</div>
+                            <div>{GetTime(new Date(board.createDate))}</div>
                             <div>{board.viewCount}</div>
                          </li>
                     </Link>

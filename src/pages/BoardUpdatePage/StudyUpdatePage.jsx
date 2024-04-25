@@ -98,9 +98,9 @@ function StudyBoardUpdatePage(props) {
           <div css={s.writePageTitle}>
             게시글 작성
             
-            <div css={s.titleButton}>
-                <button onClick={handleSubmitClick}>완료</button>
-                <button onClick={handleCancelClick}>취소</button>
+            <div css={s.titleButtons}>
+                <button css={s.titleButton} onClick={handleSubmitClick}>완료</button>
+                <button css={s.titleButton} onClick={handleCancelClick}>취소</button>
             </div>
           </div>
 
@@ -110,16 +110,19 @@ function StudyBoardUpdatePage(props) {
            placeholder="제목을 입력하세요"
            onChange={handleInputChange}
            value={inputValue} />
-          
-          <ReactQuill style={{
-                width: "1260px",
+
+           <div css={s.quill}>
+              <ReactQuill style={{
+                marginBottom: "50px",
+                width: "1100px",
                 height: "700px"
-            }}
-            modules={modules}
-            onChange={handleQuillValueChange}
-            value={quillValue}
-            ref={reactQuillRef}
-            />
+              }}
+              modules={modules}
+              onChange={handleQuillValueChange}
+              value={quillValue}
+              ref={reactQuillRef}
+              />
+            </div>
           </div>
         </div>
     );

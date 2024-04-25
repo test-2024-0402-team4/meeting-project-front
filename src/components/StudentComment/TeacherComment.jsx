@@ -2,10 +2,13 @@
 import * as s from "./style";
 import { useParams, useSearchParams } from "react-router-dom";
 import React, { useEffect, useRef, useState } from 'react';
-import { useMutation, useQuery } from "react-query";
+import { useMutation, useQuery, useQueryClient } from "react-query";
 import { useMaxValueValidateInput } from "../../hooks/inputHook";
 import { BsThreeDotsVertical } from "react-icons/bs";
 import { deleteTeacherCommentRequest, getTeacherCommentRequest, registerTeacherCommentRequest, updateTeacherCommentRequest } from "../../apis/api/teacherBoardApi";
+import { getPrincipalRequest } from "../../apis/api/principal";
+import { getStudentProfile } from "../../apis/api/profileApi";
+import GetTime from "../GetTime/GetTime";
 
 function TeacherComment(props) {
     const params = useParams();
@@ -15,8 +18,64 @@ function TeacherComment(props) {
     const [currentCommentId , setCurrentCommentId] = useState();
     const [changeButton, setChangeButton] = useState(0);
     const [isShowDropDownById, setShowDropDownById] = useState(0);
-    const teacherId = 27;
     const commentRef = useRef();
+    const commentInputRef = useRef(null);
+
+    const [ lsTeacherId, setLsTeacherId ] =useState(0);
+    const teacherUserId = lsTeacherId;
+    const queryClient = useQueryClient();
+    const [profile,setProfile] = useState({});
+    const [timeStamp,setTimeStamp] = useState([]);
+
+    const principalQuery = useQuery(
+        ["principalQuery"],
+        getPrincipalRequest,
+        {
+            retry: 0,
+            refetchOnWindowFocus: false,
+            onSuccess: response => {
+                console.log("principal Success");
+                console.log(response);
+            },
+            onError: error => {
+                console.log("principal Error");
+            }
+        }
+    );
+
+    const studentProfileQuery = useQuery(
+        ["studentProfileQuery"],
+        async() => await getStudentProfile(principalQuery.data.data.userId),
+        {
+            refetchOnWindowFocus: false,
+            retry: 0,
+            onSuccess: response => {
+                console.log("프로필 가져오기");
+                setProfile(response);
+            },
+            onError: error => {
+                console.log("에러");
+            },
+            enabled: !!principalQuery?.data?.data
+        }
+    )
+
+    useEffect(() => {
+        const token = localStorage.getItem("AccessToken");
+        if (token) {
+            const tokenPayLoad = token.split('.')[1];
+            try {
+                const decodedPayload = JSON.parse(atob(tokenPayLoad));
+                setLsTeacherId(decodedPayload.teacherId);
+            } catch (error) {
+                console.error("Failed to decode AccessToken:", error);
+                setLsTeacherId(0); // 예외 발생 시 roleId를 기본값으로 설정
+            }
+        } else {
+            console.error("AccessToken not found in localStorage");
+            setLsTeacherId(0); // AccessToken이 없을 경우 roleId를 기본값으로 설정
+        }
+    }, []);
 
     useEffect(() => {
         function handleClickOutside(event) {
@@ -25,9 +84,9 @@ function TeacherComment(props) {
             }
         }
 
-        document.addEventListener("mousedown", handleClickOutside);
+        document.addEventListener("click", handleClickOutside);
         return () => {
-            document.removeEventListener("mousedown", handleClickOutside);
+            document.removeEventListener("click", handleClickOutside);
         };
     }, []);
 
@@ -41,6 +100,13 @@ function TeacherComment(props) {
                     comments => {
                         return {
                             ...comments
+                        }
+                    }
+                ));
+                setTimeStamp(() => response.data.map(
+                    boards => {
+                        return {
+                            ...boards
                         }
                     }
                 ));
@@ -61,7 +127,7 @@ function TeacherComment(props) {
     const handleRegisterClick = () => {
         const comment = {
             teacherBoardId: params.teacherBoardId,
-            teacherId : 27,
+            teacherId : profile.data?.teacherId,
             comment : inputValue
         };
         console.log(comment);
@@ -78,8 +144,9 @@ function TeacherComment(props) {
     });
 
     const handleDeleteClick = (teacherCommentId) => {
-        
+        if(window.confirm("댓글을 삭제하시겠습니까?")){
         deleteTeacherCommentMutation.mutate(teacherCommentId);
+        }
     }
 
     const updateTeacherCommentMutation = useMutation({
@@ -106,6 +173,14 @@ function TeacherComment(props) {
         setCurrentCommentId(teacherCommentId);
         setInputValue(() => comment);
         setChangeButton(() => 1);
+
+        if (commentInputRef.current) {
+            commentInputRef.current.focus();
+
+            const yOffset = -100; 
+            const y = commentInputRef.current.getBoundingClientRect().top + window.scrollY + yOffset;
+            window.scrollTo({ top: y, behavior: 'auto' });
+        }
     }
 
     const handleCancelClick = () => {
@@ -145,20 +220,22 @@ function TeacherComment(props) {
                             <div css={s.commentTitle}>
                                 <div css={s.commentOption}>
                                     author
+                                    <div css={s.headerRight}>
+                                    <div css={s.commentDate}>{GetTime(new Date(comment.createDate))}</div>
                                     <div css={s.optionButtonBox}>
-                                        <button onClick={() => setShowDropDownById(id => id === comment.teacherCommentId ? 0 : comment.teacherCommentId)}><BsThreeDotsVertical /></button>
+                                        <button css={s.beforeChangeButton} onClick={() => setShowDropDownById(id => id === comment.teacherCommentId ? 0 : comment.teacherCommentId)}><BsThreeDotsVertical /></button>
                                         {
                                             isShowDropDownById === comment.teacherCommentId &&
                                             <div css={s.commentItem}>
                                                 {
-                                                    comment.teacherId === teacherId &&
+                                                    comment.teacherId === teacherUserId &&
                                                     <>
                                                         <button css={s.commentOptionButton} onClick={() => handleUpdateClick(comment.teacherCommentId,comment.comment)}> 수정 </button>
                                                         <button css={s.commentOptionButton} onClick={() => handleDeleteClick(comment.teacherCommentId)}> 삭제 </button>
                                                     </>
                                                 }
                                                 {
-                                                    comment.teacherId !== teacherId &&
+                                                    comment.teacherId !== teacherUserId &&
                                                     <>
                                                         <button css={s.commentOptionButton}> 차단 </button>
                                                         <button css={s.commentOptionButton}> 신고 </button>
@@ -168,7 +245,8 @@ function TeacherComment(props) {
                                         }
                                     </div>
                                 </div>
-                                <div>{comment.createDate}</div>
+                                </div>
+                               
                             </div>
                             <div css={s.commentMain}>
                                 <pre>{comment.comment}</pre>

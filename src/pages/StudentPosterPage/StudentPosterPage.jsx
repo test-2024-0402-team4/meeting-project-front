@@ -1,10 +1,58 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 /** @jsxImportSource @emotion/react */
 import * as s from "./style";
+import { useSearchParams } from 'react-router-dom';
+import { useQuery, useQueryClient } from 'react-query';
+import { getPrincipalRequest } from '../../apis/api/principal';
+import { getTuteePoster } from '../../apis/api/posterApi';
 
 
 function StudentPosterPage(props) {
 
+    const [searchParams] = useSearchParams();
+    const posterId = parseInt(searchParams.get("posterId"))
+    const [poster, setPoster] = useState();
+    console.log(posterId)
+
+
+    const queryClient = useQueryClient();
+    const [profile,setProfile] = useState({});
+    const principalQuery = useQuery(
+        ["principalQuery"],
+        getPrincipalRequest,
+        {
+            retry: 0,
+            refetchOnWindowFocus: false,
+            onSuccess: response => {
+                console.log("principal Success");
+            },
+            onError: error => {
+                console.log("principal Error");
+            }
+        }
+    );
+
+    const getStudentMyPoster = useQuery(
+        ["getStudentMyPoster"],
+        async () => await getTuteePoster({ posterId: posterId }),
+        {
+            retry: 0,
+            refetchOnWindowFocusf: false,
+            onSuccess: response => {
+                console.log("학생 포스터 가져오기")
+                console.log(response.data)
+                setPoster(response.data)
+            },
+            onError: error => {
+                console.log("에러");
+            }
+        }
+    )
+
+
+    const test = () => {
+
+    }
     
     return (
         <div css={s.layout}>

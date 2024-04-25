@@ -32,7 +32,7 @@ function TeacherRegisterProfilePage() {
         const principalData = queryClient.getQueriesData("principalQuery");
         
         // console.log(principalData[0][1].data.userId);
-        setUserId(() => principalData[0][1].data.userId);
+        setUserId(() => principalData[0][1]?.data.userId);
     },[]);
 
 
@@ -88,7 +88,7 @@ function TeacherRegisterProfilePage() {
         {
             onSuccess: response => {
                 // console.log(response);
-                setRegionOptions(() => response.data.map(region => {
+                setRegionOptions(() => response?.data.map(region => {
                     return {
                         value: region.regionId,
                         label: region.regionName

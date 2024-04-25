@@ -250,7 +250,7 @@ function TeacherProfiles() {
                                     <div css={s.imgLayout}>
                                         <img src={teacherProfile.userImgUrl}/>
                                     </div>
-                                    <div onClick={() => navigate(`/teacher/profile?userId=${teacherProfile.userId}`)} css={s.teacherProfileContent}>
+                                    <div onClick={() => navigate(`/student/tutor?userId=${teacherProfile.userId}`)} css={s.teacherProfileContent}>
                                         <div>{teacherProfile.nickname}</div>
                                         <div>
                                             <span>{teacherProfile.universityName} </span>
