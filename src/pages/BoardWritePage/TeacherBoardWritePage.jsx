@@ -75,9 +75,9 @@ function TeacherBoardWritePage(props) {
           <div css={s.writePageTitle}>
             게시글 작성
             
-            <div css={s.titleButton}>
-                <button onClick={handleSubmitClick}>완료</button>
-                <button onClick={handleCancelClick}>취소</button>
+            <div css={s.titleButtons}>
+                <button css={s.titleButton} onClick={handleSubmitClick}>완료</button>
+                <button css={s.titleButton} onClick={handleCancelClick}>취소</button>
             </div>
           </div>
 
@@ -88,14 +88,16 @@ function TeacherBoardWritePage(props) {
            onChange={handleInputChange}
            value={inputValue} />
         </div>  
-
+          <div css={s.quill}>
             <ReactQuill style={{
-                width: "1260px",
+                marginBottom: "50px",
+                width: "1100px",
                 height: "700px"
             }}
             modules={QUILL_MODULES(quillImageHandler)}
             onChange={handleQuillValueChange}
             ref={reactQuillRef}/>
+            </div>
         </div>
         </>
     );

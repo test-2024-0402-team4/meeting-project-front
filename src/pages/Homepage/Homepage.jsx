@@ -3,6 +3,7 @@
 
 import { Link } from "react-router-dom";
 
+
 import * as s from "./style";
 import { useNavigate } from "react-router-dom";
 import { BsPatchCheck } from "react-icons/bs";
@@ -63,7 +64,7 @@ function Homepage(props) {
                                     <div>
                                         지금 바로 필요한 과외를 등록해보세요!
                                     </div>
-                                    <Link to={"/student/registerPoster"}>
+                                        <Link to={"/student/register/poster"}>
                                         지금 바로 입력하기 &#62;
                                     </Link>
                                 </div>                     

@@ -2,11 +2,14 @@
 import * as s from "./style";
 import { useParams, useSearchParams } from "react-router-dom";
 import React, { useEffect, useRef, useState } from 'react';
-import { useMutation, useQuery } from "react-query";
+import { useMutation, useQuery, useQueryClient } from "react-query";
 import { useMaxValueValidateInput } from "../../hooks/inputHook";
 import { BsThreeDotsVertical } from "react-icons/bs";
 import { deleteTeacherCommentRequest, getTeacherCommentRequest, registerTeacherCommentRequest, updateTeacherCommentRequest } from "../../apis/api/teacherBoardApi";
 import { deleteStudyCommentRequest, getStudyCommentRequest, registerStudyCommentRequest, updateStudyCommentRequest } from "../../apis/api/studyBoardApi";
+import { getPrincipalRequest } from "../../apis/api/principal";
+import { getStudentProfile } from "../../apis/api/profileApi";
+import GetTime from "../GetTime/GetTime";
 
 function StudyComment(props) {
     const params = useParams();
@@ -17,7 +20,65 @@ function StudyComment(props) {
     const [changeButton, setChangeButton] = useState(0);
     const [isShowDropDownById, setShowDropDownById] = useState(0);
     const commentRef = useRef();
-    const userId = 1;
+    const [profile,setProfile] = useState({});
+    const [ lsUserId, setLsUsertId ] =useState(0);
+    const userId = lsUserId;
+    const commentInputRef = useRef(null);
+    const [timeStamp,setTimeStamp] = useState([]);
+
+    const queryClient = useQueryClient();
+
+    const principalQuery = useQuery(
+        ["principalQuery"],
+        getPrincipalRequest,
+        {
+            retry: 0,
+            refetchOnWindowFocus: false,
+            onSuccess: response => {
+                console.log("principal Success");
+                console.log(response);
+            },
+            onError: error => {
+                console.log("principal Error");
+            }
+        }
+    );
+
+    const studentProfileQuery = useQuery(
+        ["studentProfileQuery"],
+        async() => await getStudentProfile(principalQuery.data.data.userId),
+        {
+            refetchOnWindowFocus: false,
+            retry: 0,
+            onSuccess: response => {
+                console.log("프로필 가져오기");
+                setProfile(response);
+            },
+            onError: error => {
+                console.log("에러");
+            },
+            enabled: !!principalQuery?.data?.data
+        }
+    )
+console.log(profile);
+
+useEffect(() => {
+    const token = localStorage.getItem("AccessToken");
+    if (token) {
+        const tokenPayLoad = token.split('.')[1];
+        try {
+            const decodedPayload = JSON.parse(atob(tokenPayLoad));
+            setLsUsertId(decodedPayload.userId);
+        } catch (error) {
+            console.error("Failed to decode AccessToken:", error);
+            setLsUsertId(0); // 예외 발생 시 roleId를 기본값으로 설정
+        }
+    } else {
+        console.error("AccessToken not found in localStorage");
+        setLsUsertId(0); // AccessToken이 없을 경우 roleId를 기본값으로 설정
+    }
+}, []);
+
     useEffect(() => {
         function handleClickOutside(event) {
             if (commentRef.current && !commentRef.current.contains(event.target)) {
@@ -25,9 +86,9 @@ function StudyComment(props) {
             }
         }
 
-        document.addEventListener("mousedown", handleClickOutside);
+        document.addEventListener("click", handleClickOutside);
         return () => {
-            document.removeEventListener("mousedown", handleClickOutside);
+            document.removeEventListener("click", handleClickOutside);
         };
     }, []);
 
@@ -41,6 +102,13 @@ function StudyComment(props) {
                     comments => {
                         return {
                             ...comments
+                        }
+                    }
+                ));
+                setTimeStamp(() => response.data.map(
+                    boards => {
+                        return {
+                            ...boards
                         }
                     }
                 ));
@@ -61,7 +129,7 @@ function StudyComment(props) {
     const handleRegisterClick = () => {
         const comment = {
             studyBoardId: params.studyBoardId,
-            userId : 12,
+            userId : profile.data?.userId,
             comment : inputValue
         };
         console.log(comment);
@@ -78,8 +146,9 @@ function StudyComment(props) {
     });
 
     const handleDeleteClick = (studyCommentId) => {
-        
+        if(window.confirm("댓글을 삭제하시겠습니까?")){
         deleteStudyCommentMutation.mutate(studyCommentId);
+        }
     }
 
     const updateStudyCommentMutation = useMutation({
@@ -106,6 +175,14 @@ function StudyComment(props) {
         setCurrentCommentId(studyCommentId);
         setInputValue(() => comment);
         setChangeButton(() => 1);
+
+        if (commentInputRef.current) {
+            commentInputRef.current.focus();
+
+            const yOffset = -100; 
+            const y = commentInputRef.current.getBoundingClientRect().top + window.scrollY + yOffset;
+            window.scrollTo({ top: y, behavior: 'auto' });
+        }
     }
 
     const handleCancelClick = () => {
@@ -145,8 +222,10 @@ function StudyComment(props) {
                             <div css={s.commentTitle}>
                                 <div css={s.commentOption}>
                                     author
+                                    <div css={s.headerRight}>
+                                    <div css={s.commentDate}>{GetTime(new Date(comment.createDate))}</div>
                                     <div css={s.optionButtonBox}>
-                                        <button onClick={() => setShowDropDownById(id => id === comment.studyCommentId ? 0 : comment.studyCommentId)}><BsThreeDotsVertical /></button>
+                                        <button css={s.beforeChangeButton} onClick={() => setShowDropDownById(id => id === comment.studyCommentId ? 0 : comment.studyCommentId)}><BsThreeDotsVertical /></button>
                                         {
                                             isShowDropDownById === comment.studyCommentId &&
                                             <div css={s.commentItem}>
@@ -166,9 +245,10 @@ function StudyComment(props) {
                                                 }
                                             </div>
                                         }
+                                        </div>
                                     </div>
                                 </div>
-                                <div>{comment.createDate}</div>
+                                
                             </div>
                             <div css={s.commentMain}>
                                 <pre>{comment.comment}</pre>

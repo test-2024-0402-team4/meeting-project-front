@@ -135,7 +135,7 @@ function TeacherRegisterProfilePage() {
             dateIds,
             classTypeIds
         }).then(response => {
-            alert("등록이 완료됐습니다.");
+            alert("등록이 완료되었습니다.");
             navigate("/main");
         }).catch(error => {
             alert("다시 입력해주세요.");
