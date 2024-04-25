@@ -2,10 +2,13 @@
 import * as s from "./style";
 import { useParams, useSearchParams } from "react-router-dom";
 import React, { useEffect, useRef, useState } from 'react';
-import { useMutation, useQuery } from "react-query";
+import { useMutation, useQuery, useQueryClient } from "react-query";
 import { deleteStudentCommentRequest, getStudentCommentRequest, registerStudentComment, registerStudentCommentRequest, updateStudentCommentRequest } from "../../apis/api/boardApi";
 import { useMaxValueValidateInput } from "../../hooks/inputHook";
 import { BsThreeDotsVertical } from "react-icons/bs";
+import { getPrincipalRequest } from "../../apis/api/principal";
+import { getStudentProfile } from "../../apis/api/profileApi";
+import GetTime from "../GetTime/GetTime";
 
 function StudentComment(props) {
     const params = useParams();
@@ -16,9 +19,48 @@ function StudentComment(props) {
     const [changeButton, setChangeButton] = useState(0);
     const [isShowDropDownById, setShowDropDownById] = useState(0);
     const buttonRef = useRef();
-    
+    const [profile,setProfile] = useState({});
     const [ lsStudentId, setLsStudentId ] =useState(0);
     const studentUserId = lsStudentId;
+    const queryClient = useQueryClient();
+    const commentInputRef = useRef(null);
+    const [timeStamp,setTimeStamp] = useState([]);
+
+
+    const principalQuery = useQuery(
+        ["principalQuery"],
+        getPrincipalRequest,
+        {
+            retry: 0,
+            refetchOnWindowFocus: false,
+            onSuccess: response => {
+                console.log("principal Success");
+                console.log(response);
+            },
+            onError: error => {
+                console.log("principal Error");
+            }
+        }
+    );
+
+    const studentProfileQuery = useQuery(
+        ["studentProfileQuery"],
+        async() => await getStudentProfile(principalQuery.data.data.userId),
+        {
+            refetchOnWindowFocus: false,
+            retry: 0,
+            onSuccess: response => {
+                console.log("프로필 가져오기");
+                setProfile(response);
+                
+            },
+            onError: error => {
+                console.log("에러");
+            },
+            enabled: !!principalQuery?.data?.data
+        }
+    )
+console.log(profile);
 
     useEffect(() => {
         const token = localStorage.getItem("AccessToken");
@@ -36,13 +78,12 @@ function StudentComment(props) {
             setLsStudentId(0); // AccessToken이 없을 경우 roleId를 기본값으로 설정
         }
     }, []);
-    console.log(lsStudentId);
 
     const handleButtonClick = (e, id) => {
         console.log(e.target)
         buttonRef.current = e.target;
         setShowDropDownById(prevId => prevId === id ? 0 : id)
-        
+        console.log("나 버튼 아이콘");
     }
     useEffect(() => {
         function handleClickOutside(event) {
@@ -50,12 +91,11 @@ function StudentComment(props) {
                 setShowDropDownById(0);
             }
         }
-        document.addEventListener("mousedown", handleClickOutside);
+        document.addEventListener("click", handleClickOutside);
         return () => {
-            document.removeEventListener("mousedown", handleClickOutside);
+            document.removeEventListener("click", handleClickOutside);
         };
     }, [buttonRef.current]);
-
   
 
 
@@ -71,7 +111,15 @@ function StudentComment(props) {
                             ...comments
                         }
                     }
+                    
                 ));
+                setTimeStamp(() => response.data.map(
+                    boards => {
+                        return {
+                            ...boards
+                        }
+                    }
+                ))
                 console.log(response.data);
             }
         }
@@ -89,7 +137,7 @@ function StudentComment(props) {
     const handleRegisterClick = () => {
         const comment = {
             studentBoardId: params.studentBoardId,
-            studentUserId : 27,
+            studentUserId : profile.data?.studentId,
             comment : inputValue
         };
         console.log(comment);
@@ -106,8 +154,10 @@ function StudentComment(props) {
     });
 
     const handleDeleteClick = (studentCommentId) => {
-        
+        if(window.confirm("댓글을 삭제하시겠습니까?")){
         deleteStudentCommentMutation.mutate(studentCommentId);
+        }
+        setShowDropDownById(0);
     }
 
     const updateStudentCommentMutation = useMutation({
@@ -134,6 +184,16 @@ function StudentComment(props) {
         setCurrentCommentId(studentCommentId);
         setInputValue(() => comment);
         setChangeButton(() => 1);
+        setShowDropDownById(0);
+        console.log("나 수정버튼")
+
+        if (commentInputRef.current) {
+            commentInputRef.current.focus();
+
+            const yOffset = -100; 
+            const y = commentInputRef.current.getBoundingClientRect().top + window.scrollY + yOffset;
+            window.scrollTo({ top: y, behavior: 'auto' });
+        }
     }
 
     const handleCancelClick = () => {
@@ -149,6 +209,7 @@ function StudentComment(props) {
             <div css={s.inputContainer}>
                 <textarea 
                 css={s.inputComment}
+                ref={commentInputRef}
                  placeholder="댓글을 입력해 주세요"
                  onChange={handleInputChange}
                  value={inputValue} />
@@ -165,7 +226,7 @@ function StudentComment(props) {
                     <button css={s.inputButton} onClick={handleRegisterClick}> 등록 </button>
                 }
             </div>
-            <div>
+            <div >
                 {
                     comments.map(
                         comment => 
@@ -173,8 +234,10 @@ function StudentComment(props) {
                             <div css={s.commentTitle}>
                                 <div css={s.commentOption}>                                                                                 
                                     author
+                                    <div css={s.headerRight}>
+                                    <div css={s.commentDate}>{GetTime(new Date(comment.createDate))}</div>
                                     <div css={s.optionButtonBox}>
-                                        <button onClick={(e) => handleButtonClick(e, comment.studentCommentId)}><BsThreeDotsVertical /></button>
+                                        <button css={s.beforeChangeButton} onClick={(e) => handleButtonClick(e, comment.studentCommentId)}><BsThreeDotsVertical /></button>
                                         {
                                             isShowDropDownById === comment.studentCommentId &&
                                             <div css={s.commentItem}>
@@ -194,9 +257,10 @@ function StudentComment(props) {
                                                     }
                                             </div>
                                         }
+                                       </div>
                                     </div>
                                 </div>
-                                <div>{comment.createDate}</div>
+                                
                             </div>
                                 <div css={s.commentMain}>
                                     <pre>{comment.comment}</pre>

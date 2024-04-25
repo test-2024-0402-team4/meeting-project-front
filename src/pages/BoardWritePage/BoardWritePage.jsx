@@ -14,7 +14,7 @@ import { storage } from "../../apis/firebase/firebaseConfig";
 function BoardWritePage(props) {
     
     const [quillValue , handleQuillValueChange] = useQuill();
-    const [inputValue , handleInputChange] = useMaxValueValidateInput(20);
+    const [inputValue , handleInputChange] = useMaxValueValidateInput(25);
     const reactQuillRef = useRef();
 
     const registerBoardMutation = useMutation({
@@ -22,7 +22,7 @@ function BoardWritePage(props) {
       mutationFn: registerStudentBoard,
       onSuccess: response => {
         alert("글이 작성되었습니다");
-        window.location.replace("/teacher/boards?page=1");
+        window.location.replace("/student/boards?page=1");
       }
     });
 
@@ -37,8 +37,9 @@ function BoardWritePage(props) {
       };
 
       console.log(board)
-      
-      registerBoardMutation.mutate(board);
+      if(window.confirm("글을 작성하시겠습니까?")){
+        registerBoardMutation.mutate(board); 
+      }
     }
 
     console.log(inputValue);
@@ -76,13 +77,11 @@ function BoardWritePage(props) {
           <div css={s.writePageTitle}>
             게시글 작성
             
-            <div css={s.titleButton}>
-                <button onClick={handleSubmitClick}>완료</button>
-                <button onClick={handleCancelClick}>취소</button>
+            <div css={s.titleButtons}>
+                <button css={s.titleButton} onClick={handleSubmitClick}>완료</button>
+                <button css={s.titleButton} onClick={handleCancelClick}>취소</button>
             </div>
-          </div>  
-            <div css={s.themaChoice}>주제</div>  
-            <div css={s.imgInsert}>이미지첨부</div>
+          </div>
 
           <div css={s.writeMain}>
            <input css={s.mainInput} 
@@ -90,17 +89,21 @@ function BoardWritePage(props) {
            placeholder="제목을 입력하세요"
            onChange={handleInputChange}
            value={inputValue} />
-        </div>  
+          </div> 
 
+          <div css={s.quill}>
             <ReactQuill style={{
-                width: "1260px",
-                height: "700px"
+              marginBottom: "50px",
+              width: "1100px",
+              height: "700px"
             }}
             modules={QUILL_MODULES(quillImageHandler)}
             onChange={handleQuillValueChange}
             ref={reactQuillRef}/>
+          </div>
         </div>
         </>
+        
     );
 }
 

@@ -9,9 +9,11 @@ import BoardPageCount from "../../components/BoardPageCount/BoardPageCount";
 import { getTeacherCount, searchTeacherBoardListRequest } from "../../apis/api/teacherBoardApi";
 import TeacherBoardPageCount from "../../components/BoardPageCount/TeacherBoardPageCount";
 import { IoSearchOutline } from "react-icons/io5";
+import GetTime from "../../components/GetTime/GetTime";
+
 function TeacherBoardListPage(props) {
     const [searchParams, setSearchParams] = useSearchParams();
-    const searchCount = 2;
+    const searchCount = 11;
     const [boardList, setBoardList] = useState([]);
 
     const queryClient = useQueryClient();
@@ -82,15 +84,16 @@ function TeacherBoardListPage(props) {
                 <button css={s.authorityButton}>선생님용</button>
                 <button css={s.authorityButton}>공부방</button>
             </div>
-            <h1 css={s.headerTitle}>게시글목록</h1>
         
             <div css={s.searchInput}>
-                <input css={s.inputBox} type="text" 
-                placeholder="검색어를 입력하세요"
-                value={searchText.value}
-                onChange={searchText.handleOnChange}
-                onKeyDown={searchText.handleOnKeyDown}/>
-                <button onClick={searchSubmit} css={s.searchButton}><IoSearchOutline /></button>
+                <div css={s.searchContainer}>
+                    <input css={s.inputBox} type="text" 
+                    placeholder="검색어를 입력하세요"
+                    value={searchText.value}
+                    onChange={searchText.handleOnChange}
+                    onKeyDown={searchText.handleOnKeyDown}/>
+                    <button onClick={searchSubmit} css={s.searchButton}><IoSearchOutline /></button>
+                </div>
             </div>
 
             <div css={s.boardListLayout}>
@@ -108,7 +111,7 @@ function TeacherBoardListPage(props) {
                         <li >
                             <div>{board.title}</div>
                             <div>author</div>
-                            <div>{board.createDate}</div>
+                            <div>{GetTime(new Date(board.createDate))}</div>
                             <div>{board.viewCount}</div>
                          </li>
                     </Link>

@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 
-import { Link, Route, Routes } from "react-router-dom";
+import { Link} from "react-router-dom";
 
 import * as s from "./style";
 import { Route, Routes, useNavigate } from "react-router-dom";

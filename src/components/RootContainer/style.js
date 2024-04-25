@@ -5,8 +5,6 @@ export const container = css`
     display: flex;
     min-height: 618px;
     width: 100%;
-    z-index: 0;
-
 `;
 
 

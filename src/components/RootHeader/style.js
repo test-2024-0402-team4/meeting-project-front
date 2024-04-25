@@ -10,7 +10,8 @@ export const headerLayout = css`
 export const header = css`
     padding: 10px 0px 10px 0px;
     display: flex;
-    max-width: 70%;
+    width: 70%;
+    max-width: 1150px;
     min-width: 550px;
     margin: 0 auto;  
 `;
