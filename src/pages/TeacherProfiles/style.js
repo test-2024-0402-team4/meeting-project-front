@@ -59,6 +59,7 @@ export const SearchBox = css`
     }
 `;
 export const filterContentLayout = css`
+    
     margin-top: 10px;
     width: 100%;
     height: 100%;
@@ -67,6 +68,8 @@ export const filterContentLayout = css`
 export const filiterModal = (filterNum) => css`
     position: absolute;
     background-color: white;
+    display: flex;
+    justify-content: ${filterNum === 1 ? "space-between" : ""};
     top: ${filterNum === 1 ? '110px' :
           filterNum === 2 ? '155px' :
           filterNum === 3 ? '200px' :
@@ -78,6 +81,20 @@ export const filiterModal = (filterNum) => css`
     border-radius: 8px;
 `;
 
+export const xMark = css`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: 8px;
+    cursor: pointer;
+ & > * {
+    font-size: 16px;
+    :hover {
+        border-radius: 5px;
+        background-color:  #dbdbdb;
+    }
+ }
+`
 
 export const filterBox = css`
     display: flex;

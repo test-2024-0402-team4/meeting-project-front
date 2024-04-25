@@ -4,33 +4,42 @@ import * as s from "./style";
 import { useSearchParams } from 'react-router-dom';
 import { useQuery, useQueryClient } from 'react-query';
 import { getPrincipalRequest } from '../../apis/api/principal';
-import { getTuteePoster } from '../../apis/api/posterApi';
+import { getTuteePoster, getTuteeProfile } from '../../apis/api/posterApi';
+import { getStudentProfile } from '../../apis/api/profileApi';
 
 
 function StudentPosterPage(props) {
 
     const [searchParams] = useSearchParams();
-    const posterId = parseInt(searchParams.get("posterId"))
+    const posterId = parseInt(searchParams.get("posterId"));
     const [poster, setPoster] = useState();
-    console.log(posterId)
-
+    const [userId, setUserId] = useState(0);
 
     const queryClient = useQueryClient();
     const [profile,setProfile] = useState({});
-    const principalQuery = useQuery(
-        ["principalQuery"],
-        getPrincipalRequest,
-        {
-            retry: 0,
-            refetchOnWindowFocus: false,
-            onSuccess: response => {
-                console.log("principal Success");
-            },
-            onError: error => {
-                console.log("principal Error");
-            }
-        }
-    );
+
+    useEffect(() => {
+
+        getPosterStudentProfile();
+        console.log(userId);
+    }, [poster])
+    console.log(profile);
+
+
+    // 만나이 계산기
+    const birthDate = (profile?.birthDate)
+    const year = birthDate?.substr(0, 4)
+    const month = birthDate?.substr(4, 2)
+    const day = birthDate?.substr(6, 2)
+
+    const today = new Date();
+    const birthDay = new Date(parseInt(year), parseInt(month), parseInt(day));
+
+    let age = today.getFullYear() - birthDay.getFullYear();
+    const m = today.getMonth() - birthDay.getMonth();
+    if (m < 0 || (m === 0 && today.getDate() < birthDay.getDate())) {
+        age--;
+    }
 
     const getStudentMyPoster = useQuery(
         ["getStudentMyPoster"],
@@ -39,9 +48,9 @@ function StudentPosterPage(props) {
             retry: 0,
             refetchOnWindowFocusf: false,
             onSuccess: response => {
-                console.log("학생 포스터 가져오기")
-                console.log(response.data)
-                setPoster(response.data)
+                console.log("학생 포스터 가져오기");
+                setPoster(response.data);
+                setUserId(response.data.userId)
             },
             onError: error => {
                 console.log("에러");
@@ -49,10 +58,15 @@ function StudentPosterPage(props) {
         }
     )
 
-
-    const test = () => {
-
+    const getPosterStudentProfile = async () => {
+        try {
+            const response = await getTuteeProfile({userId: userId})
+            setProfile(response.data)
+        } catch (error) {
+            
+        }
     }
+    
     
     return (
         <div css={s.layout}>
@@ -60,22 +74,22 @@ function StudentPosterPage(props) {
                 <div css={s.profileLayout}>
                     <div css={s.profile}>
                         <div css={s.profileImgLayout}>
-                            포스터 유저 아이디 이미지
+                            {profile?.userImgUrl}
                         </div>
                         <div>
                             <span>
-                                포스터닉네임
+                                {profile?.nickname}
                             </span>
                             <span css={s.roleName}>
-                                포스터유저권한
+                                {profile?.roleNameKor}
                             </span>
                         </div>
                         <div>
                             <span>
-                                성별
+                                {profile?.genderType}
                             </span>
                             <span>
-                                지역
+                                {profile?.regionName}
                             </span>
                         </div>
                     </div>
@@ -96,7 +110,7 @@ function StudentPosterPage(props) {
                                         성별
                                     </div>
                                     <div>
-                                        남
+                                        {poster?.genderType}
                                     </div>
                                 </div>
                                 <div css={s.studentInfoContent}>
@@ -104,7 +118,7 @@ function StudentPosterPage(props) {
                                         나이
                                     </div>
                                     <div>
-                                        만??세
+                                        만 {age}세
                                     </div>
                                 </div>
                             </div>
@@ -118,7 +132,7 @@ function StudentPosterPage(props) {
                                             요일
                                         </div>    
                                         <div>
-                                            월, 화, 수
+                                            {poster?.dateType.map(value => value).join(", ")}
                                         </div>                                
                                     </div>
                                 </div>
@@ -131,7 +145,7 @@ function StudentPosterPage(props) {
                                             지역
                                         </div>
                                         <div>
-                                            db지역
+                                            {poster?.regionName}   
                                         </div>
                                     </div>
                                 </div>
@@ -144,7 +158,7 @@ function StudentPosterPage(props) {
                                             과목
                                         </div>
                                         <div>
-                                            db과목 리스트
+                                            {poster?.subjectName.map(value => value).join(", ")}
                                         </div>
                                     </div>
                                 </div>
@@ -154,8 +168,20 @@ function StudentPosterPage(props) {
                                     </div>
                                     <div css={s.studentInfoContent}>
                                         <div>
-                                            대면, 비대면
+                                            {poster?.classType.map(value => value).join(", ")}
                                         </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div css={s.studentInfoLayout}>
+                                <div>
+                                    <div css={s.studentPosterInfo}>
+                                        수업 요청 사항
+                                    </div>
+                                    <div css={s.Postercontent}>
+                                        <div>
+                                            {poster?.content}
+                                        </div>                             
                                     </div>
                                 </div>
                             </div>

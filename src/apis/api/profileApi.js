@@ -11,5 +11,8 @@ export const registerProfileRequest = async (data) => {
 
 export const getStudentProfile = async (userId) => {
     return await instance.get(`/student/profile/${userId}`)
-
 }
+
+
+
+

@@ -7,7 +7,6 @@ import { getStudentProfile } from "../../apis/api/profileApi";
 import { getPrincipalRequest } from "../../apis/api/principal";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { getMyPosters } from "../../apis/api/posterApi";
-
 function StudentMyPostersPage(props) {
 
     const [searchParams] = useSearchParams();

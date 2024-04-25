@@ -21,3 +21,7 @@ export const getTuteePosters = async(params) => {
 export const getTuteePoster = async(params) => {
     return await instance.get("/teacher/tutee/poster", {params})
 }
+
+export const getTuteeProfile = async (params) => {
+    return await instance.get(`/teacher/tutee/profile`, {params})
+}
