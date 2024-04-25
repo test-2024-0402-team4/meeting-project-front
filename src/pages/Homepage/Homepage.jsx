@@ -63,7 +63,7 @@ function Homepage(props) {
                                     <div>
                                         지금 바로 필요한 과외를 등록해보세요!
                                     </div>
-                                    <Link to={"/account/teacher/registerPoster"}>
+                                    <Link to={"/student/registerPoster"}>
                                         지금 바로 입력하기 &#62;
                                     </Link>
                                 </div>                     
@@ -109,7 +109,7 @@ function Homepage(props) {
                     roleId === 1 ?
                     <>
                         <div css={s.mainRightButton}>
-                            <div onClick={() => handelPageMove(`teacher/profiles`)} css={s.searchTeacherButton}>
+                            <div onClick={() => handelPageMove(`student/tutor/list`)} css={s.searchTeacherButton}>
                                 <div>
                                     과외선생님 찾기
                                 </div>
@@ -128,7 +128,7 @@ function Homepage(props) {
                     : roleId === 2 ?
                     <>
                         <div css={s.mainRightButton}>
-                            <div onClick={() => handelPageMove(`teacher/poster/list`)} css={s.searchTeacherButton(roleId)}>
+                            <div onClick={() => handelPageMove(`teacher/tutee/poster/list`)} css={s.searchTeacherButton(roleId)}>
                                 <div>
                                     과외 학생 찾기
                                 </div>

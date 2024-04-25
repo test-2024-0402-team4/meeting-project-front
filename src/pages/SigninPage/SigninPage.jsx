@@ -26,7 +26,7 @@ function SigninPage() {
             const accessToken = response.data;
 
             localStorage.setItem("AccessToken", accessToken);
-            window.location.replace("/main");
+            window.location.replace("/");
 
         }).catch(error => {
             alert(error.response.data);

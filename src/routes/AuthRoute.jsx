@@ -14,22 +14,7 @@ import { useEffect } from 'react';
 import OAuth2SigninPage from '../pages/OAuth2SigninPage/OAuth2SigninPage';
 
 function AuthRoute(props) {
-
-    const principalQuery = useQuery(
-        ["principalQuery"],
-        getPrincipalRequest,
-        {
-            retry: 0,
-            refetchOnWindowFocus: false,
-            onSuccess: response => {
-                console.log("principal Success");
-            },
-            onError: error => {
-                console.log("principal Error");
-            }
-        }
-    );
-
+    
 
     return (
         <>
