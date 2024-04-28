@@ -66,6 +66,10 @@ function StudentMyPosterPage(props) {
     )
     console.log(poster)
 
+    const handleModifyOnClick = () => {
+        window.location.replace("/student/myposter/modify");
+    }
+
     return (
         <div css={s.layout}>
             <div css={s.profileLayout}>
@@ -104,7 +108,7 @@ function StudentMyPosterPage(props) {
                             학생 정보
                         </div>
                         <div css={s.buttonLayout}>
-                            <button>수정</button>
+                            <button onClick={handleModifyOnClick}>수정</button>
                             <button>삭제</button>
                         </div>
                     </div>

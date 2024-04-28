@@ -2,7 +2,7 @@
 
 import * as s from "./style";
 import { useSignupInput } from '../../hooks/useSignupInput';
-import { findIdRequest, signinRequest } from "../../apis/api/signin";
+import { signinRequest } from "../../apis/api/signin";
 import AuthPageInput from "../../components/AuthPageInput/AuthPageInput";
 import { Link } from "react-router-dom";
 import { useQueryClient } from "react-query";

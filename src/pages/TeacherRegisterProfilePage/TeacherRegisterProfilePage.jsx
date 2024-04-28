@@ -8,6 +8,7 @@ import { getClassType, getDate, getRegion, getSubject } from "../../apis/api/Opt
 import { teacherProfileRequest } from "../../apis/api/teacherProfile";
 import { useAuthCheck } from "../../hooks/useAuthCheck";
 import { useNavigate } from "react-router-dom";
+import { getPrincipalRequest } from "../../apis/api/principal";
 
 function TeacherRegisterProfilePage() {
     
@@ -25,15 +26,32 @@ function TeacherRegisterProfilePage() {
     const [ dateIds, setDateIds ] = useState([]);
 
     const [ userId, setUserId ] = useState();
+    const [ textLength, setTextLength ] = useState(0);
 
     const queryClient = useQueryClient();
 
-    useEffect(() => {
-        const principalData = queryClient.getQueriesData("principalQuery");
+    // useEffect(() => {
+    //     const principalData = queryClient.getQueriesData("principalQuery");
         
-        // console.log(principalData[0][1].data.userId);
-        setUserId(() => principalData[0][1]?.data.userId);
-    },[]);
+    //     // console.log(principalData[0][1].data.userId);
+    //     setUserId(() => principalData[0]?.data.userId);
+    // },[]);
+
+    const principalQuery = useQuery(
+        ["principalQuery"],
+        getPrincipalRequest,
+        {
+            retry: 0,
+            refetchOnWindowFocus: false,
+            onSuccess: response => {
+                // console.log(response.data.userId);
+                setUserId(() => response.data.userId);
+            },
+            onError: error => {
+                console.log("principal Error");
+            }
+        }
+    );
 
 
     const classTypeQuery = useQuery(
@@ -126,6 +144,15 @@ function TeacherRegisterProfilePage() {
         console.log(dateIds.map(option => option.value));
     }
 
+    const selectStyle = {
+        control: baseStyles => ({
+            ...baseStyles,
+            border: "1px solid #dbdbdb",
+            borderRadius: "5px",
+            width: "656px",
+            height: "50px"
+        })
+    }
 
     const handleSubmitOnClick = () => {
         teacherProfileRequest({
@@ -145,30 +172,67 @@ function TeacherRegisterProfilePage() {
 
     return (
         <div css={s.layout}>
-            
-            <div css={s.box}>
-                <div css={s.selectBox1}>
-                    <span>과외 방식(필수)</span>
-                    <Select options={classTypeOptions} placeholder="과외 방식"  onChange={handleClassTypeIdOnChange} isMulti />
-                </div>
-                <div css={s.selectBox2}>
-                    <span>과외 과목(필수)</span>
-                    <Select options={subjectOptions} placeholder="과목"  onChange={handleSubjectIdOnChange} isMulti />
-                </div>
-                <div css={s.selectBox3}>
-                    <span>희망 수업지역(필수)</span>
-                    <Select options={regionOptions} placeholder="수업 지역" onChange={handleRegionIdOnChange} isMulti />
-                </div>
-                <div css={s.selectBox4}>
-                    <span>수업 가능 일정(필수)</span>
-                    <Select options={dateOptions} placeholder="수업 가능 일정"  onChange={handleDateIdOnChange} isMulti />
+        <div css={s.body}>
+
+            <div css={s.bodyBox1}>
+                <div css={s.box1}>
+                    <span>선생님 필수정보 등록</span>
+                    <button css={s.buttonBox} onClick={handleSubmitOnClick}>등록</button>
                 </div>
             </div>
 
-            <div css={s.buttonBox}>
-                <button onClick={handleSubmitOnClick}>등록하기</button>
+
+            <div css={s.bodyBox}>
+                <div css={s.box2}>
+                    <div css={s.spanBox}>
+                        <span>과외 방식</span>
+                        <span>(필수)</span>
+                    </div>
+                    <div css={s.selectBox}>
+                        <Select options={classTypeOptions} styles={selectStyle} placeholder="과외 방식" onChange={handleClassTypeIdOnChange} isMulti/>
+                    </div>
+                </div>
             </div>
+
+            <div css={s.bodyBox}>
+                <div css={s.box2}>
+                    <div css={s.spanBox}>
+                        <span>과외 과목</span>
+                        <span>(필수)</span>
+                    </div>
+                    <div css={s.selectBox}>
+                        <Select options={subjectOptions} styles={selectStyle} placeholder="과외 과목" onChange={handleSubjectIdOnChange} isMulti/>
+                    </div>
+                </div>
+            </div>
+
+            <div css={s.bodyBox}>
+                <div css={s.box2}>
+                    <div css={s.spanBox}>
+                        <span>희망 수업지역</span>
+                        <span>(필수)</span>
+                    </div>
+                    <div css={s.selectBox}>
+                        <Select options={regionOptions} styles={selectStyle} placeholder="수업 지역" onChange={handleRegionIdOnChange}/>
+                    </div>
+                </div>
+            </div>
+
+            <div css={s.bodyBox}>
+                <div css={s.box2}>
+                    <div css={s.spanBox}>
+                        <span>수업 가능 일정</span>
+                        <span>(필수)</span>
+                    </div>
+
+                    <div css={s.selectBox}>
+                        <Select options={dateOptions} styles={selectStyle} placeholder="수업 가능 일정" onChange={handleDateIdOnChange} isMulti/>
+                    </div>
+                </div>
+            </div>
+
         </div>
+    </div>
     );
 }
 

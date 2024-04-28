@@ -1,39 +1,42 @@
 /** @jsxImportSource @emotion/react */
 
-import { useEffect, useState } from "react";
-import { studentRegisterPosterRequest } from "../../apis/api/posterApi";
+import { useState } from "react";
 import * as s from "./style";
 import Select from "react-select";
-import { useNavigate } from "react-router-dom";
-import { useQuery, useQueryClient } from "react-query";
+import { getMyPoster, getMyPosters, studentMyPosterModifyRequest } from "../../apis/api/posterApi";
+import { useNavigate, useSearchParams } from "react-router-dom";
+import { useQuery } from "react-query";
 import { getClassType, getDate, getRegion, getStudentType, getSubject } from "../../apis/api/Option";
-import { inputBox } from "../../components/AuthPageInput/style";
 import { getPrincipalRequest } from "../../apis/api/principal";
+import { getStudentProfile } from "../../apis/api/profileApi";
 
-function StudentRegisterPosterPage(props) {
 
-    const naviagte = useNavigate();
+function StudentMyPosterModifyPage(props) {
 
-    const [ studentTypeOptions, setStudentTypeOptions ] = useState();
-    const [ classTypeOptions, setClassTypeOptions ] = useState();
-    const [ regionOptions, setRegionOptions ] = useState(); 
-    const [ subjectOptions, setSubjectOptions  ] = useState();
-    const [ dateOptions, setDateOptions ] = useState();
+    const navigate = useNavigate();
 
+    
+    const [ studentTypeOptions, setStudentTypetOptions ] = useState([]);
+    const [ classTypeOptions, setClassTypetOptions ] = useState([]);
+    const [ subjectOptions, setSubjectOptions ] = useState([]);
+    const [ regionOptions, setRegionOptions ] = useState([]);
+    const [ dateOptions, setDateOptions ] = useState([]);
+    
     const [ title, setTitle ] = useState("");
     const [ content, setContent ] = useState("");
-
+    
     const [ userId, setUserId ] = useState();
+    const [ posterId, setPosterId ] = useState();
     const [ genderId, setGenderId ] = useState();
+    const [ regionId, setRegionId ] = useState();
     const [ studentTypeId, setStudentTypeId ] = useState();
     const [ classTypeIds, setClassTypeIds ] = useState([]);
     const [ subjectIds, setSubjectIds ] = useState([]);
     const [ dateIds, setDateIds ] = useState([]);
-    const [ regionId, setRegionId ] = useState();
 
     const [ textLength, setTextLength ] = useState(0);
 
-    
+
     const principalQuery = useQuery(
         ["principalQuery"],
         getPrincipalRequest,
@@ -41,8 +44,8 @@ function StudentRegisterPosterPage(props) {
             retry: 0,
             refetchOnWindowFocus: false,
             onSuccess: response => {
-                console.log(response.data.userId);
-                setUserId(() => response.data.userId);
+                console.log(response);
+                setUserId(response.data.uesrId);
             },
             onError: error => {
                 console.log("principal Error");
@@ -50,13 +53,16 @@ function StudentRegisterPosterPage(props) {
         }
     );
 
+    // posterId 가져오기 필요
+    
 
+ 
     const studentTypeQuery = useQuery(
         ["studentTypeQuery"],
         getStudentType,
         {
             onSuccess: response => {
-                setStudentTypeOptions(() => response.data.map(studentType => {
+                setStudentTypetOptions(() => response.data.map(studentType => {
                     return {
                         value: studentType.studentTypeId,
                         label: studentType.studentType
@@ -69,7 +75,6 @@ function StudentRegisterPosterPage(props) {
     );
     const handleStudentTypeOnChange = (studentTypeId) => {
         setStudentTypeId(() => studentTypeId.value);
-        // console.log(studentTypeId.value);
     }
 
     const classTypeQuery = useQuery(
@@ -77,18 +82,40 @@ function StudentRegisterPosterPage(props) {
         getClassType,
         {
             onSuccess: response => {
-                setClassTypeOptions(() => response.data.map(classType => {
+                // console.log(response)
+                setClassTypetOptions(() => response.data.map(classType => {
                     return {
                         value: classType.classTypeId,
                         label: classType.classType
                     }
-                }));
-            }
+                })); 
+            },
+            retry: 0,
+            refetchOnWindowFocus: false
         }
-    )
+    );
     const handleClassTypeOnChange = (classTypeIds) => {
         setClassTypeIds(classTypeIds.map(option => option.value));
-        // console.log(classTypeIds.map(option => option.value));
+    }
+
+    const SubjectQuery = useQuery(
+        ["SubjectQuery"],
+        getSubject,
+        {
+            onSuccess: response => {
+                setSubjectOptions(() => response.data.map(subject => {
+                    return {
+                        value: subject.subjectId,
+                        label: subject.subjectName
+                    }
+                }));
+            },
+            retry: 0,
+            refetchOnWindowFocus: false
+        }
+    )
+    const handleSubjectOnChange = (subjectId) => {
+        setSubjectIds(subjectId.map(option => option.value))
     }
 
     const regionQuery = useQuery(
@@ -109,28 +136,6 @@ function StudentRegisterPosterPage(props) {
     );
     const handleRegionOnChange = (regionId) => {
         setRegionId(() => regionId.value);
-        // console.log(regionId.value);
-    }
-
-    const subjectQuery = useQuery(
-        ["subjectQuery"],
-        getSubject,
-        {
-            onSuccess: response => {
-                setSubjectOptions(() => response.data.map(subject => {
-                    return {
-                        value: subject.subjectId,
-                        label: subject.subjectName
-                    }
-                }));
-            },
-            retry: 0,
-            refetchOnWindowFocus: false
-        }
-    );
-    const handleSubjectOnChange = (subjectIds) => {
-        setSubjectIds(subjectIds.map(option => option.value));
-        // console.log(subjectIds.map(option => option.value));
     }
 
     const dateQuery = useQuery(
@@ -151,7 +156,6 @@ function StudentRegisterPosterPage(props) {
     );
     const handleDateOnChange = (dateIds) => {
         setDateIds(dateIds.map(option => option.value));
-        // console.log(dateIds.map(option => option.value));
     }
 
     const selectStyle = {
@@ -163,26 +167,7 @@ function StudentRegisterPosterPage(props) {
             height: "50px"
         })
     }
-
-    const handleSubmitOnClick = () => {
-        studentRegisterPosterRequest({
-            userId,
-            title,
-            genderId,
-            studentTypeId,
-            classTypeIds,
-            subjectIds,
-            regionId,
-            dateIds,
-            content
-        }).then(response => {
-            alert("등록이 완료되었습니다.");
-            naviagte("/main");
-        }).catch(error => {
-            alert("다시 입력해주세요.");
-        })
-    }
-
+    
     const handleMaleOnClick = (e) => {      // 남자
         setGenderId(() => 1);
     }
@@ -196,21 +181,36 @@ function StudentRegisterPosterPage(props) {
 
     const handleContentOnChange = (e) => {
         setContent(() => e.target.value);
-        setTextLength(e.target.value.length);
+        setTextLength(() => e.target.value.length);
     }
 
-
-
-
-
+    const handleModifyOnClick = () => {
+        studentMyPosterModifyRequest({
+            posterId,
+            genderId,
+            regionId,
+            studentTypeId,
+            classTypeIds,
+            subjectIds,
+            dateIds,
+            title,
+            content
+        }).then(response => {
+            alert("수정이 완료되었습니다");
+            navigate("/student/myposter");
+        }).catch(error => {
+            alert("다시 입력해주세요.");
+        })
+    }
+    
     return (
         <div css={s.layout}>
             <div css={s.body}>
 
                 <div css={s.bodyBox1}>
                     <div css={s.box1}>
-                        <span>과외 모집공고 등록</span>
-                        <button css={s.buttonBox} onClick={handleSubmitOnClick}>등록</button>
+                        <span>과외 모집공고 수정하기</span>
+                        <button css={s.buttonBox} onClick={handleModifyOnClick}>수정</button>
                     </div>
                 </div>
 
@@ -315,4 +315,4 @@ function StudentRegisterPosterPage(props) {
     );
 }
 
-export default StudentRegisterPosterPage;
+export default StudentMyPosterModifyPage;
