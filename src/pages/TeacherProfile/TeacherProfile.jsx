@@ -5,20 +5,66 @@ import { CiLocationOn } from "react-icons/ci";
 import { FiBook } from "react-icons/fi";
 import { useParams, useSearchParams } from 'react-router-dom';
 import * as s from "./style";
-
+import Select from "react-select";
+import { getClassType, getDate, getRegion, getSubject } from '../../apis/api/Option';
+import { getStudentProfile } from '../../apis/api/profileApi';
+import { useMutation, useQueryClient } from 'react-query';
 
 function TeacherProfile() {
 
     const [searchParams] = useSearchParams();
     const [ teacherProfile, setTeacherProfile] = useState();
+    const [ modal, setModal ] = useState(0);
+    const [ studentUserId, setStudentUserId ] = useState();
     const userId = parseInt(searchParams.get("userId"))
-    useEffect(()=> {
-         
-        getTeacherProfileData();
-        console.log(teacherProfile)
+    const [ subjects, setSubjects ] = useState([]);
+    const [ region, setRegion ] = useState([]);
+    const [ date, setDate ] = useState([]);
+    const [ classType, setClassType ] = useState([]);
+    const [ studentProfile, setStudentProfile ] = useState();
+    const [ applyData, setApplyDate ] = useState(
+        {
+            name: null,
+            age: 0,
+            teacherEmail: null,
+            email: null,
+            gender: null,
+            studentType: null,
+            region : null,
+            subjects : [],
+            dates: [],
+            classTypes: []
+        }
+    );
 
+    useEffect(()=> {
+        getTeacherProfileData();
+        getSubjects();
+        getRegions();
+        getDates();
+        getClassTypes();
+        console.log(teacherProfile)
+        console.log(studentProfile)
+
+        const token = localStorage.getItem("AccessToken");
+        if (token) {
+            const tokenPayLoad = token.split('.')[1];
+            try {
+                const decodedPayload = JSON.parse(atob(tokenPayLoad));
+                setStudentUserId(decodedPayload.userId)
+                console.log(decodedPayload)
+
+            } catch (error) {
+                console.error("Failed to decode AccessToken:", error);
+
+            } 
+        } else {
+            console.error("AccessToken not found in localStorage");
+
+        }
     }, [])
-    // 만나이 계산기
+
+    // 선생님 만 나이 계산기
     const birthDate = (teacherProfile?.birthDate)
     const year = birthDate?.substr(0, 4)
     const month = birthDate?.substr(4, 2)
@@ -33,6 +79,21 @@ function TeacherProfile() {
         age--;
     }
 
+    const getStudentProfileData = useMutation({
+        mutationKey: "sendTeacherProfile",
+        mutationFn: getStudentProfile,
+        onSuccess: response => {
+            setApplyDate({
+                ...applyData, 
+                name: response.data.name,
+                age: 0,
+                teacherEmail: null,
+                email: response.data.email,
+                gender: response.data.genderType,
+                studentType: response.data.studentType,
+            })
+        }
+    })
 
     const getTeacherProfileData = async () => {
         try {
@@ -42,6 +103,98 @@ function TeacherProfile() {
         } catch (error) {
             console.log("에러", error);
         }
+    } 
+
+    const handleApplyLesson = async () => {
+        setModal(() => 1);
+        getStudentProfileData.mutate(studentUserId)
+    }
+
+    const getSubjects = async () => {
+        try {
+            const response = await getSubject();
+            setSubjects(() => response.data.map(subject => {
+                return {
+                    value: subject.subjectId,
+                    label: subject.subjectName
+                }
+            }))
+        } catch (error) {
+            console.log("에러", error);
+        }
+    }
+
+    const getRegions = async () => {
+        try {
+            const response = await getRegion(); 
+            setRegion(() => response.data.map(region => ({
+                value: region.regionId,
+                label: region.regionName
+            })));
+        } catch (error) {
+            console.log("에러", error);
+        }
+    }
+    
+    const getDates = async () => {
+        try {
+            const response = await getDate();
+            setDate(() => response.data.map(date => ({
+                value: date.dateId,
+                label: date.dateType
+            })));
+        } catch (error) {
+            console.log("에러", error);
+        }
+    }
+    
+    const getClassTypes = async () => {
+        try {
+            const response = await getClassType(); 
+            setClassType(() => response.data.map(classType => ({
+                value: classType.classTypeId,
+                label: classType.classType
+            })));
+        } catch (error) {
+            console.log("에러", error);
+        }
+    }
+    const handleSubjectOption = (selectedOptions) => {
+        setApplyDate(prevState => ({
+            ...prevState,
+            subjects: selectedOptions
+        }));
+    };
+
+    const handleRegionOption = (selectedOptions) => {
+        setApplyDate(prevState => ({
+            ...prevState,
+            region: selectedOptions
+        }));
+    };
+    
+    const handleDateOption = (selectedOptions) => {
+        setApplyDate(prevState => ({
+            ...prevState,
+            dates: selectedOptions
+        }));
+    };
+    
+    const handleClassTypeOption = (selectedOptions) => {
+        setApplyDate(prevState => ({
+            ...prevState,
+            classTypes: selectedOptions
+        }));
+    };
+
+    const selectStyle = {
+        control: baseStyles => ({
+            ...baseStyles,
+            border: "1px solid #9decdb",
+            borderRadius: "4px",
+            width: "100%",
+            heighy:"100%"
+        })
     }
 
 
@@ -49,6 +202,27 @@ function TeacherProfile() {
         <>
             <div css={s.layout}>
                 <div css={s.teacherProfileRootLayout}>
+                    {
+                        modal === 1 ? 
+                        <div css={s.emailApplyLayout}>
+                            <h1>과외 신청하기</h1>
+                            <div>
+                                <Select styles={selectStyle} key={"subjects"} options={subjects} placeholder="과목명" value={applyData.subjects} onChange={handleSubjectOption} isMulti/>
+                            </div>
+                            <div>
+                                <Select styles={selectStyle} key={"region"} options={region} placeholder="지역" value={applyData.regions} onChange={handleRegionOption}/>                        
+                            </div>
+                            <div>
+                                <Select styles={selectStyle} key={"date"} options={date} placeholder="요일" value={applyData.dates} onChange={handleDateOption} isMulti/>
+                            </div>
+                            <div>
+                                <Select styles={selectStyle} key={"classType"} options={classType}  placeholder="수업방식" value={applyData.classTypes} onChange={handleClassTypeOption}isMulti/>
+                            </div>
+                        </div>
+                        :
+                        <>
+                        </>
+                    }
                     <div css={s.teacherProfile}>
                         <div css={s.profileHeader}>
                             <div css={s.imgBox}>
@@ -84,7 +258,7 @@ function TeacherProfile() {
                                     </div>
                                 </div>
                             </div>
-                            <button css={s.applyButton}>
+                            <button onClick={() => handleApplyLesson()} css={s.applyButton}>
                                 과외 신청하기
                             </button>
                         </div>

@@ -12,6 +12,17 @@ export const teacherProfileRootLayout = css`
     height: 100%;
     border-right: 1px solid #dbdbdb;
 `;
+
+export const emailApplyLayout = css`
+    position: absolute;
+    left: 30%;
+    top: 150px;
+    width: 50%;
+    height: 80%;
+    border: 1px solid #dbdbdb;
+    background-color: white;
+`
+
 export const teacherProfile= css`
     box-sizing: border-box;
     display: flex;
