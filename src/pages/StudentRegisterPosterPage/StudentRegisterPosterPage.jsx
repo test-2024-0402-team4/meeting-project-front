@@ -159,7 +159,7 @@ function StudentRegisterPosterPage(props) {
             ...baseStyles,
             border: "1px solid #dbdbdb",
             borderRadius: "5px",
-            width: "656px",
+            width: "664px",
             height: "50px"
         })
     }

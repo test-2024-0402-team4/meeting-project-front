@@ -70,12 +70,12 @@ export const box2 = css`
 `;
 
 export const spanBox = css`
-    span:nth-child(1){
+    span:nth-of-type(1){
         font-size: 16px;
         font-weight: 500;
         color: #242424;
     }
-    span:nth-child(2){
+    span:nth-of-type(2){
         font-size: 13px;
         padding: 0px 0px 0px 4px;
         color: #ff3a1e;

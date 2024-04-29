@@ -5,14 +5,16 @@ import React, { useState } from 'react';
 import { getPrincipalRequest } from "../../apis/api/principal";
 import { getStudentProfile } from "../../apis/api/profileApi";
 import { useNavigate, useSearchParams } from "react-router-dom";
-import { getMyPoster, getMyposter } from "../../apis/api/posterApi";
+import { getMyPoster, getMyposter, studentMyPosterDeleteRequest } from "../../apis/api/posterApi";
 
 function StudentMyPosterPage(props) {
 
+    const navigate = useNavigate();
+    
     const [searchParams] = useSearchParams();
     const posterId = parseInt(searchParams.get("posterId"))
     const [poster, setPoster] = useState();
-
+    const [ userId, setUserId ] = useState();
 
     const queryClient = useQueryClient();
     const [profile,setProfile] = useState({});
@@ -38,8 +40,8 @@ function StudentMyPosterPage(props) {
             refetchOnWindowFocus: false,
             retry: 0,
             onSuccess: response => {
-                console.log("프로필 가져오기");
-                console.log(response);
+                // console.log("프로필 가져오기");
+                // console.log(response);
                 setProfile(response);
             },
             onError: error => {
@@ -55,8 +57,10 @@ function StudentMyPosterPage(props) {
             retry: 0,
             refetchOnWindowFocusf: false,
             onSuccess: response => {
-                console.log("마이포스터 가져오기")
-                console.log(response.data)
+                // console.log("마이포스터 가져오기")
+                // console.log(response.data)
+                // console.log(response.data.userId)
+                setUserId(response.data.userId);
                 setPoster(response.data)
             },
             onError: error => {
@@ -64,10 +68,17 @@ function StudentMyPosterPage(props) {
             }
         }
     )
-    console.log(poster)
 
     const handleModifyOnClick = () => {
-        window.location.replace("/student/myposter/modify");
+        window.location.replace(`/student/myposter/modify?posterId=${poster.posterId}`);
+    }
+
+    const handleDeleteOnClick = () => {
+        studentMyPosterDeleteRequest(posterId)
+        .then(response => {
+            alert("삭제가 완료되었습니다");
+            navigate(`/student/myposters?userId=${userId}`);
+        })
     }
 
     return (
@@ -109,7 +120,7 @@ function StudentMyPosterPage(props) {
                         </div>
                         <div css={s.buttonLayout}>
                             <button onClick={handleModifyOnClick}>수정</button>
-                            <button>삭제</button>
+                            <button onClick={handleDeleteOnClick}>삭제</button>
                         </div>
                     </div>
                     <div css={s.studentInfoLayout}>
