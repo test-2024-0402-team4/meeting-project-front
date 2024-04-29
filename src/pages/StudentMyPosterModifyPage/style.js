@@ -89,12 +89,12 @@ export const box2 = css`
 `;
 
 export const spanBox = css`
-    span:nth-child(1){
+    span:nth-of-type(1){
         font-size: 16px;
         font-weight: 500;
         color: #242424;
     }
-    span:nth-child(2){
+    span:nth-of-type(2){
         font-size: 13px;
         padding: 0px 0px 0px 4px;
         color: #ff3a1e;
@@ -110,13 +110,15 @@ export const selectBox = css`
 export const inputBox = css`
     input{
         width: 650px;
-        height: 50px;
+        height: 46px;
         margin-top: 10px;
         border: 1px solid #dbdbdb;
         border-radius: 5px;
+        font-size: 15px;
+        padding-left: 10px;
+
         ::placeholder{
             color: #dbdbdb;
-            padding-left: 7px;
             font-size: 15px;
         }
     }
@@ -141,19 +143,17 @@ export const buttonBox = css`
 
 export const inputBox2 = css`
     textarea{
-        width: 650px;
+        width: 642px;
         height: 120px;
         margin-top: 10px;
         border: 1px solid #dbdbdb;
         border-radius: 5px;
         font-size: 15px;
-        
+        padding: 10px;
 
         ::placeholder{
             display: flex;
             justify-content: center;
-            padding-top: 10px;
-            padding-left: 7px;
             color: #dbdbdb;
             font-size: 15px;
         }

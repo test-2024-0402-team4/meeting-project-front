@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import * as s from "./style";
 import Select from "react-select";
 import { getMyPoster, getMyPosters, studentMyPosterModifyRequest } from "../../apis/api/posterApi";
@@ -14,7 +14,7 @@ import { getStudentProfile } from "../../apis/api/profileApi";
 function StudentMyPosterModifyPage(props) {
 
     const navigate = useNavigate();
-
+    const [searchParams] = useSearchParams();
     
     const [ studentTypeOptions, setStudentTypetOptions ] = useState([]);
     const [ classTypeOptions, setClassTypetOptions ] = useState([]);
@@ -37,6 +37,7 @@ function StudentMyPosterModifyPage(props) {
     const [ textLength, setTextLength ] = useState(0);
 
 
+
     const principalQuery = useQuery(
         ["principalQuery"],
         getPrincipalRequest,
@@ -44,7 +45,7 @@ function StudentMyPosterModifyPage(props) {
             retry: 0,
             refetchOnWindowFocus: false,
             onSuccess: response => {
-                console.log(response);
+                // console.log(response);
                 setUserId(response.data.uesrId);
             },
             onError: error => {
@@ -54,6 +55,9 @@ function StudentMyPosterModifyPage(props) {
     );
 
     // posterId 가져오기 필요
+    useEffect(() => {
+        setPosterId(() => searchParams.get("posterId"));
+    },[]);
     
 
  
@@ -163,7 +167,7 @@ function StudentMyPosterModifyPage(props) {
             ...baseStyles,
             border: "1px solid #dbdbdb",
             borderRadius: "5px",
-            width: "656px",
+            width: "664px",
             height: "50px"
         })
     }
@@ -197,7 +201,7 @@ function StudentMyPosterModifyPage(props) {
             content
         }).then(response => {
             alert("수정이 완료되었습니다");
-            navigate("/student/myposter");
+            navigate(`/student/myposters?userId=${userId}`);
         }).catch(error => {
             alert("다시 입력해주세요.");
         })
