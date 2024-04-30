@@ -29,8 +29,14 @@ export const getStudyMypageCount = async(userId,params) => {
     return await instance.get(`student/boards/count/study/${userId}`,{params})
 }
 
+// 학생 프로필 수정
 export const modifyStudentProfile = async (data) => {
     return await instance.put(`/student/profile`, data);
+}
+
+// 선생님 프로필 수정
+export const modifyTeacherProfile = async (data) => {
+    return await instance.put(`/teacher/profile`, data);
 }
 
 
