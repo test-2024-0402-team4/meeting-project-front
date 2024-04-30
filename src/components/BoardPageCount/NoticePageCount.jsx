@@ -27,56 +27,58 @@ function NoticeBoardPageCount({boardCount}) {
     return (
         <div css={s.layout}>
             <div css={s.pageNumbers}>
-                {
-                    page !== 1 &&
-                <Link css={s.pageButton(false)} 
-                to={`/notice/boards?page=1`}>처음으로</Link>
-                }
-
-                {
-                    page !== 1 &&
-                    page> 5 
-                    ? 
-                    <Link css={s.pageButton(false)}
-                    to={`/notice/boards?page=${startPageNumber - 5}`}>&#171;</Link>
-                    :
-                    page !== 1 &&
+                <div css={s.sideBox1}>
+                    {
+                        page !== 1 &&
                     <Link css={s.pageButton(false)} 
-                    to={`/notice/boards?page=1`}>&#171;</Link>
-                }
+                    to={`/notice/boards?page=1`}>처음으로</Link>
+                    }
 
-                {
-                    page !== 1 &&
-                    <Link css={s.pageButton(false)} 
-                    to={`/notice/boards?page=${page -1}`}>&#60;</Link>
-                }
+                    {
+                        page !== 1 &&
+                        page> 5 
+                        ? 
+                        <Link css={s.pageButton(false)}
+                        to={`/notice/boards?page=${startPageNumber - 5}`}>&#171;</Link>
+                        :
+                        page !== 1 &&
+                        <Link css={s.pageButton(false)} 
+                        to={`/notice/boards?page=1`}>&#171;</Link>
+                    }
 
+                    {
+                        page !== 1 &&
+                        <Link css={s.pageButton(false)} 
+                        to={`/notice/boards?page=${page -1}`}>&#60;</Link>
+                    }
+                </div>
                 {
                     numbers.map(number =>
                         <Link key={number} css={s.pageButton(number === page)} to={`/notice/boards?page=${number}`}>{number}</Link>)
                 }
+                <div css={s.sideBox2}>
+                    {
+                        page !== maxPageNumber &&
+                    <Link css={s.pageButton(false)} to={`/notice/boards?page=${page +1}`}>&#62;</Link>
+                    }
 
-                {
-                    page !== maxPageNumber &&
-                <Link css={s.pageButton(false)} to={`/notice/boards?page=${page +1}`}>&#62;</Link>
-                }
-
-                {
-                    page !== maxPageNumber &&
-                    page < maxPageNumber -5
-                    ?
+                    {
+                        page !== maxPageNumber &&
+                        page < maxPageNumber -5
+                        ?
+                        <Link css={s.pageButton(false)}
+                        to={`/notice/boards?page=${startPageNumber + 5}`}>&#187;</Link>
+                        :
+                        page !== maxPageNumber &&
+                        <Link css={s.pageButton(false)}
+                        to={`/notice/boards?page=${maxPageNumber}`}>&#187;</Link>
+                    }
+                    {
+                        page !== maxPageNumber &&
                     <Link css={s.pageButton(false)}
-                    to={`/notice/boards?page=${startPageNumber + 5}`}>&#187;</Link>
-                    :
-                    page !== maxPageNumber &&
-                    <Link css={s.pageButton(false)}
-                    to={`/notice/boards?page=${maxPageNumber}`}>&#187;</Link>
-                }
-                {
-                    page !== maxPageNumber &&
-                <Link css={s.pageButton(false)}
-                 to={`/notice/boards?page=${maxPageNumber}`}>마지막으로</Link>
-                }
+                    to={`/notice/boards?page=${maxPageNumber}`}>마지막으로</Link>
+                    }
+                </div> 
             </div>
             
         </div>

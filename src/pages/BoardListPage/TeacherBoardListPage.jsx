@@ -70,12 +70,19 @@ function TeacherBoardListPage(props) {
             }
         }
     );
+
+    const linkToStudy = () => {
+        window.location.replace("/study/boards?page=1")
+    }
+    const linkToTeacher = () => {
+        window.location.replace("/teacher/boards?page=1")
+    }
     
     return (
         <div css={s.layout}>
             <div css={s.authority}>
-                <button css={s.authorityButton}>선생님용</button>
-                <button css={s.authorityButton}>공부방</button>
+                <button css={s.authorityButton} onClick={() => linkToTeacher()}>선생님용</button>
+                <button css={s.authorityButton} onClick={() => linkToStudy()}>공부방</button>
             </div>
         
             <div css={s.searchInput}>

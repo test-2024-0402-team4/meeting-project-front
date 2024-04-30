@@ -14,5 +14,24 @@ export const getStudentProfile = async (userId) => {
 }
 
 
+export const searchStudentMypageBoardsRequest = async(userId,params) => {
+    return await instance.get(`student/mypage/boards/${userId}`,{params})
+}
+
+export const getStudentMypageCount = async(userId,params) => {
+    return await instance.get(`student/boards/count/${userId}`,{params})
+}
+
+export const searchStudyMypageBoardsRequest = async(userId,params) => {
+    return await instance.get(`student/mypage/boards/study/${userId}`,{params})
+}
+
+export const getStudyMypageCount = async(userId,params) => {
+    return await instance.get(`student/boards/count/study/${userId}`,{params})
+}
+
+
+
+
 
 

@@ -2,16 +2,16 @@
 import * as s from "./style";
 
 import { getPrincipalRequest } from "../../apis/api/principal";
-import { getStudentMypageCount, getStudentProfile, searchStudentMypageBoardsRequest } from "../../apis/api/profileApi";
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useQuery, useQueryClient } from 'react-query';
 import { Link, useSearchParams } from "react-router-dom";
 import { useSearchBoardInput } from "../../hooks/useSearchBoardInput";
 import { IoSearchOutline } from "react-icons/io5";
 import GetTime from "../../components/GetTime/GetTime";
-import StudentProfileCount from "../../components/BoardPageCount/StudentProfileCount";
+import TeacherProfileCount from "../../components/BoardPageCount/TeacherprofileCount";
+import { getTeacherMypageCount, getTeacherMypageProfile, searchTeacherMypageBoardsRequest } from "../../apis/api/teacherProfile";
 
-function Mypage(props) {
+function MypageTeacher(props) {
     const [searchParams, setSearchParams] = useSearchParams();
     const queryClient = useQueryClient();
     const [profile,setProfile] = useState({});
@@ -29,6 +29,7 @@ function Mypage(props) {
             onSuccess: response => {
                 console.log("principal Success");
                 console.log(response);
+                setUserId(response.data.userId);
             },
             onError: error => {
                 console.log("principal Error");
@@ -36,38 +37,45 @@ function Mypage(props) {
         }
     );
 
-    const studentProfileQuery = useQuery(
-        ["studentProfileQuery"],
-        async() => await getStudentProfile(principalQuery.data.data.userId),
-        {
-            refetchOnWindowFocus: false,
-            retry: 0,
-            onSuccess: response => {
-                console.log("프로필 가져오기");
-                console.log(response);
-                setProfile(response);
-                setUserId(response.data.userId);
-            },
-            onError: error => {
-                console.log("에러");
-            },
-            enabled: !!principalQuery?.data?.data
+    useEffect(() => {
+        if (userId) {
+            const fetchProfile = async () => {
+                try {
+                    const profileData = await getTeacherMypageProfile(userId);
+                    setProfile(profileData);
+                } catch (error) {
+                    console.log("에러");
+                }
+            };
+            fetchProfile();
         }
-    )
+    }, [userId]);
+
+
+    // useEffect(() => {
+    //     if (principalQuery.isSuccess) {
+    //         const fetchData = async () => {
+    //             const profileData = await getTeacherMypageProfile(principalQuery.data.data.userId);
+    //             setProfile(profileData);
+    //         };
+    //         fetchData();
+    //     }
+    // }, [principalQuery]);
+
     const searchSubmit = () => {
         if(userId){
             setSearchParams({
                 page:1
             })
-            searchStudentBoardQuery.refetch();
+            searchTeacherBoardQuery.refetch();
         }
     }
 
     const searchText = useSearchBoardInput(searchSubmit);
 
-    const searchStudentBoardQuery = useQuery(
-        ["searchStudentBoardQuery",userId,searchParams.get("page")],
-        async() => await searchStudentMypageBoardsRequest(userId,{
+    const searchTeacherBoardQuery = useQuery(
+        ["searchTeacherBoardQuery",userId,searchParams.get("page")],
+        async() => await searchTeacherMypageBoardsRequest(userId,{
             page: searchParams.get("page"),
             count: searchCount,
             searchText: searchText.value 
@@ -97,9 +105,9 @@ function Mypage(props) {
         }
     );
 
-    const getStudentMypageCountQuery = useQuery(
-        ["getStudentMypageCountQuery",userId,searchStudentBoardQuery.data],
-        async() => await getStudentMypageCount(userId,{
+    const getTeacherMypageCountQuery = useQuery(
+        ["getTeacherMypageCountQuery",userId,searchTeacherBoardQuery.data],
+        async() => await getTeacherMypageCount(userId,{
             count: searchCount,
             searchText: searchText.value
         }),
@@ -136,7 +144,7 @@ console.log(searchParams.get("page"));
                                 {profile.data?.nickname}
                             </span>
                             <span css={s.roleName}>
-                            {profile.data?.roleNameKor}
+                            {profile.data?.email}
                             </span>
                         </div>
                         <div>
@@ -144,7 +152,7 @@ console.log(searchParams.get("page"));
                             {profile.data?.genderType}
                             </span>
                             <span>
-                            {profile.data?.regionName}
+                            수업가능지역 : {profile.data?.regionNames}
                             </span>
                         </div>
                     </div>
@@ -181,7 +189,7 @@ console.log(searchParams.get("page"));
                     {
                     boardList.map(
                         board => 
-                        <Link to={`/student/board/${board.studentBoardId}`} css={s.boardListItem} key={board.studentBoardId}>
+                        <Link to={`/teacher/board/${board.teacherBoardId}`} css={s.boardListItem} key={board.teacherBoardId}>
 
                             <li>
                                 <div>{board.title}</div>
@@ -194,7 +202,7 @@ console.log(searchParams.get("page"));
                 </div>
                 <div css={s.pageNumber}>
                     <div css={s.page}>
-                        <StudentProfileCount boardCount={getStudentMypageCountQuery.data?.data}/>
+                        <TeacherProfileCount boardCount={getTeacherMypageCountQuery.data?.data}/>
                     </div>
                 </div>
 
@@ -207,4 +215,4 @@ console.log(searchParams.get("page"));
     );
 }
 
-export default Mypage;
+export default MypageTeacher;

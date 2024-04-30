@@ -5,13 +5,15 @@ import {v4 as uuid} from "uuid"
 import React, { useCallback, useRef, useState } from 'react';
 import { storage } from "../../apis/firebase/firebaseConfig";
 import { registerImgUrlRequest } from "../../apis/api/profileApi";
-import { useMutation } from "react-query";
+import { useMutation, useQuery } from "react-query";
 import { useParams } from "react-router-dom";
+import { getPrincipalRequest } from "../../apis/api/principal";
 
 function ProfileImg(props) {
     const params = useParams();
     const fileInputRef = useRef();
     const [ profileUrl, setProfileUrl ] = useState("null");
+    const [userId , setUserId] =useState(""); 
 
     const registerImgUrlMutation = useMutation({
         mutationKey: "registerImgUrlMutation",
@@ -20,6 +22,7 @@ function ProfileImg(props) {
           alert("정상적으로 등록되었습니다");
         }
       });
+      
     
     const handleFileChange = (e) =>{
         const fileReader = new FileReader();
@@ -49,6 +52,23 @@ function ProfileImg(props) {
         // }
     }
 
+    const principalQuery = useQuery(
+      ["principalQuery"],
+      getPrincipalRequest,
+      {
+          retry: 0,
+          refetchOnWindowFocus: false,
+          onSuccess: response => {
+              console.log("principal Success");
+              console.log(response);
+              setUserId(response.data.userId);
+          },
+          onError: error => {
+              console.log("principal Error");
+          }
+      }
+  );
+  
     const imgChangeClick = useCallback(() => {
         const input = document.createElement("input");
         input.setAttribute("type", "file");
@@ -64,8 +84,9 @@ function ProfileImg(props) {
         
           const confirmUpload = window.confirm("이미지를 등록하시겠습니까?");
           if (confirmUpload) {
+            
               const imgBoard = {
-                userId: params.userId,
+                userId: userId,
                 userImgUrl:downloadUrl
             };
             console.log(imgBoard);

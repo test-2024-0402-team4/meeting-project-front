@@ -29,6 +29,9 @@ import StudentMyPostersPage from '../pages/StudentMyPostersPage/StudentMyPosters
 import StudentPosterPage from '../pages/StudentPosterPage/StudentPosterPage';
 import StudentMyPosterPage from '../pages/StudentMyPosterPage/StudentMyPosterPage';
 import StudentRegisterPosterPage from '../pages/StudentRegisterPosterPage/StudentRegisterPosterPage';
+import MypageStudy from '../pages/Mypage/MypageStudy';
+import MypageTeacher from '../pages/Mypage/MypageTeacher';
+import MypageTeacherStudy from '../pages/Mypage/MypageTeacherStudy';
 
 
 
@@ -52,12 +55,14 @@ function MeetingRoute(props) {
         <Routes>
         <Route path='/' element={<Homepage />} />
               <Route path='/student/mypage' element={<Mypage />} />
-              <Route path='/teacher/mypage' element={<Mypage />} />
+              <Route path='/student/mypage/study' element={<MypageStudy />} />
+              <Route path='/teacher/mypage' element={<MypageTeacher />} />
+              <Route path='/teacher/mypage/study' element={<MypageTeacherStudy />} />
 
               <Route path='/student/tutor/list' element={<TeacherProfiles />} />
               <Route path='/student/tutor' element={<TeacherProfile />} />
               <Route path='/student/myposter' element={<StudentMyPosterPage />}/>
-              <Route path='/student/myposters' element={<StudentMyPostersPage />}/
+              <Route path='/student/myposters' element={<StudentMyPostersPage />} />
                           
               <Route path='/teacher/tutee/poster/list' element={<StudentPostersPage />} />
               <Route path='/teacher/tutee/poster' element={<StudentPosterPage />} />
