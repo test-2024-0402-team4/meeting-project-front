@@ -30,7 +30,7 @@ function StudyBoardWritePage(props) {
     const handleSubmitClick = () => {
       
       const board = {
-        userId: 21,
+        userId: 7,
         title : inputValue,
         content : quillValue,
         viewCount : 3

@@ -16,6 +16,7 @@ margin-right: 270px;
 justify-content: space-evenly;
 `;
 
+
 export const authorityButton = css`
     width: 100px;
     height: 40px;

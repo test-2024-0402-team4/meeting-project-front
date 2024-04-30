@@ -2,17 +2,19 @@
 import * as s from "./style";
 
 import { getPrincipalRequest } from "../../apis/api/principal";
-import { getStudentMypageCount, getStudentProfile, searchStudentMypageBoardsRequest } from "../../apis/api/profileApi";
+import { getStudentMypageCount, getStudentProfile, getStudyMypageCount, searchStudentMypageBoardsRequest, searchStudyMypageBoardsRequest } from "../../apis/api/profileApi";
 import React, { useState } from 'react';
 import { useQuery, useQueryClient } from 'react-query';
 import { Link, useSearchParams } from "react-router-dom";
 import { useSearchBoardInput } from "../../hooks/useSearchBoardInput";
 import { IoSearchOutline } from "react-icons/io5";
 import GetTime from "../../components/GetTime/GetTime";
+import { page } from "../../components/BoardPageCount/style";
+import BoardPageCount from "../../components/BoardPageCount/BoardPageCount";
 import StudentProfileCount from "../../components/BoardPageCount/StudentProfileCount";
+import StudentProfileStudyCount from "../../components/BoardPageCount/StudentProfileStudyCount";
 
-function Mypage(props) {
-
+function MypageStudy(props) {
     const [searchParams, setSearchParams] = useSearchParams();
     const queryClient = useQueryClient();
     const [profile,setProfile] = useState({});
@@ -29,7 +31,6 @@ function Mypage(props) {
             refetchOnWindowFocus: false,
             onSuccess: response => {
                 console.log("principal Success");
-                console.log(response);
             },
             onError: error => {
                 console.log("principal Error");
@@ -45,7 +46,7 @@ function Mypage(props) {
             retry: 0,
             onSuccess: response => {
                 console.log("프로필 가져오기");
-                // console.log(response);
+                console.log(response);
                 setProfile(response);
                 setUserId(response.data.userId);
             },
@@ -60,15 +61,15 @@ function Mypage(props) {
             setSearchParams({
                 page:1
             })
-            searchStudentBoardQuery.refetch();
+            searchStudyBoardQuery.refetch();
         }
     }
 
     const searchText = useSearchBoardInput(searchSubmit);
 
-    const searchStudentBoardQuery = useQuery(
-        ["searchStudentBoardQuery",userId,searchParams.get("page")],
-        async() => await searchStudentMypageBoardsRequest(userId,{
+    const searchStudyBoardQuery = useQuery(
+        ["searchStudyBoardQuery",userId,searchParams.get("page")],
+        async() => await searchStudyMypageBoardsRequest(userId,{
             page: searchParams.get("page"),
             count: searchCount,
             searchText: searchText.value 
@@ -98,9 +99,9 @@ function Mypage(props) {
         }
     );
 
-    const getStudentMypageCountQuery = useQuery(
-        ["getStudentMypageCountQuery",userId,searchStudentBoardQuery.data],
-        async() => await getStudentMypageCount(userId,{
+    const getStudyMypageCountQuery = useQuery(
+        ["getStudyMypageCountQuery",userId,searchStudyBoardQuery.data],
+        async() => await getStudyMypageCount(userId,{
             count: searchCount,
             searchText: searchText.value
         }),
@@ -119,14 +120,15 @@ function Mypage(props) {
 console.log(profile);
 console.log(searchParams.get("page"));
 
-
     return (
         <div css={s.layout}>
             <div css={s.mypageLayout}>
                 <div css={s.profileLayout}>
                     <div css={s.profile}>
                         <div css={s.profileUpdateButton}>
-                            <button onClick={handleModifyOnClick}>정보 수정</button> 
+                            <button>
+                                정보 수정
+                            </button> 
                         </div>
                         <div css={s.profileImgLayout}>
                             <img src={profile?.data?.userImgUrl} />
@@ -181,7 +183,7 @@ console.log(searchParams.get("page"));
                     {
                     boardList.map(
                         board => 
-                        <Link to={`/student/board/${board.studentBoardId}`} css={s.boardListItem} key={board.studentBoardId}>
+                        <Link to={`/study/board/${board.studyBoardId}`} css={s.boardListItem} key={board.studyBoardId}>
 
                             <li>
                                 <div>{board.title}</div>
@@ -194,7 +196,7 @@ console.log(searchParams.get("page"));
                 </div>
                 <div css={s.pageNumber}>
                     <div css={s.page}>
-                        <StudentProfileCount boardCount={getStudentMypageCountQuery.data?.data}/>
+                        <StudentProfileStudyCount boardCount={getStudyMypageCountQuery.data?.data}/>
                     </div>
                 </div>
 
@@ -207,4 +209,4 @@ console.log(searchParams.get("page"));
     );
 }
 
-export default Mypage;
+export default MypageStudy;

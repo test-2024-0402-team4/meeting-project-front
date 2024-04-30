@@ -39,20 +39,19 @@ function StudyBoardListPage(props) {
         {
             refetchOnWindowFocus : false,
             onSuccess: response => {
-                setBoardList(() => response.data.map(
+                setBoardList(() => response.data?.map(
                     boards => {
                         return {
                             ...boards
                         }
                     }
                 ));
-                console.log(response.data);
             }
         }
     );
 
     const getStudyCountQuery = useQuery(
-        ["getStudyCountQuery",searchStudyBoardQuery.data],
+        ["getStudyCountQuery",searchStudyBoardQuery?.data],
         async() => await getStudyCount({
             count: searchCount,
             searchText: searchText.value
@@ -67,13 +66,25 @@ function StudyBoardListPage(props) {
             }
         }
     );
+
+    const linkToStudy = () => {
+        window.location.replace("/study/boards?page=1")
+    }
+    const linkToStudent = () => {
+        window.location.replace("/student/boards?page=1")
+    }
+    const linkToTeacher = () => {
+        window.location.replace("/teacher/boards?page=1")
+    }
     
     return (
         <div css={s.layout}>
             <div css={s.authority}>
-                <button css={s.authorityButton}>학생용</button>
-                <button css={s.authorityButton}>선생님용</button>
-                <button css={s.authorityButton}>공부방</button>
+            
+                <button css={s.authorityButton} onClick={() => linkToStudent()}>학생용</button>
+            
+                <button css={s.authorityButton} onClick={() => linkToTeacher()}>선생님용</button>
+                <button css={s.authorityButton} onClick={() => linkToStudy()}>공부방</button>
             </div>
         
             <div css={s.searchInput}>
@@ -95,7 +106,7 @@ function StudyBoardListPage(props) {
                     <div>조회수</div>
                 </li>
                 {
-                boardList.map(
+                boardList?.map(
                     board => 
                     <Link to={`/study/board/${board.studyBoardId}`} css={s.boardListItem} key={board.studyBoardId}>
 

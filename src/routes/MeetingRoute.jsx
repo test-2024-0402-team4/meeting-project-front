@@ -4,7 +4,6 @@ import BoardListPage from '../pages/BoardListPage/BoardListPage';
 import BoardWritePage from '../pages/BoardWritePage/BoardWritePage';
 import BoardPage from '../pages/BoardPage/BoardPage';
 import BoardUpdatePage from '../pages/BoardUpdatePage/BoardUpdatePage';
-
 import TeacherBoardListPage from '../pages/BoardListPage/TeacherBoardListPage';
 import TeacherBoardWritePage from '../pages/BoardWritePage/TeacherBoardWritePage';
 import TeacherBoardPage from '../pages/BoardPage/TeacherBoardPage';
@@ -13,11 +12,9 @@ import StudyBoardListPage from '../pages/BoardListPage/StudyBoardListPage';
 import StudyBoardWritePage from '../pages/BoardWritePage/StudyBoardWritePage';
 import StudyBoardPage from '../pages/BoardPage/StudyBoardPage';
 import StudyBoardUpdatePage from '../pages/BoardUpdatePage/StudyUpdatePage';
-
 import RootHeader from '../components/RootHeader/RootHeader';
 import RootFooter from '../components/RootFooter/RootFooter';
 import Homepage from '../pages/Homepage/Homepage';
-
 import Mypage from '../pages/Mypage/Mypage';
 import ProfileTest from '../pages/ProfileTest/ProfileTest';
 import { useQueryClient } from 'react-query';
@@ -29,9 +26,13 @@ import StudentMyPostersPage from '../pages/StudentMyPostersPage/StudentMyPosters
 import StudentPosterPage from '../pages/StudentPosterPage/StudentPosterPage';
 import StudentMyPosterPage from '../pages/StudentMyPosterPage/StudentMyPosterPage';
 import StudentRegisterPosterPage from '../pages/StudentRegisterPosterPage/StudentRegisterPosterPage';
+import MypageStudy from '../pages/Mypage/MypageStudy';
+import MypageTeacher from '../pages/Mypage/MypageTeacher';
+import MypageTeacherStudy from '../pages/Mypage/MypageTeacherStudy';
 import StudentMyPosterModifyPage from '../pages/StudentMyPosterModifyPage/StudentMyPosterModifyPage';
 import ModifyStudentProfilePage from '../pages/ModifyStudentProfilePage/ModifyStudentProfilePage';
 import ModifyTeacherProfilePage from '../pages/ModifyTeacherProfilePage/ModifyTeacherProfilePage';
+
 
 
 
@@ -55,9 +56,13 @@ function MeetingRoute(props) {
         <Routes>
         <Route path='/' element={<Homepage />} />
               <Route path='/student/mypage' element={<Mypage />} />
+              <Route path='/student/mypage/study' element={<MypageStudy />} />
+              <Route path='/teacher/mypage' element={<MypageTeacher />} />
+              <Route path='/teacher/mypage/study' element={<MypageTeacherStudy />} />
+
               <Route path='/student/mypage/modify' element={ <ModifyStudentProfilePage />} />
-              <Route path='/teacher/mypage' element={<Mypage />} />
               <Route path='/teacher/mypage/modify' element={ <ModifyTeacherProfilePage />} />
+
 
               <Route path='/student/tutor/list' element={<TeacherProfiles />} />
               <Route path='/student/tutor' element={<TeacherProfile />} />

@@ -231,13 +231,20 @@ function StudentPostersPage(props) {
                         <h1>조건에 해당하는 결과가 없습니다</h1>
                     :
                     studentPosters.map(studentPoster => 
-                    <div onClick={() => navigate(`/teacher/tutee/poster?posterId=${studentPoster.posterId}`)} css={s.studentPosters}>
+                    <div key={studentPoster.posterId} onClick={() => navigate(`/teacher/tutee/poster?posterId=${studentPoster.posterId}`)} css={s.studentPosters}>
                         <div css={s.studentPosterContainer}>
                             <div css={s.studentPoster}>
                                 <div css={s.studentPosterContent}>
                                     <div>포스터 제목</div>
                                     <div css={s.subjects}>
-                                        <span>{studentPoster.subjectName.map(value => value).join(", ")}</span>
+                                        <span>
+                                            {studentPoster.subjectName.map((value, index) => (
+                                                <span key={index}>
+                                                    {value}
+                                                    {index !== studentPoster.subjectName.length - 1 && ", "}
+                                                </span>
+                                            ))}
+                                        </span>
                                     </div>
                                     <div css={s.studnetinfo}>
                                         <span>{studentPoster.studentType}</span>
