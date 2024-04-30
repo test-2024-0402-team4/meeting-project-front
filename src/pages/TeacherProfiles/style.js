@@ -38,24 +38,25 @@ export const SearchNickname = css`
 
 export const SearchBox = css`
     display: flex;
+    justify-content: space-between;
     box-sizing: border-box;
     padding: 8px;
     background-color: rgb(248 248 248);
     border-radius: 8px;
     height: 30px;
 
-
     * {
         box-sizing: border-box;
         border: none;
         background-color: rgb(248 248 248);
         font-size: 12px;
-        width: 100px;
         outline: none;
     }
     :nth-of-type(2) {
-        box-sizing: border-box;
-        cursor: pointer;  
+        & > div {
+            box-sizing: border-box;
+            cursor: pointer;
+        }
     }
 `;
 export const filterContentLayout = css`

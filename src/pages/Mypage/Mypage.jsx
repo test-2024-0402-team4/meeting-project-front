@@ -126,7 +126,7 @@ console.log(searchParams.get("page"));
                 <div css={s.profileLayout}>
                     <div css={s.profile}>
                         <div css={s.profileUpdateButton}>
-                            <button onClick={handleModifyOnClick}>정보 수정</button> 
+                            <button >정보 수정</button> 
                         </div>
                         <div css={s.profileImgLayout}>
                             <img src={profile?.data?.userImgUrl} />
