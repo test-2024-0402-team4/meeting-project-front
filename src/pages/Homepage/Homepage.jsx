@@ -115,7 +115,7 @@ function Homepage(props) {
                                     과외선생님 찾기
                                 </div>
                             </div>
-                            <div  onClick={() => handelPageMove(`mypage?userId=${userId}`)} css={s.searchMypageButton(roleId)}>
+                            <div  onClick={() => handelPageMove(`student/mypage?userId=${userId}`)} css={s.searchMypageButton(roleId)}>
                                 마이페이지
                             </div>
                             <div  onClick={() => handelPageMove(`student/boards?page=1`)} css={s.searchCommunityButton(roleId)}>

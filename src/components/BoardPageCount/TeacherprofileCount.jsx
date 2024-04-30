@@ -1,16 +1,47 @@
 /** @jsxImportSource @emotion/react */
 import { Link, useSearchParams } from "react-router-dom";
 import * as s from "./style";
-
+import { useQuery} from 'react-query';
 import React, { useEffect, useState } from 'react';
+import { getPrincipalRequest } from "../../apis/api/principal";
+import { getTeacherMypageProfile, getTeacherProfile } from "../../apis/api/teacherProfile";
 
-function BoardPageCount({boardCount}) {
+function TeacherProfileCount({boardCount}) {
     const [searchParams] = useSearchParams();
     const page = parseInt(searchParams.get("page"));
     const [numbers,setNumbers] = useState([]);
     const maxPageNumber = boardCount?.maxPageNumber;
     const startPageNumber = page % 5 === 0 ? page -4 : (page - (page % 5)) + 1;
-   
+    const [userId , setUserId] =useState(""); 
+    const [profile,setProfile] = useState({});
+
+    const principalQuery = useQuery(
+        ["principalQuery"],
+        getPrincipalRequest,
+        {
+            retry: 0,
+            refetchOnWindowFocus: false,
+            onSuccess: response => {
+            },
+            onError: error => {
+            }
+        }
+    );
+
+    useEffect(() => {
+        if (userId) {
+            const fetchProfile = async () => {
+                try {
+                    const profileData = await getTeacherMypageProfile(userId);
+                    setProfile(profileData);
+                } catch (error) {
+                    console.log("에러");
+                }
+            };
+            fetchProfile();
+        }
+    }, [userId]);
+    
     useEffect(() => {
         const endPageNumber = startPageNumber + 4 > maxPageNumber ? maxPageNumber : startPageNumber + 4;
         
@@ -23,6 +54,8 @@ function BoardPageCount({boardCount}) {
       
 
     },[page,boardCount])
+
+   
    
     return (
         <div css={s.layout}>
@@ -31,7 +64,7 @@ function BoardPageCount({boardCount}) {
                     {
                         page !== 1 &&
                     <Link css={s.pageButton(false)} 
-                    to={`/student/boards?page=1`}>처음으로</Link>
+                    to={`/teacher/mypage?page=1&userId=${userId}`}>처음으로</Link>
                     }
 
                     {
@@ -39,27 +72,28 @@ function BoardPageCount({boardCount}) {
                         page> 5 
                         ? 
                         <Link css={s.pageButton(false)}
-                        to={`/student/boards?page=${startPageNumber - 5}`}>&#171;</Link>
+                        to={`/teacher/mypage?page=${startPageNumber - 5}&userId=${userId}`}>&#171;</Link>
                         :
                         page !== 1 &&
                         <Link css={s.pageButton(false)} 
-                        to={`/student/boards?page=1`}>&#171;</Link>
+                        to={`/teacher/mypage?page=1&userId=${userId}`}>&#171;</Link>
                     }
 
                     {
                         page !== 1 &&
                         <Link css={s.pageButton(false)} 
-                        to={`/student/boards?page=${page -1}`}>&#60;</Link>
+                        to={`/teacher/mypage?page=${page -1}&userId=${userId}`}>&#60;</Link>
                     }
                 </div>
+                
                 {
                     numbers.map(number =>
-                        <Link key={number} css={s.pageButton(number === page)} to={`/student/boards?page=${number}`}>{number}</Link>)
+                        <Link key={number} css={s.pageButton(number === page)} to={`/teacher/mypage?page=${number}&userId=${userId}`}>{number}</Link>)
                 }
                 <div css={s.sideBox2}>
                     {
                         page !== maxPageNumber &&
-                    <Link css={s.pageButton(false)} to={`/student/boards?page=${page +1}`}>&#62;</Link>
+                    <Link css={s.pageButton(false)} to={`/teacher/mypage?page=${page +1}&userId=${userId}`}>&#62;</Link>
                     }
 
                     {
@@ -67,22 +101,23 @@ function BoardPageCount({boardCount}) {
                         page < maxPageNumber -5
                         ?
                         <Link css={s.pageButton(false)}
-                        to={`/student/boards?page=${startPageNumber + 5}`}>&#187;</Link>
+                        to={`/teacher/mypage?page=${startPageNumber + 5}&userId=${userId}`}>&#187;</Link>
                         :
                         page !== maxPageNumber &&
                         <Link css={s.pageButton(false)}
-                        to={`/student/boards?page=${maxPageNumber}`}>&#187;</Link>
+                        to={`/teacher/mypage?page=${maxPageNumber}&userId=${userId}`}>&#187;</Link>
                     }
                     {
                         page !== maxPageNumber &&
                     <Link css={s.pageButton(false)}
-                    to={`/student/boards?page=${maxPageNumber}`}>마지막으로</Link>
+                    to={`/teacher/mypage?page=${maxPageNumber}&userId=${userId}`}>마지막으로</Link>
                     }
-                </div>    
+                </div>
+                
             </div>
             
         </div>
     );
 }
 
-export default BoardPageCount;
+export default TeacherProfileCount;

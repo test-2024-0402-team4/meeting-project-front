@@ -59,3 +59,12 @@ export const count = css`
     font-size: 14px;
 
 `;
+
+export const sideBox1 = css`
+    display: flex;
+    width: 110px;
+`;
+export const sideBox2 = css`
+    display: flex;
+    width: 120px;
+`;

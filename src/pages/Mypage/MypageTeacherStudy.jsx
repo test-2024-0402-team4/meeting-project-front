@@ -2,17 +2,16 @@
 import * as s from "./style";
 
 import { getPrincipalRequest } from "../../apis/api/principal";
-import { getStudentMypageCount, getStudentProfile, searchStudentMypageBoardsRequest } from "../../apis/api/profileApi";
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useQuery, useQueryClient } from 'react-query';
 import { Link, useSearchParams } from "react-router-dom";
 import { useSearchBoardInput } from "../../hooks/useSearchBoardInput";
 import { IoSearchOutline } from "react-icons/io5";
 import GetTime from "../../components/GetTime/GetTime";
-import StudentProfileCount from "../../components/BoardPageCount/StudentProfileCount";
+import { getTeacherMypageProfile, getTeacherStudyMypageCount, searchTeacherStudyMypageBoardsRequest } from "../../apis/api/teacherProfile";
+import TeacherProfileStudyCount from "../../components/BoardPageCount/TeacherProfileStudyCount";
 
-function Mypage(props) {
-
+function MypageTeacherStudy(props) {
     const [searchParams, setSearchParams] = useSearchParams();
     const queryClient = useQueryClient();
     const [profile,setProfile] = useState({});
@@ -29,7 +28,7 @@ function Mypage(props) {
             refetchOnWindowFocus: false,
             onSuccess: response => {
                 console.log("principal Success");
-                console.log(response);
+                setUserId(response.data.userId);
             },
             onError: error => {
                 console.log("principal Error");
@@ -37,38 +36,34 @@ function Mypage(props) {
         }
     );
 
-    const studentProfileQuery = useQuery(
-        ["studentProfileQuery"],
-        async() => await getStudentProfile(principalQuery.data.data.userId),
-        {
-            refetchOnWindowFocus: false,
-            retry: 0,
-            onSuccess: response => {
-                console.log("프로필 가져오기");
-                // console.log(response);
-                setProfile(response);
-                setUserId(response.data.userId);
-            },
-            onError: error => {
-                console.log("에러");
-            },
-            enabled: !!principalQuery?.data?.data
+    useEffect(() => {
+        if (userId) {
+            const fetchProfile = async () => {
+                try {
+                    const profileData = await getTeacherMypageProfile(userId);
+                    setProfile(profileData);
+                } catch (error) {
+                    console.log("에러");
+                }
+            };
+            fetchProfile();
         }
-    )
+    }, [userId]);
+
     const searchSubmit = () => {
         if(userId){
             setSearchParams({
                 page:1
             })
-            searchStudentBoardQuery.refetch();
+            searchTeacherStudyBoardQuery.refetch();
         }
     }
 
     const searchText = useSearchBoardInput(searchSubmit);
 
-    const searchStudentBoardQuery = useQuery(
-        ["searchStudentBoardQuery",userId,searchParams.get("page")],
-        async() => await searchStudentMypageBoardsRequest(userId,{
+    const searchTeacherStudyBoardQuery = useQuery(
+        ["searchTeacherStudyBoardQuery",userId,searchParams.get("page")],
+        async() => await searchTeacherStudyMypageBoardsRequest(userId,{
             page: searchParams.get("page"),
             count: searchCount,
             searchText: searchText.value 
@@ -98,9 +93,9 @@ function Mypage(props) {
         }
     );
 
-    const getStudentMypageCountQuery = useQuery(
-        ["getStudentMypageCountQuery",userId,searchStudentBoardQuery.data],
-        async() => await getStudentMypageCount(userId,{
+    const getTeacherStudyMypageCountQuery = useQuery(
+        ["getTeacherStudyMypageCountQuery",userId,searchTeacherStudyBoardQuery.data],
+        async() => await getTeacherStudyMypageCount(userId,{
             count: searchCount,
             searchText: searchText.value
         }),
@@ -119,14 +114,15 @@ function Mypage(props) {
 console.log(profile);
 console.log(searchParams.get("page"));
 
-
     return (
         <div css={s.layout}>
             <div css={s.mypageLayout}>
                 <div css={s.profileLayout}>
                     <div css={s.profile}>
                         <div css={s.profileUpdateButton}>
-                            <button onClick={handleModifyOnClick}>정보 수정</button> 
+                            <button>
+                                정보 수정
+                            </button> 
                         </div>
                         <div css={s.profileImgLayout}>
                             <img src={profile?.data?.userImgUrl} />
@@ -181,7 +177,7 @@ console.log(searchParams.get("page"));
                     {
                     boardList.map(
                         board => 
-                        <Link to={`/student/board/${board.studentBoardId}`} css={s.boardListItem} key={board.studentBoardId}>
+                        <Link to={`/study/board/${board.studyBoardId}`} css={s.boardListItem} key={board.studyBoardId}>
 
                             <li>
                                 <div>{board.title}</div>
@@ -194,10 +190,10 @@ console.log(searchParams.get("page"));
                 </div>
                 <div css={s.pageNumber}>
                     <div css={s.page}>
-                        <StudentProfileCount boardCount={getStudentMypageCountQuery.data?.data}/>
+                        <TeacherProfileStudyCount boardCount={getTeacherStudyMypageCountQuery.data?.data}/>
                     </div>
                 </div>
-
+ 
                     </div>
                     
                 </div>
@@ -207,4 +203,4 @@ console.log(searchParams.get("page"));
     );
 }
 
-export default Mypage;
+export default MypageTeacherStudy;

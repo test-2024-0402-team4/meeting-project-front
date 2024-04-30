@@ -102,6 +102,7 @@ export const mypageContentTitle = () => css`
         font-weight: 600;
         height: 25px;
         text-decoration: underline;
+        min-width: 80px;
 
     }
 
@@ -118,7 +119,125 @@ export const mypageContent = css`
     width: 100%;
     min-height: 554px;
     background-color: rgb(248 248 248);
-
-
 `;
+
+export const contentListLayout = css`
+height: 438px;
+`;
+export const searchButton = css`
+box-sizing: border-box;
+padding: 0px 0px 0px 7px;
+background-color: white;
+border: none;
+cursor: pointer;
+`;
+
+export const searchInput = css`
+display: flex;
+justify-content: flex-end;
+width: 100%;
+padding-bottom: 10px;
+`;
+
+export const searchContainer = css`
+border: 1px solid #a19c9c;
+width: 199px;
+padding-left: 2px;
+padding-bottom:1px ;
+border-radius: 4px;
+`;
+
+export const inputBox = css`
+outline: none;
+border: none;
+`;
+
+export const boardListHeader = css`
+box-sizing: border-box;
+display: flex;
+width: 100%;
+border-bottom:2px solid #dbdbdb ;
+& > div{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+    height: 40px;
+    width: 80px;
+    flex-grow: 1;
+    font-weight: 700;
+    cursor: default;
+}
+& > div:nth-of-type(1){
+    border-right: 1px solid #dbdbdb ;
+    flex-grow: 0;
+    width: 650px;
+}
+& > div:nth-of-type(2){
+    border-right: 1px solid #dbdbdb ;
+    flex-grow: 0;
+    width: 160px;
+}
+& > div:nth-of-type(3){
+    border-right: 1px solid #dbdbdb ;
+    flex-grow: 0;
+    width: 130px;
+}
+`;
+
+export const boardListItem = css`
+
+   
+    cursor: pointer;
+    color: #222;
+    text-decoration: none;
+    &>li{
+        display: flex;
+        width: 100%;
+        border-bottom:1px solid #dbdbdb ;
+        &:hover{
+            background-color: beige;
+        }
+
+        & > div{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            
+            height: 42px;
+            width: 80px;
+            flex-grow: 1;
+           
+            
+        }
+        & > div:nth-of-type(1){
+            border-right: 1px solid #dbdbdb ;
+            flex-grow: 0;
+            width: 650px;
+        }
+        & > div:nth-of-type(2){
+            border-right: 1px solid #dbdbdb ;
+            flex-grow: 0;
+            width: 160px;
+        }
+        & > div:nth-of-type(3){
+            border-right: 1px solid #dbdbdb ;
+            flex-grow: 0;
+            width: 130px;
+        }
+    }
+`;
+export const pageNumber = css`
+width: 100%;
+box-sizing: border-box;
+display: flex;
+justify-content: center;
+align-items: center;
+padding: 15px;
+`;
+
+export const page = css`
+
+`
+
 
