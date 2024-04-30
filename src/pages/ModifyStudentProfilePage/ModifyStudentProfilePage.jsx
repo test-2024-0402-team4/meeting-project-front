@@ -20,11 +20,12 @@ function ModifyStudentProfilePage(props) {
     const [ nickname, nicknameChange, nicknameMessage, setNickname ] = useSignupInput();
     const [ phoneNumber, phoneNumberChange ] = useSignupInput();
 
-    const [ name, setName ] = useState();
-    const [ username, setUsername ] = useState();
+    const [ name, setName ] = useState("");
+    const [ username, setUsername ] = useState("");
+    const [ regionName, setregionName ] = useState("");
+    const [ genderType, setGenderType ] = useState("");
+
     const [ regionId, setRegionId ] = useState();
-    const [ regionName, setregionName ] = useState();
-    const [ genderType, setGenderType ] = useState();
     
     const [ regionOptions, setRegionOptions ] = useState([]);
 
@@ -182,12 +183,16 @@ function ModifyStudentProfilePage(props) {
                                     </div>
                                 </>
                                 :
-                                <div css={s.gender}>
-                                    <input id="radio1" type="radio" name="Role" value="student" disabled/>
-                                    <label htmlFor="radio1">남자</label>
-                                    <input id="radio2" type="radio" name="Role" value="teacher" disabled checked/>
-                                    <label htmlFor="radio2">여자</label>
-                                </div>
+                                <>
+                                    <div css={s.gender}>
+                                        <input id="radio1" type="radio" name="Role" value="student" disabled/>
+                                        <label htmlFor="radio1">남자</label>
+                                    </div>
+                                    <div css={s.gender}>
+                                        <input id="radio2" type="radio" name="Role" value="teacher" disabled checked/>
+                                        <label htmlFor="radio2">여자</label>
+                                    </div>
+                                </>
                             }
                         </div>
                     </div>
