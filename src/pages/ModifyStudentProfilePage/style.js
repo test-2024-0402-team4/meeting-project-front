@@ -150,8 +150,8 @@ export const selectBox = css`
 
     & > input {
         padding-left: 10px;
-        width: 652px;
-        height: 44px;
+        width: 646px;
+        height: 46px;
         font-size: 16px;
         border: 1px solid #dbdbdb;
         border-radius: 5px;

@@ -116,8 +116,13 @@ function Mypage(props) {
         }
     );
 
-console.log(profile);
-console.log(searchParams.get("page"));
+    console.log(profile);
+    console.log(searchParams.get("page"));
+
+    const handleModifyOnClick = () => {
+        window.location.replace(`/student/mypage/modify?userId=${userId}`);
+    }
+
 
 
     return (

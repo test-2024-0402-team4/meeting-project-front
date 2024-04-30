@@ -9,9 +9,13 @@ export const getTeacherProfile = async (params) => {
     return await instance.get("/student/tutor/profile", { params });
 }
 
+// 선생님 프로필 정보 가져오기
+export const getTeacherProfileInfo = async (params) => {
+    return await instance.get("/teacher/tutor/profile", { params });
+}
+
 // 선생 필수 정보 요청
 export const teacherProfileRequest = async (data) => {
-
     return await instance.post("/account/teacher/profile", data);
 }
 

@@ -10,6 +10,8 @@ import { useSearchParams } from "react-router-dom";
 import { CgChevronRight } from "react-icons/cg";
 import { useSignupInput } from "../../hooks/useSignupInput";
 import AuthPageInput from "../../components/AuthPageInput/AuthPageInput";
+import { getTeacherProfileInfo } from "../../apis/api/teacherProfile";
+import { getPrincipalRequest } from "../../apis/api/principal";
 
 function ModifyTeacherProfilePage(props) {
 
@@ -17,14 +19,52 @@ function ModifyTeacherProfilePage(props) {
     const userId = parseInt(searchParams.get("userId"));
 
     const [ nickname, nicknameChange, nicknameMessage, setNickname ] = useSignupInput();
-    const [ departmentName, departmentChange, setDepartmentName ] = useSignupInput();
+    const [ departmentName, departmentChange, departmentMessage, setDepartmentName ] = useSignupInput();
     const [ phoneNumber, phoneNumberChange ] = useSignupInput();
+
+    const [ name, setName ] = useState("");
+    const [ username, setUsername ] = useState("");
+    const [ universityName, setUniversityName ] = useState("");
+    const [ graduateState, setGraduateState ] = useState("");
+    const [ genderType, setGenderType ] = useState("");
 
     const [ universityId, setUniversityId ] = useState();
     const [ graduateStateId, setGraduateStateId ] = useState();
 
     const [ universityOptions, setUniversityOptions ] = useState([]);
     const [ graduateStateOptions, setGraduateStateOptions ] = useState([]);
+
+
+    const principalQuery = useQuery(
+        ["principalQuery"],
+        getPrincipalRequest,
+        {
+            onSuccess: response => {
+                // console.log(response.data.username);
+                setName(response.data.name);
+                setUsername(response.data.username);
+            },
+            retry: 0,
+            refetchOnWindowFocus: false
+        }
+    );
+
+    const teacherProfileQuery = useQuery(
+        ["teacherProfileQuery"],
+        async() => await getTeacherProfileInfo({userId: userId}),
+        {
+            onSuccess: response => {
+                console.log(response);
+                setDepartmentName(response.data.departmentName);
+                setUniversityName(response.data.universityName);
+                setGraduateState(response.data.graduateState);
+                setGenderType(response.data.genderType);
+                setNickname(response.data.nickname);
+            },
+            retry: 0,
+            refetchOnWindowFocus: false
+        }
+    )
 
 
     const universityQuery = useQuery(
@@ -112,7 +152,7 @@ function ModifyTeacherProfilePage(props) {
                             <span>이름</span>
                         </div>
                         <div css={s.selectBox}>
-                            <input type={"text"} placeholder={"이름"}  disabled/>
+                            <input type={"text"} placeholder={"이름"} value={name} disabled/>
                         </div>
                     </div>
                 </div>
@@ -123,7 +163,7 @@ function ModifyTeacherProfilePage(props) {
                             <span>아이디</span>
                         </div>
                         <div css={s.selectBox}>
-                            <input type={"text"} placeholder={"아이디"}  disabled/>
+                            <input type={"text"} placeholder={"아이디"} value={username} disabled/>
                         </div>
                     </div>
                 </div>
@@ -146,8 +186,31 @@ function ModifyTeacherProfilePage(props) {
                             <span>성별</span>
                         </div>
                         <div css={s.genderBox}>
-
-                            
+                            {
+                                genderType === "남"
+                                ?
+                                <>
+                                    <div css={s.gender}>
+                                        <input id="radio1" type="radio" name="Role" value="student" disabled checked/>
+                                        <label htmlFor="radio1">남자</label>
+                                    </div>
+                                    <div css={s.gender}>
+                                        <input id="radio2" type="radio" name="Role" value="teacher" disabled/>
+                                        <label htmlFor="radio2">여자</label>
+                                    </div>
+                                </>
+                                :
+                                <>
+                                    <div css={s.gender}>
+                                        <input id="radio1" type="radio" name="Role" value="student" disabled/>
+                                        <label htmlFor="radio1">남자</label>
+                                    </div>
+                                    <div css={s.gender}>
+                                        <input id="radio2" type="radio" name="Role" value="teacher" disabled checked/>
+                                        <label htmlFor="radio2">여자</label>
+                                    </div>
+                                </>
+                            }
                         </div>
                     </div>
                 </div>
@@ -160,7 +223,7 @@ function ModifyTeacherProfilePage(props) {
                             <span>(필수)</span>
                         </div>
                         <div css={s.selectBox}>
-                            <Select styles={selectStyle} options={universityOptions} placeholder="" onChange={handleUniversityOnChange}/>
+                            <Select styles={selectStyle} options={universityOptions} placeholder={universityName} onChange={handleUniversityOnChange}/>
                         </div>
                     </div>
                 </div>
@@ -172,7 +235,7 @@ function ModifyTeacherProfilePage(props) {
                             <span>(필수)</span>
                         </div>
                         <div css={s.selectBox}>
-                            <Select styles={selectStyle} options={graduateStateOptions} placeholder="" onChange={handleGraduateStateOnChange}/>
+                            <Select styles={selectStyle} options={graduateStateOptions} placeholder={graduateState} onChange={handleGraduateStateOnChange}/>
                         </div>
                     </div>
                 </div>
@@ -219,24 +282,3 @@ function ModifyTeacherProfilePage(props) {
 }
 
 export default ModifyTeacherProfilePage;
-// {
-//     genderType === "남"
-//     ?
-//     <>
-//         <div css={s.gender}>
-//             <input id="radio1" type="radio" name="Role" value="student" disabled checked/>
-//             <label htmlFor="radio1">남자</label>
-//         </div>
-//         <div css={s.gender}>
-//             <input id="radio2" type="radio" name="Role" value="teacher" disabled/>
-//             <label htmlFor="radio2">여자</label>
-//         </div>
-//     </>
-//     :
-//     <div css={s.gender}>
-//         <input id="radio1" type="radio" name="Role" value="student" disabled/>
-//         <label htmlFor="radio1">남자</label>
-//         <input id="radio2" type="radio" name="Role" value="teacher" disabled checked/>
-//         <label htmlFor="radio2">여자</label>
-//     </div>
-// }
