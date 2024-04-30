@@ -8,6 +8,8 @@ import { useQuery, useQueryClient } from 'react-query';
 
 function Mypage(props) {
 
+    const [ userId, setUserId ] = useState();
+
     const queryClient = useQueryClient();
     const [profile,setProfile] = useState({});
     const principalQuery = useQuery(
@@ -18,6 +20,7 @@ function Mypage(props) {
             refetchOnWindowFocus: false,
             onSuccess: response => {
                 console.log("principal Success");
+                setUserId(response.data.userId);
             },
             onError: error => {
                 console.log("principal Error");
@@ -35,7 +38,7 @@ function Mypage(props) {
             retry: 0,
             onSuccess: response => {
                 console.log("프로필 가져오기");
-                console.log(response);
+                // console.log(response);
                 setProfile(response);
             },
             onError: error => {
@@ -44,7 +47,14 @@ function Mypage(props) {
             enabled: !!principalQuery?.data?.data
         }
     )
-console.log(profile);
+    console.log(profile);
+
+    const handleModifyOnClick = () => {
+        window.location.replace(`/student/mypage/modify?userId=${userId}`);
+    }
+
+
+
 
     return (
         <div css={s.layout}>
@@ -52,9 +62,7 @@ console.log(profile);
                 <div css={s.profileLayout}>
                     <div css={s.profile}>
                         <div css={s.profileUpdateButton}>
-                            <button>
-                                정보 수정
-                            </button> 
+                            <button onClick={handleModifyOnClick}>정보 수정</button> 
                         </div>
                         <div css={s.profileImgLayout}>
                             <img src={profile?.data?.userImgUrl} />

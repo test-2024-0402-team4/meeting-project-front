@@ -172,67 +172,67 @@ function TeacherRegisterProfilePage() {
 
     return (
         <div css={s.layout}>
-        <div css={s.body}>
+            <div css={s.body}>
 
-            <div css={s.bodyBox1}>
-                <div css={s.box1}>
-                    <span>선생님 필수정보 등록</span>
-                    <button css={s.buttonBox} onClick={handleSubmitOnClick}>등록</button>
-                </div>
-            </div>
-
-
-            <div css={s.bodyBox}>
-                <div css={s.box2}>
-                    <div css={s.spanBox}>
-                        <span>과외 방식</span>
-                        <span>(필수)</span>
-                    </div>
-                    <div css={s.selectBox}>
-                        <Select options={classTypeOptions} styles={selectStyle} placeholder="과외 방식" onChange={handleClassTypeIdOnChange} isMulti/>
+                <div css={s.bodyBox1}>
+                    <div css={s.box1}>
+                        <span>선생님 필수정보 등록</span>
+                        <button css={s.buttonBox} onClick={handleSubmitOnClick}>등록</button>
                     </div>
                 </div>
-            </div>
 
-            <div css={s.bodyBox}>
-                <div css={s.box2}>
-                    <div css={s.spanBox}>
-                        <span>과외 과목</span>
-                        <span>(필수)</span>
-                    </div>
-                    <div css={s.selectBox}>
-                        <Select options={subjectOptions} styles={selectStyle} placeholder="과외 과목" onChange={handleSubjectIdOnChange} isMulti/>
+
+                <div css={s.bodyBox}>
+                    <div css={s.box2}>
+                        <div css={s.spanBox}>
+                            <span>과외 방식</span>
+                            <span>(필수)</span>
+                        </div>
+                        <div css={s.selectBox}>
+                            <Select options={classTypeOptions} styles={selectStyle} placeholder="과외 방식" onChange={handleClassTypeIdOnChange} isMulti/>
+                        </div>
                     </div>
                 </div>
-            </div>
 
-            <div css={s.bodyBox}>
-                <div css={s.box2}>
-                    <div css={s.spanBox}>
-                        <span>희망 수업지역</span>
-                        <span>(필수)</span>
-                    </div>
-                    <div css={s.selectBox}>
-                        <Select options={regionOptions} styles={selectStyle} placeholder="수업 지역" onChange={handleRegionIdOnChange}/>
-                    </div>
-                </div>
-            </div>
-
-            <div css={s.bodyBox}>
-                <div css={s.box2}>
-                    <div css={s.spanBox}>
-                        <span>수업 가능 일정</span>
-                        <span>(필수)</span>
-                    </div>
-
-                    <div css={s.selectBox}>
-                        <Select options={dateOptions} styles={selectStyle} placeholder="수업 가능 일정" onChange={handleDateIdOnChange} isMulti/>
+                <div css={s.bodyBox}>
+                    <div css={s.box2}>
+                        <div css={s.spanBox}>
+                            <span>과외 과목</span>
+                            <span>(필수)</span>
+                        </div>
+                        <div css={s.selectBox}>
+                            <Select options={subjectOptions} styles={selectStyle} placeholder="과외 과목" onChange={handleSubjectIdOnChange} isMulti/>
+                        </div>
                     </div>
                 </div>
-            </div>
 
+                <div css={s.bodyBox}>
+                    <div css={s.box2}>
+                        <div css={s.spanBox}>
+                            <span>희망 수업지역</span>
+                            <span>(필수)</span>
+                        </div>
+                        <div css={s.selectBox}>
+                            <Select options={regionOptions} styles={selectStyle} placeholder="수업 지역" onChange={handleRegionIdOnChange}/>
+                        </div>
+                    </div>
+                </div>
+
+                <div css={s.bodyBox}>
+                    <div css={s.box2}>
+                        <div css={s.spanBox}>
+                            <span>수업 가능 일정</span>
+                            <span>(필수)</span>
+                        </div>
+
+                        <div css={s.selectBox}>
+                            <Select options={dateOptions} styles={selectStyle} placeholder="수업 가능 일정" onChange={handleDateIdOnChange} isMulti/>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
         </div>
-    </div>
     );
 }
 
