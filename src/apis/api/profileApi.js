@@ -14,5 +14,8 @@ export const getStudentProfile = async (userId) => {
 }
 
 
+export const modifyStudentProfile = async (data) => {
+    return await instance.put(`/student/profile`, data);
+}
 
 
