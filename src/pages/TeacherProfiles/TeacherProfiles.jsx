@@ -151,6 +151,21 @@ function TeacherProfiles() {
             classTypes: selectedOptions
         }));
     };
+
+    const handleNickname = (e) => {
+        setSearchData(prevState => ({
+            ...prevState,
+            nickname: e.target.value
+        }))
+    }
+
+    const searchTeacherByNickname = (e) => {
+        getTeacherProfile();
+        if (e.key === 'Enter') {
+            getTeacherProfile();
+        }
+    }
+    
     return (
         <>
             <div css={s.layout}>
@@ -161,8 +176,10 @@ function TeacherProfiles() {
                                 닉네임으로 검색
                             </div>
                             <div css={s.SearchBox}>
-                                <input type="text" placeholder="검색어 입력"/>
-                                <RiSearchLine />
+                                <input style={{width: "100px"}} onChange={handleNickname} onKeyPress={searchTeacherByNickname} type="text" placeholder="닉네임 입력"/>
+                                <div onClick={searchTeacherByNickname} >
+                                    <RiSearchLine/>
+                                </div>
                             </div>
                         </div>
                         <div css={s.filterContentLayout}>
