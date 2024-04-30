@@ -31,6 +31,7 @@ import StudentMyPosterPage from '../pages/StudentMyPosterPage/StudentMyPosterPag
 import StudentRegisterPosterPage from '../pages/StudentRegisterPosterPage/StudentRegisterPosterPage';
 import StudentMyPosterModifyPage from '../pages/StudentMyPosterModifyPage/StudentMyPosterModifyPage';
 import ModifyStudentProfilePage from '../pages/ModifyStudentProfilePage/ModifyStudentProfilePage';
+import ModifyTeacherProfilePage from '../pages/ModifyTeacherProfilePage/ModifyTeacherProfilePage';
 
 
 
@@ -56,6 +57,7 @@ function MeetingRoute(props) {
               <Route path='/student/mypage' element={<Mypage />} />
               <Route path='/student/mypage/modify' element={ <ModifyStudentProfilePage />} />
               <Route path='/teacher/mypage' element={<Mypage />} />
+              <Route path='/teacher/mypage/modify' element={ <ModifyTeacherProfilePage />} />
 
               <Route path='/student/tutor/list' element={<TeacherProfiles />} />
               <Route path='/student/tutor' element={<TeacherProfile />} />
