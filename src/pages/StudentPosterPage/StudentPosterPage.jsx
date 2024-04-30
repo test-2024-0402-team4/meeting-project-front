@@ -23,7 +23,7 @@ function StudentPosterPage(props) {
 
     useEffect(() => {
         getPosterStudentProfile();
-        console.log(userId);
+        console.log(poster);
         console.log(profile);
 
     }, [poster])
@@ -79,7 +79,11 @@ function StudentPosterPage(props) {
     })
 
     const handleSendTeacherProfile = async () => {
-        sendTeacherProfile.mutate({email: poster.email, userId: poster.userId})
+        if(window.confirm("프로필을 보내시겠습니까?")) {
+            sendTeacherProfile.mutate({email: poster.email, userId: poster.userId})
+        } else {
+            
+        }
     }
     
     

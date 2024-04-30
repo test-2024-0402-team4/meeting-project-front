@@ -106,7 +106,14 @@ function StudentMyPostersPage(props) {
                                 <div css={s.studentPosterContent}>
                                     <div>{poster.title}</div>
                                     <div css={s.subjects}>
-                                        <span>{poster.subjectName.map(value => value).join(", ")}</span>
+                                        <span>
+                                            {poster.subjectName.map((value, index) => (
+                                                <span key={index}>
+                                                    {value}
+                                                    {index !== poster.subjectName.length - 1 && ", "}
+                                                </span>
+                                            ))}
+                                        </span>
                                     </div>
                                     <div css={s.studnetinfo}>
                                         <span>{poster.studentType}</span>
