@@ -78,7 +78,7 @@ function Homepage(props) {
                                     <div>
                                         과외에 필요한 정보들을 입력해주세요!
                                     </div> 
-                                    <Link to={"/account/teacher/registerProfile"}>
+                                    <Link to={"/teacher/register/profile"}>
                                         지금 바로 입력하기 &#62;
                                     </Link>
                                 </div>   

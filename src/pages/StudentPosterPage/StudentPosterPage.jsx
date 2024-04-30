@@ -2,10 +2,12 @@ import React, { useEffect, useState } from 'react';
 /** @jsxImportSource @emotion/react */
 import * as s from "./style";
 import { useSearchParams } from 'react-router-dom';
-import { useQuery, useQueryClient } from 'react-query';
+import { useMutation, useQuery, useQueryClient } from 'react-query';
 import { getPrincipalRequest } from '../../apis/api/principal';
 import { getTuteePoster, getTuteeProfile } from '../../apis/api/posterApi';
 import { getStudentProfile } from '../../apis/api/profileApi';
+import { sendEmailTeacherProfile } from '../../apis/api/emailApi';
+import { PulseLoader } from "react-spinners";
 
 
 function StudentPosterPage(props) {
@@ -14,17 +16,17 @@ function StudentPosterPage(props) {
     const posterId = parseInt(searchParams.get("posterId"));
     const [poster, setPoster] = useState();
     const [userId, setUserId] = useState(0);
+    const [email, setEmail] = useState();
 
     const queryClient = useQueryClient();
     const [profile,setProfile] = useState({});
 
     useEffect(() => {
-
         getPosterStudentProfile();
         console.log(userId);
-    }, [poster])
-    console.log(profile);
+        console.log(profile);
 
+    }, [poster])
 
     // 만나이 계산기
     const birthDate = (profile?.birthDate)
@@ -49,8 +51,9 @@ function StudentPosterPage(props) {
             refetchOnWindowFocusf: false,
             onSuccess: response => {
                 console.log("학생 포스터 가져오기");
+                console.log(response.data);
                 setPoster(response.data);
-                setUserId(response.data.userId)
+                setUserId(response.data.userId);
             },
             onError: error => {
                 console.log("에러");
@@ -65,6 +68,18 @@ function StudentPosterPage(props) {
         } catch (error) {
             
         }
+    }
+
+    const sendTeacherProfile = useMutation({
+        mutationKey: "sendTeacherProfile",
+        mutationFn: sendEmailTeacherProfile,
+        onSuccess: response => {
+            alert("메일 전송 완료")
+        }
+    })
+
+    const handleSendTeacherProfile = async () => {
+        sendTeacherProfile.mutate({email: poster.email, userId: poster.userId})
     }
     
     
@@ -92,6 +107,23 @@ function StudentPosterPage(props) {
                                 {profile?.regionName}
                             </span>
                         </div>
+                        <button onClick={() => handleSendTeacherProfile()} css={s.applyButton}>
+                            {
+                                !sendTeacherProfile.isLoading ?
+                                <div>
+                                    프로필 보내기
+                                </div>
+                                :
+                                <div>
+                                    메일 보내는 중
+                                    <PulseLoader 
+                                    color="#11b69a"
+                                    loading
+                                    size={10}
+                                    />
+                                </div>
+                            }
+                        </button>
                     </div>
                 </div>
                 <div css={s.studentInfoRootLayout}>

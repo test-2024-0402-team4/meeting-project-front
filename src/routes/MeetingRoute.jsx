@@ -4,7 +4,6 @@ import BoardListPage from '../pages/BoardListPage/BoardListPage';
 import BoardWritePage from '../pages/BoardWritePage/BoardWritePage';
 import BoardPage from '../pages/BoardPage/BoardPage';
 import BoardUpdatePage from '../pages/BoardUpdatePage/BoardUpdatePage';
-
 import TeacherBoardListPage from '../pages/BoardListPage/TeacherBoardListPage';
 import TeacherBoardWritePage from '../pages/BoardWritePage/TeacherBoardWritePage';
 import TeacherBoardPage from '../pages/BoardPage/TeacherBoardPage';
@@ -13,11 +12,9 @@ import StudyBoardListPage from '../pages/BoardListPage/StudyBoardListPage';
 import StudyBoardWritePage from '../pages/BoardWritePage/StudyBoardWritePage';
 import StudyBoardPage from '../pages/BoardPage/StudyBoardPage';
 import StudyBoardUpdatePage from '../pages/BoardUpdatePage/StudyUpdatePage';
-
 import RootHeader from '../components/RootHeader/RootHeader';
 import RootFooter from '../components/RootFooter/RootFooter';
 import Homepage from '../pages/Homepage/Homepage';
-
 import Mypage from '../pages/Mypage/Mypage';
 import ProfileTest from '../pages/ProfileTest/ProfileTest';
 import { useQueryClient } from 'react-query';
@@ -32,6 +29,9 @@ import StudentRegisterPosterPage from '../pages/StudentRegisterPosterPage/Studen
 import MypageStudy from '../pages/Mypage/MypageStudy';
 import MypageTeacher from '../pages/Mypage/MypageTeacher';
 import MypageTeacherStudy from '../pages/Mypage/MypageTeacherStudy';
+import StudentMyPosterModifyPage from '../pages/StudentMyPosterModifyPage/StudentMyPosterModifyPage';
+import ModifyStudentProfilePage from '../pages/ModifyStudentProfilePage/ModifyStudentProfilePage';
+
 
 
 
@@ -55,24 +55,31 @@ function MeetingRoute(props) {
         <Routes>
         <Route path='/' element={<Homepage />} />
               <Route path='/student/mypage' element={<Mypage />} />
+
               <Route path='/student/mypage/study' element={<MypageStudy />} />
               <Route path='/teacher/mypage' element={<MypageTeacher />} />
               <Route path='/teacher/mypage/study' element={<MypageTeacherStudy />} />
+
+              <Route path='/student/mypage/modify' element={ <ModifyStudentProfilePage />} />
+
+
 
               <Route path='/student/tutor/list' element={<TeacherProfiles />} />
               <Route path='/student/tutor' element={<TeacherProfile />} />
               <Route path='/student/myposter' element={<StudentMyPosterPage />}/>
               <Route path='/student/myposters' element={<StudentMyPostersPage />} />
+              <Route path='/student/myposter/modify' element={ <StudentMyPosterModifyPage />} />
+              <Route path='/student/register/poster' element={ <StudentRegisterPosterPage /> } />
                           
               <Route path='/teacher/tutee/poster/list' element={<StudentPostersPage />} />
               <Route path='/teacher/tutee/poster' element={<StudentPosterPage />} />
               <Route path='/teacher/register/profile' element={ <TeacherRegisterProfilePage /> } />
-              <Route path='/student/register/poster' element={ <StudentRegisterPosterPage /> } />  
 
               <Route path="/student/boards" element={<BoardListPage/>} />
               <Route path="/student/board" element={<BoardWritePage/>} />
               <Route path="/student/board/:studentBoardId" element={<BoardPage/>} />
               <Route path="/student/board/update/:studentBoardId" element={<BoardUpdatePage/>} />
+
               <Route path="/teacher/boards" element={<TeacherBoardListPage/>} />
               <Route path="/teacher/board" element={<TeacherBoardWritePage/>} />
               <Route path="/teacher/board/:teacherBoardId" element={<TeacherBoardPage/>} />

@@ -42,6 +42,25 @@ export const bodyBox1 = css`
     border-bottom: 1px solid #dbdbdb;
 `;
 
+export const studentBox = css`
+    display: flex;
+    flex-direction: column;
+
+    // 다하고 지우기 -------------------------------
+    /* border: 1px solid black; */
+
+    margin: 0px 20px;
+`;
+
+export const genderBox = css`
+    margin-top: 10px;
+
+`;
+
+export const genderBox2 = css`
+    border: 1px solid black;
+
+`;
 
 export const box1 = css`
     display: flex;
@@ -88,6 +107,23 @@ export const selectBox = css`
 `;
 
 
+export const inputBox = css`
+    input{
+        width: 650px;
+        height: 46px;
+        margin-top: 10px;
+        border: 1px solid #dbdbdb;
+        border-radius: 5px;
+        font-size: 15px;
+        padding-left: 10px;
+
+        ::placeholder{
+            color: #dbdbdb;
+            font-size: 15px;
+        }
+    }
+`;
+
 export const buttonBox = css`
     width: 100px;
     height: 40px;
@@ -105,4 +141,52 @@ export const buttonBox = css`
     }
 `;
 
+export const inputBox2 = css`
+    textarea{
+        width: 642px;
+        height: 120px;
+        margin-top: 10px;
+        border: 1px solid #dbdbdb;
+        border-radius: 5px;
+        font-size: 15px;
+        padding: 10px;
 
+        ::placeholder{
+            display: flex;
+            justify-content: center;
+            color: #dbdbdb;
+            font-size: 15px;
+        }
+    }
+`;
+export const bodyBox2 = css`
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+
+    width: 700px;
+    height: 150px;
+
+        // 다하고 지우기 -------------------------------
+    /* border: 1px solid black; */
+`;
+
+export const bodyBox3 = css`
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+
+    width: 700px;
+    height: 200px;
+
+        // 다하고 지우기 -------------------------------
+    /* border: 1px solid black; */
+`;
+
+export const text = css`
+    display: flex;
+    justify-content: end;
+    margin-top: 5px;
+    font-size: 13px;
+    color: #aaaaaa;
+`;

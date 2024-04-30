@@ -13,7 +13,6 @@ export const getStudentProfile = async (userId) => {
     return await instance.get(`/student/profile/${userId}`)
 }
 
-
 export const searchStudentMypageBoardsRequest = async(userId,params) => {
     return await instance.get(`student/mypage/boards/${userId}`,{params})
 }
@@ -30,8 +29,9 @@ export const getStudyMypageCount = async(userId,params) => {
     return await instance.get(`student/boards/count/study/${userId}`,{params})
 }
 
-
-
+export const modifyStudentProfile = async (data) => {
+    return await instance.put(`/student/profile`, data);
+}
 
 
 

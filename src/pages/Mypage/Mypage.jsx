@@ -12,6 +12,7 @@ import GetTime from "../../components/GetTime/GetTime";
 import StudentProfileCount from "../../components/BoardPageCount/StudentProfileCount";
 
 function Mypage(props) {
+
     const [searchParams, setSearchParams] = useSearchParams();
     const queryClient = useQueryClient();
     const [profile,setProfile] = useState({});
@@ -44,7 +45,7 @@ function Mypage(props) {
             retry: 0,
             onSuccess: response => {
                 console.log("프로필 가져오기");
-                console.log(response);
+                // console.log(response);
                 setProfile(response);
                 setUserId(response.data.userId);
             },
@@ -118,15 +119,14 @@ function Mypage(props) {
 console.log(profile);
 console.log(searchParams.get("page"));
 
+
     return (
         <div css={s.layout}>
             <div css={s.mypageLayout}>
                 <div css={s.profileLayout}>
                     <div css={s.profile}>
                         <div css={s.profileUpdateButton}>
-                            <button>
-                                정보 수정
-                            </button> 
+                            <button onClick={handleModifyOnClick}>정보 수정</button> 
                         </div>
                         <div css={s.profileImgLayout}>
                             <img src={profile?.data?.userImgUrl} />

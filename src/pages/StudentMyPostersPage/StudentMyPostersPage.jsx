@@ -115,7 +115,7 @@ function StudentMyPostersPage(props) {
                                         <span>{poster.classType}</span>
                                     </div>
                                     <div css={s.buttonLayout}>
-                                        <button>수정</button>
+                                        <button onClick={() => handelPageMove(`/student/myposter/modify?posterId=${poster.posterId}`)}>수정</button>
                                         <button>삭제</button>
                                     </div>
                                 </div>

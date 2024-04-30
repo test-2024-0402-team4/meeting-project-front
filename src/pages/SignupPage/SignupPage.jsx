@@ -321,7 +321,7 @@ function SignupPage() {
                                                 </div>
 
                                                 <div css={s.selectBox}>
-                                                    <Select styles={selectStyle} options={regionOption} placeholder="지역" onChange={handleRegionOnChange}/>
+                                                    <Select styles={selectStyle} options={regionOption} placeholder="거주지역" onChange={handleRegionOnChange}/>
                                                 </div>
                                                 <div css={s.selectBox}>
                                                     <Select styles={selectStyle} options={studentTypeOption} placeholder="학습자" onChange={handleStudentTypeOnChange} />

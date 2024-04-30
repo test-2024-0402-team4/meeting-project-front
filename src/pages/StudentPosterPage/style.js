@@ -49,6 +49,9 @@ export const profile = css`
         }
 
     }
+    & > button {
+        top: 250px;
+    }
 `;
 export const profileUpdateButton = css`
     position: absolute;
@@ -58,6 +61,7 @@ export const profileUpdateButton = css`
 
 export const profileImgLayout = css`
     position: absolute;
+
     display: flex;
     width: 100px;
     height: 100px;
@@ -81,6 +85,24 @@ export const roleName = css`
     border-radius: 5px;
     font-size: 11px;
     margin-left: 7px;
+`;
+
+export const applyButton = css`
+    position: absolute;
+
+    margin-top: 10px;
+    padding: 12px 16px;
+    width: 100%;
+    height: 55px;
+    background-color: #14dbba;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    color: white;
+    cursor: pointer;
+    :hover {
+        background-color: #11b69a;
+    }
 `;
 
 export const mypageContentLayout = css`
