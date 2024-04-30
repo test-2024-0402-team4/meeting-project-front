@@ -9,14 +9,16 @@ import Select from "react-select";
 import { getClassType, getDate, getRegion, getSubject } from '../../apis/api/Option';
 import { getStudentProfile } from '../../apis/api/profileApi';
 import { useMutation, useQueryClient } from 'react-query';
+import { sendApplyEmail } from '../../apis/api/emailApi';
 
 function TeacherProfile() {
 
     const [searchParams] = useSearchParams();
+    const userId = parseInt(searchParams.get("userId"))
     const [ teacherProfile, setTeacherProfile] = useState();
     const [ modal, setModal ] = useState(0);
     const [ studentUserId, setStudentUserId ] = useState();
-    const userId = parseInt(searchParams.get("userId"))
+    const [ studentAge, setStudentAge ] = useState(0);
     const [ subjects, setSubjects ] = useState([]);
     const [ region, setRegion ] = useState([]);
     const [ date, setDate ] = useState([]);
@@ -86,12 +88,12 @@ function TeacherProfile() {
             setApplyDate({
                 ...applyData, 
                 name: response.data.name,
-                age: 0,
                 teacherEmail: null,
                 email: response.data.email,
                 gender: response.data.genderType,
                 studentType: response.data.studentType,
             })
+        console.log(applyData)
         }
     })
 
@@ -166,10 +168,10 @@ function TeacherProfile() {
         }));
     };
 
-    const handleRegionOption = (selectedOptions) => {
+    const handleRegionOption = (selectedOption) => {
         setApplyDate(prevState => ({
             ...prevState,
-            region: selectedOptions
+            region: selectedOption
         }));
     };
     
@@ -187,6 +189,10 @@ function TeacherProfile() {
         }));
     };
 
+    const handleStudentAge = (e) => {
+        setStudentAge(e.target.value)
+    }
+
     const selectStyle = {
         control: baseStyles => ({
             ...baseStyles,
@@ -196,7 +202,30 @@ function TeacherProfile() {
             heighy:"100%"
         })
     }
-
+    const handelSendApplyMailOnClick = () => {
+        const params = {
+            name: applyData.name,
+            age: studentAge,
+            teacherEmail: teacherProfile.email,
+            email: applyData.email,
+            gender: applyData.gender,
+            studentType: applyData.studentType,
+            region: applyData.region.label,
+            subjects : applyData.subjects.map(option => option.label),
+            dates: applyData.dates.map(option => option.label),
+            classType: applyData.classTypes.map(option => option.label)
+        };
+        try {
+            if(window.confirm("신청 메일을 보내시겠습니까?")) {
+                sendApplyEmail(params);
+                alert("메일을 성공적으로 보냈습니다!")
+                setModal(0)
+            }
+        } catch (error) {
+            alert("메일전송에 실패했습니다.")
+        }
+        
+    }
 
     return (
         <>
@@ -206,17 +235,40 @@ function TeacherProfile() {
                         modal === 1 ? 
                         <div css={s.emailApplyLayout}>
                             <h1>과외 신청하기</h1>
-                            <div>
-                                <Select styles={selectStyle} key={"subjects"} options={subjects} placeholder="과목명" value={applyData.subjects} onChange={handleSubjectOption} isMulti/>
+                            <div css={s.studentInfo}>
+                                이름 : {applyData?.name}
                             </div>
-                            <div>
-                                <Select styles={selectStyle} key={"region"} options={region} placeholder="지역" value={applyData.regions} onChange={handleRegionOption}/>                        
+                            <div css={s.studentInfo}>
+                                이메일 : {applyData?.email}
                             </div>
-                            <div>
-                                <Select styles={selectStyle} key={"date"} options={date} placeholder="요일" value={applyData.dates} onChange={handleDateOption} isMulti/>
+                            <div css={s.studentInfo}>
+                                성별 : {applyData?.gender}
+                            </div> 
+                            <div css={s.studentInfo}>
+                                학생 유형 : {applyData?.studentType}
                             </div>
-                            <div>
-                                <Select styles={selectStyle} key={"classType"} options={classType}  placeholder="수업방식" value={applyData.classTypes} onChange={handleClassTypeOption}isMulti/>
+                            <div css={s.selectLayout}>
+                                <Select styles={selectStyle} key={"subjects"} options={subjects} placeholder="과목명" onChange={handleSubjectOption} isMulti/>
+                            </div>
+                            <div css={s.selectLayout}>
+                                <Select styles={selectStyle} key={"region"} options={region} placeholder="지역" onChange={handleRegionOption}/>                        
+                            </div>
+                            <div css={s.selectLayout}>
+                                <Select styles={selectStyle} key={"date"} options={date} placeholder="요일" onChange={handleDateOption} isMulti/>
+                            </div>
+                            <div css={s.selectLayout}>
+                                <Select styles={selectStyle} key={"classType"} options={classType}  placeholder="수업방식" onChange={handleClassTypeOption}isMulti/>
+                            </div>
+                            <div css={s.selectLayout}>
+                                <input type="text" placeholder='만 나이를 입력해주세요' onChange={handleStudentAge}/>
+                            </div>
+                            <div css={s.applyButtonLayout}>
+                                <button css={s.applyButton} onClick={handelSendApplyMailOnClick}>
+                                    메일 보내기
+                                </button>
+                                <button onClick={() => setModal(0)} css={s.applyButton}>
+                                    취소
+                                </button>
                             </div>
                         </div>
                         :

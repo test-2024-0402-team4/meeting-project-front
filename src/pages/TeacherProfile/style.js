@@ -17,11 +17,63 @@ export const emailApplyLayout = css`
     position: absolute;
     left: 30%;
     top: 150px;
-    width: 50%;
-    height: 80%;
+    width: 450px;
+    height: 500px;
     border: 1px solid #dbdbdb;
     background-color: white;
+    border-radius: 4px;
+
+    & > h1 {
+        margin: 10px;
+    }
+`;
+
+export const studentInfo = css`
+    box-sizing: border-box;
+    
+    width: 100%;
+    font-size: 16px;
+    margin: 10px;
+`;
+
+export const selectLayout = css`
+    margin: 10px;
+
+    & > input {
+            box-sizing: border-box;
+            padding: 5px;
+            width: 160px;
+            height: 30px;
+            border: 1.5px solid #9decdb;
+            border-radius: 4px;
+            outline: none;
+        }
 `
+
+export const applyButtonLayout = css`
+    width: 100%;
+    height: 50px;
+    display: flex;
+    
+    & > button {
+        margin: 30px 10px 0px 10px;
+        box-sizing: border-box;
+        color: white;
+        text-align: center;
+        justify-content: center;
+        width: 47%;
+        height: 100%;
+        border-radius: 4px;
+        border: none;
+        background-color: #14dbba;
+        cursor: pointer;
+
+        :hover{
+            background-color: #11b69a;
+        }
+        
+    }
+`;
 
 export const teacherProfile= css`
     box-sizing: border-box;
@@ -29,6 +81,7 @@ export const teacherProfile= css`
     flex-direction: column;
     padding: 28px 20px 40px 0px;
 `;
+
 export const profileHeader= css`
     width: 300px;
     flex-direction: column;
