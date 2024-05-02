@@ -32,6 +32,8 @@ import MypageTeacherStudy from '../pages/Mypage/MypageTeacherStudy';
 import StudentMyPosterModifyPage from '../pages/StudentMyPosterModifyPage/StudentMyPosterModifyPage';
 import ModifyStudentProfilePage from '../pages/ModifyStudentProfilePage/ModifyStudentProfilePage';
 import ModifyTeacherProfilePage from '../pages/ModifyTeacherProfilePage/ModifyTeacherProfilePage';
+import NoticeBoardPage from '../pages/NoticeBoardPage/NoticeBoardPage';
+import NoticeBoardListPage from '../pages/NoticeBoardList/NoticeBoardList';
 import { getPrincipalRequest } from '../apis/api/principal';
 
 
@@ -67,10 +69,10 @@ function MeetingRoute(props) {
       <>
         <Routes>
         <Route path='/' element={<Homepage />} />
-              <Route path='/student/mypage' element={<Mypage />} />
-              <Route path='/student/mypage/study' element={<MypageStudy />} />
-              <Route path='/teacher/mypage' element={<MypageTeacher />} />
-              <Route path='/teacher/mypage/study' element={<MypageTeacherStudy />} />
+              <Route path='/student/:userId/mypage' element={<Mypage />} />
+              <Route path='/student/:userId/mypage/study' element={<MypageStudy />} />
+              <Route path='/teacher/:userId/mypage' element={<MypageTeacher />} />
+              <Route path='/teacher/:userId/mypage/study' element={<MypageTeacherStudy />} />
 
               <Route path='/student/mypage/modify' element={ <ModifyStudentProfilePage />} />
               <Route path='/teacher/mypage/modify' element={ <ModifyTeacherProfilePage />} />
@@ -102,6 +104,10 @@ function MeetingRoute(props) {
               <Route path="/study/board/:studyBoardId" element={<StudyBoardPage/>} />
               <Route path="/study/board/update/:studyBoardId" element={<StudyBoardUpdatePage/>} />
               <Route path="/account/profile/image/:userId" element={<ProfileTest/>} />
+
+              <Route path="/notice/board/:noticeId" element={<NoticeBoardPage />} />
+              <Route path="/notice/boards" element={<NoticeBoardListPage />} />
+
         </Routes>
 
       </>

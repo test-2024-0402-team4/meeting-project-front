@@ -3,13 +3,12 @@ import { useMutation, useQuery } from "react-query";
 import * as s from "./style";
 import React, { useState } from 'react';
 import { Link, useParams } from "react-router-dom";
-import StudentComment from "../../components/StudentComment/StudentComment";
-import { deleteTeacherBoardRequest, getSingleTeacherBoardReqeust } from "../../apis/api/teacherBoardApi";
+import { deleteTeacherBoardRequest, getSingleTeacherBoardReqeust, updateTeacherBoardViewCountRequest } from "../../apis/api/teacherBoardApi";
 import TeacherComment from "../../components/StudentComment/TeacherComment";
 import GetTime from "../../components/GetTime/GetTime";
 import { GrView } from "react-icons/gr";
 import { getPrincipalRequest } from "../../apis/api/principal";
-import { getTeacherIdByTeacherBoardIdRequest, getTeacherIdRequest } from "../../apis/api/boardApi";
+import { getTeacherIdByTeacherBoardIdRequest, getTeacherIdRequest, updateBoardViewCountRequest } from "../../apis/api/boardApi";
 
 function TeacherBoardPage(props) {
     const params = useParams();
@@ -37,6 +36,17 @@ function TeacherBoardPage(props) {
             }
         }
     );
+
+    const updateViewCount = useQuery(
+        ["updateViewCount"],
+        async () => await updateTeacherBoardViewCountRequest(params?.teacherBoardId),
+        {
+            refetchOnWindowFocus: false,
+            onSuccess: () => {
+                getBoardQuery.refetch();
+            }
+        }
+    )
   
     const getTeacherId = useQuery(
       ["getTeacherId",userId],
@@ -67,8 +77,6 @@ function TeacherBoardPage(props) {
     }
 );
 
-
-    
     const getBoardQuery = useQuery(
         ["getBoardQuery"],
         async() => await getSingleTeacherBoardReqeust(params.teacherBoardId),

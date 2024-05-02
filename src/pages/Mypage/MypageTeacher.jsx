@@ -4,64 +4,30 @@ import * as s from "./style";
 import { getPrincipalRequest } from "../../apis/api/principal";
 import React, { useEffect, useState } from 'react';
 import { useQuery, useQueryClient } from 'react-query';
-import { Link, useSearchParams } from "react-router-dom";
+import { Link, useParams, useSearchParams } from "react-router-dom";
 import { useSearchBoardInput } from "../../hooks/useSearchBoardInput";
 import { IoSearchOutline } from "react-icons/io5";
 import GetTime from "../../components/GetTime/GetTime";
 import TeacherProfileCount from "../../components/BoardPageCount/TeacherprofileCount";
 import { getTeacherMypageCount, getTeacherMypageProfile, searchTeacherMypageBoardsRequest } from "../../apis/api/teacherProfile";
+import ProfileImg from "../../components/ProfileImg/ProfileImg";
 
 function MypageTeacher(props) {
+    const { userId } = useParams();
     const [searchParams, setSearchParams] = useSearchParams();
-    const queryClient = useQueryClient();
-    const [profile,setProfile] = useState({});
     const searchCount = 5;
     const [boardList, setBoardList] = useState([]);
     const [timeStamp,setTimeStamp] = useState([]);
-    const [userId , setUserId] =useState(profile?.data?.userId || ""); 
 
-    const principalQuery = useQuery(
-        ["principalQuery"],
-        getPrincipalRequest,
-        {
-            retry: 0,
-            refetchOnWindowFocus: false,
-            onSuccess: response => {
-                console.log("principal Success");
-                console.log(response);
-                setUserId(response.data.userId);
-            },
-            onError: error => {
-                console.log("principal Error");
-            }
+    const teacherProfileQuery = useQuery(
+        ["teacherProfileQuery"],
+        async () => await getTeacherMypageProfile(userId),
+        {   
+            refetchOnWindowFocus: false
         }
-    );
-
-    useEffect(() => {
-        if (userId) {
-            const fetchProfile = async () => {
-                try {
-                    const profileData = await getTeacherMypageProfile(userId);
-                    setProfile(profileData);
-                } catch (error) {
-                    console.log("에러");
-                }
-            };
-            fetchProfile();
-        }
-    }, [userId]);
-
-
-    // useEffect(() => {
-    //     if (principalQuery.isSuccess) {
-    //         const fetchData = async () => {
-    //             const profileData = await getTeacherMypageProfile(principalQuery.data.data.userId);
-    //             setProfile(profileData);
-    //         };
-    //         fetchData();
-    //     }
-    // }, [principalQuery]);
-
+    )
+    
+    console.log(teacherProfileQuery);
     const searchSubmit = () => {
         if(userId){
             setSearchParams({
@@ -122,10 +88,6 @@ function MypageTeacher(props) {
             }
         }
     );
-
-    console.log(profile);
-    console.log(searchParams.get("page"));
-
     const handleModifyOnClick = () => {
         window.location.replace(`/teacher/mypage/modify?userId=${userId}`);
     }
@@ -134,30 +96,35 @@ function MypageTeacher(props) {
         <div css={s.layout}>
             <div css={s.mypageLayout}>
                 <div css={s.profileLayout}>
-                    <div css={s.profile}>
-                        <div css={s.profileUpdateButton}>
-                            <button onClick={handleModifyOnClick}>정보 수정</button> 
-                        </div>
-                        <div css={s.profileImgLayout}>
-                            <img src={profile?.data?.userImgUrl} />
-                        </div>
-                        <div>
-                            <span>
-                                {profile.data?.nickname}
-                            </span>
-                            <span css={s.roleName}>
-                            {profile.data?.email}
-                            </span>
-                        </div>
-                        <div>
-                            <span>
-                            {profile.data?.genderType}
-                            </span>
-                            <span>
-                            수업가능지역 : {profile.data?.regionNames}
-                            </span>
-                        </div>
-                    </div>
+                    {
+                        teacherProfileQuery.isLoading 
+                        ?   <></> 
+                        :   <div css={s.profile}>
+                                <div css={s.profileUpdateButton}>
+                                    <button onClick={handleModifyOnClick}>정보 수정</button> 
+                                </div>
+                                
+                                    <ProfileImg userId={teacherProfileQuery.data?.data?.userId} profileUrl={teacherProfileQuery?.data.data?.userImgUrl}/>
+                                
+                                <div>
+                                    <span>
+                                        {teacherProfileQuery.data.data?.nickname}
+                                    </span>
+                                    <span css={s.roleName}>
+                                    {teacherProfileQuery.data.data?.email}
+                                    </span>
+                                </div>
+                                <div>
+                                    <span>
+                                    {teacherProfileQuery.data.data?.genderType}
+                                    </span>
+                                    <span>
+                                    수업가능지역 : {teacherProfileQuery.data.data?.regionNames}
+                                    </span>
+                                </div>
+                            </div> 
+                    }
+                    
                 </div>
                 <div css={s.mypageContentLayout}>
                     <div css={s.mypageContentTitle}>

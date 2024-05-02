@@ -3,10 +3,10 @@ import { Link, useSearchParams } from "react-router-dom";
 import * as s from "./style";
 
 import React, { useEffect, useState } from 'react';
-import { useQuery, useQueryClient } from "react-query";
+import { useMutation, useQuery, useQueryClient } from "react-query";
 import { useSearchBoardInput } from "../../hooks/useSearchBoardInput";
 import BoardPageCount from "../../components/BoardPageCount/BoardPageCount";
-import { getTeacherCount, searchTeacherBoardListRequest } from "../../apis/api/teacherBoardApi";
+import { getTeacherCount, searchTeacherBoardListRequest, updateTeacherBoardViewCountRequest } from "../../apis/api/teacherBoardApi";
 import TeacherBoardPageCount from "../../components/BoardPageCount/TeacherBoardPageCount";
 import { IoSearchOutline } from "react-icons/io5";
 import GetTime from "../../components/GetTime/GetTime";
@@ -19,7 +19,7 @@ function TeacherBoardListPage(props) {
     const queryClient = useQueryClient();
     const principalData = queryClient.getQueryData("principalQuery");
 
-    console.log(principalData);
+   
    
    
 
@@ -106,7 +106,11 @@ function TeacherBoardListPage(props) {
                 {
                 boardList.map(
                     board => 
-                    <Link to={`/teacher/board/${board.teacherBoardId}`} css={s.boardListItem} key={board.teacherBoardId}>
+                    <Link to=
+                    {`/teacher/board/${board.teacherBoardId}`} 
+                    css={s.boardListItem} 
+                    key={board.teacherBoardId}
+                    >
 
                         <li >
                             <div>{board.title}</div>
