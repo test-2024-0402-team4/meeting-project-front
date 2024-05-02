@@ -3,6 +3,8 @@ import * as s from "./style";
 import logo from "./3.png"
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import Modal from 'react-modal';
+import { GrClose } from "react-icons/gr";
 
 function RootHeader({children}) {
 
@@ -10,6 +12,14 @@ function RootHeader({children}) {
     const [ userId, setUserId ] = useState(0);
     const navigate = useNavigate();
 
+
+    const [ modalIsOpen, setModalIsOpen ] = useState(false);
+    const openModal = () => {
+        setModalIsOpen(true);
+    }
+    const closeModal = () => {
+        setModalIsOpen(false);
+    }
 
     useEffect(() => {
         const token = localStorage.getItem("AccessToken");
@@ -43,7 +53,7 @@ function RootHeader({children}) {
         }
       };
       
-      const handleLogout = () => {
+    const handleLogout = () => {
         localStorage.removeItem("AccessToken");
         setRoleId(0);
         setUserId(0);
@@ -70,7 +80,19 @@ function RootHeader({children}) {
                             {
                                 roleId ? (
                                     <>
-                                    <span onClick={handleLogout}>로그아웃</span>
+                                    <span onClick={openModal}>로그아웃</span>
+                                    <Modal css={s.modal} isOpen={modalIsOpen} onRequestClose={closeModal}>
+                                        <div css={s.modalHead}>
+                                            <span>로그아웃</span>
+                                            <button onClick={closeModal}><GrClose /></button>
+                                        </div>
+                                        <div css={s.modalContent}>
+                                            <span>정말 로그아웃 하시겠습니까?</span>
+                                        </div>
+                                        <div css={s.modalButton}>
+                                            <button onClick={handleLogout}>로그아웃</button>
+                                        </div>
+                                    </Modal>
                                     {
                                         roleId === 1 ? 
                                         (
