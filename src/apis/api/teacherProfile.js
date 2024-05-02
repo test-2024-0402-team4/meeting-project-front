@@ -16,7 +16,7 @@ export const getTeacherProfileInfo = async (params) => {
 
 // 선생 필수 정보 요청
 export const teacherProfileRequest = async (data) => {
-    return await instance.post("/account/teacher/profile", data);
+    return await instance.post("/teacher/profile", data);
 }
 
 export const getTeacherMypageProfile = async(userId) => {

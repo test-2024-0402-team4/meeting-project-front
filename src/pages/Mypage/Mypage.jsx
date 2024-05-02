@@ -131,7 +131,7 @@ function Mypage(props) {
                 <div css={s.profileLayout}>
                     <div css={s.profile}>
                         <div css={s.profileUpdateButton}>
-                            <button >정보 수정</button> 
+                            <button onClick={handleModifyOnClick}>정보 수정</button> 
                         </div>
                         <div css={s.profileImgLayout}>
                             <img src={profile?.data?.userImgUrl} />
