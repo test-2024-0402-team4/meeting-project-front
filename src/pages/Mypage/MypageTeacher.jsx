@@ -26,7 +26,7 @@ function MypageTeacher(props) {
             refetchOnWindowFocus: false
         }
     )
-    
+
     console.log(teacherProfileQuery);
     const searchSubmit = () => {
         if(userId){
@@ -104,7 +104,7 @@ function MypageTeacher(props) {
                                     <button onClick={handleModifyOnClick}>정보 수정</button> 
                                 </div>
                                 
-                                    <ProfileImg userId={teacherProfileQuery.data?.data?.userId} profileUrl={teacherProfileQuery?.data.data?.userImgUrl}/>
+                                    <ProfileImg userId={teacherProfileQuery.data?.data?.userId} profileUrl={teacherProfileQuery.data?.data?.userImgUrl}/>
                                 
                                 <div>
                                     <span>

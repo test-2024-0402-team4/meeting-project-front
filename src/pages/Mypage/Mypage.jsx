@@ -19,18 +19,24 @@ function Mypage(props) {
     const searchCount = 5;
     const [boardList, setBoardList] = useState([]);
     const [timeStamp,setTimeStamp] = useState([]);
-
-    const [userId , setUserId] =useState(profile?.data?.userId || ""); 
     const [ content, setContent ] = useState(0)
     const [ teacherProfile, setTeacherProfile ] = useState();
     const navigate = useNavigate();
 
+    const studentProfileQuery = useQuery(
+        ["studentProfileQuery"],
+        async() => await getStudentProfile(userId),
+        {
+            refetchOnWindowFocus: false
+        }
+    )
+
     useEffect(() => {
-        if (profile?.data?.userId) {
+        if (studentProfileQuery.data?.data?.userId) {
             handleApplicationDetails();
             console.log(teacherProfile)
         } 
-    }, [profile]);
+    }, [studentProfileQuery]);
 
     const principalQuery = useQuery(
         ["principalQuery"],
@@ -48,13 +54,7 @@ function Mypage(props) {
         }
     );
 
-    const studentProfileQuery = useQuery(
-        ["studentProfileQuery"],
-        async() => await getStudentProfile(userId),
-        {
-            refetchOnWindowFocus: false
-        }
-    )
+    
 
     const searchSubmit = () => {
         if(userId){
@@ -122,7 +122,7 @@ function Mypage(props) {
     }
 
     const handleApplicationDetails = () => {
-        getApplicationDetails(profile.data.userId)
+        getApplicationDetails(studentProfileQuery.data?.data?.userId)
             .then(response => {
                 setTeacherProfile(response.data);
                 console.log(response.data)
@@ -214,7 +214,8 @@ function Mypage(props) {
                                     teacherProfile => 
                                     <div key={teacherProfile.userId} css={s.teacherProfile}>
                                         <div css={s.imgLayout}>
-                                            <img src={teacherProfile.userImgUrl}/>
+                                            
+                                        <ProfileImg userId={studentProfileQuery.data?.data?.userId} profileUrl={studentProfileQuery.data?.data?.userImgUrl}/>
                                         </div>
                                         <div onClick={() => navigate(`/student/tutor?userId=${teacherProfile.userId}`)} css={s.teacherProfileContent}>
                                             <div>{teacherProfile.nickname}</div>
