@@ -9,7 +9,7 @@ import Select from "react-select";
 import { getClassType, getDate, getRegion, getSubject } from '../../apis/api/Option';
 import { getStudentProfile } from '../../apis/api/profileApi';
 import { useMutation, useQueryClient } from 'react-query';
-import { sendApplyEmail } from '../../apis/api/emailApi';
+import { saveApplicationDetail, sendApplyEmail } from '../../apis/api/emailApi';
 
 function TeacherProfile() {
 
@@ -219,6 +219,7 @@ function TeacherProfile() {
             if(window.confirm("신청 메일을 보내시겠습니까?")) {
                 sendApplyEmail(params);
                 alert("메일을 성공적으로 보냈습니다!")
+                saveApplicationDetail(studentUserId, teacherProfile.userId);
                 setModal(0)
             }
         } catch (error) {

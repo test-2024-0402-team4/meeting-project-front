@@ -11,6 +11,8 @@ import { useSignupInput } from "../../hooks/useSignupInput";
 import { useSearchParams } from "react-router-dom";
 import { getPrincipalRequest } from "../../apis/api/principal";
 import { CgChevronRight } from "react-icons/cg";
+import Modal from 'react-modal';
+import { GrClose } from "react-icons/gr";
 
 function ModifyStudentProfilePage(props) {
 
@@ -28,6 +30,14 @@ function ModifyStudentProfilePage(props) {
     const [ regionId, setRegionId ] = useState();
     
     const [ regionOptions, setRegionOptions ] = useState([]);
+
+    const [ modalIsOpen, setModalIsOpen ] = useState(false);
+    const openModal = () => {
+        setModalIsOpen(true);
+    }
+    const closeModal = () => {
+        setModalIsOpen(false);
+    }
 
     const principalQuery = useQuery(
         ["principalQuery"],
@@ -102,6 +112,10 @@ function ModifyStudentProfilePage(props) {
         }).catch(error => {
             alert("다시 입력해주세요.");
         });
+    }
+
+    const handleLeaveButton = () => {
+        
     }
 
 
@@ -216,11 +230,23 @@ function ModifyStudentProfilePage(props) {
                             <span>회원탈퇴를 원하시는 분은 아래의 버튼을 눌러주세요.</span>
                         </div>
                         <div css={s.leaveButton}>
-                            <button>회원탈퇴<CgChevronRight /></button>
+                           
+                            <button onClick={openModal}>회원탈퇴<CgChevronRight /></button>
+                            <Modal css={s.modal} isOpen={modalIsOpen} onRequestClose={closeModal}>
+                                <div css={s.modalHead}>
+                                    <span>회원탈퇴</span>
+                                    <button onClick={closeModal}><GrClose /></button>
+                                </div>
+                                <div css={s.modalContent}>
+                                    <span>정말 회원탈퇴 하시겠습니까?</span>
+                                </div>
+                                <div css={s.modalButton}>
+                                    <button onClick={handleLeaveButton}>탈퇴하기</button>
+                                </div>
+                            </Modal>
                         </div>
                     </div>
                 </div>
-
             </div>
         </div>
     );

@@ -21,11 +21,13 @@ function StudentPosterPage(props) {
     const queryClient = useQueryClient();
     const [profile,setProfile] = useState({});
 
+    const principalData = queryClient.getQueryData("principalQuery");
+    
     useEffect(() => {
         getPosterStudentProfile();
         console.log(poster);
         console.log(profile);
-
+        
     }, [poster])
 
     // 만나이 계산기
@@ -80,9 +82,7 @@ function StudentPosterPage(props) {
 
     const handleSendTeacherProfile = async () => {
         if(window.confirm("프로필을 보내시겠습니까?")) {
-            sendTeacherProfile.mutate({email: poster.email, userId: poster.userId})
-        } else {
-            
+            sendTeacherProfile.mutate({email: poster.email, userId: principalData.data.userId})
         }
     }
     

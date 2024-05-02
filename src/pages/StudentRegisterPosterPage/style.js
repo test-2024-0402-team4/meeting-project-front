@@ -150,6 +150,8 @@ export const inputBox2 = css`
         font-size: 15px;
         padding: 10px;
 
+        resize: none;
+
         ::placeholder{
             display: flex;
             justify-content: center;

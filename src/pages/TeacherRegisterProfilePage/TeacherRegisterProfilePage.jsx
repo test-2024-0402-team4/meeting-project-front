@@ -24,6 +24,7 @@ function TeacherRegisterProfilePage() {
     const [ regionIds, setRegionIds ] = useState([]);
     const [ classTypeIds, setClassTypeIds ] = useState([]);
     const [ dateIds, setDateIds ] = useState([]);
+    const [ teacherIntroduceContent, setTeacherIntroduceContent ] = useState();
 
     const [ userId, setUserId ] = useState();
     const [ textLength, setTextLength ] = useState(0);
@@ -144,12 +145,18 @@ function TeacherRegisterProfilePage() {
         console.log(dateIds.map(option => option.value));
     }
 
+    const handleIntroduceOnChange = (e) => {
+        setTeacherIntroduceContent(() => e.target.value);
+        setTextLength(() => e.target.value.length);
+    }
+
+
     const selectStyle = {
         control: baseStyles => ({
             ...baseStyles,
             border: "1px solid #dbdbdb",
             borderRadius: "5px",
-            width: "656px",
+            width: "660px",
             height: "50px"
         })
     }
@@ -160,10 +167,11 @@ function TeacherRegisterProfilePage() {
             subjectIds,
             regionIds,
             dateIds,
-            classTypeIds
+            classTypeIds,
+            teacherIntroduceContent
         }).then(response => {
             alert("등록이 완료되었습니다.");
-            navigate("/main");
+            navigate("/");
         }).catch(error => {
             alert("다시 입력해주세요.");
         })
@@ -213,7 +221,7 @@ function TeacherRegisterProfilePage() {
                             <span>(필수)</span>
                         </div>
                         <div css={s.selectBox}>
-                            <Select options={regionOptions} styles={selectStyle} placeholder="수업 지역" onChange={handleRegionIdOnChange}/>
+                            <Select options={regionOptions} styles={selectStyle} placeholder="수업 지역" onChange={handleRegionIdOnChange} isMulti/>
                         </div>
                     </div>
                 </div>
@@ -227,6 +235,21 @@ function TeacherRegisterProfilePage() {
 
                         <div css={s.selectBox}>
                             <Select options={dateOptions} styles={selectStyle} placeholder="수업 가능 일정" onChange={handleDateIdOnChange} isMulti/>
+                        </div>
+                    </div>
+                </div>
+
+                <div css={s.bodyBox}>
+                    <div css={s.box2}>
+                        <div css={s.spanBox}>
+                            <span>간단하게 본인을 소개해주세요.</span>
+                            <span>(필수)</span>
+                        </div>
+                        <div css={s.inputBox}>
+                            <textarea type="text" placeholder="" value={teacherIntroduceContent} minLength="10" onChange={handleIntroduceOnChange} />
+                        </div>
+                        <div css={s.text}>
+                            <span>현재 {textLength}자 / 권장 10자 이상</span>
                         </div>
                     </div>
                 </div>

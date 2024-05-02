@@ -9,8 +9,9 @@ export const layout = css`
 export const body = css`
     display: flex;
     flex-direction: column;
-    justify-content: center;
     align-items: center;
+
+    height: 900px;
 
     // 다하고 지우기 -------------------------------
     /* border: 1px solid black; */
@@ -42,6 +43,27 @@ export const bodyBox1 = css`
     border-bottom: 1px solid #dbdbdb;
 `;
 
+export const inputBox = css`
+    textarea{
+        width: 638px;
+        height: 120px;
+        margin-top: 10px;
+        border: 1px solid #dbdbdb;
+        border-radius: 5px;
+        font-size: 15px;
+        padding: 10px;
+
+        resize: none;
+
+        ::placeholder{
+            display: flex;
+            justify-content: center;
+            color: #dbdbdb;
+            font-size: 15px;
+        }
+    }
+`;
+
 
 export const box1 = css`
     display: flex;
@@ -66,7 +88,7 @@ export const box2 = css`
         // 다하고 지우기 -------------------------------
     /* border: 1px solid black; */
 
-    margin: 0px 20px;
+    margin: 10px 20px;
 `;
 
 export const spanBox = css`
@@ -105,4 +127,11 @@ export const buttonBox = css`
     }
 `;
 
+export const text = css`
+    display: flex;
+    justify-content: end;
+    margin-top: 5px;
+    font-size: 13px;
+    color: #aaaaaa;
+`;
 

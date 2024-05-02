@@ -185,6 +185,69 @@ border-bottom:2px solid #dbdbdb ;
 }
 `;
 
+export const imgLayout = css`
+    box-sizing: border-box;
+    display: flex;
+    width: 100px;
+    height: 100px;
+    border: 1px solid #dbdbdb;
+    border-radius: 8px;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+
+    & > img {
+        border-radius: 8px;
+        height: 100%;
+    }
+`;
+
+export const teacherProfile = css`
+    display: flex;
+    box-sizing: border-box;
+    width: 100%;
+    height: 122px;
+    padding: 10px 0px 10px 0px;
+    border-bottom: 1px solid #dbdbdb;
+    margin-left: 10px;
+`;
+
+export const teacherProfileContent = css`
+    box-sizing: border-box;
+    margin-left: 16px;
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+
+    div:nth-of-type(1) {
+        font-size: 15px;
+        color: #444444;
+        font-weight: 700;
+    }
+    div:nth-of-type(2) {
+        margin-top: 5px;
+        font-size: 15px;
+        color: #444444;
+    }
+    div:nth-of-type(3) {
+        margin-top: 5px;
+        font-size: 14px;
+        color: #444444;
+        & > * {
+            margin-right: 5px;
+        }
+    }
+    div:nth-of-type(4) {
+        margin-top: 5px;
+        font-size: 14px;
+        color: #444444;
+        & > * {
+            margin-right: 5px;
+        }
+    }
+
+`;
+
 export const boardListItem = css`
 
    

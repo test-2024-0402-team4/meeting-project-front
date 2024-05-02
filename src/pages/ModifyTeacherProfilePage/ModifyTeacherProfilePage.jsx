@@ -12,6 +12,8 @@ import { useSignupInput } from "../../hooks/useSignupInput";
 import AuthPageInput from "../../components/AuthPageInput/AuthPageInput";
 import { getTeacherProfileInfo } from "../../apis/api/teacherProfile";
 import { getPrincipalRequest } from "../../apis/api/principal";
+import Modal from 'react-modal';
+import { GrClose } from "react-icons/gr";
 
 function ModifyTeacherProfilePage(props) {
 
@@ -27,12 +29,23 @@ function ModifyTeacherProfilePage(props) {
     const [ universityName, setUniversityName ] = useState("");
     const [ graduateState, setGraduateState ] = useState("");
     const [ genderType, setGenderType ] = useState("");
+    const [ teacherIntroduceContent, setTeacherIntroduceContent ] = useState("");
 
     const [ universityId, setUniversityId ] = useState();
     const [ graduateStateId, setGraduateStateId ] = useState();
 
     const [ universityOptions, setUniversityOptions ] = useState([]);
     const [ graduateStateOptions, setGraduateStateOptions ] = useState([]);
+
+    const [ modalIsOpen, setModalIsOpen ] = useState(false);
+    const openModal = () => {
+        setModalIsOpen(true);
+    }
+    const closeModal = () => {
+        setModalIsOpen(false);
+    }
+
+    const [ textLength, setTextLength ] = useState(0);
 
 
     const principalQuery = useQuery(
@@ -60,6 +73,7 @@ function ModifyTeacherProfilePage(props) {
                 setGraduateState(response.data.graduateState);
                 setGenderType(response.data.genderType);
                 setNickname(response.data.nickname);
+                setTeacherIntroduceContent(response.data.teacherIntroduceContent);
             },
             retry: 0,
             refetchOnWindowFocus: false
@@ -114,26 +128,51 @@ function ModifyTeacherProfilePage(props) {
             ...baseStyles,
             border: "1px solid #dbdbdb",
             borderRadius: "5px",
-            width: "656px",
+            width: "660px",
             height: "50px"
         })
     }
 
     const handleModifyOnClick = () => {
+        // const checkFlags = [
+        //     nickname?.type,
+        //     universityId?.type,
+        //     departmentName?.type,
+        //     graduateStateId?.type,
+        //     phoneNumber?.type,
+        //     teacherIntroduceContent?.type
+        // ];
+        // // 만약 checkFlags 안에 error 타입이랑 undefined, null이 하나라도 포함되있다면
+        // if(checkFlags.includes(null)) {
+        //     alert("필수 입력 정보를 다시 확인하세요.");
+        //     return;
+        // }
+
         modifyTeacherProfile({
             userId,
             nickname,
             universityId,
             departmentName,
             graduateStateId,
-            phoneNumber
+            phoneNumber,
+            teacherIntroduceContent
         }).then(response => {
             alert("수정이 완료되었습니다.");
-            window.location.replace("/teacher/mypage");
+            window.location.replace("/");
         }).catch(error => {
             alert("다시 입력해주세요.");
         });
     }
+
+    const handleIntroduceOnChange = (e) => {
+        setTeacherIntroduceContent(() => e.target.value);
+        setTextLength(() => e.target.value.length);
+    }
+
+    const handleLeaveButton = () => {
+
+    }
+
 
     return (
         <div css={s.layout}>
@@ -265,17 +304,45 @@ function ModifyTeacherProfilePage(props) {
                     </div>
                 </div>
 
+                <div css={s.bodyBox2}>
+                    <div css={s.box2}>
+                        <div css={s.spanBox}>
+                            <span>간단하게 본인을 소개해주세요.</span>
+                            <span>(필수)</span>
+                        </div>
+                        <div css={s.inputBox}>
+                            <textarea type="text" placeholder="" value={teacherIntroduceContent} minLength="10" onChange={handleIntroduceOnChange} />
+                        </div>
+                        <div css={s.text}>
+                            <span>현재 {textLength}자 / 권장 10자 이상</span>
+                        </div>
+                    </div>
+                </div>
+
+
                 <div css={s.leaveBox}>
                     <div css={s.leave}>
                         <div css={s.leaveSpan}>
                             <span>회원탈퇴를 원하시는 분은 아래의 버튼을 눌러주세요.</span>
                         </div>
                         <div css={s.leaveButton}>
-                            <button>회원탈퇴<CgChevronRight /></button>
+
+                            <button onClick={openModal}>회원탈퇴<CgChevronRight /></button>
+                            <Modal css={s.modal} isOpen={modalIsOpen} onRequestClose={closeModal}>
+                                <div css={s.modalHead}>
+                                    <span>회원탈퇴</span>
+                                    <button onClick={closeModal}><GrClose /></button>
+                                </div>
+                                <div css={s.modalContent}>
+                                    <span>정말 회원탈퇴 하시겠습니까?</span>
+                                </div>
+                                <div css={s.modalButton}>
+                                    <button onClick={handleLeaveButton}>탈퇴하기</button>
+                                </div>
+                            </Modal>
                         </div>
                     </div>
                 </div>
-
             </div>
         </div>
     );
