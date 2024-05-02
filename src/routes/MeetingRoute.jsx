@@ -17,7 +17,7 @@ import RootFooter from '../components/RootFooter/RootFooter';
 import Homepage from '../pages/Homepage/Homepage';
 import Mypage from '../pages/Mypage/Mypage';
 import ProfileTest from '../pages/ProfileTest/ProfileTest';
-import { useQueryClient } from 'react-query';
+import { useQuery, useQueryClient } from 'react-query';
 import TeacherRegisterProfilePage from '../pages/TeacherRegisterProfilePage/TeacherRegisterProfilePage';
 import TeacherProfiles from '../pages/TeacherProfiles/TeacherProfiles';
 import TeacherProfile from '../pages/TeacherProfile/TeacherProfile';
@@ -32,17 +32,29 @@ import MypageTeacherStudy from '../pages/Mypage/MypageTeacherStudy';
 import StudentMyPosterModifyPage from '../pages/StudentMyPosterModifyPage/StudentMyPosterModifyPage';
 import ModifyStudentProfilePage from '../pages/ModifyStudentProfilePage/ModifyStudentProfilePage';
 import ModifyTeacherProfilePage from '../pages/ModifyTeacherProfilePage/ModifyTeacherProfilePage';
-
-
-
-
-
+import { getPrincipalRequest } from '../apis/api/principal';
 
 
 function MeetingRoute(props) {
 
   const queryClient = useQueryClient();
   const principalData = queryClient.getQueryData("principalQuery");
+
+  const principalQuery = useQuery(
+    ["principalQuery"],
+    getPrincipalRequest,
+    {
+        retry: 0,
+        refetchOnWindowFocus: false,
+        onSuccess: response => {
+            console.log("principal Success");
+        },
+        onError: error => {
+            console.log("principal Error");
+        }
+    }
+);
+
   useEffect(() => {
       if(!!principalData) {
           alert("잘못된 접근입니다.");
