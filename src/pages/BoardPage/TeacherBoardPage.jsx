@@ -8,6 +8,8 @@ import { deleteTeacherBoardRequest, getSingleTeacherBoardReqeust } from "../../a
 import TeacherComment from "../../components/StudentComment/TeacherComment";
 import GetTime from "../../components/GetTime/GetTime";
 import { GrView } from "react-icons/gr";
+import { getPrincipalRequest } from "../../apis/api/principal";
+import { getTeacherIdByTeacherBoardIdRequest, getTeacherIdRequest } from "../../apis/api/boardApi";
 
 function TeacherBoardPage(props) {
     const params = useParams();
@@ -15,6 +17,57 @@ function TeacherBoardPage(props) {
 
     const [timeStamp,setTimeStamp] = useState("");
     const formattedTime = GetTime(new Date(timeStamp));
+    const [userId, setUserId] = useState("");
+    const [teacherId, setTeacherId] = useState();
+    const [userIdByBoard , setUserIdByBoard] = useState();
+
+    const principalQuery = useQuery(
+        ["principalQuery"],
+        getPrincipalRequest,
+        {
+            retry: 0,
+            refetchOnWindowFocus: false,
+            onSuccess: response => {
+                console.log("principal Success");
+                console.log(response);
+                setUserId(response.data.userId);
+            },
+            onError: error => {
+                console.log("principal Error");
+            }
+        }
+    );
+  
+    const getTeacherId = useQuery(
+      ["getTeacherId",userId],
+      async() => await getTeacherIdRequest(userId),
+      {
+          refetchOnWindowFocus : false,
+          onSuccess: response => {
+                console.log(response);
+                setTeacherId(response.data.teacherId);
+          },
+          onError: error => {
+            console.log(userId);
+          },
+          enabled: !!userId
+      }
+  );
+  console.log(teacherId);
+
+  const getTeacherIdByBoardId = useQuery(
+    ["getTeacherIdByBoardId"],
+    async() => await getTeacherIdByTeacherBoardIdRequest(params.teacherBoardId),
+    {
+        refetchOnWindowFocus : false,
+        onSuccess: response => {
+            console.log(response.data.teacherId);
+            setUserIdByBoard(response.data.teacherId);
+        }
+    }
+);
+
+
     
     const getBoardQuery = useQuery(
         ["getBoardQuery"],
@@ -44,6 +97,9 @@ function TeacherBoardPage(props) {
         deleteBoardMutation.mutate(params.teacherBoardId);
         }
     }
+
+    console.log(teacherId);
+    console.log(userIdByBoard);
     
 
     return (
@@ -70,11 +126,20 @@ function TeacherBoardPage(props) {
                         <GrView />
                     </div>
                     {singleBoard.viewCount}</div>
-                <Link to={`/teacher/board/update/${singleBoard.teacherBoardId}`}>
-                    <button css={s.optionButton}>수정</button>
-                </Link>
-                    <button css={s.optionButton} onClick={handleDeleteClick}>삭제</button>
+
+                    {
+                        teacherId === userIdByBoard ?
+                    <>    
+                        <Link to={`/teacher/board/update/${singleBoard.teacherBoardId}`}>
+                        <button css={s.optionButton}>수정</button>
+                        </Link>
+                        <button css={s.optionButton} onClick={handleDeleteClick}>삭제</button>
+                    </>
+                    :
+                    <div css={s.blank}></div>
+                    }
                 </div>
+
            </div>
            
         <div css={s.boardPageMain}>

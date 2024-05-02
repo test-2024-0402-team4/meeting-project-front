@@ -9,6 +9,7 @@ import { deleteTeacherCommentRequest, getTeacherCommentRequest, registerTeacherC
 import { getPrincipalRequest } from "../../apis/api/principal";
 import { getStudentProfile } from "../../apis/api/profileApi";
 import GetTime from "../GetTime/GetTime";
+import { getTeacherIdRequest } from "../../apis/api/boardApi";
 
 function TeacherComment(props) {
     const params = useParams();
@@ -26,6 +27,8 @@ function TeacherComment(props) {
     const queryClient = useQueryClient();
     const [profile,setProfile] = useState({});
     const [timeStamp,setTimeStamp] = useState([]);
+    const [userId, setUserId] = useState("");
+    const [teacherId, setTeacherId] = useState();
 
     const principalQuery = useQuery(
         ["principalQuery"],
@@ -36,12 +39,30 @@ function TeacherComment(props) {
             onSuccess: response => {
                 console.log("principal Success");
                 console.log(response);
+                setUserId(response.data.userId);
             },
             onError: error => {
                 console.log("principal Error");
             }
         }
     );
+  
+    const getTeacherId = useQuery(
+      ["getTeacherId",userId],
+      async() => await getTeacherIdRequest(userId),
+      {
+          refetchOnWindowFocus : false,
+          onSuccess: response => {
+                console.log(response);
+                setTeacherId(response.data.teacherId);
+          },
+          onError: error => {
+            console.log(userId);
+          },
+          enabled: !!userId
+      }
+  );
+
 
     const studentProfileQuery = useQuery(
         ["studentProfileQuery"],
@@ -127,7 +148,7 @@ function TeacherComment(props) {
     const handleRegisterClick = () => {
         const comment = {
             teacherBoardId: params.teacherBoardId,
-            teacherId : profile.data?.teacherId,
+            teacherId : teacherId,
             comment : inputValue
         };
         console.log(comment);

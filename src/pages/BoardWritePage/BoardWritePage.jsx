@@ -4,18 +4,55 @@ import ReactQuill from "react-quill";
 import React, { useCallback, useRef, useState } from 'react';
 import { useQuill } from "../../hooks/quillHook";
 import { useMaxValueValidateInput } from "../../hooks/inputHook";
-import { useMutation } from "react-query";
-import { registerStudentBoard } from "../../apis/api/boardApi";
+import { useMutation, useQuery } from "react-query";
+import { getStudentIdRequest, registerStudentBoard } from "../../apis/api/boardApi";
 import { QUILL_MODULES } from "../../constants/quillModules";
 import {v4 as uuid} from "uuid"
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import { storage } from "../../apis/firebase/firebaseConfig";
+import { getPrincipalRequest } from "../../apis/api/principal";
 
 function BoardWritePage(props) {
     
     const [quillValue , handleQuillValueChange] = useQuill();
     const [inputValue , handleInputChange] = useMaxValueValidateInput(25);
     const reactQuillRef = useRef();
+    const [userId, setUserId] = useState("");
+    const [studentId, setStudentId] = useState();
+
+    
+    const principalQuery = useQuery(
+      ["principalQuery"],
+      getPrincipalRequest,
+      {
+          retry: 0,
+          refetchOnWindowFocus: false,
+          onSuccess: response => {
+              console.log("principal Success");
+              console.log(response);
+              setUserId(response.data.userId);
+          },
+          onError: error => {
+              console.log("principal Error");
+          }
+      }
+  );
+
+  const getStudentId = useQuery(
+    ["getStudentId",userId],
+    async() => await getStudentIdRequest(userId),
+    {
+        refetchOnWindowFocus : false,
+        onSuccess: response => {
+              console.log(response);
+              setStudentId(response.data.studentId);
+        },
+        onError: error => {
+          console.log(userId);
+        },
+        enabled: !!userId
+    }
+);
 
     const registerBoardMutation = useMutation({
       mutationKey: "registerBoardMutation",
@@ -29,10 +66,9 @@ function BoardWritePage(props) {
     const handleSubmitClick = () => {
       
       const board = {
-        studentId: 27,
+        studentId: studentId,
         title : inputValue,
         content : quillValue,
-        theme: "인사",
         viewCount : 3
       };
 

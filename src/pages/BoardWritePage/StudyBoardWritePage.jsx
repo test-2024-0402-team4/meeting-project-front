@@ -4,19 +4,39 @@ import ReactQuill from "react-quill";
 import React, { useCallback, useRef, useState } from 'react';
 import { useQuill } from "../../hooks/quillHook";
 import { useMaxValueValidateInput } from "../../hooks/inputHook";
-import { useMutation } from "react-query";
+import { useMutation, useQuery } from "react-query";
 import { QUILL_MODULES } from "../../constants/quillModules";
 import {v4 as uuid} from "uuid"
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import { storage } from "../../apis/firebase/firebaseConfig";
 import { registerTeacherBoard } from "../../apis/api/teacherBoardApi";
 import { registerStudyBoard } from "../../apis/api/studyBoardApi";
+import { getPrincipalRequest } from "../../apis/api/principal";
 
 function StudyBoardWritePage(props) {
     
     const [quillValue , handleQuillValueChange] = useQuill();
     const [inputValue , handleInputChange] = useMaxValueValidateInput(20);
     const reactQuillRef = useRef();
+    const [userId, setUserId] = useState("");
+
+
+    const principalQuery = useQuery(
+      ["principalQuery"],
+      getPrincipalRequest,
+      {
+          retry: 0,
+          refetchOnWindowFocus: false,
+          onSuccess: response => {
+              console.log("principal Success");
+              console.log(response);
+              setUserId(response.data.userId);
+          },
+          onError: error => {
+              console.log("principal Error");
+          }
+      }
+  );
 
     const registerBoardMutation = useMutation({
       mutationKey: "registerBoardMutation",
@@ -30,15 +50,16 @@ function StudyBoardWritePage(props) {
     const handleSubmitClick = () => {
       
       const board = {
-        userId: 7,
+        userId: userId,
         title : inputValue,
         content : quillValue,
         viewCount : 3
       };
 
       console.log(board)
-      
+      if(window.confirm("글을 작성하시겠습니까?")){
       registerBoardMutation.mutate(board);
+      }
     }
 
     console.log(inputValue);

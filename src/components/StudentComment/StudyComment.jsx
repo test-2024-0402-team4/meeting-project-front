@@ -5,7 +5,6 @@ import React, { useEffect, useRef, useState } from 'react';
 import { useMutation, useQuery, useQueryClient } from "react-query";
 import { useMaxValueValidateInput } from "../../hooks/inputHook";
 import { BsThreeDotsVertical } from "react-icons/bs";
-import { deleteTeacherCommentRequest, getTeacherCommentRequest, registerTeacherCommentRequest, updateTeacherCommentRequest } from "../../apis/api/teacherBoardApi";
 import { deleteStudyCommentRequest, getStudyCommentRequest, registerStudyCommentRequest, updateStudyCommentRequest } from "../../apis/api/studyBoardApi";
 import { getPrincipalRequest } from "../../apis/api/principal";
 import { getStudentProfile } from "../../apis/api/profileApi";
@@ -25,6 +24,7 @@ function StudyComment(props) {
     const userId = lsUserId;
     const commentInputRef = useRef(null);
     const [timeStamp,setTimeStamp] = useState([]);
+    const [userId1, setUserId] = useState("");
 
     const queryClient = useQueryClient();
 
@@ -37,6 +37,7 @@ function StudyComment(props) {
             onSuccess: response => {
                 console.log("principal Success");
                 console.log(response);
+                setUserId(response.data.userId);
             },
             onError: error => {
                 console.log("principal Error");
@@ -129,7 +130,7 @@ useEffect(() => {
     const handleRegisterClick = () => {
         const comment = {
             studyBoardId: params.studyBoardId,
-            userId : profile.data?.userId,
+            userId : userId1,
             comment : inputValue
         };
         console.log(comment);

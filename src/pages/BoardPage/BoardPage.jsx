@@ -2,11 +2,12 @@
 import { useMutation, useQuery } from "react-query";
 import * as s from "./style";
 import React, { useState } from 'react';
-import { deleteBoardRequest, getSingleBoardReqeust } from "../../apis/api/boardApi";
+import { deleteBoardRequest, getSingleBoardReqeust, getStudentIdByStudentBoardIdRequest, getStudentIdRequest } from "../../apis/api/boardApi";
 import { Link, useParams } from "react-router-dom";
 import StudentComment from "../../components/StudentComment/StudentComment";
 import GetTime from "../../components/GetTime/GetTime";
 import { GrView } from "react-icons/gr";
+import { getPrincipalRequest } from "../../apis/api/principal";
 
 function BoardPage(props) {
     const params = useParams();
@@ -14,10 +15,56 @@ function BoardPage(props) {
     
     const [timeStamp,setTimeStamp] = useState("");
     const formattedTime = GetTime(new Date(timeStamp));
+    const [userId, setUserId] = useState("");
+    const [studentId, setStudentId] = useState();
+    const [userIdByBoard , setUserIdByBoard] = useState();
 
-    console.log(formattedTime);
-    console.log(timeStamp);
-    console.log(singleBoard);
+    const principalQuery = useQuery(
+        ["principalQuery"],
+        getPrincipalRequest,
+        {
+            retry: 0,
+            refetchOnWindowFocus: false,
+            onSuccess: response => {
+                console.log("principal Success");
+                console.log(response);
+                setUserId(response.data.userId);
+            },
+            onError: error => {
+                console.log("principal Error");
+            }
+        }
+    );
+  
+    const getStudentId = useQuery(
+      ["getStudentId",userId],
+      async() => await getStudentIdRequest(userId),
+      {
+          refetchOnWindowFocus : false,
+          onSuccess: response => {
+                console.log(response);
+                setStudentId(response.data.studentId);
+          },
+          onError: error => {
+            console.log(userId);
+          },
+          enabled: !!userId
+      }
+  );
+  console.log(studentId);
+
+  const getStudentIdByBoardId = useQuery(
+    ["getStudentIdByBoardId"],
+    async() => await getStudentIdByStudentBoardIdRequest(params.studentBoardId),
+    {
+        refetchOnWindowFocus : false,
+        onSuccess: response => {
+            console.log(response.data.studentId);
+            setUserIdByBoard(response.data.studentId);
+        }
+    }
+);
+
 
     const getBoardQuery = useQuery(
         ["getBoardQuery"],
@@ -72,11 +119,19 @@ function BoardPage(props) {
                     <div css={s.viewIcon}>
                         <GrView />
                     </div>
-                        {singleBoard.viewCount}</div>
-                    <Link to={`/student/board/update/${singleBoard.studentBoardId}`}>
-                    <button css={s.optionButton}>수정</button>
-                    </Link>
-                    <button onClick={handleDeleteClick} css={s.optionButton}>삭제</button>
+                        {singleBoard.viewCount}
+                    </div>
+                    {
+                        studentId === userIdByBoard ?
+                    <>
+                        <Link to={`/student/board/update/${singleBoard.studentBoardId}`}>
+                        <button css={s.optionButton}>수정</button>
+                        </Link>
+                        <button onClick={handleDeleteClick} css={s.optionButton}>삭제</button>
+                    </>
+                    :
+                    <div css={s.blank}></div>
+                    }
                 </div>
                 
             </div>

@@ -72,8 +72,7 @@ function BoardUpdatePage(props) {
       const board = {
         studentBoardId : params.studentBoardId,
         title : inputValue,
-        content : quillValue,
-        theme: "인사"
+        content : quillValue
       };
 
       console.log(board)

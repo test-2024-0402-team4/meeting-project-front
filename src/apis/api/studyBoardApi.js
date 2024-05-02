@@ -40,3 +40,7 @@ export const deleteStudyCommentRequest = async(studyCommentId) => {
 export const updateStudyCommentRequest = async(data) => {
     return await instance.put(`/study/board/comment/${data.studyCommentId}`,data)
 }
+
+export const getUserIdByStudyBoardIdRequest = async(studyBoardId) => {
+    return await instance.get(`/study/board/single/${studyBoardId}`)
+}
