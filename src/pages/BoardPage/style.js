@@ -119,6 +119,9 @@ transition: background-color 0.3s ease;
     background-color: #55bd92;
 }
 `;
+export const blank = css`
+margin-top: 45px;
+`;
 
 export const boardPageMain = css`
 display: flex;

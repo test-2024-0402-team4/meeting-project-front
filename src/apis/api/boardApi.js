@@ -16,6 +16,23 @@ export const getSingleBoardReqeust = async(studentBoardId) => {
     return await instance.get(`/student/board/${studentBoardId}`)
 }
 
+export const getStudentIdRequest = async(userId) => {
+    return await instance.get(`/student/board/write/${userId}`)
+}
+
+export const getStudentIdByStudentBoardIdRequest = async(studentBoardId) => {
+    return await instance.get(`/student/board/single/${studentBoardId}`)
+}
+
+
+export const getTeacherIdRequest = async(userId) => {
+    return await instance.get(`/teacher/board/write/${userId}`)
+}
+
+export const getTeacherIdByTeacherBoardIdRequest = async(teacherBoardId) => {
+    return await instance.get(`/teacher/board/single/${teacherBoardId}`)
+}
+
 export const deleteBoardRequest = async(studentBoardId) => {
     return await instance.delete(`/student/board/${studentBoardId}`)
 }

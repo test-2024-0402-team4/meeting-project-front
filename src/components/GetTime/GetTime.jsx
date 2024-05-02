@@ -9,10 +9,8 @@ function GetTime(timeStamp) {
     const minutes = Math.floor(seconds / 60);
     const hours = Math.floor(minutes / 60);
     const days = Math.floor(hours / 24);
-    console.log(currentDate);
-    console.log(pastDate);
+   
     
-
     if (isNaN(seconds) || isNaN(minutes) || isNaN(hours) || isNaN(days)) {
         return "올바른 날짜가 아닙니다";
     }

@@ -3,10 +3,11 @@ import { useMutation, useQuery } from "react-query";
 import * as s from "./style";
 import React, { useState } from 'react';
 import { Link, useParams } from "react-router-dom";
-import { deleteStudyBoardRequest, getSingleStudyBoardReqeust } from "../../apis/api/studyBoardApi";
+import { deleteStudyBoardRequest, getSingleStudyBoardReqeust, getUserIdByStudyBoardIdRequest } from "../../apis/api/studyBoardApi";
 import StudyComment from "../../components/StudentComment/StudyComment";
 import GetTime from "../../components/GetTime/GetTime";
 import { GrView } from "react-icons/gr";
+import { getPrincipalRequest } from "../../apis/api/principal";
 
 function StudyBoardPage(props) {
     const params = useParams();
@@ -14,6 +15,41 @@ function StudyBoardPage(props) {
     
     const [timeStamp,setTimeStamp] = useState("");
     const formattedTime = GetTime(new Date(timeStamp));
+    const [userId, setUserId] = useState("");
+    const [userIdByBoard , setUserIdByBoard] = useState();
+
+    const principalQuery = useQuery(
+        ["principalQuery"],
+        getPrincipalRequest,
+        {
+            retry: 0,
+            refetchOnWindowFocus: false,
+            onSuccess: response => {
+                console.log("principal Success");
+                console.log(response);
+                setUserId(response.data.userId);
+            },
+            onError: error => {
+                console.log("principal Error");
+            }
+        }
+    );
+
+
+    const getStudentIdByBoardId = useQuery(
+        ["getStudentIdByBoardId"],
+        async() => await getUserIdByStudyBoardIdRequest(params.studyBoardId),
+        {
+            refetchOnWindowFocus : false,
+            onSuccess: response => {
+                console.log(response.data.userId);
+                setUserIdByBoard(response.data.userId);
+            }
+        }
+    );
+    console.log(userId);
+    console.log(userIdByBoard);
+
 
     const getBoardQuery = useQuery(
         ["getBoardQuery"],
@@ -69,10 +105,17 @@ function StudyBoardPage(props) {
                         <GrView />
                     </div>
                     {singleBoard.viewCount}</div>
-                <Link to={`/study/board/update/${singleBoard.studyBoardId}`}>
-                    <button css={s.optionButton}>수정</button>
-                </Link>
-                    <button css={s.optionButton} onClick={handleDeleteClick}>삭제</button>
+                    {
+                        userId === userIdByBoard ?
+                    <>
+                        <Link to={`/study/board/update/${singleBoard.studyBoardId}`}>
+                        <button css={s.optionButton}>수정</button>
+                        </Link>
+                        <button css={s.optionButton} onClick={handleDeleteClick}>삭제</button>
+                    </>
+                    :
+                    <div css={s.blank}></div>
+                    }
                 </div>
            </div>
 

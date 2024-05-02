@@ -3,7 +3,7 @@ import * as s from "./style";
 import { useParams, useSearchParams } from "react-router-dom";
 import React, { useEffect, useRef, useState } from 'react';
 import { useMutation, useQuery, useQueryClient } from "react-query";
-import { deleteStudentCommentRequest, getStudentCommentRequest, registerStudentComment, registerStudentCommentRequest, updateStudentCommentRequest } from "../../apis/api/boardApi";
+import { deleteStudentCommentRequest, getStudentCommentRequest, getStudentIdRequest, registerStudentComment, registerStudentCommentRequest, updateStudentCommentRequest } from "../../apis/api/boardApi";
 import { useMaxValueValidateInput } from "../../hooks/inputHook";
 import { BsThreeDotsVertical } from "react-icons/bs";
 import { getPrincipalRequest } from "../../apis/api/principal";
@@ -25,7 +25,8 @@ function StudentComment(props) {
     const queryClient = useQueryClient();
     const commentInputRef = useRef(null);
     const [timeStamp,setTimeStamp] = useState([]);
-
+    const [userId, setUserId] = useState("");
+    const [studentId, setStudentId] = useState();
 
     const principalQuery = useQuery(
         ["principalQuery"],
@@ -36,31 +37,30 @@ function StudentComment(props) {
             onSuccess: response => {
                 console.log("principal Success");
                 console.log(response);
+                setUserId(response.data.userId);
             },
             onError: error => {
                 console.log("principal Error");
             }
         }
     );
+  
+    const getStudentId = useQuery(
+      ["getStudentId",userId],
+      async() => await getStudentIdRequest(userId),
+      {
+          refetchOnWindowFocus : false,
+          onSuccess: response => {
+                console.log(response);
+                setStudentId(response.data.studentId);
+          },
+          onError: error => {
+            console.log(userId);
+          },
+          enabled: !!userId
+      }
+  );
 
-    const studentProfileQuery = useQuery(
-        ["studentProfileQuery"],
-        async() => await getStudentProfile(principalQuery.data.data.userId),
-        {
-            refetchOnWindowFocus: false,
-            retry: 0,
-            onSuccess: response => {
-                console.log("프로필 가져오기");
-                setProfile(response);
-                
-            },
-            onError: error => {
-                console.log("에러");
-            },
-            enabled: !!principalQuery?.data?.data
-        }
-    )
-console.log(profile);
 
     useEffect(() => {
         const token = localStorage.getItem("AccessToken");
@@ -137,7 +137,7 @@ console.log(profile);
     const handleRegisterClick = () => {
         const comment = {
             studentBoardId: params.studentBoardId,
-            studentUserId : profile.data?.studentId,
+            studentUserId : studentId,
             comment : inputValue
         };
         console.log(comment);
