@@ -7,12 +7,19 @@ margin-top: 120px;
 `
 
 export const imgBox = css`
-overflow: hidden;
-width:250px;
-height: 250px;
-border: 1px solid black;
-
-& > img {
-    width: 100%
-}
+ position: absolute;
+    display: flex;
+    width: 100px;
+    height: 100px;
+    left: 50%;
+    top: 100px;
+    transform: translate(-50%, -50%);
+    border: 1px solid #dbdbdb;
+    border-radius: 50%;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    & > img{
+        height: 100%;
+    }
 `

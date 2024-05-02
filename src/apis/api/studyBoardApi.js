@@ -24,6 +24,10 @@ export const updateStudyBoardRequest = async({studyBoardId, data}) => {
     return await instance.put(`/study/board/${studyBoardId}`,data)
 }
 
+export const updateStudyBoardViewCountRequest = async(studyBoardId) => {
+    return await instance.put(`/study/board/view/${studyBoardId}`)
+}
+
 
 export const registerStudyCommentRequest = async(data) => {
     return await instance.post(`/study/board/comment/${data.studyBoardId}`, data)

@@ -3,7 +3,7 @@ import { useMutation, useQuery } from "react-query";
 import * as s from "./style";
 import React, { useState } from 'react';
 import { Link, useParams } from "react-router-dom";
-import { deleteStudyBoardRequest, getSingleStudyBoardReqeust, getUserIdByStudyBoardIdRequest } from "../../apis/api/studyBoardApi";
+import { deleteStudyBoardRequest, getSingleStudyBoardReqeust, getUserIdByStudyBoardIdRequest, updateStudyBoardViewCountRequest } from "../../apis/api/studyBoardApi";
 import StudyComment from "../../components/StudentComment/StudyComment";
 import GetTime from "../../components/GetTime/GetTime";
 import { GrView } from "react-icons/gr";
@@ -34,6 +34,17 @@ function StudyBoardPage(props) {
             }
         }
     );
+
+    const updateViewCount = useQuery(
+        ["updateViewCount"],
+        async () => await updateStudyBoardViewCountRequest(params?.studyBoardId),
+        {
+            refetchOnWindowFocus: false,
+            onSuccess: () => {
+                getBoardQuery.refetch();
+            }
+        }
+    )
 
 
     const getStudentIdByBoardId = useQuery(

@@ -2,73 +2,22 @@
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import * as s from "./style";
 import {v4 as uuid} from "uuid"
-import React, { useCallback, useRef, useState } from 'react';
+import { useCallback} from 'react';
 import { storage } from "../../apis/firebase/firebaseConfig";
-import { registerImgUrlRequest } from "../../apis/api/profileApi";
-import { useMutation, useQuery } from "react-query";
-import { useParams } from "react-router-dom";
-import { getPrincipalRequest } from "../../apis/api/principal";
+import { updateImgUrlRequest } from "../../apis/api/profileApi";
+import { useMutation } from "react-query";
+function ProfileImg({ userId, profileUrl }) {
 
-function ProfileImg(props) {
-    const params = useParams();
-    const fileInputRef = useRef();
-    const [ profileUrl, setProfileUrl ] = useState("null");
-    const [userId , setUserId] =useState(""); 
-
-    const registerImgUrlMutation = useMutation({
-        mutationKey: "registerImgUrlMutation",
-        mutationFn: registerImgUrlRequest,
+    const updateImgUrlMutation = useMutation({
+        mutationKey: "updateImgUrlMutation",
+        mutationFn: updateImgUrlRequest,
         onSuccess: response => {
           alert("정상적으로 등록되었습니다");
+          window.location.reload();
         }
-      });
+      });   
       
     
-    const handleFileChange = (e) =>{
-        const fileReader = new FileReader();
-        
-        if(e.target.files.length ===0){
-            return;
-        } 
-        fileReader.onload = (e) =>{
-            setProfileUrl(e.target.result);
-            console.log(e.target.result);
-        };
-        fileReader.readAsDataURL(e.target.files[0]);
-
-        // const confirmUpload = window.confirm("이미지를 등록하시겠습니까?");
-        // if (confirmUpload) {
-        //     console.log(profileUrl);
-        //     const imgBoard = {
-        //         userId: params.userId,
-        //         userImgUrl: profileUrl
-        //     };
-        //     registerImgUrlMutation.mutate(imgBoard);
-          
-
-        // }else{
-        //     setProfileUrl(null);
-        //     console.log(profileUrl);
-        // }
-    }
-
-    const principalQuery = useQuery(
-      ["principalQuery"],
-      getPrincipalRequest,
-      {
-          retry: 0,
-          refetchOnWindowFocus: false,
-          onSuccess: response => {
-              console.log("principal Success");
-              console.log(response);
-              setUserId(response.data.userId);
-          },
-          onError: error => {
-              console.log("principal Error");
-          }
-      }
-  );
-  
     const imgChangeClick = useCallback(() => {
         const input = document.createElement("input");
         input.setAttribute("type", "file");
@@ -80,20 +29,16 @@ function ProfileImg(props) {
           const uploadResponse = await uploadBytes(storageRef,file);
     
           const downloadUrl =  await getDownloadURL(uploadResponse.ref);
-          setProfileUrl(downloadUrl);
         
           const confirmUpload = window.confirm("이미지를 등록하시겠습니까?");
           if (confirmUpload) {
             
               const imgBoard = {
-                userId: userId,
+                userId,
                 userImgUrl:downloadUrl
             };
             console.log(imgBoard);
-            registerImgUrlMutation.mutate(imgBoard);
-           
-          } else {
-              setProfileUrl("");
+            updateImgUrlMutation.mutate(imgBoard);
           }
         }
         input.click();
@@ -104,13 +49,9 @@ function ProfileImg(props) {
     return (
         
         <div css={s.testLayout}>
-            <div css={s.imgBox} >
+            <div css={s.imgBox} onClick={imgChangeClick} >
                 <img src={profileUrl} alt="" />
             </div>
-        
-        <input type="file" ref={fileInputRef} onChange={handleFileChange} style={{ display: 'none' }}/>
-        <button onClick={imgChangeClick}>사진등록</button>
-        
         </div> 
     );
 }

@@ -2,7 +2,7 @@
 import { useMutation, useQuery } from "react-query";
 import * as s from "./style";
 import React, { useState } from 'react';
-import { deleteBoardRequest, getSingleBoardReqeust, getStudentIdByStudentBoardIdRequest, getStudentIdRequest } from "../../apis/api/boardApi";
+import { deleteBoardRequest, getSingleBoardReqeust, getStudentIdByStudentBoardIdRequest, getStudentIdRequest, updateBoardViewCountRequest } from "../../apis/api/boardApi";
 import { Link, useParams } from "react-router-dom";
 import StudentComment from "../../components/StudentComment/StudentComment";
 import GetTime from "../../components/GetTime/GetTime";
@@ -35,6 +35,17 @@ function BoardPage(props) {
             }
         }
     );
+
+    const updateViewCount = useQuery(
+        ["updateViewCount"],
+        async () => await updateBoardViewCountRequest(params?.studentBoardId),
+        {
+            refetchOnWindowFocus: false,
+            onSuccess: () => {
+                getBoardQuery.refetch();
+            }
+        }
+    )
   
     const getStudentId = useQuery(
       ["getStudentId",userId],

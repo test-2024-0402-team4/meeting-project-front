@@ -3,8 +3,8 @@ import { Link, useSearchParams } from "react-router-dom";
 import * as s from "./style";
 
 import React, { useEffect, useState } from 'react';
-import { useQuery } from "react-query";
-import { getStudentCount, searchBoardListRequest } from "../../apis/api/boardApi";
+import { useMutation, useQuery } from "react-query";
+import { getStudentCount, searchBoardListRequest, updateBoardViewCountRequest } from "../../apis/api/boardApi";
 import { useSearchBoardInput } from "../../hooks/useSearchBoardInput";
 import BoardPageCount from "../../components/BoardPageCount/BoardPageCount";
 import { IoSearchOutline } from "react-icons/io5";
@@ -12,12 +12,11 @@ import GetTime from "../../components/GetTime/GetTime";
 
 function BoardListPage(props) {
     const [searchParams, setSearchParams] = useSearchParams();
-    const searchCount = 11;
+    const searchCount = 1;
     const [boardList, setBoardList] = useState([]);
     const [timeStamp,setTimeStamp] = useState([]);
     
- 
-
+  
     const searchSubmit = () => {
         setSearchParams({
             page:1
@@ -80,6 +79,8 @@ function BoardListPage(props) {
     const linkToStudent = () => {
         window.location.replace("/student/boards?page=1")
     }
+
+    
     
     return (
         <div css={s.layout}>
@@ -111,7 +112,11 @@ function BoardListPage(props) {
                 {
                 boardList.map(
                     board => 
-                    <Link to={`/student/board/${board.studentBoardId}`} css={s.boardListItem} key={board.studentBoardId}>
+                    <Link to=
+                    {`/student/board/${board.studentBoardId}`} 
+                    css={s.boardListItem} 
+                    key={board.studentBoardId}
+                    >
 
                         <li>
                             <div>{board.title}</div>

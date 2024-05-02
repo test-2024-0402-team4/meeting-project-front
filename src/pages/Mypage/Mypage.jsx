@@ -5,56 +5,29 @@ import { getPrincipalRequest } from "../../apis/api/principal";
 import { getStudentMypageCount, getStudentProfile, searchStudentMypageBoardsRequest } from "../../apis/api/profileApi";
 import React, { useState } from 'react';
 import { useQuery, useQueryClient } from 'react-query';
-import { Link, useSearchParams } from "react-router-dom";
+import { Link, useParams, useSearchParams } from "react-router-dom";
 import { useSearchBoardInput } from "../../hooks/useSearchBoardInput";
 import { IoSearchOutline } from "react-icons/io5";
 import GetTime from "../../components/GetTime/GetTime";
 import StudentProfileCount from "../../components/BoardPageCount/StudentProfileCount";
+import ProfileImg from "../../components/ProfileImg/ProfileImg";
 
 function Mypage(props) {
-
+    const { userId } = useParams();
     const [searchParams, setSearchParams] = useSearchParams();
-    const queryClient = useQueryClient();
-    const [profile,setProfile] = useState({});
     const searchCount = 5;
     const [boardList, setBoardList] = useState([]);
     const [timeStamp,setTimeStamp] = useState([]);
-    const [userId , setUserId] =useState(profile?.data?.userId || ""); 
-
-    const principalQuery = useQuery(
-        ["principalQuery"],
-        getPrincipalRequest,
-        {
-            retry: 0,
-            refetchOnWindowFocus: false,
-            onSuccess: response => {
-                console.log("principal Success");
-                console.log(response);
-            },
-            onError: error => {
-                console.log("principal Error");
-            }
-        }
-    );
+    
 
     const studentProfileQuery = useQuery(
         ["studentProfileQuery"],
-        async() => await getStudentProfile(principalQuery.data.data.userId),
+        async() => await getStudentProfile(userId),
         {
-            refetchOnWindowFocus: false,
-            retry: 0,
-            onSuccess: response => {
-                console.log("프로필 가져오기");
-                // console.log(response);
-                setProfile(response);
-                setUserId(response.data.userId);
-            },
-            onError: error => {
-                console.log("에러");
-            },
-            enabled: !!principalQuery?.data?.data
+            refetchOnWindowFocus: false
         }
     )
+
     const searchSubmit = () => {
         if(userId){
             setSearchParams({
@@ -116,9 +89,6 @@ function Mypage(props) {
         }
     );
 
-    console.log(profile);
-    console.log(searchParams.get("page"));
-
     const handleModifyOnClick = () => {
         window.location.replace(`/student/mypage/modify?userId=${userId}`);
     }
@@ -129,30 +99,37 @@ function Mypage(props) {
         <div css={s.layout}>
             <div css={s.mypageLayout}>
                 <div css={s.profileLayout}>
-                    <div css={s.profile}>
+
+                    {
+                        studentProfileQuery.isLoading
+                        ?<></>
+                        :
+                        <div css={s.profile}>
                         <div css={s.profileUpdateButton}>
                             <button onClick={handleModifyOnClick}>정보 수정</button> 
                         </div>
-                        <div css={s.profileImgLayout}>
-                            <img src={profile?.data?.userImgUrl} />
-                        </div>
+                        
+                        <ProfileImg userId={studentProfileQuery.data?.data?.userId} profileUrl={studentProfileQuery?.data.data?.userImgUrl}/>
+
                         <div>
                             <span>
-                                {profile.data?.nickname}
+                                {studentProfileQuery.data.data?.nickname}
                             </span>
                             <span css={s.roleName}>
-                            {profile.data?.roleNameKor}
+                            {studentProfileQuery.data.data?.roleNameKor}
                             </span>
                         </div>
                         <div>
                             <span>
-                            {profile.data?.genderType}
+                            {studentProfileQuery.data.data?.genderType}
                             </span>
                             <span>
-                            {profile.data?.regionName}
+                            {studentProfileQuery.data.data?.regionNames}
                             </span>
                         </div>
                     </div>
+                    }
+
                 </div>
                 <div css={s.mypageContentLayout}>
                     <div css={s.mypageContentTitle}>

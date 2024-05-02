@@ -74,11 +74,11 @@ function RootHeader({children}) {
                                     {
                                         roleId === 1 ? 
                                         (
-                                            <span onClick={() => handelPageMove(`student/mypage?page=1&userId=${userId}`)}>내 정보</span>
+                                            <span onClick={() => handelPageMove(`student/${userId}/mypage?page=1`)}>내 정보</span>
                                         )
                                         : 
                                         (
-                                            <span onClick={() => handelPageMove(`teacher/mypage?page=1&userId=${userId}`)}>내 정보</span>
+                                            <span onClick={() => handelPageMove(`teacher/${userId}/mypage?page=1`)}>내 정보</span>
                                         )
                                     }
                                     <span>고객센터</span>

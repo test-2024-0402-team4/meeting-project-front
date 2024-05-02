@@ -1,7 +1,8 @@
 import instance from "../utils/instance"
 
-export const registerImgUrlRequest = async(data) => {
-    return await instance.post(`/account/profile/image/${data.userId}`,data)
+
+export const updateImgUrlRequest = async(data) => {
+    return await instance.put(`/account/profile/image/${data.userId}`,data)
 }
 
 
@@ -20,7 +21,7 @@ export const searchStudentMypageBoardsRequest = async(userId,params) => {
 export const getStudentMypageCount = async(userId,params) => {
     return await instance.get(`student/boards/count/${userId}`,{params})
 }
-
+ 
 export const searchStudyMypageBoardsRequest = async(userId,params) => {
     return await instance.get(`student/mypage/boards/study/${userId}`,{params})
 }
