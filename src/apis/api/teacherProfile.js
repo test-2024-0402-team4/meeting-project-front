@@ -39,3 +39,7 @@ export const searchTeacherStudyMypageBoardsRequest = async(userId,params) => {
 export const getTeacherStudyMypageCount = async(userId,params) => {
     return await instance.get(`teacher/boards/count/study/${userId}`,{params})
 }
+
+export const getApplicationDetails = async(studentUserId) => {
+    return await instance.get(`student/apply/detail?studentUserId=${studentUserId}`);
+}
