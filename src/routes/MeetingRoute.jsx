@@ -35,6 +35,12 @@ import ModifyTeacherProfilePage from '../pages/ModifyTeacherProfilePage/ModifyTe
 import NoticeBoardPage from '../pages/NoticeBoardPage/NoticeBoardPage';
 import NoticeBoardListPage from '../pages/NoticeBoardList/NoticeBoardList';
 import { getPrincipalRequest } from '../apis/api/principal';
+import DeclarePage from '../pages/DeclarePage/DeclarePage';
+import DeclareStudentCommentPage from '../pages/DeclarePage/DeclareStudentCommentPage';
+import DeclareTeacherPage from '../pages/DeclarePage/DeclareTeacherPage';
+import DeclareTeacherCommentPage from '../pages/DeclarePage/DeclareTeacherCommentPage';
+import DeclareStudyCommentPage from '../pages/DeclarePage/DeclareStudyCommentPage';
+import DeclareStudyPage from '../pages/DeclarePage/DeclareStudyPage';
 
 
 function MeetingRoute(props) {
@@ -107,6 +113,15 @@ function MeetingRoute(props) {
 
               <Route path="/notice/board/:noticeId" element={<NoticeBoardPage />} />
               <Route path="/notice/boards" element={<NoticeBoardListPage />} />
+
+              <Route path="/notice/declare/:studentBoardId" element={<DeclarePage />} />
+              <Route path="/notice/declare/student/comment/:studentCommentId" element={<DeclareStudentCommentPage />} />
+
+              <Route path="/notice/declare/teacher/:teacherBoardId" element={<DeclareTeacherPage />} />
+              <Route path="/notice/declare/teacher/comment/:teacherCommentId" element={<DeclareTeacherCommentPage />} />
+
+              <Route path="/notice/declare/study/:studyBoardId" element={<DeclareStudyPage />} />
+              <Route path="/notice/declare/study/comment/:studyCommentId" element={<DeclareStudyCommentPage />} />
 
         </Routes>
 

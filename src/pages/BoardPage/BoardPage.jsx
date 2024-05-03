@@ -46,6 +46,7 @@ function BoardPage(props) {
             }
         }
     )
+    console.log(params);
   
     const getStudentId = useQuery(
       ["getStudentId",userId],
@@ -70,6 +71,7 @@ function BoardPage(props) {
     {
         refetchOnWindowFocus : false,
         onSuccess: response => {
+            console.log(response);
             console.log(response.data.studentId);
             setUserIdByBoard(response.data.studentId);
         }
@@ -103,6 +105,10 @@ function BoardPage(props) {
         if(window.confirm("정말 삭제하시겠습니까?")){
         deleteBoardMutation.mutate(params.studentBoardId);
         }
+    }
+
+    const handleDeclareClick = () => {
+        window.location.replace(`/notice/declare/${params.studentBoardId}`);
     }
     
 
@@ -141,7 +147,9 @@ function BoardPage(props) {
                         <button onClick={handleDeleteClick} css={s.optionButton}>삭제</button>
                     </>
                     :
-                    <div css={s.blank}></div>
+                    <div css={s.blank}>
+                        <button onClick={handleDeclareClick} css={s.optionButton}>신고</button>
+                    </div>
                     }
                 </div>
                 

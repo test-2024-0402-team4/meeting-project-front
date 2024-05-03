@@ -90,6 +90,10 @@ function StudyBoardPage(props) {
         deleteBoardMutation.mutate(params.studyBoardId);
         }
     }
+
+    const handleDeclareClick = () => {
+        window.location.replace(`/notice/declare/study/${params.studyBoardId}`);
+    }
     
 
     return (
@@ -125,7 +129,9 @@ function StudyBoardPage(props) {
                         <button css={s.optionButton} onClick={handleDeleteClick}>삭제</button>
                     </>
                     :
-                    <div css={s.blank}></div>
+                    <div css={s.blank}>
+                        <button onClick={handleDeclareClick} css={s.optionButton}>신고</button>
+                    </div>
                     }
                 </div>
            </div>

@@ -120,7 +120,7 @@ transition: background-color 0.3s ease;
 }
 `;
 export const blank = css`
-margin-top: 45px;
+margin-top: 5px;
 `;
 
 export const boardPageMain = css`
