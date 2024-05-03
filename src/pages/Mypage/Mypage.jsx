@@ -157,15 +157,15 @@ function Mypage(props) {
                                 {studentProfileQuery.data.data?.nickname}
                             </span>
                             <span css={s.roleName}>
-                            {studentProfileQuery.data.data?.roleNameKor}
+                                {studentProfileQuery.data.data?.roleNameKor}
                             </span>
                         </div>
                         <div>
                             <span>
-                            {studentProfileQuery.data.data?.genderType}
+                            {studentProfileQuery.data.data?.genderType}학생
                             </span>
                             <span>
-                            {studentProfileQuery.data.data?.regionNames}
+                            {studentProfileQuery.data.data?.regionName}
                             </span>
                         </div>
                     </div>

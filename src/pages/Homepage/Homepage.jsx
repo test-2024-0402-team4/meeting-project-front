@@ -10,40 +10,42 @@ import { BsPatchCheck } from "react-icons/bs";
 import { useQuery, useQueryClient } from "react-query";
 import { getPrincipalRequest } from "../../apis/api/principal";
 import { useEffect, useState } from "react";
+import { getTeacherProfileInfo } from "../../apis/api/teacherProfile";
 
 function Homepage(props) {
     const navigate = useNavigate("");
     const queryClient = useQueryClient();
     const [roleId, setRoleId] = useState(0);
     const [userId, setUserId] = useState(0);
+    const principalData = queryClient.getQueryData("principalQuery");
+    const [ classTypeName, setClassTypeName ] = useState([]);
 
     useEffect(() => {
-        const token = localStorage.getItem("AccessToken");
-        if (!token) {
-            setRoleId(0);
-            setUserId(0);
-        } else {
-            // 로그인된 사용자의 정보를 가져와서 상태에 설정
-            const tokenPayLoad = token.split('.')[1];
-            try {
-                const decodedPayload = JSON.parse(atob(tokenPayLoad));
-                setRoleId(decodedPayload.roleId);
-                setUserId(decodedPayload.userId);
-            } catch (error) {
-                console.error("Failed to decode AccessToken:", error);
-                setRoleId(0); // 예외 발생 시 roleId를 기본값으로 설정
-            }
+        if (principalData) {
+            setUserId(principalData?.data.userId)
+            setRoleId(principalData?.data.roleId)
         }
-    }, []);
+    }, [principalData]);
 
+    useEffect(() => {
+        if (userId !== 0 && roleId === 2) {
+            getTeacherInfo();
+        }
+        console.log(classTypeName)
 
-
+    }, [userId]);
     
+    const getTeacherInfo = async () => {
+        console.log(userId)
+        const response = await getTeacherProfileInfo({userId: userId})
+        setClassTypeName(response.data.classTypeNames)
+        console.log(response.data.classTypeNames)
+    }
 
     const handelPageMove = (page) => {
         navigate(`/${page}`);
     }
-
+    
     return (
         <div css={s.layout}>
             <div css={s.mainLeftItem}>
@@ -69,20 +71,20 @@ function Homepage(props) {
                                     </Link>
                                 </div>                     
                             </>
-                        : roleId === 2 ?
-                            <>
-                                <div css={s.leftItemContent}>
-                                    <div>
-                                        필수 정보 입력하기
-                                    </div> 
-                                    <div>
-                                        과외에 필요한 정보들을 입력해주세요!
-                                    </div> 
-                                    <Link to={"/teacher/register/profile"}>
-                                        지금 바로 입력하기 &#62;
-                                    </Link>
-                                </div>   
-                            </>
+                        :   
+                            roleId === 2 ? ( 
+                            <div css={s.leftItemContent}>
+                                <div>
+                                    {classTypeName.length !== 0 ? '필수 정보 수정하기' : '필수 정보 입력하기'}
+                                </div> 
+                                <div>
+                                    {classTypeName.length !== 0 ? '필요한 정보들이 모두 입력 되었습니다!' : '과외에 필요한 정보들을 입력해주세요!'}
+                                </div> 
+                                <Link to={classTypeName.length !== 0 ? `/teacher/mypage/modify?userId=${userId}` : '/teacher/register/profile'}>
+                                    {classTypeName.length !== 0 ? '수정하기' : '지금 바로 입력하기'} &#62;
+                                </Link>
+                            </div>  
+                        )
                         :
                         <>
                             <div css={s.leftItemContent}>
