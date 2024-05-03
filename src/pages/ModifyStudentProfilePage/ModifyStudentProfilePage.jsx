@@ -13,6 +13,7 @@ import { getPrincipalRequest } from "../../apis/api/principal";
 import { CgChevronRight } from "react-icons/cg";
 import Modal from 'react-modal';
 import { GrClose } from "react-icons/gr";
+import { deleteUser } from "../../apis/api/accountApi";
 
 function ModifyStudentProfilePage(props) {
 
@@ -115,7 +116,9 @@ function ModifyStudentProfilePage(props) {
     }
 
     const handleLeaveButton = () => {
-        
+        deleteUser(userId);
+        localStorage.removeItem("AccessToken")
+        window.location.replace("/")
     }
 
 

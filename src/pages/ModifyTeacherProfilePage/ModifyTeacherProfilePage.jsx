@@ -14,6 +14,7 @@ import { getTeacherProfileInfo } from "../../apis/api/teacherProfile";
 import { getPrincipalRequest } from "../../apis/api/principal";
 import Modal from 'react-modal';
 import { GrClose } from "react-icons/gr";
+import { deleteUser } from "../../apis/api/accountApi";
 
 function ModifyTeacherProfilePage(props) {
 
@@ -170,7 +171,9 @@ function ModifyTeacherProfilePage(props) {
     }
 
     const handleLeaveButton = () => {
-
+        deleteUser(userId);
+        localStorage.removeItem("AccessToken")
+        window.location.replace("/")
     }
 
 
