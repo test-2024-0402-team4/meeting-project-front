@@ -97,7 +97,6 @@ function StudentMyPosterPage(props) {
                         <span>
                             {profile.data?.nickname}
                         </span>
-                            {profile.data?.roleNameKor}
                         <span css={s.roleName}>
                             {profile.data?.roleNameKor}
                         </span>

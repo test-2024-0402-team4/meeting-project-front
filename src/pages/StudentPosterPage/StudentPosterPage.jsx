@@ -93,7 +93,7 @@ function StudentPosterPage(props) {
                 <div css={s.profileLayout}>
                     <div css={s.profile}>
                         <div css={s.profileImgLayout}>
-                            {profile?.userImgUrl}
+                           <img src={profile?.userImgUrl} />
                         </div>
                         <div>
                             <span>

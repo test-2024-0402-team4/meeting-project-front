@@ -81,7 +81,6 @@ function StudentMyPostersPage(props) {
                         <span>
                             {profile.data?.nickname}
                         </span>
-                            {profile.data?.roleNameKor}
                         <span css={s.roleName}>
                             {profile.data?.roleNameKor}
                         </span>
@@ -119,7 +118,9 @@ function StudentMyPostersPage(props) {
                                         <span>{poster.studentType}</span>
                                         <span>{poster.genderType}</span>
                                         <span>{poster.regionName}</span>
-                                        <span>{poster.classType}</span>
+                                        {
+                                            poster.classType.map((value, index) => <span key={index}>{value}</span>)
+                                        }
                                     </div>
                                     <div css={s.buttonLayout}>
                                         <button onClick={() => handelPageMove(`/student/myposter/modify?posterId=${poster.posterId}`)}>수정</button>

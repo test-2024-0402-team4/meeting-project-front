@@ -12,7 +12,6 @@ function RootHeader({children}) {
     const [ userId, setUserId ] = useState(0);
     const navigate = useNavigate();
 
-
     const [ modalIsOpen, setModalIsOpen ] = useState(false);
     const openModal = () => {
         setModalIsOpen(true);

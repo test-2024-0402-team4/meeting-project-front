@@ -3,7 +3,7 @@ import { css } from "@emotion/react";
 export const layout = css`
     margin: 0px auto;
     width: 70%;
-    height: 618px;
+    min-height: 618px;
     display: flex;
     justify-content: space-between;
 `;
@@ -52,6 +52,7 @@ export const profile = css`
 `;
 export const profileUpdateButton = css`
     position: absolute;
+    top: 10px;
     right: 10px;
     align-items: flex-end;
 `;
@@ -203,13 +204,69 @@ export const imgLayout = css`
 `;
 
 export const teacherProfile = css`
-    display: flex;
     box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    padding: 28px 20px 40px 0px;
+`;
+
+export const profileHeader= css`
+    flex-direction: column;
+    display: flex;
+    align-items: center;
+`;
+
+export const imgBox = css`
+    
+    & > * {
+        height: 100%;
+    }
+`;
+
+export const profileContent = css`
     width: 100%;
-    height: 122px;
-    padding: 10px 0px 10px 0px;
-    border-bottom: 1px solid #dbdbdb;
-    margin-left: 10px;
+    margin-top: 20px;
+    div:nth-of-type(1) {
+        font-size: 20px;
+    }
+    div:nth-of-type(2) {
+        font-size: 16px;
+        margin-top: 5px;
+        & > span:nth-of-type(1) {
+            margin-right: 5px;
+        }
+    }
+    div:nth-of-type(3) {
+        display: flex;
+        margin-top: 5px;
+        font-size: 14px;
+      span:nth-of-type(1) {
+        font-size: 14px;
+        box-sizing: border-box;
+        width: 52px;
+        height: 20px;
+        margin: 0px 5px;
+      }
+      span:nth-of-type(2) {
+        font-size: 14px;
+      }
+    }
+    div:nth-of-type(4) {
+        display: flex;
+        margin-top: 3px;
+        font-size: 14px;
+      span:nth-of-type(1) {
+        font-size: 14px;
+        box-sizing: border-box;
+        width: 52px;
+        height: 20px;
+        margin: 0px 5px;
+      }
+      span:nth-of-type(2) {
+        font-size: 14px;
+      }
+        
+    }
 `;
 
 export const teacherProfileContent = css`
@@ -302,3 +359,34 @@ padding: 15px;
 export const page = css`
 
 `
+
+export const teacherInfoLayout = css`
+    box-sizing: border-box;
+    padding: 20px 16px 24px;
+    width: 100%;
+    min-height: 144px;
+    border-bottom: 1px solid #dbdbdb;
+    
+
+`;
+export const teacherInfo = css`
+    font-size: 16px;
+    font-weight: 500;
+`;
+export const teacherInfoContent = css`
+    display: flex;
+    width: 100%;
+    margin-top: 16px;
+
+    div:nth-of-type(1) {
+        width: 84px;
+        font-size: 15px;
+        
+    }
+    div:nth-of-type(2) {
+        margin-left: 5px;
+        font-size: 15px;
+    }
+`;
+
+

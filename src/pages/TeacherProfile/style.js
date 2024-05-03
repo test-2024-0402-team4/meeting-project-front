@@ -3,7 +3,7 @@ import { css } from "@emotion/react";
 export const layout = css`
     margin: 0px auto;
     width: 70%;
-    height: 800px;
+    min-height: 800px;
     font-size: 12px;
     display: flex;
 `;
@@ -90,6 +90,7 @@ export const profileHeader= css`
 `;
 
 export const imgBox = css`
+    display: flex;
     width: 152px;
     height: 152px;
     border-radius: 8px;

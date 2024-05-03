@@ -402,6 +402,19 @@ function TeacherProfile() {
                             </div>
                             <div css={s.teacherInfoLayout}>
                                 <div css={s.teacherInfo}>
+                                    대면 수업 가능 요일
+                                </div>
+                                <div css={s.teacherInfoContent}>
+                                    <div>
+                                        요일
+                                    </div>
+                                    <div>
+                                        {teacherProfile?.dateNames.map(subjectName => subjectName).join(", ")}
+                                    </div>
+                                </div>
+                            </div>
+                            <div css={s.teacherInfoLayout}>
+                                <div css={s.teacherInfo}>
                                     수업 소개
                                 </div>
                                 <div css={s.teacherInfoContent}>
@@ -409,7 +422,7 @@ function TeacherProfile() {
                                         한줄 소개
                                     </div>
                                     <div>
-                                        수업방식 및 진행 방향 소개
+                                        {teacherProfile?.teacherIntroduceContent}
                                     </div>
                                 </div>
                             </div>
