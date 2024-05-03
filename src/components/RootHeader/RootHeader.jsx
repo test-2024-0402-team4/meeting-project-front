@@ -103,12 +103,12 @@ function RootHeader({children}) {
                                             <span onClick={() => handelPageMove(`teacher/${userId}/mypage?page=1`)}>내 정보</span>
                                         )
                                     }
-                                    <span>고객센터</span>
+                                    <span onClick={() => handelPageMove("notice/boards?page=1")}>공지사항</span>
                                     </>
                                 ) : (
                                     <>
                                     <span onClick={() => handelPageMove("auth/signin")}>로그인</span>
-                                    <span>고객센터</span>
+                                    <span onClick={() => handelPageMove("notice/boards?page=1")}>공지사항</span>
                                     </>
                                 )
                             }

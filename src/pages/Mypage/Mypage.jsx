@@ -36,7 +36,7 @@ function Mypage(props) {
             handleApplicationDetails();
             console.log(teacherProfile)
         } 
-    }, [studentProfileQuery]);
+    }, []);
 
     const principalQuery = useQuery(
         ["principalQuery"],
@@ -215,7 +215,6 @@ function Mypage(props) {
                                     <div key={teacherProfile.userId} css={s.teacherProfile}>
                                         <div css={s.imgLayout}>
                                             
-                                        <ProfileImg userId={studentProfileQuery.data?.data?.userId} profileUrl={studentProfileQuery.data?.data?.userImgUrl}/>
                                         </div>
                                         <div onClick={() => navigate(`/student/tutor?userId=${teacherProfile.userId}`)} css={s.teacherProfileContent}>
                                             <div>{teacherProfile.nickname}</div>
