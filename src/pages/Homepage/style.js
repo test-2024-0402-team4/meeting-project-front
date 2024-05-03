@@ -54,7 +54,7 @@ export const dataInputBox = css`
     width: 100%;
     height: 130px;
     margin-top: 20px;
-    border-radius: 20px;
+    border-radius: 5px;
     min-width: 380px;
     background-color: rgb(248 248 248);
     cursor: pointer;
@@ -91,7 +91,7 @@ export const searchTeacherButton = (roleId) => css`
     left: 0px;
     margin-top: 16px;
     padding:20px;
-    border-radius: 20px;
+    border-radius: 5px;
     width: 50%;
     height: 250px;
     border: 1px solid #dbdbdb;
@@ -115,7 +115,7 @@ export const searchMypageButton = (roleId) => css`
     box-sizing: border-box;     
     margin-top: 16px;
     padding:20px;
-    border-radius: 20px;
+    border-radius: 5px;
     width: 50%;
     height: 120px;
     border: 1px solid #dbdbdb;
@@ -139,7 +139,7 @@ export const searchStudyButton = css`
     left: 0;
     box-sizing: border-box;     
     padding: 20px;
-    border-radius: 20px;
+    border-radius: 5px;
     width: 50%;
     height: 120px;
     border: 1px solid #dbdbdb;
@@ -165,7 +165,7 @@ export const searchCommunityButton = (roleId) => css`
     left: 52%;
     box-sizing: border-box;     
     padding:20px;
-    border-radius: 20px;
+    border-radius: 5px;
     width: 50%;
     height: 250px;
     border: 1px solid #dbdbdb;
