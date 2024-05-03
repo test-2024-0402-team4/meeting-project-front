@@ -201,6 +201,11 @@ function StudentComment(props) {
         setInputValue(() => "");
         setChangeButton(() => 0);
     }
+    const handleDeclareClick = (studentCommentId) => {
+        window.location.replace(`/notice/declare/student/comment/${studentCommentId}`);
+    }
+
+    
   
    
     return (
@@ -251,8 +256,8 @@ function StudentComment(props) {
                                                     {
                                                         comment.studentUserId !== studentUserId &&
                                                             <>
-                                                                <button css={s.commentOptionButton}> 차단 </button>
-                                                                <button css={s.commentOptionButton}> 신고 </button>
+                                                                
+                                                                <button css={s.commentOptionButton} onClick={() => handleDeclareClick(comment.studentCommentId)}> 신고 </button>
                                                             </>
                                                     }
                                             </div>

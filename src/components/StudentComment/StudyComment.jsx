@@ -191,6 +191,10 @@ useEffect(() => {
         setInputValue(() => "");
         setChangeButton(() => 0);
     }
+
+    const handleDeclareClick = (studyCommentId) => {
+        window.location.replace(`/notice/declare/study/comment/${studyCommentId}`);
+    }
   
    
     return (
@@ -240,8 +244,8 @@ useEffect(() => {
                                                 {
                                                     comment.userId !== userId &&
                                                         <>
-                                                            <button css={s.commentOptionButton}> 차단 </button>
-                                                            <button css={s.commentOptionButton}> 신고 </button>
+                                                            
+                                                            <button css={s.commentOptionButton} onClick={() => handleDeclareClick(comment.studyCommentId)}> 신고 </button>
                                                         </>
                                                 }
                                             </div>

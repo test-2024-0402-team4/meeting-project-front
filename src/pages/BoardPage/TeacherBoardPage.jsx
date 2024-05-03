@@ -108,6 +108,10 @@ function TeacherBoardPage(props) {
 
     console.log(teacherId);
     console.log(userIdByBoard);
+
+    const handleDeclareClick = () => {
+        window.location.replace(`/notice/declare/teacher/${params.teacherBoardId}`);
+    }
     
 
     return (
@@ -144,7 +148,9 @@ function TeacherBoardPage(props) {
                         <button css={s.optionButton} onClick={handleDeleteClick}>삭제</button>
                     </>
                     :
-                    <div css={s.blank}></div>
+                    <div css={s.blank}>
+                        <button onClick={handleDeclareClick} css={s.optionButton}>신고</button>
+                    </div>
                     }
                 </div>
 

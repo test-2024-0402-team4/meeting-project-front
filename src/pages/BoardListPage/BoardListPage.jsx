@@ -12,7 +12,7 @@ import GetTime from "../../components/GetTime/GetTime";
 
 function BoardListPage(props) {
     const [searchParams, setSearchParams] = useSearchParams();
-    const searchCount = 1;
+    const searchCount = 5;
     const [boardList, setBoardList] = useState([]);
     const [timeStamp,setTimeStamp] = useState([]);
     

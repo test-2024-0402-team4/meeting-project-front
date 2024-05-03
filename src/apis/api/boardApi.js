@@ -78,5 +78,31 @@ export const updateNoticeBoardViewCountRequest = async(noticeId) => {
     return await instance.put(`/notice/board/view/${noticeId}`)
 }
 
+export const registerDeclare = async(data) => {
+    return await instance.post(`/notice/declare/${data.studentBoardId}`, data);
+}
+
+export const registerStudentCommentDeclare = async(data) => {
+    return await instance.post(`/notice/declare/student/comment/${data.studentCommentId}`, data);
+}
+
+
+
+
+export const registerTeacherDeclare = async(data) => {
+    return await instance.post(`/notice/declare/teacher/${data.teacherBoardId}`, data);
+}
+
+export const registerTeacherCommentDeclare = async(data) => {
+    return await instance.post(`/notice/declare/teacher/comment/${data.teacherCommentId}`, data);
+}
+
+export const registerStudyDeclare = async(data) => {
+    return await instance.post(`/notice/declare/study/${data.studyBoardId}`, data);
+}
+
+export const registerStudyCommentDeclare = async(data) => {
+    return await instance.post(`/notice/declare/study/comment/${data.studyCommentId}`, data);
+}
 
 
