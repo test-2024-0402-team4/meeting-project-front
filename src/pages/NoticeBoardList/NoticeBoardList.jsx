@@ -8,14 +8,14 @@ import { useSearchBoardInput } from "../../hooks/useSearchBoardInput";
 import { getNoticeCount, searchNoticeBoardListRequest } from "../../apis/api/boardApi";
 import NoticeBoardPageCount from "../../components/BoardPageCount/NoticePageCount";
 import { IoSearchOutline } from "react-icons/io5";
+import GetTime from "../../components/GetTime/GetTime";
 
 function NoticeBoardListPage(props) {
     const [searchParams, setSearchParams] = useSearchParams();
     const searchCount = 5;
     const [boardList, setBoardList] = useState([]);
+    const [timeStamp,setTimeStamp] = useState([]);
 
-   
-   
 
     const searchSubmit = () => {
         setSearchParams({
@@ -36,6 +36,7 @@ function NoticeBoardListPage(props) {
         {
             refetchOnWindowFocus : false,
             onSuccess: response => {
+                console.log(response);
                 setBoardList(() => response.data.map(
                     boards => {
                         return {
@@ -43,8 +44,15 @@ function NoticeBoardListPage(props) {
                         }
                     }
                 ));
-                console.log(response.data);
+                setTimeStamp(() => response.data.map(
+                    boards => {
+                        return {
+                            ...boards
+                        }
+                    }
+                ))
             }
+            
         }
     );
 
@@ -85,6 +93,7 @@ function NoticeBoardListPage(props) {
                 <li css={s.boardListHeader}>
                    
                     <div>제목</div>
+                    <div>글쓴이</div>
                     <div>작성시간</div>
                     <div>조회수</div>
                 </li>
@@ -94,8 +103,9 @@ function NoticeBoardListPage(props) {
                     <Link to={`/notice/board/${board.noticeId}`} css={s.boardListItem} key={board.noticeId}>
 
                         <li >
-                            <div>{board.title}</div>
-                            <div>{board.createDate}</div>
+                        <div>{board.title}</div>
+                            <div>관리자</div>
+                            <div>{GetTime(new Date(board.createDate))}</div>
                             <div>{board.viewCount}</div>
                          </li>
                     </Link>

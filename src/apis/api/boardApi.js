@@ -74,5 +74,9 @@ export const getSingleNoticeBoardReqeust = async(noticeId) => {
     return await instance.get(`/notice/board/${noticeId}`)
 }
 
+export const updateNoticeBoardViewCountRequest = async(noticeId) => {
+    return await instance.put(`/notice/board/view/${noticeId}`)
+}
+
 
 

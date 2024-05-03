@@ -16,7 +16,14 @@ function BoardListPage(props) {
     const [boardList, setBoardList] = useState([]);
     const [timeStamp,setTimeStamp] = useState([]);
     
-  
+    const updateBoardViewCountMutation = useMutation({
+        mutationKey:"updateBoardViewCountMutation",
+        mutationFn: updateBoardViewCountRequest,
+        
+    });
+
+    
+
     const searchSubmit = () => {
         setSearchParams({
             page:1
