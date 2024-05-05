@@ -22,7 +22,7 @@ export const line = css`
 
   width: 100%;
   height: 100px;
-  
+  min-width: 1180px;
   border-bottom: 1px solid #dbdbdb;
 `;
 export const line2 = css`
@@ -131,6 +131,7 @@ export const Box = css`
 
   width: 70%;
   height: 300px;
+  min-width: 1180px;
 
   // 다하고 지우기 ---------------------------------------
   /* border: 1px solid black; */
@@ -190,6 +191,8 @@ export const boxbody = css`
 
   width: 100%;
   height: 45%;
+
+  min-width: 1180px;
     // 다하고 지우기 ---------------------------------------
   /* border: 1px solid black; */
 
