@@ -52,9 +52,23 @@ export const profile = css`
 `;
 export const profileUpdateButton = css`
     position: absolute;
-    top: 10px;
-    right: 10px;
+    top: 20px;
+    right: 20px;
     align-items: flex-end;
+    & > button {
+        width: 66px;
+        height: 28px;
+        color: #444444;
+        font-size: 12px;
+        background-color: transparent;
+        border: 1px solid #dbdbdb;
+        border-radius: 5px;
+        cursor: pointer;
+
+        :hover {
+            background-color: #f3f3f3;
+        }
+    }
 `;
 
 export const profileImgLayout = css`
@@ -93,24 +107,90 @@ export const mypageContentLayout = css`
 `;
 
 export const mypageContentTitle = () => css`
-    box-sizing: border-box;
     display: flex;
-    padding-top: 28px;
-    border-bottom: 1px solid #e5e7eb;
-    & > div {
-        padding: 0px 20px 10px;
+    border-bottom: 1px solid #dbdbdb;
+    /* border: 1px solid black; */
+
+    div:nth-of-type(1) {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0px 20px 0px 20px;
+
+        height: 60px;
+        width: 100px;
+
         font-size: 16px;
-        font-weight: 600;
-        height: 25px;
-        text-decoration: underline;
+
         min-width: 80px;
+        color: #aaaaaa;
+
+        /* border: 1px solid black; */
+        background-color: transparent;
+        cursor: pointer;
+
+        :hover{
+            font-weight: 700;
+            color: #9e9e9e;
+        }
+        
+    }
+    div:nth-of-type(2){
+        height: 40px;
+        margin-top: 10px;
+        border: 1px solid #dbdbdb;
+    }
+    div:nth-of-type(3) {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0px 20px 0px 20px;
+
+        height: 60px;
+        width: 100px;
+
+        font-size: 16px;
+
+        min-width: 80px;
+        color: #aaaaaa;
+
+        /* border: 1px solid black; */
+        background-color: transparent;
+        cursor: pointer;
+
+        :hover{
+            font-weight: 700;
+            color: #9e9e9e;
+        }
+    }
+    div:nth-of-type(4){
+        margin: 0px 20px 0px 20px;
+
+        height: 60px;
+        width: 100px;
+    }
+    div:nth-of-type(5){
+        margin: 0px 20px 0px 20px;
+
+        height: 60px;
+        width: 100px;
+        /* border: 1px solid black; */
 
     }
+    div:nth-of-type(6){
+        margin: 0px 20px 0px 20px;
 
-    & > div:nth-of-type(0) {
-        text-decoration: underline;
+        height: 60px;
+        width: 100px;
+        /* border: 1px solid black; */
+
     }
-    & > div:nth-of-type(1) {
+    div:nth-of-type(7){
+        margin: 0px 20px 0px 20px;
+
+        height: 60px;
+        width: 100px;
+        /* border: 1px solid black; */
 
     }
 `;
@@ -123,34 +203,45 @@ export const mypageContent = css`
 `;
 
 export const contentListLayout = css`
-height: 438px;
+    height: 438px;
 `;
 export const searchButton = css`
-box-sizing: border-box;
-padding: 0px 0px 0px 7px;
-background-color: white;
-border: none;
-cursor: pointer;
+    display: flex;
+    align-items: center;
+    font-size: 15px;
+    height: 31px;
+    background-color: white;
+    border: 1px solid #dbdbdb;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+    border-left: none;
+    border-top-left-radius: none;
+    border-bottom-left-radius: none;
+    cursor: pointer;
 `;
 
 export const searchInput = css`
-display: flex;
-justify-content: flex-end;
-width: 100%;
-padding-bottom: 10px;
+    display: flex;
+    justify-content: end;
+    align-items: center;
+    
+    margin-right: 40px;
+    width: 700px;
+    /* border: 1px solid #dbdbdb; */
 `;
 
 export const searchContainer = css`
-border: 1px solid #a19c9c;
-width: 199px;
-padding-left: 2px;
-padding-bottom:1px ;
-border-radius: 4px;
 `;
 
 export const inputBox = css`
-outline: none;
-border: none;
+    border: 1px solid #dbdbdb;
+    border-top-right-radius: none;
+    border-bottom-right-radius: none;
+    border-bottom-left-radius: 5px;
+    border-top-left-radius: 5px;
+    height: 27px;
+    outline: none;
+    padding-left: 10px;
 `;
 
 export const boardListHeader = css`
