@@ -19,6 +19,7 @@ function StudyBoardPage(props) {
     const [userId, setUserId] = useState("");
     const [userIdByBoard , setUserIdByBoard] = useState();
     const [genderType , setGenderType] = useState();
+    const [roleId , setRoleId] = useState();
 
     const principalQuery = useQuery(
         ["principalQuery"],
@@ -30,6 +31,7 @@ function StudyBoardPage(props) {
                 console.log("principal Success");
                 console.log(response);
                 setUserId(response.data.userId);
+                setRoleId(response.data.roleId);
             },
             onError: error => {
                 console.log("principal Error");
@@ -116,12 +118,30 @@ function StudyBoardPage(props) {
         window.location.replace(`/notice/declare/study/${params.studyBoardId}`);
     }
     
+    const linkToStudy = () => {
+        window.location.replace("/study/boards?page=1")
+    }
+    const linkToStudent = () => {
+        window.location.replace("/student/boards?page=1")
+    }
+    const linkToTeacher = () => {
+        window.location.replace("/teacher/boards?page=1")
+    }
 
     return (
     <div css={s.layout}>
         <div css={s.authority}>
-            <button css={s.authorityButton}>선생님용</button>
-            <button css={s.authorityButton}>공부방</button>
+        {roleId === 1 ? (
+        <>
+            <button css={s.authorityButton} onClick={() => linkToStudent()}>학생용</button>
+            <button css={s.authorityButton} onClick={() => linkToStudy()}>공부방</button>
+        </>
+    ) : roleId === 2 ? (
+        <>
+            <button css={s.authorityButton} onClick={() => linkToTeacher()}>선생님용</button>
+            <button css={s.authorityButton} onClick={() => linkToStudy()}>공부방</button>
+        </>
+    ) : null}
         </div>
         
         <div css={s.showDate}> {formattedTime} </div>

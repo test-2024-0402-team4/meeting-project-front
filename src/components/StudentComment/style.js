@@ -10,9 +10,10 @@ width: 900px;
 `;
 
 export const inputContainer = css`
-
-width: 900px;
+border-radius: 3px;
+width: 905px;
 border: 1px solid #9be7a9;
+margin-bottom: 5px;
 `;
 
 
@@ -23,7 +24,7 @@ display: flex;
 flex-wrap: wrap;
 flex-direction: column;
 flex-grow: 1;
-padding: 10px;
+padding: 13px;
 width: 900px;
 height: 140px;
 outline: none;

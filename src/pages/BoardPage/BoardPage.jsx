@@ -128,13 +128,20 @@ const getStudentGender = useQuery(
     const handleDeclareClick = () => {
         window.location.replace(`/notice/declare/${params.studentBoardId}`);
     }
+
+    const linkToStudy = () => {
+        window.location.replace("/study/boards?page=1")
+    }
+    const linkToStudent = () => {
+        window.location.replace("/student/boards?page=1")
+    }
     
 
     return (
     <div css={s.layout}>
         <div css={s.authority}>
-            <button css={s.authorityButton}>학생용</button>
-            <button css={s.authorityButton}>공부방</button>
+            <button css={s.authorityButton} onClick={() => linkToStudent()}>학생용</button>
+            <button css={s.authorityButton} onClick={() => linkToStudy()}>공부방</button>
         </div>
         <div css={s.showDate}> {formattedTime} </div>
 

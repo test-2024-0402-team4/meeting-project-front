@@ -12,6 +12,7 @@ import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import { storage } from "../../apis/firebase/firebaseConfig";
 import { getPrincipalRequest } from "../../apis/api/principal";
 
+
 function BoardWritePage(props) {
     
     const [quillValue , handleQuillValueChange] = useQuill();

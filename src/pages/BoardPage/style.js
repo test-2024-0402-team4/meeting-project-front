@@ -88,13 +88,14 @@ export const boardPageProfileImg = css`
 display: flex;
 justify-content: center;
 align-items: center;
-width: 65px;
-height:65px;
-border: 1px solid black;
 border-radius: 50%;
 margin-left: 18px;
 margin-right: 20px;
 margin: 10px 20px 15px 18px;
+& > img {
+    width: 60px;
+    height: 60px;
+}
 `
 export const optionButtons = css`
 margin-top: 4px;
@@ -121,6 +122,7 @@ transition: background-color 0.3s ease;
 `;
 export const blank = css`
 margin-top: 5px;
+margin-left: 45px;
 `;
 
 export const boardPageMain = css`
@@ -136,7 +138,7 @@ display: flex;
 justify-content: center;
 align-items: center;
 color: #7c7979;
-margin-bottom: 13px;
+margin-bottom: 10px;
 margin-left: 35px;
 `;
 
