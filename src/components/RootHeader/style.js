@@ -35,6 +35,7 @@ export const headerAcoountLayout = css`
     & span:nth-of-type(3) {
         margin-left: 20px;
     }
+    /* border: 1px solid black; */
 `;
 
 export const headerInfoLayout = css`

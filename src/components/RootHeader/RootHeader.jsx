@@ -61,7 +61,7 @@ function RootHeader({children}) {
     
     const handelPageMove = (page) => {
         
-        navigate(`/${page}`);
+        window.location.replace(`/${page}`);
     }
 
     return (
@@ -129,7 +129,7 @@ function RootHeader({children}) {
                                     </>
                                 ) : (
                                     <>
-                                        <span onClick={() => handelPageMove("study/boards?page=1")}>커뮤니티</span>
+                                        <span onClick={() => handelPageMove("study/boards?page=1")}>공부방</span>
                                     </>
                                 )
                             )
