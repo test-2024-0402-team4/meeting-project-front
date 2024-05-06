@@ -5,7 +5,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { useMutation, useQuery, useQueryClient } from "react-query";
 import { useMaxValueValidateInput } from "../../hooks/inputHook";
 import { BsThreeDotsVertical } from "react-icons/bs";
-import { deleteTeacherCommentRequest, getTeacherCommentRequest, registerTeacherCommentRequest, updateTeacherCommentRequest } from "../../apis/api/teacherBoardApi";
+import { deleteTeacherCommentRequest, getTeacherCommentRequest, getTeacherNickname, registerTeacherCommentRequest, updateTeacherCommentRequest } from "../../apis/api/teacherBoardApi";
 import { getPrincipalRequest } from "../../apis/api/principal";
 import { getStudentProfile } from "../../apis/api/profileApi";
 import GetTime from "../GetTime/GetTime";
@@ -29,6 +29,7 @@ function TeacherComment(props) {
     const [timeStamp,setTimeStamp] = useState([]);
     const [userId, setUserId] = useState("");
     const [teacherId, setTeacherId] = useState();
+    const [nickName , setNickName] = useState();
 
     const principalQuery = useQuery(
         ["principalQuery"],
@@ -80,6 +81,22 @@ function TeacherComment(props) {
             enabled: !!principalQuery?.data?.data
         }
     )
+
+    const getTeacherNicknameRequest = useQuery(
+        ["getTeacherNicknameRequest",userId],
+        async() => await getTeacherNickname(userId),
+        {
+            refetchOnWindowFocus : false,
+            onSuccess: response => {
+                  console.log(response);
+                  setNickName(response.data.nickname);
+            },
+            onError: error => {
+              console.log(userId);
+            },
+            enabled: !!userId
+        }
+      );
 
     useEffect(() => {
         const token = localStorage.getItem("AccessToken");
@@ -149,6 +166,7 @@ function TeacherComment(props) {
         const comment = {
             teacherBoardId: params.teacherBoardId,
             teacherId : teacherId,
+            nickname : nickName,
             comment : inputValue
         };
         console.log(comment);
@@ -244,7 +262,7 @@ function TeacherComment(props) {
                         <li key={comment.teacherCommentId} css={s.commentItems}>
                             <div css={s.commentTitle}>
                                 <div css={s.commentOption}>
-                                    author
+                                {comment.nickname}
                                     <div css={s.headerRight}>
                                     <div css={s.commentDate}>{GetTime(new Date(comment.createDate))}</div>
                                     <div css={s.optionButtonBox}>
