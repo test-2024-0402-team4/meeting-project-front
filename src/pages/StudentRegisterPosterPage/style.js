@@ -12,6 +12,8 @@ export const body = css`
     justify-content: center;
     align-items: center;
 
+    height: 1000px;
+
     // 다하고 지우기 -------------------------------
     /* border: 1px solid black; */
 `;
