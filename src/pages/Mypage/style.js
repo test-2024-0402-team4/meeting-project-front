@@ -54,6 +54,20 @@ export const profileUpdateButton = css`
     position: absolute;
     right: 10px;
     align-items: flex-end;
+    & > button {
+        width: 66px;
+        height: 28px;
+        color: #444444;
+        font-size: 12px;
+        background-color: transparent;
+        border: 1px solid #dbdbdb;
+        border-radius: 5px;
+        cursor: pointer;
+
+        :hover {
+            background-color: #f3f3f3;
+        }
+    }
 `;
 
 export const profileImgLayout = css`
@@ -106,10 +120,9 @@ export const mypageContentTitle = () => css`
 
     }
 
-    & > div:nth-of-type(0) {
-        text-decoration: underline;
-    }
     & > div:nth-of-type(1) {
+    }
+    & > div:nth-of-type(2) {
 
     }
 `;
@@ -140,16 +153,16 @@ padding-bottom: 10px;
 `;
 
 export const searchContainer = css`
-border: 1px solid #a19c9c;
-width: 199px;
-padding-left: 2px;
-padding-bottom:1px ;
-border-radius: 4px;
+    border: 1px solid #a19c9c;
+    width: 199px;
+    padding-left: 2px;
+    padding-bottom:1px ;
+    border-radius: 4px;
 `;
 
 export const inputBox = css`
-outline: none;
-border: none;
+    outline: none;
+    border: none;
 `;
 
 export const boardListHeader = css`

@@ -2,7 +2,7 @@
 import { useMutation, useQuery } from "react-query";
 import * as s from "./style";
 import React, { useState } from 'react';
-import { deleteBoardRequest, getSingleBoardReqeust, getStudentIdByStudentBoardIdRequest, getStudentIdRequest, updateBoardViewCountRequest } from "../../apis/api/boardApi";
+import { deleteBoardRequest, getSingleBoardReqeust, getStudentGenderType, getStudentIdByStudentBoardIdRequest, getStudentIdRequest, updateBoardViewCountRequest } from "../../apis/api/boardApi";
 import { Link, useParams } from "react-router-dom";
 import StudentComment from "../../components/StudentComment/StudentComment";
 import GetTime from "../../components/GetTime/GetTime";
@@ -24,6 +24,8 @@ function BoardPage(props) {
     const [userId, setUserId] = useState("");
     const [studentId, setStudentId] = useState();
     const [userIdByBoard , setUserIdByBoard] = useState();
+    const [genderType , setGenderType] = useState();
+    
 
     const principalQuery = useQuery(
         ["principalQuery"],
@@ -84,6 +86,22 @@ function BoardPage(props) {
     }
 );
 
+const getStudentGender = useQuery(
+    ["getStudentGender",studentId],
+    async() => await getStudentGenderType(studentId),
+    {
+        refetchOnWindowFocus : false,
+        onSuccess: response => {
+              console.log(response);
+              setGenderType(() => response.data.genderType);
+        },
+        onError: error => {
+          console.log(studentId);
+        },
+        enabled: !!studentId
+    }
+);
+
 
     const getBoardQuery = useQuery(
         ["getBoardQuery"],
@@ -130,10 +148,23 @@ function BoardPage(props) {
 
             <div css={s.boardPageProfile}>
                 <div css={s.boardPageMainHeader}>
-                    <div css={s.boardPageProfileImg}>img</div>
+
+                {genderType === "남" ? 
+                (
+                <div css={s.boardPageProfileImg}>
+                    <img src="https://kimstudy.com/_next/static/media/circle_profile_boy.d886bf1c.svg" alt="" />
+                </div>
+                ) 
+                : 
+                (
+                <div css={s.boardPageProfileImg}>
+                    <img src="https://kimstudy.com/_next/static/media/circle_profile_girl.93ffff47.svg" alt="" />
+                </div>
+                )}
+
                     <div>
                         <div> {singleBoard.title}</div>
-                        <div> author </div>
+                        <div> {singleBoard.nickname} </div>
                     </div>
                 </div>
 

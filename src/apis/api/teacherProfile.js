@@ -14,11 +14,12 @@ export const getTeacherProfileInfo = async (params) => {
     return await instance.get("/teacher/tutor/profile", { params });
 }
 
-// 선생 필수 정보 요청
+// 선생 필수정보 요청
 export const teacherProfileRequest = async (data) => {
     return await instance.post("/teacher/profile", data);
 }
 
+// 선생님 필수정보 수정 요청
 export const teacherEssentialInfoModify = async (data) => {
     return await instance.post("/teacher/essentialInfo", data);
 }

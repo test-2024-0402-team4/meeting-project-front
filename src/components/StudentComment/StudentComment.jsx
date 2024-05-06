@@ -3,7 +3,7 @@ import * as s from "./style";
 import { useParams, useSearchParams } from "react-router-dom";
 import React, { useEffect, useRef, useState } from 'react';
 import { useMutation, useQuery, useQueryClient } from "react-query";
-import { deleteStudentCommentRequest, getStudentCommentRequest, getStudentIdRequest, registerStudentComment, registerStudentCommentRequest, updateStudentCommentRequest } from "../../apis/api/boardApi";
+import { deleteStudentCommentRequest, getStudentCommentRequest, getStudentGenderType, getStudentIdRequest, getUserNickname, registerStudentComment, registerStudentCommentRequest, updateStudentCommentRequest } from "../../apis/api/boardApi";
 import { useMaxValueValidateInput } from "../../hooks/inputHook";
 import { BsThreeDotsVertical } from "react-icons/bs";
 import { getPrincipalRequest } from "../../apis/api/principal";
@@ -27,6 +27,8 @@ function StudentComment(props) {
     const [timeStamp,setTimeStamp] = useState([]);
     const [userId, setUserId] = useState("");
     const [studentId, setStudentId] = useState();
+    const [nickName , setNickName] = useState();
+    const [genderType, setGenderType] = useState([]);
 
     const principalQuery = useQuery(
         ["principalQuery"],
@@ -61,6 +63,21 @@ function StudentComment(props) {
       }
   );
 
+  const getUserNicknameRequest = useQuery(
+    ["getUserNicknameRequest",userId],
+    async() => await getUserNickname(userId),
+    {
+        refetchOnWindowFocus : false,
+        onSuccess: response => {
+              console.log(response);
+              setNickName(response.data.nickname);
+        },
+        onError: error => {
+          console.log(userId);
+        },
+        enabled: !!userId
+    }
+  );
 
     useEffect(() => {
         const token = localStorage.getItem("AccessToken");
@@ -125,6 +142,7 @@ function StudentComment(props) {
         }
     );
 
+
     const registerStudentCommentMutation = useMutation({
         mutationKey:"registerStudentCommentMutation",
         mutationFn: registerStudentCommentRequest,
@@ -138,6 +156,7 @@ function StudentComment(props) {
         const comment = {
             studentBoardId: params.studentBoardId,
             studentUserId : studentId,
+            nickname : nickName,
             comment : inputValue
         };
         console.log(comment);
@@ -238,7 +257,7 @@ function StudentComment(props) {
                         <li key={comment.studentCommentId} css={s.commentItems}>
                             <div css={s.commentTitle}>
                                 <div css={s.commentOption}>                                                                                 
-                                    author
+                                    {comment.nickname}
                                     <div css={s.headerRight}>
                                     <div css={s.commentDate}>{GetTime(new Date(comment.createDate))}</div>
                                     <div css={s.optionButtonBox}>

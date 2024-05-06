@@ -79,11 +79,12 @@ export const headerItem = css`
     padding-bottom: 10px;
 
     & > span {
-        color: rgb(170 170 170);
-        font-size:  18px;
+        color: #aaaaaa;
+        font-size:  16px;
         cursor: pointer;
         &:hover {
-            color: black;
+            font-weight: 700;
+            color: #9e9e9e;
         }
     }
 

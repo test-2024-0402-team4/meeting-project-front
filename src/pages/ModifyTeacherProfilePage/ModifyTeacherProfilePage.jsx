@@ -27,7 +27,6 @@ function ModifyTeacherProfilePage(props) {
     const [searchParams] = useSearchParams();
     const userId = parseInt(searchParams.get("userId"));
 
-
     const [ subjectOptions, setSubjectOptions ] = useState([]);
     const [ regionOptions, setRegionOptions ] = useState([]);
     const [ classTypeOptions, setClassTypeOptions ] = useState([]);
@@ -332,10 +331,6 @@ function ModifyTeacherProfilePage(props) {
         setIsActive(false);
         setIsEssentialActive(true);
     }
-    
-    const handleAuthEmailSend = () => {
-        sendAuthEmail();
-    }
 
     return (
         <div css={s.layout}>
@@ -389,9 +384,8 @@ function ModifyTeacherProfilePage(props) {
                                 </div>
                             </div>
                         </div>
-
-                        <AuthMail email={email} auth={auth}/>            
-                        
+                        <AuthMail email={email} auth={auth}/>
+                          
                         <div css={s.bodyBox}>
                             <div css={s.box2}>
                                 <div css={s.spanBox}>

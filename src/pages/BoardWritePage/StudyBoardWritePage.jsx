@@ -1,7 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import * as s from "./style";
 import ReactQuill from "react-quill";
-import React, { useCallback, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { useQuill } from "../../hooks/quillHook";
 import { useMaxValueValidateInput } from "../../hooks/inputHook";
 import { useMutation, useQuery } from "react-query";
@@ -9,10 +9,11 @@ import { QUILL_MODULES } from "../../constants/quillModules";
 import {v4 as uuid} from "uuid"
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import { storage } from "../../apis/firebase/firebaseConfig";
-import { registerTeacherBoard } from "../../apis/api/teacherBoardApi";
+import { getTeacherNickname, registerTeacherBoard } from "../../apis/api/teacherBoardApi";
 import { registerStudyBoard } from "../../apis/api/studyBoardApi";
 import { getPrincipalRequest } from "../../apis/api/principal";
 import { useAuthCheck } from "../../hooks/useAuthCheck";
+import { getUserNickname } from "../../apis/api/boardApi";
 
 function StudyBoardWritePage(props) {
     useAuthCheck();
@@ -21,6 +22,8 @@ function StudyBoardWritePage(props) {
     const [inputValue , handleInputChange] = useMaxValueValidateInput(20);
     const reactQuillRef = useRef();
     const [userId, setUserId] = useState("");
+    const [nickName , setNickName] = useState();
+    const [role , setRole] = useState();
 
 
     const principalQuery = useQuery(
@@ -33,11 +36,54 @@ function StudyBoardWritePage(props) {
               console.log("principal Success");
               console.log(response);
               setUserId(response.data.userId);
+              setRole(response.data.roleId);
           },
           onError: error => {
               console.log("principal Error");
           }
       }
+  );
+
+  useEffect(() => {
+    if (userId && role) {
+      if (role === 1) {
+        getUserNicknameRequest.refetch();
+      } else if (role === 2) {
+        getTeacherNicknameRequest.refetch();
+      }
+    }
+  }, [userId, role]);
+
+  const getUserNicknameRequest = useQuery(
+    ["getUserNicknameRequest",userId],
+    async() => await getUserNickname(userId),
+    {
+        refetchOnWindowFocus : false,
+        onSuccess: response => {
+              console.log(response);
+              setNickName(response.data.nickname);
+        },
+        onError: error => {
+          console.log(userId);
+        },
+        enabled: !!userId
+    }
+  );
+
+  const getTeacherNicknameRequest = useQuery(
+    ["getTeacherNicknameRequest",userId],
+    async() => await getTeacherNickname(userId),
+    {
+        refetchOnWindowFocus : false,
+        onSuccess: response => {
+              console.log(response);
+              setNickName(response.data.nickname);
+        },
+        onError: error => {
+          console.log(userId);
+        },
+        enabled: !!userId
+    }
   );
 
     const registerBoardMutation = useMutation({
@@ -53,9 +99,10 @@ function StudyBoardWritePage(props) {
       
       const board = {
         userId: userId,
+        nickname: nickName,
         title : inputValue,
         content : quillValue,
-        viewCount : 3
+        viewCount : 0
       };
 
       console.log(board)

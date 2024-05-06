@@ -9,12 +9,14 @@ import { QUILL_MODULES } from "../../constants/quillModules";
 import {v4 as uuid} from "uuid"
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import { storage } from "../../apis/firebase/firebaseConfig";
-import { registerTeacherBoard } from "../../apis/api/teacherBoardApi";
+import { getTeacherNickname, registerTeacherBoard } from "../../apis/api/teacherBoardApi";
 import { getPrincipalRequest } from "../../apis/api/principal";
 import { getTeacherIdRequest } from "../../apis/api/boardApi";
 import { useAuthCheck } from "../../hooks/useAuthCheck";
 import { useTeacherCheck } from "../../hooks/useTeacherCheck";
 import { useAuthEmailCheck } from "../../hooks/useAuthEmailCheck";
+import { getTeacherIdRequest, getUserNickname } from "../../apis/api/boardApi";
+
 
 function TeacherBoardWritePage(props) {
     useAuthCheck();
@@ -25,6 +27,7 @@ function TeacherBoardWritePage(props) {
     const reactQuillRef = useRef();
     const [userId, setUserId] = useState("");
     const [teacherId, setTeacherId] = useState();
+    const [nickName , setNickName] = useState();
 
     const principalQuery = useQuery(
       ["principalQuery"],
@@ -59,6 +62,22 @@ function TeacherBoardWritePage(props) {
     }
 );
 
+const getTeacherNicknameRequest = useQuery(
+  ["getTeacherNicknameRequest",userId],
+  async() => await getTeacherNickname(userId),
+  {
+      refetchOnWindowFocus : false,
+      onSuccess: response => {
+            console.log(response);
+            setNickName(response.data.nickname);
+      },
+      onError: error => {
+        console.log(userId);
+      },
+      enabled: !!userId
+  }
+);
+
 
     const registerBoardMutation = useMutation({
       mutationKey: "registerBoardMutation",
@@ -73,9 +92,10 @@ function TeacherBoardWritePage(props) {
       
       const board = {
         teacherId: teacherId,
+        nickname: nickName,
         title : inputValue,
         content : quillValue,
-        viewCount : 3
+        viewCount : 0
       };
 
       console.log(board)

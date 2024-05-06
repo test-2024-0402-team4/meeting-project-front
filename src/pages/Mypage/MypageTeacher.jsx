@@ -172,9 +172,14 @@ function MypageTeacher(props) {
                         <div onClick={() => setContent(0)}>
                             내 프로필
                         </div>
+                        <div></div>
                         <div onClick={() => setContent(1)}>
                             내가 쓴 글
                         </div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
                         {
                             content === 0 ? <></>
                             :

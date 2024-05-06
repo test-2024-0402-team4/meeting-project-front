@@ -133,7 +133,7 @@ function BoardListPage(props) {
 
                         <li>
                             <div>{board.title}</div>
-                            <div>author</div>
+                            <div>{board.nickname}</div>
                             <div>{GetTime(new Date(board.createDate))}</div>
                             <div>{board.viewCount}</div>
                          </li>
