@@ -10,8 +10,14 @@ import { getClassType, getDate, getRegion, getSubject } from '../../apis/api/Opt
 import { getStudentProfile } from '../../apis/api/profileApi';
 import { useMutation, useQueryClient } from 'react-query';
 import { saveApplicationDetail, sendApplyEmail } from '../../apis/api/emailApi';
+import { useAuthCheck } from '../../hooks/useAuthCheck';
+import { useStudentCheck } from '../../hooks/useStudentCheck';
+import { useAuthEmailCheck } from '../../hooks/useAuthEmailCheck';
 
 function TeacherProfile() {
+    useAuthCheck();
+    useStudentCheck();
+    useAuthEmailCheck("student");
 
     const [searchParams] = useSearchParams();
     const userId = parseInt(searchParams.get("userId"))

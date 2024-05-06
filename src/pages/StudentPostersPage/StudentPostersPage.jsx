@@ -8,9 +8,15 @@ import { getTuteePosters } from "../../apis/api/posterApi";
 import Select from "react-select";
 import { getClassType, getDate, getRegion, getStudentType, getSubject } from "../../apis/api/Option";
 import { FaRegCircleXmark } from "react-icons/fa6";
+import { useAuthCheck } from "../../hooks/useAuthCheck";
+import { useTeacherCheck } from "../../hooks/useTeacherCheck";
+import { useAuthEmailCheck } from "../../hooks/useAuthEmailCheck";
 
 
 function StudentPostersPage(props) {
+    useAuthCheck();
+    useTeacherCheck();
+    useAuthEmailCheck("teacher");
 
     const navigate = useNavigate();
     const [ studentPosters, setStudentPosters ] = useState([]);

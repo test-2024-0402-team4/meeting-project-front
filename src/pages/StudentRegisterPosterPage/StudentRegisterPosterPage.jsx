@@ -9,8 +9,15 @@ import { useQuery, useQueryClient } from "react-query";
 import { getClassType, getDate, getRegion, getStudentType, getSubject } from "../../apis/api/Option";
 import { inputBox } from "../../components/AuthPageInput/style";
 import { getPrincipalRequest } from "../../apis/api/principal";
+import { useAuthCheck } from "../../hooks/useAuthCheck";
+import { useStudentCheck } from "../../hooks/useStudentCheck";
+import { useAuthEmailCheck } from "../../hooks/useAuthEmailCheck";
 
 function StudentRegisterPosterPage(props) {
+    useAuthCheck();
+    useStudentCheck();
+    useAuthEmailCheck("student");
+
 
     const naviagte = useNavigate();
 

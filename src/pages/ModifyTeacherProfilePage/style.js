@@ -183,7 +183,7 @@ export const spanBox = css`
 
 export const selectBox = css`
     margin-top: 10px;
-
+    display: flex;
     & > input {
         padding-left: 10px;
         width: 646px;
@@ -195,6 +195,29 @@ export const selectBox = css`
         color: #c9c9c9;
         background-color: #f8f8f8;
     }
+    & > button {
+        margin-left: 20px;
+        width: 100px;
+        font-size: 12px;
+        border-radius: 5px;
+        border: none;
+        background-color: #d9fcf6;
+        color: #11b69a;
+        cursor: pointer;
+
+        &:hover{
+            background-color: #9decdb;
+        }
+
+    }
+`;
+export const circleCheck = css`
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    width: 50px;
+    font-size: 26px;
+    color: #11b69a;
 `;
 
 export const genderBox = css`

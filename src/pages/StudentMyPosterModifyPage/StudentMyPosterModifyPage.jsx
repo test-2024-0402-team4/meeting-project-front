@@ -9,9 +9,14 @@ import { useQuery } from "react-query";
 import { getClassType, getDate, getRegion, getStudentType, getSubject } from "../../apis/api/Option";
 import { getPrincipalRequest } from "../../apis/api/principal";
 import { getStudentProfile } from "../../apis/api/profileApi";
+import { useAuthCheck } from "../../hooks/useAuthCheck";
+import { useStudentCheck } from "../../hooks/useStudentCheck";
+import { useAuthEmailCheck } from "../../hooks/useAuthEmailCheck";
 
 
 function StudentMyPosterModifyPage(props) {
+    useAuthCheck();
+    useStudentCheck();
 
     const navigate = useNavigate();
     const [searchParams] = useSearchParams();
@@ -35,8 +40,6 @@ function StudentMyPosterModifyPage(props) {
     const [ dateIds, setDateIds ] = useState([]);
 
     const [ textLength, setTextLength ] = useState(0);
-
-
 
     const principalQuery = useQuery(
         ["principalQuery"],

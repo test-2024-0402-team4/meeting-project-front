@@ -11,10 +11,17 @@ import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import { storage } from "../../apis/firebase/firebaseConfig";
 import { getTeacherNickname, registerTeacherBoard } from "../../apis/api/teacherBoardApi";
 import { getPrincipalRequest } from "../../apis/api/principal";
+import { getTeacherIdRequest } from "../../apis/api/boardApi";
+import { useAuthCheck } from "../../hooks/useAuthCheck";
+import { useTeacherCheck } from "../../hooks/useTeacherCheck";
+import { useAuthEmailCheck } from "../../hooks/useAuthEmailCheck";
 import { getTeacherIdRequest, getUserNickname } from "../../apis/api/boardApi";
 
+
 function TeacherBoardWritePage(props) {
-    
+    useAuthCheck();
+    useTeacherCheck();
+    useAuthEmailCheck("teacher");
     const [quillValue , handleQuillValueChange] = useQuill();
     const [inputValue , handleInputChange] = useMaxValueValidateInput(20);
     const reactQuillRef = useRef();

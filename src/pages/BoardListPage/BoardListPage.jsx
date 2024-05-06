@@ -9,8 +9,14 @@ import { useSearchBoardInput } from "../../hooks/useSearchBoardInput";
 import BoardPageCount from "../../components/BoardPageCount/BoardPageCount";
 import { IoSearchOutline } from "react-icons/io5";
 import GetTime from "../../components/GetTime/GetTime";
+import { useAuthCheck } from "../../hooks/useAuthCheck";
+import { useStudentCheck } from "../../hooks/useStudentCheck";
+import { useAuthEmailCheck } from "../../hooks/useAuthEmailCheck";
 
 function BoardListPage(props) {
+    useAuthCheck();
+    useStudentCheck();
+
     const [searchParams, setSearchParams] = useSearchParams();
     const searchCount = 5;
     const [boardList, setBoardList] = useState([]);

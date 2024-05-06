@@ -8,8 +8,14 @@ import StudentComment from "../../components/StudentComment/StudentComment";
 import GetTime from "../../components/GetTime/GetTime";
 import { GrView } from "react-icons/gr";
 import { getPrincipalRequest } from "../../apis/api/principal";
+import { useStudentCheck } from "../../hooks/useStudentCheck";
+import { useAuthCheck } from "../../hooks/useAuthCheck";
+import { useAuthEmailCheck } from "../../hooks/useAuthEmailCheck";
 
 function BoardPage(props) {
+    useAuthCheck();
+    useStudentCheck();
+
     const params = useParams();
     const [singleBoard , setSingleBoard] = useState("");
     

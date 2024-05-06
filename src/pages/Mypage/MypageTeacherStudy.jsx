@@ -10,8 +10,14 @@ import { IoSearchOutline } from "react-icons/io5";
 import GetTime from "../../components/GetTime/GetTime";
 import { getTeacherMypageProfile, getTeacherStudyMypageCount, searchTeacherStudyMypageBoardsRequest } from "../../apis/api/teacherProfile";
 import TeacherProfileStudyCount from "../../components/BoardPageCount/TeacherProfileStudyCount";
+import { useAuthCheck } from "../../hooks/useAuthCheck";
+import { useTeacherCheck } from "../../hooks/useTeacherCheck";
 
 function MypageTeacherStudy(props) {
+    useAuthCheck();
+    useTeacherCheck();
+
+
     const [searchParams, setSearchParams] = useSearchParams();
     const queryClient = useQueryClient();
     const [profile,setProfile] = useState({});
