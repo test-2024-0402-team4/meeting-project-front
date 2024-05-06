@@ -11,9 +11,16 @@ import {v4 as uuid} from "uuid"
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import { storage } from "../../apis/firebase/firebaseConfig";
 import { useParams } from "react-router-dom";
+import { useAuthCheck } from "../../hooks/useAuthCheck";
+import { useStudentCheck } from "../../hooks/useStudentCheck";
+import { useAuthEmailCheck } from "../../hooks/useAuthEmailCheck";
 
 function BoardUpdatePage(props) {
-    
+    useAuthCheck();
+    useStudentCheck();
+    useAuthEmailCheck("student");
+
+
     const params = useParams();
     const [quillValue , handleQuillValueChange, setQuillValue] = useQuill();
     const [inputValue , handleInputChange, setInputValue] = useMaxValueValidateInput(20);

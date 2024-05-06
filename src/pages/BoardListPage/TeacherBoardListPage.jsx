@@ -10,12 +10,17 @@ import { getTeacherCount, searchTeacherBoardListRequest, updateTeacherBoardViewC
 import TeacherBoardPageCount from "../../components/BoardPageCount/TeacherBoardPageCount";
 import { IoSearchOutline } from "react-icons/io5";
 import GetTime from "../../components/GetTime/GetTime";
+import { useAuthCheck } from "../../hooks/useAuthCheck";
+import { useTeacherCheck } from "../../hooks/useTeacherCheck";
+import { useAuthEmailCheck } from "../../hooks/useAuthEmailCheck";
 
 function TeacherBoardListPage(props) {
+    useAuthCheck();
+    useTeacherCheck();
+    useAuthEmailCheck();
     const [searchParams, setSearchParams] = useSearchParams();
     const searchCount = 11;
     const [boardList, setBoardList] = useState([]);
-
     const queryClient = useQueryClient();
     const principalData = queryClient.getQueryData("principalQuery");
 

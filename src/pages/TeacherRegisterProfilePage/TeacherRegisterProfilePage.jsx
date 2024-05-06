@@ -9,10 +9,13 @@ import { teacherProfileRequest } from "../../apis/api/teacherProfile";
 import { useAuthCheck } from "../../hooks/useAuthCheck";
 import { useNavigate } from "react-router-dom";
 import { getPrincipalRequest } from "../../apis/api/principal";
+import { useTeacherCheck } from "../../hooks/useTeacherCheck";
+import { useAuthEmailCheck } from "../../hooks/useAuthEmailCheck";
 
 function TeacherRegisterProfilePage() {
-    
-
+    useAuthCheck();
+    useTeacherCheck();
+    useAuthEmailCheck("teacher");
     const [ subjectOptions, setSubjectOptions ] = useState([]);
     const [ regionOptions, setRegionOptions ] = useState([]);
     const [ classTypeOptions, setClassTypeOptions ] = useState([]);

@@ -12,8 +12,15 @@ import GetTime from "../../components/GetTime/GetTime";
 import StudentProfileCount from "../../components/BoardPageCount/StudentProfileCount";
 import ProfileImg from "../../components/ProfileImg/ProfileImg";
 import { getApplicationDetails, getTeacherProfiles } from "../../apis/api/teacherProfile";
+import { useAuthCheck } from "../../hooks/useAuthCheck";
+import { useStudentCheck } from "../../hooks/useStudentCheck";
+import { useAuthEmailCheck } from "../../hooks/useAuthEmailCheck";
 
 function Mypage(props) {
+    useAuthCheck();
+    useStudentCheck();
+
+
     const { userId } = useParams();
     const [searchParams, setSearchParams] = useSearchParams();
     const searchCount = 5;

@@ -13,8 +13,13 @@ import { getTeacherMypageCount, getTeacherMypageProfile, searchTeacherMypageBoar
 import ProfileImg from "../../components/ProfileImg/ProfileImg";
 import { CiLocationOn } from "react-icons/ci";
 import { FiBook } from "react-icons/fi";
+import { useAuthCheck } from "../../hooks/useAuthCheck";
+import { useTeacherCheck } from "../../hooks/useTeacherCheck";
 
 function MypageTeacher(props) {
+    useAuthCheck();
+    useTeacherCheck();
+
     const { userId } = useParams();
     const [searchParams, setSearchParams] = useSearchParams();
     const searchCount = 5;

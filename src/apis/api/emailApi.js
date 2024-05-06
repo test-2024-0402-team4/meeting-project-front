@@ -15,3 +15,7 @@ export const saveApplicationDetail = async (studentUserId, teacherUserId) => {
     };
     return await instance.post("student/apply/detail", data);
 }
+
+export const sendAuthEmail = async() => {
+    return await instance.post(`mail/send/auth`)
+}

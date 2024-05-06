@@ -9,7 +9,6 @@ export const layout = css`
 export const body = css`
     display: flex;
     flex-direction: column;
-    justify-content: center;
     align-items: center;
 
     height: 1200px;
@@ -57,7 +56,7 @@ export const bodyBox2 = css`
 `;
 
 
-export const box1 = css`
+export const head1 = css`
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -67,11 +66,34 @@ export const box1 = css`
     // 다하고 지우기 -------------------------------
     /* border: 1px solid black; */
 
-    & > span{
-        font-size: 20px;
-        font-weight: 500;
-    }
 `;
+
+export const head2 = css`
+    display: flex;
+    justify-content: space-between;
+
+    width: 300px;
+
+    // 다하고 지우기 -------------------------------
+    /* border: 1px solid black; */
+`;
+
+export const head3 = css`
+    span{
+        font-size: 20px;
+        color: #aaaaaa;
+        font-weight: 500;
+        cursor: pointer;
+        :hover{
+            color: #9e9e9e;
+            font-weight: 700;
+            border-bottom: 1px solid #aaaaaa;
+        }
+    }
+    // 다하고 지우기 -------------------------------
+    /* border: 1px solid black; */
+`;
+
 
 export const box2 = css`
     display: flex;
@@ -143,9 +165,6 @@ export const leaveButton = css`
         :active{
             background-color: #f1f1f1;
         }
-
-        
-
     }  
 `;
 
@@ -164,7 +183,7 @@ export const spanBox = css`
 
 export const selectBox = css`
     margin-top: 10px;
-
+    display: flex;
     & > input {
         padding-left: 10px;
         width: 646px;
@@ -176,6 +195,29 @@ export const selectBox = css`
         color: #c9c9c9;
         background-color: #f8f8f8;
     }
+    & > button {
+        margin-left: 20px;
+        width: 100px;
+        font-size: 12px;
+        border-radius: 5px;
+        border: none;
+        background-color: #d9fcf6;
+        color: #11b69a;
+        cursor: pointer;
+
+        &:hover{
+            background-color: #9decdb;
+        }
+
+    }
+`;
+export const circleCheck = css`
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    width: 50px;
+    font-size: 26px;
+    color: #11b69a;
 `;
 
 export const genderBox = css`

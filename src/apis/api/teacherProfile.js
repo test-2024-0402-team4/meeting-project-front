@@ -19,6 +19,10 @@ export const teacherProfileRequest = async (data) => {
     return await instance.post("/teacher/profile", data);
 }
 
+export const teacherEssentialInfoModify = async (data) => {
+    return await instance.post("/teacher/essentialInfo", data);
+}
+
 export const getTeacherMypageProfile = async(userId) => {
     return await instance.get(`/teacher/mypage/profile/${userId}`)
 }

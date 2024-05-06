@@ -12,9 +12,14 @@ import { storage } from "../../apis/firebase/firebaseConfig";
 import { registerTeacherBoard } from "../../apis/api/teacherBoardApi";
 import { getPrincipalRequest } from "../../apis/api/principal";
 import { getTeacherIdRequest } from "../../apis/api/boardApi";
+import { useAuthCheck } from "../../hooks/useAuthCheck";
+import { useTeacherCheck } from "../../hooks/useTeacherCheck";
+import { useAuthEmailCheck } from "../../hooks/useAuthEmailCheck";
 
 function TeacherBoardWritePage(props) {
-    
+    useAuthCheck();
+    useTeacherCheck();
+    useAuthEmailCheck("teacher");
     const [quillValue , handleQuillValueChange] = useQuill();
     const [inputValue , handleInputChange] = useMaxValueValidateInput(20);
     const reactQuillRef = useRef();

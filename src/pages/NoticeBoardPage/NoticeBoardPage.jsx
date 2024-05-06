@@ -6,6 +6,7 @@ import { deleteBoardRequest, getSingleBoardReqeust, getSingleNoticeBoardReqeust,
 import { Link, useParams } from "react-router-dom";
 import GetTime from "../../components/GetTime/GetTime";
 import { GrView } from "react-icons/gr";
+import { useAuthCheck } from "../../hooks/useAuthCheck";
 
 function NoticeBoardPage(props) {
     const params = useParams();
@@ -13,7 +14,6 @@ function NoticeBoardPage(props) {
     const [timeStamp,setTimeStamp] = useState("");
     const formattedTime = GetTime(new Date(timeStamp));
 
-    
     const getNoticeBoardQuery = useQuery(
         ["getNoticeBoardQuery"],
         async() => await getSingleNoticeBoardReqeust(params.noticeId),

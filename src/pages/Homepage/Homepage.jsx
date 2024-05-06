@@ -11,6 +11,7 @@ import { useQuery, useQueryClient } from "react-query";
 import { getPrincipalRequest } from "../../apis/api/principal";
 import { useEffect, useState } from "react";
 import { getTeacherProfileInfo } from "../../apis/api/teacherProfile";
+import { useAuthEmailCheck } from "../../hooks/useAuthEmailCheck";
 
 function Homepage(props) {
     const navigate = useNavigate("");

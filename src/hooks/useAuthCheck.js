@@ -1,14 +1,13 @@
 import { useEffect } from "react";
-import { useQueryClient } from "react-query"
+import { useQueryClient } from "react-query";
 
 export const useAuthCheck = () => {
-    const queryClient = useQueryClient();
-    const principalData = queryClient.getQueriesData("principalQuery");
 
     useEffect(() => {
-        if(!principalData) {
+        const principalData = localStorage.getItem("AccessToken")
+        if (!principalData) {
             alert("로그인 후 이용 바랍니다.");
             window.location.replace("/auth/signin");
         }
-    },[]);
-}
+    }, []);
+};

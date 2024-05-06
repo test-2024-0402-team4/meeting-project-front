@@ -8,10 +8,16 @@ import { getTuteePoster, getTuteeProfile } from '../../apis/api/posterApi';
 import { getStudentProfile } from '../../apis/api/profileApi';
 import { sendEmailTeacherProfile } from '../../apis/api/emailApi';
 import { PulseLoader } from "react-spinners";
+import { useAuthCheck } from '../../hooks/useAuthCheck';
+import { useTeacherCheck } from '../../hooks/useTeacherCheck';
+import { useAuthEmailCheck } from '../../hooks/useAuthEmailCheck';
 
 
 function StudentPosterPage(props) {
-
+    useAuthCheck();
+    useTeacherCheck();
+    useAuthEmailCheck("teacher");
+    
     const [searchParams] = useSearchParams();
     const posterId = parseInt(searchParams.get("posterId"));
     const [poster, setPoster] = useState();
@@ -62,6 +68,7 @@ function StudentPosterPage(props) {
             }
         }
     )
+
 
     const getPosterStudentProfile = async () => {
         try {
