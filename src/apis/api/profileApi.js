@@ -5,7 +5,6 @@ export const updateImgUrlRequest = async(data) => {
     return await instance.put(`/account/profile/image/${data.userId}`,data)
 }
 
-
 export const registerProfileRequest = async (data) => {
     return await instance.post("/account/profile", data);
 }

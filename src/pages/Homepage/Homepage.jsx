@@ -23,7 +23,6 @@ import communication from "./communication.png";
 import juhwan from "./전주환증명사진.jpg";
 import gunhi from "./정건희 증명사진.jpg";
 import dogyun from "./김도균 증명사진.jpg";
-import lockicon from "./lock.png";
 import { getStudentProfile } from "../../apis/api/profileApi";
 import { useAuthEmailCheck } from "../../hooks/useAuthEmailCheck";
 

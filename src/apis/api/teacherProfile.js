@@ -2,7 +2,6 @@ import instance from "../utils/instance"
 
 export const getTeacherProfiles = async(params) =>{
     return await instance.get("/student/tutor/profiles",{params})
-    
 }   
 
 export const getTeacherProfile = async (params) => {
@@ -27,7 +26,6 @@ export const teacherEssentialInfoModify = async (data) => {
 export const getTeacherMypageProfile = async(userId) => {
     return await instance.get(`/teacher/mypage/profile/${userId}`)
 }
-
 
 export const searchTeacherMypageBoardsRequest = async(userId,params) => {
     return await instance.get(`teacher/mypage/boards/${userId}`,{params})
