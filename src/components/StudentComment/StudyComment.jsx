@@ -9,6 +9,8 @@ import { deleteStudyCommentRequest, getStudyCommentRequest, registerStudyComment
 import { getPrincipalRequest } from "../../apis/api/principal";
 import { getStudentProfile } from "../../apis/api/profileApi";
 import GetTime from "../GetTime/GetTime";
+import { getTeacherNickname } from "../../apis/api/teacherBoardApi";
+import { getUserNickname } from "../../apis/api/boardApi";
 
 function StudyComment(props) {
     const params = useParams();
@@ -25,6 +27,8 @@ function StudyComment(props) {
     const commentInputRef = useRef(null);
     const [timeStamp,setTimeStamp] = useState([]);
     const [userId1, setUserId] = useState("");
+    const [nickName , setNickName] = useState();
+    const [role , setRole] = useState();
 
     const queryClient = useQueryClient();
 
@@ -62,6 +66,48 @@ function StudyComment(props) {
         }
     )
 console.log(profile);
+
+useEffect(() => {
+    if (userId1 && role) {
+      if (role === 1) {
+        getUserNicknameRequest.refetch();
+      } else if (role === 2) {
+        getTeacherNicknameRequest.refetch();
+      }
+    }
+  }, [userId1, role]);
+
+  const getUserNicknameRequest = useQuery(
+    ["getUserNicknameRequest",userId1],
+    async() => await getUserNickname(userId1),
+    {
+        refetchOnWindowFocus : false,
+        onSuccess: response => {
+              console.log(response);
+              setNickName(response.data.nickname);
+        },
+        onError: error => {
+          console.log(userId1);
+        },
+        enabled: !!userId1
+    }
+  );
+
+  const getTeacherNicknameRequest = useQuery(
+    ["getTeacherNicknameRequest",userId1],
+    async() => await getTeacherNickname(userId1),
+    {
+        refetchOnWindowFocus : false,
+        onSuccess: response => {
+              console.log(response);
+              setNickName(response.data.nickname);
+        },
+        onError: error => {
+          console.log(userId1);
+        },
+        enabled: !!userId1
+    }
+  );
 
 useEffect(() => {
     const token = localStorage.getItem("AccessToken");
@@ -131,6 +177,7 @@ useEffect(() => {
         const comment = {
             studyBoardId: params.studyBoardId,
             userId : userId1,
+            nickname: nickName,
             comment : inputValue
         };
         console.log(comment);
@@ -226,7 +273,7 @@ useEffect(() => {
                         <li key={comment.studyCommentId} css={s.commentItems}>
                             <div css={s.commentTitle}>
                                 <div css={s.commentOption}>
-                                    author
+                                {comment.nickname}
                                     <div css={s.headerRight}>
                                     <div css={s.commentDate}>{GetTime(new Date(comment.createDate))}</div>
                                     <div css={s.optionButtonBox}>
