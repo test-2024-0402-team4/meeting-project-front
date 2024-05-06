@@ -15,7 +15,6 @@ import { getTeacherIdRequest } from "../../apis/api/boardApi";
 import { useAuthCheck } from "../../hooks/useAuthCheck";
 import { useTeacherCheck } from "../../hooks/useTeacherCheck";
 import { useAuthEmailCheck } from "../../hooks/useAuthEmailCheck";
-import { getTeacherIdRequest, getUserNickname } from "../../apis/api/boardApi";
 
 
 function TeacherBoardWritePage(props) {

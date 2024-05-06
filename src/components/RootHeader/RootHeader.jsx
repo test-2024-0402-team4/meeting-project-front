@@ -61,7 +61,7 @@ function RootHeader({children}) {
     
     const handelPageMove = (page) => {
         
-        window.location.replace(`/${page}`);
+        navigate(`/${page}`);
     }
 
     return (
