@@ -25,6 +25,8 @@ import gunhi from "./정건희 증명사진.jpg";
 import dogyun from "./김도균 증명사진.jpg";
 import lockicon from "./lock.png";
 import { getStudentProfile } from "../../apis/api/profileApi";
+import { useAuthEmailCheck } from "../../hooks/useAuthEmailCheck";
+
 
 function Homepage(props) {
     const navigate = useNavigate("");

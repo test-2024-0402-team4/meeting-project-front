@@ -11,9 +11,14 @@ import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import { storage } from "../../apis/firebase/firebaseConfig";
 import { useParams } from "react-router-dom";
 import { getSingleTeacherBoardReqeust, updateTeacherBoardRequest } from "../../apis/api/teacherBoardApi";
+import { useAuthCheck } from "../../hooks/useAuthCheck";
+import { useTeacherCheck } from "../../hooks/useTeacherCheck";
+import { useAuthEmailCheck } from "../../hooks/useAuthEmailCheck";
 
 function TeacherBoardUpdatePage(props) {
-    
+    useAuthCheck();
+    useTeacherCheck();
+    useAuthEmailCheck("teacher");
     const params = useParams();
     const [quillValue , handleQuillValueChange, setQuillValue] = useQuill();
     const [inputValue , handleInputChange, setInputValue] = useMaxValueValidateInput(20);

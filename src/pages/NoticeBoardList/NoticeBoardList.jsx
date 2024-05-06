@@ -9,8 +9,10 @@ import { getNoticeCount, searchNoticeBoardListRequest } from "../../apis/api/boa
 import NoticeBoardPageCount from "../../components/BoardPageCount/NoticePageCount";
 import { IoSearchOutline } from "react-icons/io5";
 import GetTime from "../../components/GetTime/GetTime";
+import { useAuthCheck } from "../../hooks/useAuthCheck";
 
 function NoticeBoardListPage(props) {
+
     const [searchParams, setSearchParams] = useSearchParams();
     const searchCount = 5;
     const [boardList, setBoardList] = useState([]);

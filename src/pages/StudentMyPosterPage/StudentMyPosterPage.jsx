@@ -6,8 +6,15 @@ import { getPrincipalRequest } from "../../apis/api/principal";
 import { getStudentProfile } from "../../apis/api/profileApi";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { getMyPoster, getMyposter, studentMyPosterDeleteRequest } from "../../apis/api/posterApi";
+import { useAuthCheck } from "../../hooks/useAuthCheck";
+import { useStudentCheck } from "../../hooks/useStudentCheck";
+import { useAuthEmailCheck } from "../../hooks/useAuthEmailCheck";
 
 function StudentMyPosterPage(props) {
+    useAuthCheck();
+    useStudentCheck();
+    useAuthEmailCheck("student");
+
 
     const navigate = useNavigate();
     

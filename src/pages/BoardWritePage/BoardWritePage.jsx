@@ -5,20 +5,28 @@ import React, { useCallback, useRef, useState } from 'react';
 import { useQuill } from "../../hooks/quillHook";
 import { useMaxValueValidateInput } from "../../hooks/inputHook";
 import { useMutation, useQuery } from "react-query";
-import { getStudentIdRequest, registerStudentBoard } from "../../apis/api/boardApi";
+import { getStudentIdRequest, getUserNickname, registerStudentBoard } from "../../apis/api/boardApi";
 import { QUILL_MODULES } from "../../constants/quillModules";
 import {v4 as uuid} from "uuid"
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import { storage } from "../../apis/firebase/firebaseConfig";
 import { getPrincipalRequest } from "../../apis/api/principal";
+import { useAuthCheck } from "../../hooks/useAuthCheck";
+import { useStudentCheck } from "../../hooks/useStudentCheck";
+import { useAuthEmailCheck } from "../../hooks/useAuthEmailCheck";
 
 function BoardWritePage(props) {
+    useAuthCheck();
+    useStudentCheck();
+    useAuthEmailCheck("student");
+
     
     const [quillValue , handleQuillValueChange] = useQuill();
     const [inputValue , handleInputChange] = useMaxValueValidateInput(25);
     const reactQuillRef = useRef();
     const [userId, setUserId] = useState("");
     const [studentId, setStudentId] = useState();
+    const [nickName , setNickName] = useState();
 
     
     const principalQuery = useQuery(
@@ -31,6 +39,7 @@ function BoardWritePage(props) {
               console.log("principal Success");
               console.log(response);
               setUserId(response.data.userId);
+              
           },
           onError: error => {
               console.log("principal Error");
@@ -54,6 +63,22 @@ function BoardWritePage(props) {
     }
 );
 
+    const getUserNicknameRequest = useQuery(
+      ["getUserNicknameRequest",userId],
+      async() => await getUserNickname(userId),
+      {
+          refetchOnWindowFocus : false,
+          onSuccess: response => {
+                console.log(response);
+                setNickName(response.data.nickname);
+          },
+          onError: error => {
+            console.log(userId);
+          },
+          enabled: !!userId
+      }
+    );
+
     const registerBoardMutation = useMutation({
       mutationKey: "registerBoardMutation",
       mutationFn: registerStudentBoard,
@@ -62,14 +87,16 @@ function BoardWritePage(props) {
         window.location.replace("/student/boards?page=1");
       }
     });
+    console.log(nickName);
 
     const handleSubmitClick = () => {
       
       const board = {
         studentId: studentId,
+        nickname: nickName,
         title : inputValue,
         content : quillValue,
-        viewCount : 3
+        viewCount : 0
       };
 
       console.log(board)

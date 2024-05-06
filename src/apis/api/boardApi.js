@@ -86,9 +86,6 @@ export const registerStudentCommentDeclare = async(data) => {
     return await instance.post(`/notice/declare/student/comment/${data.studentCommentId}`, data);
 }
 
-
-
-
 export const registerTeacherDeclare = async(data) => {
     return await instance.post(`/notice/declare/teacher/${data.teacherBoardId}`, data);
 }
@@ -104,5 +101,14 @@ export const registerStudyDeclare = async(data) => {
 export const registerStudyCommentDeclare = async(data) => {
     return await instance.post(`/notice/declare/study/comment/${data.studyCommentId}`, data);
 }
+
+export const getStudentGenderType = async(studentId) => {
+    return await instance.get(`/student/board/genderImg/${studentId}`)
+}
+
+export const getUserNickname = async(userId) => {
+    return await instance.get(`/student/board/nickname/${userId}`)
+}
+
 
 

@@ -44,3 +44,11 @@ export const deleteTeacherCommentRequest = async(teacherCommentId) => {
 export const updateTeacherCommentRequest = async(data) => {
     return await instance.put(`/teacher/board/comment/${data.teacherCommentId}`,data)
 }
+
+export const getTeacherGenderType = async(teacherId) => {
+    return await instance.get(`/teacher/board/genderImg/${teacherId}`)
+}
+
+export const getTeacherNickname = async(userId) => {
+    return await instance.get(`/teacher/board/nickname/${userId}`)
+}

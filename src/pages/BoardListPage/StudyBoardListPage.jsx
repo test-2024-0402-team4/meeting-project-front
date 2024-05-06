@@ -11,8 +11,10 @@ import { getStudyCount, searchStudyBoardListRequest, updateStudyBoardViewCountRe
 import StudyBoardPageCount from "../../components/BoardPageCount/StudyBoardPageCount";
 import { IoSearchOutline } from "react-icons/io5";
 import GetTime from "../../components/GetTime/GetTime";
+import { useAuthCheck } from "../../hooks/useAuthCheck";
 
 function StudyBoardListPage(props) {
+
     const [searchParams, setSearchParams] = useSearchParams();
     const searchCount = 11;
     const [boardList, setBoardList] = useState([]);
@@ -113,7 +115,7 @@ function StudyBoardListPage(props) {
 
                         <li >
                             <div>{board.title}</div>
-                            <div>author</div>
+                            <div>{board.nickname}</div>
                             <div>{GetTime(new Date(board.createDate))}</div>
                             <div>{board.viewCount}</div>
                          </li>

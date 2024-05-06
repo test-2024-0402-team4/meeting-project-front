@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Select from "react-select";
 import { modifyTeacherProfile } from "../../apis/api/profileApi";
 import * as s from "./style";
@@ -15,9 +15,15 @@ import { getPrincipalRequest } from "../../apis/api/principal";
 import Modal from 'react-modal';
 import { GrClose } from "react-icons/gr";
 import { deleteUser } from "../../apis/api/accountApi";
+import { sendAuthEmail } from "../../apis/api/emailApi";
+import AuthMail from "../../components/AuthMali/AuthMail";
+import { useAuthCheck } from "../../hooks/useAuthCheck";
+import { useTeacherCheck } from "../../hooks/useTeacherCheck";
+import { useAuthEmailCheck } from "../../hooks/useAuthEmailCheck";
 
 function ModifyTeacherProfilePage(props) {
-
+    useAuthCheck();
+    useTeacherCheck();
     const [searchParams] = useSearchParams();
     const userId = parseInt(searchParams.get("userId"));
 
@@ -44,8 +50,10 @@ function ModifyTeacherProfilePage(props) {
     const [ departmentName, departmentChange, departmentMessage, setDepartmentName ] = useSignupInput();
     const [ phoneNumber, phoneNumberChange ] = useSignupInput();
 
+    const [ auth, setAuth ] = useState();
     const [ name, setName ] = useState("");
     const [ username, setUsername ] = useState("");
+    const [ email, setEmail ] = useState("");
     const [ universityName, setUniversityName ] = useState("");
     const [ graduateState, setGraduateState ] = useState("");
     const [ genderType, setGenderType ] = useState("");
@@ -65,6 +73,7 @@ function ModifyTeacherProfilePage(props) {
     const openModal = () => {
         setModalIsOpen(true);
     }
+
     const closeModal = () => {
         setModalIsOpen(false);
     }
@@ -77,9 +86,11 @@ function ModifyTeacherProfilePage(props) {
         getPrincipalRequest,
         {
             onSuccess: response => {
-                // console.log(response.data.username);
                 setName(response.data.name);
                 setUsername(response.data.username);
+                setEmail(response.data.email);
+                setAuth(response.data.emailAuth)
+                console.log(response.data.emailAuth);
             },
             retry: 0,
             refetchOnWindowFocus: false
@@ -282,7 +293,6 @@ function ModifyTeacherProfilePage(props) {
         });
     }
 
-
     // 필수정보 수정 버튼
     const handleEssentialInfoOnClick = () => {
         teacherEssentialInfoModify({
@@ -321,7 +331,6 @@ function ModifyTeacherProfilePage(props) {
         setIsActive(false);
         setIsEssentialActive(true);
     }
-
 
     return (
         <div css={s.layout}>
@@ -375,7 +384,8 @@ function ModifyTeacherProfilePage(props) {
                                 </div>
                             </div>
                         </div>
-
+                        <AuthMail email={email} auth={auth}/>
+                          
                         <div css={s.bodyBox}>
                             <div css={s.box2}>
                                 <div css={s.spanBox}>

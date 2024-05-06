@@ -3,13 +3,17 @@ import { useMutation, useQuery } from "react-query";
 import * as s from "./style";
 import React, { useState } from 'react';
 import { Link, useParams } from "react-router-dom";
-import { deleteStudyBoardRequest, getSingleStudyBoardReqeust, getUserIdByStudyBoardIdRequest, updateStudyBoardViewCountRequest } from "../../apis/api/studyBoardApi";
+import { deleteStudyBoardRequest, getSingleStudyBoardReqeust, getUserGenderType, getUserIdByStudyBoardIdRequest, updateStudyBoardViewCountRequest } from "../../apis/api/studyBoardApi";
 import StudyComment from "../../components/StudentComment/StudyComment";
 import GetTime from "../../components/GetTime/GetTime";
 import { GrView } from "react-icons/gr";
 import { getPrincipalRequest } from "../../apis/api/principal";
+import { useAuthCheck } from "../../hooks/useAuthCheck";
+import { getStudentIdRequest, getTeacherIdRequest } from "../../apis/api/boardApi";
+
 
 function StudyBoardPage(props) {
+
     const params = useParams();
     const [singleBoard , setSingleBoard] = useState("");
     
@@ -17,6 +21,7 @@ function StudyBoardPage(props) {
     const formattedTime = GetTime(new Date(timeStamp));
     const [userId, setUserId] = useState("");
     const [userIdByBoard , setUserIdByBoard] = useState();
+    const [genderType , setGenderType] = useState();
 
     const principalQuery = useQuery(
         ["principalQuery"],
@@ -47,8 +52,8 @@ function StudyBoardPage(props) {
     )
 
 
-    const getStudentIdByBoardId = useQuery(
-        ["getStudentIdByBoardId"],
+    const getUserIdByBoardId = useQuery(
+        ["getUserIdByBoardId"],
         async() => await getUserIdByStudyBoardIdRequest(params.studyBoardId),
         {
             refetchOnWindowFocus : false,
@@ -60,8 +65,7 @@ function StudyBoardPage(props) {
     );
     console.log(userId);
     console.log(userIdByBoard);
-
-
+    
     const getBoardQuery = useQuery(
         ["getBoardQuery"],
         async() => await getSingleStudyBoardReqeust(params.studyBoardId),
@@ -74,6 +78,26 @@ function StudyBoardPage(props) {
             }
         }
     );
+
+    const getUserGender = useQuery(
+        ["getUserGender",userIdByBoard],
+        async() => await getUserGenderType(userIdByBoard),
+        {
+            refetchOnWindowFocus : false,
+            onSuccess: response => {
+                  console.log(response);
+                  setGenderType(() => response.data.genderType);
+            },
+            onError: error => {
+              console.log(userIdByBoard);
+            },
+            enabled: !!userIdByBoard
+        }
+    );
+    console.log(genderType);
+
+
+
 
     const deleteBoardMutation = useMutation({
         mutationKey:"deleteBoardMutation",
@@ -108,10 +132,22 @@ function StudyBoardPage(props) {
 
            <div css={s.boardPageProfile}>
                 <div css={s.boardPageMainHeader}>
-                        <div css={s.boardPageProfileImg}> img </div>
+                    
+                {genderType === "남" ? 
+                (
+                <div css={s.boardPageProfileImg}>
+                    <img src="https://kimstudy.com/_next/static/media/circle_profile_boy.d886bf1c.svg" alt="" />
+                </div>
+                ) 
+                : 
+                (
+                <div css={s.boardPageProfileImg}>
+                    <img src="https://kimstudy.com/_next/static/media/circle_profile_girl.93ffff47.svg" alt="" />
+                </div>
+                )}
                         <div>
                             <div> {singleBoard.title}</div>
-                            <div> author </div>
+                            <div> {singleBoard.nickname} </div>
                         </div>
                 </div>
                 <div css={s.optionButtons}>
