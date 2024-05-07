@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
 /** @jsxImportSource @emotion/react */
 import * as s from "./style";
-import { useSearchParams } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import { useMutation, useQuery, useQueryClient } from 'react-query';
 import { getPrincipalRequest } from '../../apis/api/principal';
-import { getTuteePoster, getTuteeProfile } from '../../apis/api/posterApi';
+import { getTuteePoster, getTuteeProfile, studentMyPosterDeleteRequest } from '../../apis/api/posterApi';
 import { getStudentProfile } from '../../apis/api/profileApi';
 import { sendEmailTeacherProfile } from '../../apis/api/emailApi';
 import { PulseLoader } from "react-spinners";
@@ -22,15 +22,18 @@ function StudentPosterPage(props) {
     const posterId = parseInt(searchParams.get("posterId"));
     const [poster, setPoster] = useState();
     const [userId, setUserId] = useState(0);
+    const [roleId, setRoleId] = useState(0);
     const [email, setEmail] = useState();
 
     const queryClient = useQueryClient();
     const [profile,setProfile] = useState({});
+    const navigate = useNavigate();
 
     const principalData = queryClient.getQueryData("principalQuery");
     
     useEffect(() => {
         getPosterStudentProfile();
+        setRoleId(principalData.data.roleId)
         console.log(poster);
         console.log(profile);
         
@@ -50,6 +53,7 @@ function StudentPosterPage(props) {
     if (m < 0 || (m === 0 && today.getDate() < birthDay.getDate())) {
         age--;
     }
+
 
     const getStudentMyPoster = useQuery(
         ["getStudentMyPoster"],
@@ -91,6 +95,13 @@ function StudentPosterPage(props) {
         if(window.confirm("프로필을 보내시겠습니까?")) {
             sendTeacherProfile.mutate({email: poster.email, userId: principalData.data.userId})
         }
+    }
+    const handleDeleteOnClick = () => {
+        studentMyPosterDeleteRequest(posterId)
+        .then(response => {
+            alert("삭제가 완료되었습니다");
+            navigate(`list`);
+        })
     }
     
     
@@ -143,6 +154,15 @@ function StudentPosterPage(props) {
                                 <div>
                                     학생 정보
                                 </div>
+                                {
+                                    roleId === 3 ?                                     
+                                    <div css={s.buttonLayout}>
+                                        <button onClick={handleDeleteOnClick}>삭제</button>
+                                    </div>                                    
+                                    :
+                                    <></>
+                                }
+                                
                             </div>
                             <div css={s.studentInfoLayout}>
                                 <div css={s.studentInfo}>

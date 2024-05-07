@@ -22,6 +22,7 @@ function BoardPage(props) {
     const [timeStamp,setTimeStamp] = useState("");
     const formattedTime = GetTime(new Date(timeStamp));
     const [userId, setUserId] = useState("");
+    const [roleId, setRoleId] = useState(0);
     const [studentId, setStudentId] = useState();
     const [userIdByBoard , setUserIdByBoard] = useState();
     const [genderType , setGenderType] = useState();
@@ -37,6 +38,7 @@ function BoardPage(props) {
                 console.log("principal Success");
                 console.log(response);
                 setUserId(response.data.userId);
+                setRoleId(response.data.roleId);
             },
             onError: error => {
                 console.log("principal Error");
@@ -182,14 +184,19 @@ const getStudentGender = useQuery(
                     </div>
                         {singleBoard.viewCount}
                     </div>
-                    {
-                        studentId === userIdByBoard ?
-                    <>
-                        <Link to={`/student/board/update/${singleBoard.studentBoardId}`}>
-                        <button css={s.optionButton}>수정</button>
-                        </Link>
-                        <button onClick={handleDeleteClick} css={s.optionButton}>삭제</button>
-                    </>
+                    {                        
+                    roleId === 3 ?
+                        <>
+                            <button onClick={handleDeleteClick} css={s.optionButton}>삭제</button>                    
+                        </>                       
+                    :
+                    studentId === userIdByBoard ?
+                        <>
+                            <Link to={`/student/board/update/${singleBoard.studentBoardId}`}>
+                            <button css={s.optionButton}>수정</button>
+                            </Link>
+                            <button onClick={handleDeleteClick} css={s.optionButton}>삭제</button>
+                        </>
                     :
                     <div css={s.blank}>
                         <button onClick={handleDeclareClick} css={s.optionButton}>신고</button>
@@ -205,7 +212,7 @@ const getStudentGender = useQuery(
             
             
         </div>
-            <StudentComment />
+            <StudentComment roleId={roleId} userId={userId}/>
     </div>
     );
 }

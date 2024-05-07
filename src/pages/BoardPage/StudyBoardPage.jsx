@@ -144,7 +144,13 @@ function StudyBoardPage(props) {
             <button css={s.authorityButton} onClick={() => linkToTeacher()}>선생님용</button>
             <button css={s.authorityButton} onClick={() => linkToStudy()}>공부방</button>
         </>
-    ) : null}
+    ) : roleId === 3 ? (
+        <>
+            <button css={s.authorityButton} onClick={() => linkToStudent()}>학생용</button>
+            <button css={s.authorityButton} onClick={() => linkToTeacher()}>선생님용</button>
+            <button css={s.authorityButton} onClick={() => linkToStudy()}>공부방</button>
+        </>
+    ):null}
         </div>
         
         <div css={s.showDate}> {formattedTime} </div>
@@ -177,17 +183,22 @@ function StudyBoardPage(props) {
                     </div>
                     {singleBoard.viewCount}</div>
                     {
-                        userId === userIdByBoard ?
-                    <>
-                        <Link to={`/study/board/update/${singleBoard.studyBoardId}`}>
-                        <button css={s.optionButton}>수정</button>
-                        </Link>
-                        <button css={s.optionButton} onClick={handleDeleteClick}>삭제</button>
-                    </>
+                        roleId === 3 ? 
+                        <>
+                            <button css={s.optionButton} onClick={handleDeleteClick}>삭제</button>                    
+                        </>
                     :
-                    <div css={s.blank}>
-                        <button onClick={handleDeclareClick} css={s.optionButton}>신고</button>
-                    </div>
+                        userId === userIdByBoard ?
+                        <>
+                            <Link to={`/study/board/update/${singleBoard.studyBoardId}`}>
+                            <button css={s.optionButton}>수정</button>
+                            </Link>
+                            <button css={s.optionButton} onClick={handleDeleteClick}>삭제</button>
+                        </>
+                    :
+                        <div css={s.blank}>
+                            <button onClick={handleDeclareClick} css={s.optionButton}>신고</button>
+                        </div>
                     }
                 </div>
            </div>
@@ -202,7 +213,7 @@ function StudyBoardPage(props) {
         <div>
             
         </div>
-            <StudyComment />
+            <StudyComment userId1={userId} roleId={roleId}/>
     </div>
     );
 }
