@@ -142,6 +142,9 @@ function Mypage(props) {
             });
             
     }
+    const myStudy = () => {
+        window.location.replace(`/student/${userId}/mypage/study?page=1`);
+    }
 
     return (
         <div css={s.layout}>
@@ -168,13 +171,18 @@ function Mypage(props) {
                             </span>
                         </div>
                         <div>
-                            <span>
+                            
+                            <span css={s.gender}>
                             {studentProfileQuery.data.data?.genderType}학생
                             </span>
                             <span>
                             {studentProfileQuery.data.data?.regionName}
                             </span>
+                            <div css={s.email}>
+                                이메일 : {studentProfileQuery.data.data?.email}
+                            </div>
                         </div>
+                        
                     </div>
                     }
 
@@ -188,6 +196,9 @@ function Mypage(props) {
                         </div>
                         <div onClick={() => setContent(1)}>
                             내가 쓴 글
+                        </div>
+                        <div onClick={() => myStudy()}>
+                            공부방
                         </div>
                         {
                             content === 0 ? 
@@ -216,7 +227,7 @@ function Mypage(props) {
                             <>
                             {
                             teacherProfile?.length === 0 
-                            ? <h1>검색 결과가 없습니다.</h1>
+                            ? <h2 css={s.noSearch}>검색 결과가 없습니다.</h2>
                             :
                                 teacherProfile?.map(
                                     teacherProfile => 

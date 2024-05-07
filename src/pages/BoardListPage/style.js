@@ -23,7 +23,7 @@ export const authorityButton = css`
     margin-top: 5px;
     margin-left: 20px;
     margin-bottom: 20px;
-    background-color: #86e8bf;
+    background-color: #14dbba;
     outline: none;
     border: none;
     border-radius: 6px;
@@ -35,11 +35,8 @@ export const authorityButton = css`
     margin-left: 150px;
     }
     &:hover {
-        background-color: #59dbba;
+        background-color: #11b69a;
     }
-    &:active {
-    background-color: #28b290; 
-}
     
 `;
 
@@ -49,8 +46,9 @@ export const authorityButton = css`
     height: 510px;
     max-width: 1100px;
     border: 1px solid #85d3d6;
-    border-radius: 18px;
+    border-radius: 7px;
     overflow: hidden;
+    margin-left: 35px;
     
     `;
 export const headerTitle = css`
@@ -67,14 +65,14 @@ display: flex;
 justify-content: flex-end;
 width: 100%;
 padding-bottom: 10px;
-margin-right: 20px;
+margin-left: 25px;
 `;
 export const searchContainer = css`
 border: 1px solid #a19c9c;
-width: 199px;
+width: 201px;
 padding-left: 2px;
 padding-bottom:1px ;
-border-radius: 4px;
+border-radius: 6px;
 `;
 export const inputBox = css`
 outline: none;
@@ -82,7 +80,7 @@ border: none;
 `;
 export const searchButton = css`
 box-sizing: border-box;
-padding: 0px 0px 0px 7px;
+padding: 0px 0px 0px 13px;
 background-color: white;
 border: none;
 cursor: pointer;
@@ -177,13 +175,13 @@ display: flex;
 justify-content: flex-end;
 width: 100%;
 margin-top: 10px;
-margin-right: 70px;
 text-decoration: none;
+margin-left: 25px;
 `;
 export const writeButton = css`
 width: 90px;
 height: 40px;
-background-color: #86e8bf;
+background-color: #14dbba;
 border: none;
 color: white;
 font-size: 14px;
@@ -192,9 +190,6 @@ border-radius: 5px;
 transition: background-color 0.3s ease;
 cursor: pointer;
 &:hover {
-        background-color: #59dbba;
+        background-color: #11b69a;
     }
-&:active {
-    background-color: #28b290; 
-}
 `;
