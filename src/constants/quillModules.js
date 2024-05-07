@@ -1,3 +1,4 @@
+
 export const QUILL_MODULES = (quillImageHandler) => {
     return {
         toolbar: {

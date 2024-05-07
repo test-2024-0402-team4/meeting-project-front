@@ -11,13 +11,34 @@ import { getStudyCount, searchStudyBoardListRequest, updateStudyBoardViewCountRe
 import StudyBoardPageCount from "../../components/BoardPageCount/StudyBoardPageCount";
 import { IoSearchOutline } from "react-icons/io5";
 import GetTime from "../../components/GetTime/GetTime";
+import { getPrincipalRequest } from "../../apis/api/principal";
 import { useAuthCheck } from "../../hooks/useAuthCheck";
+
 
 function StudyBoardListPage(props) {
 
     const [searchParams, setSearchParams] = useSearchParams();
     const searchCount = 11;
     const [boardList, setBoardList] = useState([]);
+
+    const [roleId , setRoleId] = useState();
+
+    const principalQuery = useQuery(
+        ["principalQuery"],
+        getPrincipalRequest,
+        {
+            retry: 0,
+            refetchOnWindowFocus: false,
+            onSuccess: response => {
+                console.log("principal Success");
+                console.log(response);
+                setRoleId(response.data.roleId);
+            },
+            onError: error => {
+                console.log("principal Error");
+            }
+        }
+    );
 
     const searchSubmit = () => {
         setSearchParams({
@@ -79,11 +100,17 @@ function StudyBoardListPage(props) {
     return (
         <div css={s.layout}>
             <div css={s.authority}>
-            
-                <button css={s.authorityButton} onClick={() => linkToStudent()}>학생용</button>
-            
-                <button css={s.authorityButton} onClick={() => linkToTeacher()}>선생님용</button>
-                <button css={s.authorityButton} onClick={() => linkToStudy()}>공부방</button>
+            {roleId === 1 ? (
+        <>
+            <button css={s.authorityButton} onClick={() => linkToStudent()}>학생용</button>
+            <button css={s.authorityButton} onClick={() => linkToStudy()}>공부방</button>
+        </>
+    ) : roleId === 2 ? (
+        <>
+            <button css={s.authorityButton} onClick={() => linkToTeacher()}>선생님용</button>
+            <button css={s.authorityButton} onClick={() => linkToStudy()}>공부방</button>
+        </>
+    ) : null}
             </div>
         
             <div css={s.searchInput}>

@@ -131,7 +131,7 @@ export const boardListItem = css`
         width: 100%;
         border-bottom:1px solid #dbdbdb ;
         &:hover{
-            background-color: beige;
+            background-color: #e1f5fd;
         }
 
         & > div{

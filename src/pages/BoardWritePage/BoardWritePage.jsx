@@ -15,6 +15,7 @@ import { useAuthCheck } from "../../hooks/useAuthCheck";
 import { useStudentCheck } from "../../hooks/useStudentCheck";
 import { useAuthEmailCheck } from "../../hooks/useAuthEmailCheck";
 
+
 function BoardWritePage(props) {
     useAuthCheck();
     useStudentCheck();
