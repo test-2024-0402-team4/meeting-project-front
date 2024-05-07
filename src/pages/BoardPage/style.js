@@ -21,7 +21,7 @@ width: 100px;
     margin-top: 5px;
     margin-left: 20px;
     margin-bottom: 20px;
-    background-color: #86e8bf;
+    background-color: #14dbba;
     outline: none;
     border: none;
     border-radius: 6px;
@@ -33,19 +33,17 @@ width: 100px;
     margin-left: 150px;
     }
     &:hover {
-        background-color: #59dbba;
+        background-color: #11b69a;
     }
-    &:active {
-    background-color: #28b290; 
-}
 `;
 
 export const showDate = css`
 display: flex;
 justify-content: flex-end;
-width: 95%;
+width: 100%;
 color: rgb(128,128,128);
 margin-bottom: 7px;
+margin-left: 10px;
 `;
 
 export const boardPageTitle = css`
@@ -64,7 +62,8 @@ export const boardListLayout = css`
     min-height: 500px;
     max-width: 1100px;
     border: 1px solid #85d3d6;
-    border-radius: 18px;
+    border-radius: 10px;
+    margin-left: 35px;
 `;
 
 export const boardPageProfile = css`
@@ -99,7 +98,7 @@ margin: 10px 20px 15px 18px;
 `
 export const optionButtons = css`
 margin-top: 4px;
-margin-left: 340px;
+margin-left: 355px;
 `;
 export const optionButton = css`
 border: none;
@@ -122,7 +121,7 @@ transition: background-color 0.3s ease;
 `;
 export const blank = css`
 margin-top: 5px;
-margin-left: 45px;
+margin-left: 39px;
 `;
 
 export const boardPageMain = css`
@@ -139,7 +138,7 @@ justify-content: center;
 align-items: center;
 color: #7c7979;
 margin-bottom: 10px;
-margin-left: 35px;
+margin-left: 28px;
 `;
 
 export const viewIcon = css`

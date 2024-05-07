@@ -88,6 +88,16 @@ const getTeacherNicknameRequest = useQuery(
     });
 
     const handleSubmitClick = () => {
+
+      if (!inputValue.trim()) {
+        alert("제목을 입력해 주세요.");
+        return;
+      }
+      
+      if (!quillValue.trim()) {
+        alert("내용을 입력해 주세요.");
+        return;
+      }
       
       const board = {
         teacherId: teacherId,

@@ -181,7 +181,13 @@ useEffect(() => {
             comment : inputValue
         };
         console.log(comment);
+        if (!inputValue.trim()) { 
+            alert("내용을 작성해 주세요!"); 
+            return; 
+        }
+        if(window.confirm("댓글을 등록하시겠습니까?")){
         registerStudyCommentMutation.mutate(comment);
+        }
     }
 
     const deleteStudyCommentMutation = useMutation({
