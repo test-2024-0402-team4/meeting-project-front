@@ -8,9 +8,11 @@ import { getTuteePosters } from "../../apis/api/posterApi";
 import Select from "react-select";
 import { getClassType, getDate, getRegion, getStudentType, getSubject } from "../../apis/api/Option";
 import { FaRegCircleXmark } from "react-icons/fa6";
+import { IoCloseOutline } from "react-icons/io5";
 import { useAuthCheck } from "../../hooks/useAuthCheck";
 import { useTeacherCheck } from "../../hooks/useTeacherCheck";
 import { useAuthEmailCheck } from "../../hooks/useAuthEmailCheck";
+import { CgBorderRight } from "react-icons/cg";
 
 
 function StudentPostersPage(props) {
@@ -50,10 +52,9 @@ function StudentPostersPage(props) {
     const selectStyle = {
         control: baseStyles => ({
             ...baseStyles,
-            border: "1px solid #9decdb",
-            borderRadius: "4px",
-            width: "220px",
-            heighy:"100%"
+            border: "none",
+            width: "210px",
+            height: "36px"
         })
     }
 
@@ -167,16 +168,16 @@ function StudentPostersPage(props) {
                                     <div css={s.filiterModal(1)}>
                                         <Select styles={selectStyle} key={"subjects"} options={subjects} placeholder="과목명" value={searchData.subjects} onChange={handleSubjectOption} isMulti/>
                                         <div onClick={() => setFilterModal(() => 0)} css={s.xMark}>
-                                            <FaRegCircleXmark />
+                                            <IoCloseOutline />
                                         </div>
                                     </div>
-                            </>
+                                </>
                                 ) : filterModal === 2 ? (
                                     <>
                                         <div css={s.filiterModal(2)}>
                                             <Select styles={selectStyle} key={"region"} options={region} placeholder="지역" value={searchData.regions} onChange={handleRegionOption} isMulti/>                        
                                             <div onClick={() => setFilterModal(() => 0)} css={s.xMark}>
-                                                <FaRegCircleXmark />
+                                                <IoCloseOutline />
                                             </div>
                                         </div>
                                     </>
@@ -185,7 +186,7 @@ function StudentPostersPage(props) {
                                         <div css={s.filiterModal(3)}>
                                             <Select styles={selectStyle} key={"date"} options={date} placeholder="요일" value={searchData.dates} onChange={handleDateOption} isMulti/>
                                             <div onClick={() => setFilterModal(() => 0)} css={s.xMark}>
-                                                <FaRegCircleXmark />
+                                                <IoCloseOutline />
                                             </div>
                                         </div>
                                     </>
@@ -194,7 +195,7 @@ function StudentPostersPage(props) {
                                         <div css={s.filiterModal(4)}>
                                             <Select styles={selectStyle} key={"studentType"} options={studentType} placeholder="학생타입" value={searchData.studentTypes} onChange={handleStudentTypeOption} isMulti/>
                                             <div onClick={() => setFilterModal(() => 0)} css={s.xMark}>
-                                                <FaRegCircleXmark />
+                                                <IoCloseOutline />
                                             </div>
                                         </div>
                                     </>
@@ -231,41 +232,47 @@ function StudentPostersPage(props) {
                         </div>
                 </div>
             </div>
+
             <div onClick={() => setFilterModal(() => 0)}  css={s.studentPosterLayout}>
-                {
-                    !studentPosters ? 
-                        <h1>조건에 해당하는 결과가 없습니다</h1>
-                    :
-                    studentPosters.map(studentPoster => 
-                    <div key={studentPoster.posterId} onClick={() => navigate(`/teacher/tutee/poster?posterId=${studentPoster.posterId}`)} css={s.studentPosters}>
-                        <div css={s.studentPosterContainer}>
-                            <div css={s.studentPoster}>
-                                <div css={s.studentPosterContent}>
-                                    <div>포스터 제목</div>
-                                    <div css={s.subjects}>
-                                        <span>
-                                            {studentPoster.subjectName.map((value, index) => (
-                                                <span key={index}>
-                                                    {value}
-                                                    {index !== studentPoster.subjectName.length - 1 && ", "}
-                                                </span>
-                                            ))}
-                                        </span>
-                                    </div>
-                                    <div css={s.studnetinfo}>
-                                        <span>{studentPoster.studentType}</span>
-                                        <span>{studentPoster.genderType}</span>
-                                        <span>{studentPoster.regionName}</span>
-                                        {
-                                            studentPoster.classType.map(value => <span>{value}</span>)
-                                        }
+                <div css={s.posterTitle}>
+                    <span>모집중인 공고</span>
+                </div>
+                <div css={s.posterBox}>
+                    {
+                        !studentPosters ? 
+                            <h1>조건에 해당하는 결과가 없습니다</h1>
+                        :
+                        studentPosters.map(studentPoster => 
+                        <div key={studentPoster.posterId} onClick={() => navigate(`/teacher/tutee/poster?posterId=${studentPoster.posterId}`)} css={s.studentPosters}>
+                            <div css={s.studentPosterContainer}>
+                                <div css={s.studentPoster}>
+                                    <div css={s.studentPosterContent}>
+                                        <div>{studentPoster.title}</div>
+                                        <div css={s.subjects}>
+                                            <span>
+                                                {studentPoster.subjectName.map((value, index) => (
+                                                    <span key={index}>
+                                                        {value}
+                                                        {index !== studentPoster.subjectName.length - 1 && ", "}
+                                                    </span>
+                                                ))}
+                                            </span>
+                                        </div>
+                                        <div css={s.studnetinfo}>
+                                            <span>{studentPoster.studentType}</span>
+                                            <span>{studentPoster.genderType}</span>
+                                            <span>{studentPoster.regionName}</span>
+                                            {
+                                                studentPoster.classType.map(value => <span>{value}</span>)
+                                            }
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    )
-                }
+                        )
+                    }
+                </div>
                 
             </div>
         </div>

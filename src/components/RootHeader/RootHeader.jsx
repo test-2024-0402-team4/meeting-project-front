@@ -12,6 +12,8 @@ function RootHeader({children}) {
     const [ userId, setUserId ] = useState(0);
     const navigate = useNavigate();
 
+    const [ isActive, setIsActive ] = useState(false);
+
     const [ modalIsOpen, setModalIsOpen ] = useState(false);
     const openModal = () => {
         setModalIsOpen(true);
@@ -60,7 +62,6 @@ function RootHeader({children}) {
     }
     
     const handelPageMove = (page) => {
-        
         navigate(`/${page}`);
     }
 
@@ -118,7 +119,7 @@ function RootHeader({children}) {
                             roleId === 1 ? (
                                 <>
                                     <span onClick={() => handelPageMove("student/tutor/list")} >선생님 찾기</span>
-                                    <span onClick={() => handelPageMove(`student/myposters?userId=${userId} `)}>공고 조회</span>
+                                    <span onClick={() => handelPageMove(`student/myposters?userId=${userId}`)}>공고 조회</span>
                                     <span onClick={() => handelPageMove("student/boards?page=1")}>커뮤니티</span>
                                 </>
                             ) : (
@@ -129,7 +130,7 @@ function RootHeader({children}) {
                                     </>
                                 ) : (
                                     <>
-                                        <span onClick={() => handelPageMove("study/boards?page=1")}>공부방</span>
+                                        <span onClick={() => handelPageMove("study/boards?page=1")} >공부방</span>
                                     </>
                                 )
                             )

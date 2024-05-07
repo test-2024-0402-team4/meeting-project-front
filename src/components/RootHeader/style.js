@@ -78,6 +78,7 @@ export const headerItem = css`
     display: flex;
     max-width: 1024px;
     padding-bottom: 10px;
+    
 
     & > span {
         color: #aaaaaa;
