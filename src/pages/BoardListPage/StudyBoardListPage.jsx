@@ -12,8 +12,11 @@ import StudyBoardPageCount from "../../components/BoardPageCount/StudyBoardPageC
 import { IoSearchOutline } from "react-icons/io5";
 import GetTime from "../../components/GetTime/GetTime";
 import { getPrincipalRequest } from "../../apis/api/principal";
+import { useAuthCheck } from "../../hooks/useAuthCheck";
+
 
 function StudyBoardListPage(props) {
+
     const [searchParams, setSearchParams] = useSearchParams();
     const searchCount = 11;
     const [boardList, setBoardList] = useState([]);

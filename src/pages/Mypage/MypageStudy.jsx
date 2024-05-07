@@ -13,8 +13,15 @@ import { page } from "../../components/BoardPageCount/style";
 import BoardPageCount from "../../components/BoardPageCount/BoardPageCount";
 import StudentProfileCount from "../../components/BoardPageCount/StudentProfileCount";
 import StudentProfileStudyCount from "../../components/BoardPageCount/StudentProfileStudyCount";
+import { useAuthCheck } from "../../hooks/useAuthCheck";
+import { useStudentCheck } from "../../hooks/useStudentCheck";
+import { useAuthEmailCheck } from "../../hooks/useAuthEmailCheck";
 
 function MypageStudy(props) {
+    useAuthCheck();
+    useStudentCheck();
+
+
     const [searchParams, setSearchParams] = useSearchParams();
     const queryClient = useQueryClient();
     const [profile,setProfile] = useState({});

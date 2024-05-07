@@ -10,8 +10,16 @@ import { useQuery, useQueryClient } from "react-query";
 import { FaRegCircleXmark } from "react-icons/fa6";
 import Select from "react-select";
 import { getClassType, getDate, getRegion, getSubject } from "../../apis/api/Option";
+import { useAuthCheck } from "../../hooks/useAuthCheck";
+import { useStudentCheck } from "../../hooks/useStudentCheck";
+import { useAuthEmailCheck } from "../../hooks/useAuthEmailCheck";
 
 function TeacherProfiles() {
+    useAuthCheck();
+    useStudentCheck();
+    useAuthEmailCheck("student");
+
+    
     const navigate = useNavigate();
     const [filterModal, setFilterModal] = useState(0);
     const [searchData, setSearchData] = useState({

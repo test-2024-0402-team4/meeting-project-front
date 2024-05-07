@@ -11,9 +11,13 @@ import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import { storage } from "../../apis/firebase/firebaseConfig";
 import { useParams } from "react-router-dom";
 import { getSingleStudyBoardReqeust, updateStudyBoardRequest } from "../../apis/api/studyBoardApi";
+import { useAuthCheck } from "../../hooks/useAuthCheck";
+import { useAuthEmailCheck } from "../../hooks/useAuthEmailCheck";
 
 function StudyBoardUpdatePage(props) {
+    useAuthCheck();
     
+
     const params = useParams();
     const [quillValue , handleQuillValueChange, setQuillValue] = useQuill();
     const [inputValue , handleInputChange, setInputValue] = useMaxValueValidateInput(20);

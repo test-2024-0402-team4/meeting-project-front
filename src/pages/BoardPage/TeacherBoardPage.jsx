@@ -9,8 +9,12 @@ import GetTime from "../../components/GetTime/GetTime";
 import { GrView } from "react-icons/gr";
 import { getPrincipalRequest } from "../../apis/api/principal";
 import { getTeacherIdByTeacherBoardIdRequest, getTeacherIdRequest, updateBoardViewCountRequest } from "../../apis/api/boardApi";
+import { useAuthCheck } from "../../hooks/useAuthCheck";
+import { useTeacherCheck } from "../../hooks/useTeacherCheck";
 
 function TeacherBoardPage(props) {
+    useAuthCheck();
+    useTeacherCheck();
     const params = useParams();
     const [singleBoard , setSingleBoard] = useState("");
 

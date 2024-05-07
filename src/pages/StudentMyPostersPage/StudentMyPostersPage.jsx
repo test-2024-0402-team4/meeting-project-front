@@ -7,7 +7,14 @@ import { getStudentProfile } from "../../apis/api/profileApi";
 import { getPrincipalRequest } from "../../apis/api/principal";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { getMyPosters } from "../../apis/api/posterApi";
+import { useAuthCheck } from "../../hooks/useAuthCheck";
+import { useStudentCheck } from "../../hooks/useStudentCheck";
+import { useAuthEmailCheck } from "../../hooks/useAuthEmailCheck";
 function StudentMyPostersPage(props) {
+    useAuthCheck();
+    useStudentCheck();
+    useAuthEmailCheck("student");
+
 
     const [searchParams] = useSearchParams();
     const userId = parseInt(searchParams.get("userId"))

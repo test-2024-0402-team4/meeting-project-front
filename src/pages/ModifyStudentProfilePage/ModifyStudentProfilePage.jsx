@@ -14,11 +14,20 @@ import { CgChevronRight } from "react-icons/cg";
 import Modal from 'react-modal';
 import { GrClose } from "react-icons/gr";
 import { deleteUser } from "../../apis/api/accountApi";
+import AuthMail from "../../components/AuthMali/AuthMail";
+import { useAuthCheck } from "../../hooks/useAuthCheck";
+import { useStudentCheck } from "../../hooks/useStudentCheck";
+import { useAuthEmailCheck } from "../../hooks/useAuthEmailCheck";
 
 function ModifyStudentProfilePage(props) {
+    useAuthCheck();
+    useStudentCheck();
+
 
     const [searchParams] = useSearchParams();
     const userId = parseInt(searchParams.get("userId"));
+    const [email, setEmail] = useState();
+    const [auth, setAuth] = useState();
     
     const [ nickname, nicknameChange, nicknameMessage, setNickname ] = useSignupInput();
     const [ phoneNumber, phoneNumberChange ] = useSignupInput();
@@ -48,6 +57,8 @@ function ModifyStudentProfilePage(props) {
                 console.log(response);
                 setUsername(response.data.username);
                 setName(response.data.name);
+                setEmail(response.data.email);
+                setAuth(response.data.emailAuth);
             },
             retry: 0,
             refetchOnWindowFocus: false
@@ -156,6 +167,8 @@ function ModifyStudentProfilePage(props) {
                     </div>
                 </div>
 
+                <AuthMail auth={auth} email={email}/>
+
                 <div css={s.bodyBox}>
                     <div css={s.box2}>
                         <div css={s.spanBox}>
@@ -167,6 +180,7 @@ function ModifyStudentProfilePage(props) {
                         </div>
                     </div>
                 </div>
+
 
                 <div css={s.bodyBox}>
                     <div css={s.box2}>

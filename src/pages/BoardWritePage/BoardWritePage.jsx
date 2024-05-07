@@ -11,9 +11,16 @@ import {v4 as uuid} from "uuid"
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import { storage } from "../../apis/firebase/firebaseConfig";
 import { getPrincipalRequest } from "../../apis/api/principal";
+import { useAuthCheck } from "../../hooks/useAuthCheck";
+import { useStudentCheck } from "../../hooks/useStudentCheck";
+import { useAuthEmailCheck } from "../../hooks/useAuthEmailCheck";
 
 
 function BoardWritePage(props) {
+    useAuthCheck();
+    useStudentCheck();
+    useAuthEmailCheck("student");
+
     
     const [quillValue , handleQuillValueChange] = useQuill();
     const [inputValue , handleInputChange] = useMaxValueValidateInput(25);

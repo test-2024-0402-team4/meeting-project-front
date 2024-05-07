@@ -8,9 +8,12 @@ import StudyComment from "../../components/StudentComment/StudyComment";
 import GetTime from "../../components/GetTime/GetTime";
 import { GrView } from "react-icons/gr";
 import { getPrincipalRequest } from "../../apis/api/principal";
+import { useAuthCheck } from "../../hooks/useAuthCheck";
 import { getStudentIdRequest, getTeacherIdRequest } from "../../apis/api/boardApi";
 
+
 function StudyBoardPage(props) {
+
     const params = useParams();
     const [singleBoard , setSingleBoard] = useState("");
     

@@ -13,7 +13,10 @@ import { useMaxValueValidateInput } from "../../hooks/inputHook";
 import { QUILL_MODULES } from "../../constants/quillModules";
 import DeclareModal from "../../components/Modal/DeclareModal";
 import { useParams } from "react-router-dom";
+import { useAuthCheck } from "../../hooks/useAuthCheck";
 function DeclareStudyPage(props) {
+    useAuthCheck();
+
     const params = useParams();
     const [quillValue , handleQuillValueChange] = useQuill();
     const reactQuillRef = useRef();
