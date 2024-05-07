@@ -24,6 +24,7 @@ function TeacherBoardPage(props) {
     const [teacherId, setTeacherId] = useState();
     const [userIdByBoard , setUserIdByBoard] = useState();
     const [genderType , setGenderType] = useState();
+    const [ roleId, setRoleId ] = useState(0);
 
     const principalQuery = useQuery(
         ["principalQuery"],
@@ -35,6 +36,7 @@ function TeacherBoardPage(props) {
                 console.log("principal Success");
                 console.log(response);
                 setUserId(response.data.userId);
+                setRoleId(response.data.roleId);
             },
             onError: error => {
                 console.log("principal Error");
@@ -172,17 +174,22 @@ const getTeacherGender = useQuery(
                     {singleBoard.viewCount}</div>
 
                     {
+                        roleId === 3 ? 
+                        <>
+                            <button css={s.optionButton} onClick={handleDeleteClick}>삭제</button>
+                        </>
+                        :
                         teacherId === userIdByBoard ?
-                    <>    
-                        <Link to={`/teacher/board/update/${singleBoard.teacherBoardId}`}>
-                        <button css={s.optionButton}>수정</button>
-                        </Link>
-                        <button css={s.optionButton} onClick={handleDeleteClick}>삭제</button>
-                    </>
+                        <>    
+                            <Link to={`/teacher/board/update/${singleBoard.teacherBoardId}`}>
+                                <button css={s.optionButton}>수정</button>
+                            </Link>
+                            <button css={s.optionButton} onClick={handleDeleteClick}>삭제</button>
+                        </>
                     :
-                    <div css={s.blank}>
-                        <button onClick={handleDeclareClick} css={s.optionButton}>신고</button>
-                    </div>
+                        <div css={s.blank}>
+                            <button onClick={handleDeclareClick} css={s.optionButton}>신고</button>
+                        </div>
                     }
                 </div>
 

@@ -8,8 +8,7 @@ export const useTeacherCheck = () => {
             const tokenPayLoad = token.split('.')[1];
             try {
                 const decodedPayload = JSON.parse(atob(tokenPayLoad));
-                console.log(decodedPayload)
-                if(decodedPayload.roleId !== 2) {
+                if(decodedPayload.roleId === 1) {
                     alert("권한이 없습니다.")
                     window.location.replace(`/`);
                 }
