@@ -108,7 +108,6 @@ export const mypageContentLayout = css`
 
 export const mypageContentTitle = () => css`
     display: flex;
-    border-bottom: 1px solid #dbdbdb;
     /* border: 1px solid black; */
 
     div:nth-of-type(1) {
@@ -131,7 +130,7 @@ export const mypageContentTitle = () => css`
 
         :hover{
             font-weight: 700;
-            color: #9e9e9e;
+            color: #5d5b5b;
         }
         
     }
@@ -160,21 +159,36 @@ export const mypageContentTitle = () => css`
 
         :hover{
             font-weight: 700;
-            color: #9e9e9e;
+            color: #5d5b5b;
         }
     }
     div:nth-of-type(4){
-        margin: 0px 20px 0px 20px;
-
-        height: 60px;
-        width: 100px;
+        height: 40px;
+        margin-top: 10px;
+        border: 1px solid #dbdbdb;
     }
     div:nth-of-type(5){
+        display: flex;
+        align-items: center;
+        justify-content: center;
         margin: 0px 20px 0px 20px;
 
         height: 60px;
         width: 100px;
+
+        font-size: 16px;
+
+        min-width: 80px;
+        color: #aaaaaa;
+
         /* border: 1px solid black; */
+        background-color: transparent;
+        cursor: pointer;
+
+        :hover{
+            font-weight: 700;
+            color: #5d5b5b;
+        }
 
     }
     div:nth-of-type(6){
@@ -196,10 +210,11 @@ export const mypageContentTitle = () => css`
 `;
 
 export const mypageContent = css`
+    border: 1px solid #85d3d6;
+    border-radius: 4px;
     box-sizing: border-box;
     width: 100%;
-    min-height: 554px;
-    background-color: rgb(248 248 248);
+    min-height: 400px;
 `;
 
 export const contentListLayout = css`
@@ -209,9 +224,9 @@ export const searchButton = css`
     display: flex;
     align-items: center;
     font-size: 15px;
-    height: 31px;
-    background-color: white;
     border: 1px solid #dbdbdb;
+    height: 30px;
+    background-color: white;
     border-top-right-radius: 5px;
     border-bottom-right-radius: 5px;
     border-left: none;
@@ -242,13 +257,14 @@ export const inputBox = css`
     height: 27px;
     outline: none;
     padding-left: 10px;
+    border-right: none;
 `;
 
 export const boardListHeader = css`
 box-sizing: border-box;
 display: flex;
 width: 100%;
-border-bottom:2px solid #dbdbdb ;
+border-bottom:2px solid #b3d4d4 ;
 & > div{
     display: flex;
     justify-content: center;
@@ -313,10 +329,17 @@ export const imgBox = css`
         height: 100%;
     }
 `;
+export const nickname = css`
+display: flex;
+justify-content: center;
+margin-right: 20px;
+`;
 
 export const profileContent = css`
+
     width: 100%;
-    margin-top: 20px;
+    margin-top: 103px;
+    margin-left: 60px;
     div:nth-of-type(1) {
         font-size: 20px;
     }
@@ -398,7 +421,6 @@ export const teacherProfileContent = css`
 
 export const boardListItem = css`
 
-   
     cursor: pointer;
     color: #222;
     text-decoration: none;
@@ -407,7 +429,7 @@ export const boardListItem = css`
         width: 100%;
         border-bottom:1px solid #dbdbdb ;
         &:hover{
-            background-color: beige;
+            background-color: #e1f5fd;
         }
 
         & > div{
@@ -457,14 +479,27 @@ export const teacherInfoLayout = css`
     width: 100%;
     min-height: 144px;
     border-bottom: 1px solid #dbdbdb;
-    
-
+    border-top: 1px solid #dbdbdb;
+   
 `;
+
 export const teacherInfo = css`
+margin-left: 5px;
     font-size: 16px;
     font-weight: 500;
 `;
+
 export const teacherInfoContent = css`
+    display: flex;
+    width: 100%;
+    margin-top: 16px;
+    div:nth-of-type(1) {
+        margin-left: 5px;
+        font-size: 15px;
+    }
+`;
+
+export const teacherInfoContent2 = css`
     display: flex;
     width: 100%;
     margin-top: 16px;
@@ -472,6 +507,7 @@ export const teacherInfoContent = css`
     div:nth-of-type(1) {
         width: 84px;
         font-size: 15px;
+        margin-left: 5px;
         
     }
     div:nth-of-type(2) {

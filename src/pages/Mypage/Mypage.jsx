@@ -281,14 +281,15 @@ function Mypage(props) {
                                         </Link>
                                     ))}
                                 </div>
-                                <div css={s.pageNumber}>
+                               
+                            </div>
+                            </>
+                        }
+                         <div css={s.pageNumber}>
                                     <div css={s.page}>
                                         <StudentProfileCount boardCount={getStudentMypageCountQuery.data?.data}/>
                                     </div>
                                 </div>
-                            </div>
-                            </>
-                        }
                     
                 </div>                
             </div>

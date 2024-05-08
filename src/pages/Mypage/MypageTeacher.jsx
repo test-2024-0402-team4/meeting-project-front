@@ -15,6 +15,7 @@ import { CiLocationOn } from "react-icons/ci";
 import { FiBook } from "react-icons/fi";
 import { useAuthCheck } from "../../hooks/useAuthCheck";
 import { useTeacherCheck } from "../../hooks/useTeacherCheck";
+import Age from "../../components/GetAge/Age";
 
 function MypageTeacher(props) {
     useAuthCheck();
@@ -103,6 +104,12 @@ function MypageTeacher(props) {
         window.location.replace(`/teacher/mypage/modify?userId=${userId}`);
     }
 
+    const myBoard = () => {
+        window.location.replace(`/teacher/${userId}/mypage/study?page=1`);
+    }
+    
+    
+
     return (
         <div css={s.layout}>
             <div css={s.mypageLayout}>                
@@ -120,7 +127,7 @@ function MypageTeacher(props) {
                                     <button onClick={handleModifyOnClick}>정보 수정</button> 
                                 </div>
                                 <div css={s.profileContent}>
-                                    <div>{teacherProfileQuery?.data.data.nickname}</div>
+                                    <div css={s.nickname}>{teacherProfileQuery?.data.data.nickname}</div>
                                     <div>
                                         <span>{teacherProfileQuery?.data.data.universityName}</span>
                                         <span>{teacherProfileQuery?.data.data.departmentName}</span>
@@ -177,7 +184,7 @@ function MypageTeacher(props) {
                             내가 쓴 글
                         </div>
                         <div></div>
-                        <div></div>
+                        <div onClick={() => myBoard()}>공부방</div>
                         <div></div>
                         <div></div>
                         {
@@ -210,18 +217,18 @@ function MypageTeacher(props) {
                                 </div>
                                 <div css={s.teacherInfoContent}>
                                     <div>
-                                        성별
+                                        성별 :  
                                     </div>
                                     <div>
-                                        {teacherProfileQuery?.data.data.genderType}
+                                         {teacherProfileQuery?.data.data.genderType}
                                     </div>
                                 </div>
                                 <div css={s.teacherInfoContent}>
                                     <div>
-                                        나이
+                                        나이 : 
                                     </div>
                                     <div>
-                                        만 25세
+                                    만 {Age(teacherProfileQuery?.data.data.birthDate)} 세
                                     </div>
                                 </div>
                             </div>
@@ -231,7 +238,7 @@ function MypageTeacher(props) {
                                 </div>
                                 <div css={s.teacherInfoContent}>
                                     <div>
-                                        대학명
+                                        대학명 :
                                     </div>
                                     <div>
                                         {teacherProfileQuery?.data.data.universityName}
@@ -239,7 +246,7 @@ function MypageTeacher(props) {
                                 </div>
                                 <div css={s.teacherInfoContent}>
                                     <div>
-                                        학과명
+                                        학과명 :
                                     </div>
                                     <div>
                                         {teacherProfileQuery?.data.data.departmentName}
@@ -247,7 +254,7 @@ function MypageTeacher(props) {
                                 </div>
                                 <div css={s.teacherInfoContent}>
                                     <div>
-                                        재학상태
+                                        재학상태 :
                                     </div>
                                     <div>
                                         {teacherProfileQuery?.data.data.graduateState}
@@ -259,9 +266,7 @@ function MypageTeacher(props) {
                                     대면 수업 가능 지역
                                 </div>
                                 <div css={s.teacherInfoContent}>
-                                    <div>
-                                        지역
-                                    </div>
+                                    
                                     <div>
                                     {
                                         teacherProfileQuery?.data.data.regionNames.length === 0 ?
@@ -277,9 +282,7 @@ function MypageTeacher(props) {
                                     대면 수업 가능 요일
                                 </div>
                                 <div css={s.teacherInfoContent}>
-                                    <div>
-                                        요일
-                                    </div>
+                                   
                                     <div>
                                         {
                                             teacherProfileQuery?.data.data.dateNames.length === 0 ?
@@ -295,9 +298,7 @@ function MypageTeacher(props) {
                                     수업 과목
                                 </div>
                                 <div css={s.teacherInfoContent}>
-                                    <div>
-                                        과목
-                                    </div>
+                                   
                                     <div>
                                         {
                                             teacherProfileQuery?.data.data.subjectNames.length === 0 ?
@@ -312,7 +313,7 @@ function MypageTeacher(props) {
                                 <div css={s.teacherInfo}>
                                     수업 소개
                                 </div>
-                                <div css={s.teacherInfoContent}>
+                                <div css={s.teacherInfoContent2}>
                                     <div>
                                         한줄 소개
                                     </div>
@@ -354,14 +355,20 @@ function MypageTeacher(props) {
                             )
                         }
                         </div>
+                        
+                    </div>  
+                    }  
+                    {
+                    content === 0 ? <div></div> : (
                         <div css={s.pageNumber}>
                             <div css={s.page}>
-                                <TeacherProfileCount boardCount={getTeacherMypageCountQuery.data?.data}/>
+                                <TeacherProfileCount boardCount={getTeacherMypageCountQuery.data?.data} />
                             </div>
                         </div>
-                    </div>  
-                    }                                      
-                </div>                
+                        )
+                    }                                 
+                </div>  
+                              
             </div>
         </div>
     );

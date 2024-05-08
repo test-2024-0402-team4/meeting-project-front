@@ -136,8 +136,9 @@ export const mypageContentTitle = () => css`
 
 export const mypageContent = css`
     box-sizing: border-box;
+    border: 1px solid #85d3d6;
     width: 100%;
-    min-height: 554px;
+    min-height: 400px;
 `;
 
 export const contentListLayout = css`
@@ -181,7 +182,7 @@ export const boardListHeader = css`
 box-sizing: border-box;
 display: flex;
 width: 100%;
-border-bottom:2px solid #dbdbdb ;
+border-bottom:2px solid #b3d4d4 ;
 & > div{
     display: flex;
     justify-content: center;
