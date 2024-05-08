@@ -18,7 +18,7 @@ function BoardListPage(props) {
     useStudentCheck();
 
     const [searchParams, setSearchParams] = useSearchParams();
-    const searchCount = 5;
+    const searchCount = 9;
     const [boardList, setBoardList] = useState([]);
     const [timeStamp,setTimeStamp] = useState([]);
     

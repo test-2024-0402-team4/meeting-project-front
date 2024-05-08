@@ -128,6 +128,7 @@ export const boardListItem = css`
         display: flex;
         width: 100%;
         border-bottom:1px solid #dbdbdb ;
+        font-family: Arial, sans-serif;
         &:hover{
             background-color: #e1f5fd;
         }
@@ -137,7 +138,7 @@ export const boardListItem = css`
             justify-content: center;
             align-items: center;
             
-            height: 42px;
+            height: 51.2px;
             width: 80px;
             flex-grow: 1;
            

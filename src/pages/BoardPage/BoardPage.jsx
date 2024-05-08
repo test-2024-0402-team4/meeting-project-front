@@ -151,7 +151,6 @@ const getStudentGender = useQuery(
             <button css={s.authorityButton} onClick={() => linkToStudent()}>학생용</button>
             <button css={s.authorityButton} onClick={() => linkToStudy()}>공부방</button>
         </div>
-        <div css={s.showDate}> {formattedTime} </div>
 
         <div css={s.boardListLayout}>
 
@@ -172,8 +171,19 @@ const getStudentGender = useQuery(
                 )}
 
                     <div>
-                        <div> {singleBoard.title}</div>
-                        <div> {singleBoard.nickname} </div>
+                        <div css={s.title}> {singleBoard.title}</div>
+                        <div css={s.nick}> 
+                            <div>
+                                {singleBoard.nickname}  
+                            </div>
+                            <div>
+                                /
+                            </div>
+                            <div>
+                                {formattedTime} 
+                            </div>
+                        </div>
+
                     </div>
                 </div>
 

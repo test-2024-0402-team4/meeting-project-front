@@ -66,7 +66,7 @@ function TeacherProfileStudyCount({boardCount}) {
                     {
                         page !== 1 &&
                     <Link css={s.pageButton(false)} 
-                    to={`/teacher/${userId}/mypage/study?page=1`}>처음으로</Link>
+                    to={`/teacher/${userId}/mypage?page=1`}>처음으로</Link>
                     }
 
                     {
@@ -74,28 +74,28 @@ function TeacherProfileStudyCount({boardCount}) {
                         page> 5 
                         ? 
                         <Link css={s.pageButton(false)}
-                        to={`/teacher/${userId}/mypage/study?page=${startPageNumber - 5}`}>&#171;</Link>
+                        to={`/teacher/${userId}/mypage?page=${startPageNumber - 5}`}>&#171;</Link>
                         :
                         page !== 1 &&
                         <Link css={s.pageButton(false)} 
-                        to={`/teacher/${userId}/mypage/study?page=1`}>&#171;</Link>
+                        to={`/teacher/${userId}/mypage?page=1`}>&#171;</Link>
                     }
 
                     {
                         page !== 1 &&
                         <Link css={s.pageButton(false)} 
-                        to={`/teacher/${userId}/mypage/study?page=${page -1}`}>&#60;</Link>
+                        to={`/teacher/${userId}/mypage?page=${page -1}`}>&#60;</Link>
                     }
                 </div>
                 
                 {
                     numbers.map(number =>
-                        <Link key={number} css={s.pageButton(number === page)} to={`/teacher/${userId}/mypage/study?page=${number}`}>{number}</Link>)
+                        <Link key={number} css={s.pageButton(number === page)} to={`/teacher/${userId}/mypage?page=${number}`}>{number}</Link>)
                 }
                 <div css={s.sideBox2}>
                     {
                         page !== maxPageNumber &&
-                    <Link css={s.pageButton(false)} to={`/teacher/${userId}/mypage/study?page=${page +1}`}>&#62;</Link>
+                    <Link css={s.pageButton(false)} to={`/teacher/${userId}/mypage?page=${page +1}`}>&#62;</Link>
                     }
 
                     {
@@ -103,16 +103,16 @@ function TeacherProfileStudyCount({boardCount}) {
                         page < maxPageNumber -5
                         ?
                         <Link css={s.pageButton(false)}
-                        to={`/teacher/${userId}/mypage/study?page=${startPageNumber + 5}`}>&#187;</Link>
+                        to={`/teacher/${userId}/mypage?page=${startPageNumber + 5}`}>&#187;</Link>
                         :
                         page !== maxPageNumber &&
                         <Link css={s.pageButton(false)}
-                        to={`/teacher/${userId}/mypage/study?page=${maxPageNumber}`}>&#187;</Link>
+                        to={`/teacher/${userId}/mypage?page=${maxPageNumber}`}>&#187;</Link>
                     }
                     {
                         page !== maxPageNumber &&
                     <Link css={s.pageButton(false)}
-                    to={`/teacher/${userId}/mypage/study?page=${maxPageNumber}`}>마지막으로</Link>
+                    to={`/teacher/${userId}/mypage?page=${maxPageNumber}`}>마지막으로</Link>
                     }
                 </div>
                 

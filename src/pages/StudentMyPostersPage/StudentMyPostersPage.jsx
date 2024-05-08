@@ -93,12 +93,15 @@ function StudentMyPostersPage(props) {
                         </span>
                     </div>
                     <div>
-                        <span>
+                        <span css={s.gender}>
                             {profile.data?.genderType}학생
                         </span>
                         <span>
                             {profile.data?.regionName}
                         </span>
+                        <div css={s.email}>
+                            이메일 : {profile.data?.email}
+                        </div>
                     </div>
                 </div>
             </div>
