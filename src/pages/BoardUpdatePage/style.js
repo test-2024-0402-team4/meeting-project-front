@@ -82,6 +82,7 @@ width: 500px;
 height: 40px;
 border: none;
 border-bottom: 1px solid #dbdbdb;
+font-family: Arial, sans-serif;
 `;
 
 export const quill = css`

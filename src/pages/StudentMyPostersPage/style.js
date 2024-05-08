@@ -14,11 +14,18 @@ export const profileLayout = css`
     position: relative;
     box-sizing: border-box;
     padding: 28px 20px 0px 0px;
-    width: 300px;
+    width: 255px;
     height: 618px;
     min-width: 255px;
     border-right: 1px solid #dbdbdb;
 
+`;
+export const email = css`
+margin-top: 10px;
+`;
+
+export const gender = css`
+margin-left: 30px;
 `;
 export const profile = css`
     position: sticky;

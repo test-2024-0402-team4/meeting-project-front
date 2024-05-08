@@ -143,8 +143,6 @@ const getTeacherGender = useQuery(
             <button css={s.authorityButton}>선생님용</button>
             <button css={s.authorityButton}>공부방</button>
         </div>
-        
-        <div css={s.showDate}> {formattedTime} </div>
 
         <div css={s.boardListLayout}>
            <div css={s.boardPageProfile}>
@@ -161,9 +159,20 @@ const getTeacherGender = useQuery(
                 <div css={s.boardPageProfileImg}>
                     <img src="https://kimstudy.com/_next/static/media/circle_profile_girl.93ffff47.svg" alt="" />
                 </div>
-                )}                        <div>
-                            <div> {singleBoard.title}</div>
-                            <div> {singleBoard.nickname} </div>
+                )}                       
+                 <div>
+                    <div css={s.title}> {singleBoard.title}</div>
+                            <div css={s.nick}> 
+                                <div>
+                                    {singleBoard.nickname}  
+                                </div>
+                                <div>
+                                    /
+                                </div>
+                                <div>
+                                    {formattedTime} 
+                                </div>
+                        </div>
                         </div>
                 </div>
                 <div css={s.optionButtons}>

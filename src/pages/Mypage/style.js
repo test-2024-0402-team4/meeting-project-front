@@ -115,7 +115,7 @@ export const mypageContentTitle = () => css`
     box-sizing: border-box;
     display: flex;
     padding-top: 28px;
-    border-bottom: 1px solid #e5e7eb;
+  //  border-bottom: 1px solid #e5e7eb;
     & > div {
         padding: 0px 20px 10px;
         font-size: 16px;
@@ -139,6 +139,7 @@ export const mypageContent = css`
     border: 1px solid #85d3d6;
     width: 100%;
     min-height: 400px;
+    border-radius: 4px;
 `;
 
 export const contentListLayout = css`
@@ -176,6 +177,9 @@ export const noSearch = css`
 display: flex;
 align-items: center;
 justify-content: center;
+border-top: 1px solid #dbdbdb;
+margin-top: 5px;
+padding-top: 25px;
 `;
 
 export const boardListHeader = css`
