@@ -18,6 +18,7 @@ export const main = css`
     
     height: 430px;
     width: 100%;
+    min-width: 1300px;
 
     // 다하고 지우기 ----------------------------------------
     /* border: 1px solid black; */
@@ -77,7 +78,7 @@ export const dataInputBox = css`
     margin: 10px 20px;
     border-radius: 5px;
 
-    min-width: 380px;
+    min-width: 400px;
     background-color: rgb(248 248 248);
     cursor: pointer;
     &:hover {
@@ -256,6 +257,7 @@ export const bottom = css`
     display: flex;
     flex-direction: column;
     margin: 10px 20px 0px 20px;
+    min-width: 1300px;
 
     // 다하고 지우기 -------------------------------
     /* border: 1px solid black; */
@@ -266,7 +268,7 @@ export const profileCard = css`
     display: flex;
     justify-content: space-around;
     align-items: center;
-    min-width: 1155px;
+    min-width: 1200px;
 
     width: 100%;
     height: 300px;

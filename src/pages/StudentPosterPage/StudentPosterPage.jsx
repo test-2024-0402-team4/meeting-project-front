@@ -11,6 +11,8 @@ import { PulseLoader } from "react-spinners";
 import { useAuthCheck } from '../../hooks/useAuthCheck';
 import { useTeacherCheck } from '../../hooks/useTeacherCheck';
 import { useAuthEmailCheck } from '../../hooks/useAuthEmailCheck';
+import Modal from 'react-modal';
+import { GrClose } from "react-icons/gr";
 
 
 function StudentPosterPage(props) {
@@ -25,6 +27,9 @@ function StudentPosterPage(props) {
     const [roleId, setRoleId] = useState(0);
     const [email, setEmail] = useState();
 
+    const [ createDate, setCreateDate ] = useState();
+    const [ updateDate, setUpdateDate ] = useState();
+
     const queryClient = useQueryClient();
     const [profile,setProfile] = useState({});
     const navigate = useNavigate();
@@ -33,10 +38,7 @@ function StudentPosterPage(props) {
     
     useEffect(() => {
         getPosterStudentProfile();
-        setRoleId(principalData.data.roleId)
-        console.log(poster);
-        console.log(profile);
-        
+        setRoleId(principalData.data.roleId)        
     }, [poster])
 
     // 만나이 계산기
@@ -62,8 +64,10 @@ function StudentPosterPage(props) {
             retry: 0,
             refetchOnWindowFocusf: false,
             onSuccess: response => {
-                console.log("학생 포스터 가져오기");
-                console.log(response.data);
+                // console.log("학생 포스터 가져오기");
+                // console.log(response);
+                setCreateDate(response.data.createDate.substr(0, 10));
+                setUpdateDate(response.data.updateDate.substr(0, 10));
                 setPoster(response.data);
                 setUserId(response.data.userId);
             },
@@ -77,6 +81,7 @@ function StudentPosterPage(props) {
     const getPosterStudentProfile = async () => {
         try {
             const response = await getTuteeProfile({userId: userId})
+            // console.log(response);
             setProfile(response.data)
         } catch (error) {
             
@@ -87,14 +92,21 @@ function StudentPosterPage(props) {
         mutationKey: "sendTeacherProfile",
         mutationFn: sendEmailTeacherProfile,
         onSuccess: response => {
-            alert("메일 전송 완료")
+            alert("성공적으로 프로필이 전송되었습니다.");
+            setModalIsOpen(false);
         }
     })
 
     const handleSendTeacherProfile = async () => {
-        if(window.confirm("프로필을 보내시겠습니까?")) {
-            sendTeacherProfile.mutate({email: poster.email, userId: principalData.data.userId})
-        }
+        sendTeacherProfile.mutate({email: poster.email, userId: principalData.data.userId})
+    }
+
+    const [ modalIsOpen, setModalIsOpen ] = useState(false);
+    const openModal = () => {
+        setModalIsOpen(true);
+    }
+    const closeModal = () => {
+        setModalIsOpen(false);
     }
     const handleDeleteOnClick = () => {
         studentMyPosterDeleteRequest(posterId)
@@ -113,6 +125,7 @@ function StudentPosterPage(props) {
                         <div css={s.profileImgLayout}>
                            <img src={profile?.userImgUrl} />
                         </div>
+                        
                         <div>
                             <span>
                                 {profile?.nickname}
@@ -129,6 +142,38 @@ function StudentPosterPage(props) {
                                 {profile?.regionName}
                             </span>
                         </div>
+
+                        <button onClick={openModal} css={s.applyButton} >프로필 보내기</button>
+                        <Modal css={s.modal} isOpen={modalIsOpen} onRequestClose={closeModal}>
+                            <div css={s.modalHead}>
+                                <span>프로필 보내기</span>
+                                <button onClick={closeModal}><GrClose /></button>
+                            </div>
+                            <div css={s.modalContent}>
+                                <span>{profile?.nickname}에게</span>
+                                <span>프로필을 보내시겠습니까?</span>
+                            </div>
+                            <div css={s.modalButton}>
+                            <button onClick={() => handleSendTeacherProfile()}>
+                            {
+                                !sendTeacherProfile.isLoading ?
+                                <div>
+                                    프로필 보내기
+                                </div>
+                                :
+                                <div>
+                                    메일 보내는 중
+                                    <PulseLoader 
+                                    color="#11b69a"
+                                    loading
+                                    size={10}
+                                    />
+                                </div>
+                            }
+                            </button>
+                            </div>
+                        </Modal>
+{/* 
                         <button onClick={() => handleSendTeacherProfile()} css={s.applyButton}>
                             {
                                 !sendTeacherProfile.isLoading ?
@@ -145,14 +190,15 @@ function StudentPosterPage(props) {
                                     />
                                 </div>
                             }
-                        </button>
+                        </button> */}
+
                     </div>
                 </div>
                 <div css={s.studentInfoRootLayout}>
                         <div css={s.studentInfoContainer}>
                             <div css={s.studentInfotitle}>
                                 <div>
-                                    학생 정보
+                                    회원 정보
                                 </div>
                                 {
                                     roleId === 3 ?                                     
@@ -166,80 +212,80 @@ function StudentPosterPage(props) {
                             </div>
                             <div css={s.studentInfoLayout}>
                                 <div css={s.studentInfo}>
-                                    학생 정보
+                                    수업받을 학생 정보
                                 </div>
                                 <div css={s.studentInfoContent}>
                                     <div>
                                         성별
                                     </div>
-                                    <div>
-                                        {poster?.genderType}
+                                    <div css={s.font2}>
+                                        {poster?.genderType}학생 | {profile.studentType}
                                     </div>
                                 </div>
                                 <div css={s.studentInfoContent}>
                                     <div>
                                         나이
                                     </div>
-                                    <div>
+                                    <div css={s.font2}>
                                         만 {age}세
                                     </div>
                                 </div>
                             </div>
                             <div css={s.studentInfoLayout}>
                                 <div>
+                                    <div css={s.studentInfo}>과외 모집공고 내용</div>
                                     <div css={s.studentPosterInfo}>
-                                        대면 수업 가능 요일
+                                        
                                     </div>
                                     <div css={s.studentInfoContent}>
                                         <div>
                                             요일
                                         </div>    
-                                        <div>
+                                        <div css={s.font2}>
                                             {poster?.dateType.map(value => value).join(", ")}
                                         </div>                                
                                     </div>
                                 </div>
                                 <div>
                                     <div css={s.studentPosterInfo}>
-                                        대면 수업 가능 지역
                                     </div>
                                     <div css={s.studentInfoContent}>
                                         <div>
                                             지역
                                         </div>
-                                        <div>
+                                        <div css={s.font}>
                                             {poster?.regionName}   
                                         </div>
                                     </div>
                                 </div>
                                 <div>
                                     <div css={s.studentPosterInfo}>
-                                        원하는 수업 과목
                                     </div>
                                     <div css={s.studentInfoContent}>
                                         <div>
                                             과목
                                         </div>
-                                        <div>
+                                        <div css={s.font}>
                                             {poster?.subjectName.map(value => value).join(", ")}
                                         </div>
                                     </div>
                                 </div>
                                 <div>
                                     <div css={s.studentPosterInfo}>
-                                        수업 방식
                                     </div>
                                     <div css={s.studentInfoContent}>
-                                        <div>
+                                        <div>과외 방식</div>
+                                        <div css={s.font2}>
                                             {poster?.classType.map(value => value).join(", ")}
                                         </div>
                                     </div>
                                 </div>
                             </div>
+
                             <div css={s.studentInfoLayout}>
                                 <div>
                                     <div css={s.studentPosterInfo}>
-                                        수업 요청 사항
+                                        요청 사항
                                     </div>
                                     <div css={s.Postercontent}>
                                         <div>
@@ -248,6 +294,28 @@ function StudentPosterPage(props) {
                                     </div>
                                 </div>
                             </div>
+
+                            <div css={s.studentInfoLayout}>
+                                <div>
+                                    <div css={s.studentInfoContent}>
+                                        <div>
+                                            과외 등록일
+                                        </div>
+                                        <div css={s.font2}>
+                                            <span>{createDate}</span>
+                                        </div>
+                                    </div>
+                                    <div css={s.studentInfoContent}>
+                                        <div>
+                                            최종 수정일
+                                        </div>
+                                        <div css={s.font2}>
+                                            <span>{updateDate}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
                         </div>
                     </div>
             </div>

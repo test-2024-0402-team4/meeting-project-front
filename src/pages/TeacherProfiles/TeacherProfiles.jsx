@@ -9,6 +9,8 @@ import TeacherProfile from "../TeacherProfile/TeacherProfile";
 import { useQuery, useQueryClient } from "react-query";
 import { FaRegCircleXmark } from "react-icons/fa6";
 import Select from "react-select";
+import { IoCloseOutline } from "react-icons/io5";
+import { BiSolidBookAlt } from "react-icons/bi";
 import { getClassType, getDate, getRegion, getSubject } from "../../apis/api/Option";
 import { useAuthCheck } from "../../hooks/useAuthCheck";
 import { useStudentCheck } from "../../hooks/useStudentCheck";
@@ -52,10 +54,9 @@ function TeacherProfiles() {
     const selectStyle = {
         control: baseStyles => ({
             ...baseStyles,
-            border: "1px solid #9decdb",
-            borderRadius: "4px",
-            width: "220px",
-            heighy:"100%"
+            border: "none",
+            width: "210px",
+            height: "36px"
         })
     }
 
@@ -191,7 +192,7 @@ function TeacherProfiles() {
                             </div>
                         </div>
                         <div css={s.filterContentLayout}>
-                            필터로 검색
+                            <span>필터로 검색</span>
                             {filterModal === 1 ? (
                                 <>
                                     <div css={s.filiterModal(1)}>
@@ -201,7 +202,7 @@ function TeacherProfiles() {
                                             <input style={{marginLeft:"10px"}} type="radio" name="gender" value="2" onChange={handleGenderChange} /> 여자
                                         </div>
                                         <div onClick={() => setFilterModal(() => 0)} css={s.xMark}>
-                                            <FaRegCircleXmark />
+                                            <IoCloseOutline />
                                         </div>
                                     </div>
                                 </>
@@ -210,7 +211,7 @@ function TeacherProfiles() {
                                         <div css={s.filiterModal(2)}>
                                             <Select styles={selectStyle} key={"subjects"} options={subjects} placeholder="과목명" value={searchData.subjects} onChange={handleSubjectOption} isMulti/>
                                             <div onClick={() => setFilterModal(() => 0)} css={s.xMark}>
-                                                <FaRegCircleXmark />
+                                                <IoCloseOutline />
                                             </div>
                                         </div>
                                     </>
@@ -219,7 +220,7 @@ function TeacherProfiles() {
                                         <div css={s.filiterModal(3)}>
                                             <Select styles={selectStyle} key={"region"} options={region} placeholder="지역" value={searchData.regions} onChange={handleRegionOption} isMulti/>                        
                                             <div onClick={() => setFilterModal(() => 0)} css={s.xMark}>
-                                                <FaRegCircleXmark />
+                                                <IoCloseOutline />
                                             </div>
                                         </div>
                                     </>
@@ -228,7 +229,7 @@ function TeacherProfiles() {
                                         <div css={s.filiterModal(4)}>
                                             <Select styles={selectStyle} key={"date"} options={date} placeholder="요일" value={searchData.dates} onChange={handleDateOption} isMulti/>
                                             <div onClick={() => setFilterModal(() => 0)} css={s.xMark}>
-                                                <FaRegCircleXmark />
+                                                <IoCloseOutline />
                                             </div>
                                         </div>
                                     </>
@@ -237,7 +238,7 @@ function TeacherProfiles() {
                                         <div css={s.filiterModal(5)}>
                                             <Select styles={selectStyle} key={"classType"} options={classType}  placeholder="수업방식" value={searchData.classTypes} onChange={handleClassTypeOption}isMulti/>
                                             <div onClick={() => setFilterModal(() => 0)} css={s.xMark}>
-                                                <FaRegCircleXmark />
+                                                <IoCloseOutline />
                                             </div>
                                         </div>
                                     </>
@@ -282,6 +283,10 @@ function TeacherProfiles() {
                     </div>
                 </div>
                 <div onClick={() => setFilterModal(() => 0)} css={s.teacherProfiles}>
+                    
+                    <div css={s.profileTitle}>
+                        <span>선생님 목록</span>
+                    </div>
                     <div css={s.teacherProfileContainer}>
                         {
                             teacherProfiles.length === 0 
@@ -301,14 +306,14 @@ function TeacherProfiles() {
                                             <span>학번 </span>
                                         </div>
                                         <div>
-                                            수업 과목: {teacherProfile.subjectNames.map((subjectName, index) => (
+                                            <BiSolidBookAlt />전문 과목: {teacherProfile.subjectNames.map((subjectName, index) => (
                                                 <span key={index}>
                                                     {subjectName}
                                                     {index < teacherProfile.subjectNames.length - 1 && ','}
                                                 </span>
                                             ))}
                                         </div>
-                                        <div>수업방식: {teacherProfile.classTypeNames.map((classTypeName, index) => (
+                                        <div>과외방식: {teacherProfile.classTypeNames.map((classTypeName, index) => (
                                                 <span key={index}>
                                                     {classTypeName}
                                                     {index < teacherProfile.classTypeNames.length - 1 && ','}

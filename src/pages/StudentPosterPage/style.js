@@ -27,17 +27,19 @@ export const profile = css`
     box-sizing: border-box;
     height: 100%;
 
+    // 다하고 지우기 --------------------------------
+    /* border: 1px solid black; */
 
     & > div:nth-of-type(2) {
         display: block;
         position: absolute;
         font-size: 20px;
         font-size: 700;
-        top: 170px;
+        top: 190px;
     }
     & > div:nth-of-type(3) {
         position: absolute;
-        top: 210px;
+        top: 230px;
         font-size: 14px;
         font-size: 500;
         & > span:nth-of-type(1) {
@@ -47,12 +49,13 @@ export const profile = css`
         & > span:nth-of-type(2) {
             padding-left: 10px;
         }
-
     }
+
     & > button {
-        top: 250px;
+        top: 260px;
     }
 `;
+
 export const profileUpdateButton = css`
     position: absolute;
     right: 10px;
@@ -63,8 +66,8 @@ export const profileImgLayout = css`
     position: absolute;
 
     display: flex;
-    width: 100px;
-    height: 100px;
+    width: 150px;
+    height: 150px;
     left: 50%;
     top: 100px;
     transform: translate(-50%, -50%);
@@ -73,6 +76,7 @@ export const profileImgLayout = css`
     justify-content: center;
     align-items: center;
     overflow: hidden;
+
     & > img{
         height: 100%;
     }
@@ -80,28 +84,37 @@ export const profileImgLayout = css`
 `;
 
 export const roleName = css`
-    background-color: #dbdbdb;
+    background-color: #f0f0f0;
     padding: 3px;
     border-radius: 5px;
-    font-size: 11px;
     margin-left: 7px;
+
+    color: #5d5d5d;
+    font-size: 11px;
 `;
 
 export const applyButton = css`
     position: absolute;
-
-    margin-top: 10px;
-    padding: 12px 16px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
     width: 100%;
     height: 55px;
-    background-color: #14dbba;
+    
+    margin-top: 10px;
+    padding: 12px 16px;
+
     border: none;
-    border-radius: 8px;
+    border-radius: 5px;
     font-size: 16px;
-    color: white;
+    color: #11b69a;
+    background-color: #d9fcf6;
+
     cursor: pointer;
+
     :hover {
-        background-color: #11b69a;
+        background-color: #9decdb;
     }
 `;
 
@@ -142,14 +155,13 @@ export const buttonLayout = css`
 export const studentInfotitle = css`
     box-sizing: border-box;
     display: flex;
-    justify-content: space-between;
-    
-    & > div:nth-of-type(1) {
-        margin-left: 20px;
-
-        padding-bottom: 20px;
-        font-size: 16px;
-        font-weight: 600;
+    color: #242424;
+    font-size: 16px;
+    font-weight: 600;
+    & > div {
+        margin-left: 17px;
+        padding-bottom: 10px;
+        justify-content: space-between;
         height: 25px;
         border-bottom: 2px solid black ;
     }
@@ -175,14 +187,27 @@ export const studentInfoLayout = css`
 `;
 export const studentInfo = css`
     font-size: 16px;
-    font-weight: 500;
+    font-weight: 600;
+    margin-bottom: 20px;
+    color: #242424;
 `;
 export const studentPosterInfo = css`
 
+    color: #242424;
     font-size: 16px;
-    font-weight: 500;
-    margin-top: 10px;
+    font-weight: 600;
 `;
+
+export const font = css`
+    color: #11b69a;
+    font-weight: 600;
+`;
+
+export const font2 = css`
+    color: #5d5d5d;
+    font-weight: 600;
+`;
+
 export const studentInfoContent = css`
     color: #aaaaaa;
 
@@ -193,12 +218,10 @@ export const studentInfoContent = css`
     div:nth-of-type(1) {
         width: 84px;
         font-size: 15px;
-        
-        
     }
     div:nth-of-type(2) {
         margin-left: 5px;
-        font-size: 14px;
+        font-size: 15px;
     }
 `;
 export const Postercontent = css`
@@ -213,6 +236,116 @@ export const Postercontent = css`
         font-size: 15px;
         
     }
+`;
+
+
+export const modal = css`
+    z-index: 999;
+
+    position: fixed;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     
+    width: 300px;
+    height: 200px;
+
+    border: 1px solid #dbdbdb;
+    border-radius: 5px;
+    background-color: white;
+
+    animation: modaldown 0.3s;
+    @keyframes modaldown {
+        from {
+            opacity: 0;
+            transform: translate(-50%, -55%);
+        }
+        to {
+            opacity: 1;
+            transform: translate(-50%, -50%);
+        }
+    }
+`;
+
+export const modalHead = css`
+
+    display: flex;
+    justify-content: space-between;
+
+    width: 90%;
+    height: 35px;
+    color: #808080;
+    font-size: 25px;
+
+    & > button{
+        background-color: transparent;
+        border: none;
+        font-size: 20px;
+        cursor: pointer;
+    }
+
+    // 다하고 지우기 -----------------------
+    /* border: 1px solid black; */
+`; 
+
+export const modalContent = css`
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    width: 90%;
+    height: 40%;
+    color: #808080;
+
+    // 다하고 지우기 ----------------------------
+    /* border: 1px solid #dbdbdb; */
+    border-radius: 5px;
+    
+`;
+
+export const modalButton = css`
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+
+    width: 90%;
+
+    // 다하고 지우기 ----------------------------
+    /* border: 1px solid black; */
+
+    & > button{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        margin-top: 10px;
+        
+        width: 90%;
+        height: 32px;
+        
+        cursor: pointer;
+        
+        border: none;
+        border-radius: 5px;
+
+        font-size: 13px;
+        
+        color: #808080;
+        background-color: #f0f0f0;
+
+        :hover {
+            background-color: #e1e1e1;
+        }
+        :active{
+            background-color: #f1f1f1;
+        }
+
+    }
 `;
 
