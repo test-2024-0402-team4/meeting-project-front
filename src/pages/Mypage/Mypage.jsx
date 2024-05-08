@@ -18,11 +18,10 @@ import { useAuthEmailCheck } from "../../hooks/useAuthEmailCheck";
 import StudentProfileStudyCount from "../../components/BoardPageCount/StudentProfileStudyCount";
 
 function Mypage(props) {
+    const { userId } = useParams();
     useAuthCheck();
     useStudentCheck();
 
-
-    const { userId } = useParams();
     const [searchParams, setSearchParams] = useSearchParams();
     const searchCount = 5;
     const [boardList, setBoardList] = useState([]);
@@ -34,7 +33,7 @@ function Mypage(props) {
     const navigate = useNavigate();
 
     const studentProfileQuery = useQuery(
-        ["studentProfileQuery"],
+        ["studentProfileQuery", userId],
         async() => await getStudentProfile(userId),
         {
             refetchOnWindowFocus: false
@@ -64,8 +63,6 @@ function Mypage(props) {
             }
         }
     );
-
-    
 
     const searchSubmit = () => {
         if(userId){
