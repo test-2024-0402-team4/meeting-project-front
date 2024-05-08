@@ -153,7 +153,6 @@ function StudyBoardPage(props) {
     ):null}
         </div>
         
-        <div css={s.showDate}> {formattedTime} </div>
         <div css={s.boardListLayout}>
 
            <div css={s.boardPageProfile}>
@@ -172,8 +171,18 @@ function StudyBoardPage(props) {
                 </div>
                 )}
                         <div>
-                            <div> {singleBoard.title}</div>
-                            <div> {singleBoard.nickname} </div>
+                            <div css={s.title}> {singleBoard.title}</div>
+                            <div css={s.nick}> 
+                                <div>
+                                    {singleBoard.nickname}  
+                                </div>
+                                <div>
+                                    /
+                                </div>
+                                <div>
+                                    {formattedTime} 
+                                </div>
+                            </div>
                         </div>
                 </div>
                 <div css={s.optionButtons}>

@@ -21,4 +21,5 @@ export const imgBox = css`
     & > img{
         height: 100%;
     }
+    cursor: pointer;
 `

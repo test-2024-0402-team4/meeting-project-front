@@ -1,5 +1,5 @@
 /** @jsxImportSource @emotion/react */
-import * as s from "./style";
+import * as s from "./teacherStyle";
 
 import { getPrincipalRequest } from "../../apis/api/principal";
 import React, { useEffect, useState } from 'react';
@@ -158,11 +158,16 @@ const myBoard = () => {
                 <div css={s.mypageContentLayout}>
                     <div css={s.mypageContentTitle}>
                         <div onClick={() => myBoard()}>
-                            신청 내역
+                            내 프로필
                         </div>
+                        <div></div>
                         <div onClick={() => myBoard()}>
                             내가 쓴 글
                         </div>
+                        <div></div>
+                        <div onClick={() => myBoard()}>공부방</div>
+                        <div></div>
+                        <div></div>
                         <div css={s.searchInput}>
                 <div css={s.searchContainer}>
                     <input css={s.inputBox} type="text" 
@@ -175,6 +180,8 @@ const myBoard = () => {
                 </div>
             </div>
                     </div>
+
+
                     <div css={s.mypageContent}>
 
                     <li css={s.boardListHeader}>
@@ -205,6 +212,7 @@ const myBoard = () => {
                         <TeacherProfileStudyCount boardCount={getTeacherStudyMypageCountQuery.data?.data}/>
                     </div>
                 </div>
+
                 </div>
                 
             </div>

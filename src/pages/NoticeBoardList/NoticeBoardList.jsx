@@ -119,7 +119,7 @@ function NoticeBoardListPage(props) {
                 
             <div css={s.pageNumber}>
                 
-              <NoticeBoardPageCount boardCount={getNoticeCount.data?.data}/>
+              <NoticeBoardPageCount boardCount={getNoticeCountQuery.data?.data}/>
             </div>
         </div>
     );

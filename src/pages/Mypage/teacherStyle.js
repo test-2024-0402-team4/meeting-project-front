@@ -240,7 +240,7 @@ export const searchInput = css`
     justify-content: end;
     align-items: center;
     
-    margin-right: 40px;
+    margin-right: 35px;
     width: 700px;
     /* border: 1px solid #dbdbdb; */
 `;
@@ -487,6 +487,9 @@ export const teacherInfo = css`
 margin-left: 5px;
     font-size: 16px;
     font-weight: 500;
+`;
+export const arrowLocation = css`
+margin-top: 3px;
 `;
 
 export const teacherInfoContent = css`

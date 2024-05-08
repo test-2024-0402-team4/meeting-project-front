@@ -207,13 +207,15 @@ const myBoard = () => {
                         )
                     }
                 </div>
+
+                    </div>
+
                 <div css={s.pageNumber}>
                     <div css={s.page}>
                         <StudentProfileStudyCount boardCount={getStudyMypageCountQuery.data?.data}/>
                     </div>
                 </div>
 
-                    </div>
                     
                 </div>
                 

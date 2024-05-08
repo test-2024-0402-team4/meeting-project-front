@@ -131,7 +131,7 @@ export const boardListItem = css`
         width: 100%;
         border-bottom:1px solid #dbdbdb ;
         &:hover{
-            background-color: beige;
+            background-color: #e1f5fd;
         }
 
         & > div{
@@ -139,7 +139,7 @@ export const boardListItem = css`
             justify-content: center;
             align-items: center;
             
-            height: 58px;
+            height: 51px;
             width: 80px;
             flex-grow: 1;
            
