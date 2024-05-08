@@ -120,6 +120,10 @@ function MypageTeacherStudy(props) {
 console.log(profile);
 console.log(searchParams.get("page"));
 
+const myBoard = () => {
+    window.location.replace(`/teacher/${userId}/mypage?page=1`);
+}
+
     return (
         <div css={s.layout}>
             <div css={s.mypageLayout}>
@@ -153,10 +157,10 @@ console.log(searchParams.get("page"));
                 </div>
                 <div css={s.mypageContentLayout}>
                     <div css={s.mypageContentTitle}>
-                        <div>
+                        <div onClick={() => myBoard()}>
                             신청 내역
                         </div>
-                        <div>
+                        <div onClick={() => myBoard()}>
                             내가 쓴 글
                         </div>
                         <div css={s.searchInput}>
@@ -194,14 +198,13 @@ console.log(searchParams.get("page"));
                         )
                     }
                 </div>
-                <div css={s.pageNumber}>
+ 
+                    </div>
+                    <div css={s.pageNumber}>
                     <div css={s.page}>
                         <TeacherProfileStudyCount boardCount={getTeacherStudyMypageCountQuery.data?.data}/>
                     </div>
                 </div>
- 
-                    </div>
-                    
                 </div>
                 
             </div>
