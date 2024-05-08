@@ -13,6 +13,8 @@ export const teacherProfileRootLayout = css`
     border-right: 1px solid #dbdbdb;
 `;
 
+
+
 export const emailApplyLayout = css`
     position: absolute;
     left: 30%;
@@ -28,6 +30,9 @@ export const emailApplyLayout = css`
     }
 `;
 
+
+
+
 export const studentInfo = css`
     box-sizing: border-box;
     
@@ -41,11 +46,13 @@ export const selectLayout = css`
 
     & > input {
             box-sizing: border-box;
-            padding: 5px;
-            width: 160px;
-            height: 30px;
+            padding: 10px;
+            width: 100%;
+            height: 35px;
             border: 1.5px solid #9decdb;
             border-radius: 4px;
+            font-size: 15px;
+            color: #808080;
             outline: none;
         }
 `
@@ -58,18 +65,18 @@ export const applyButtonLayout = css`
     & > button {
         margin: 30px 10px 0px 10px;
         box-sizing: border-box;
-        color: white;
+        color: #11b69a;
         text-align: center;
         justify-content: center;
         width: 47%;
         height: 100%;
         border-radius: 4px;
         border: none;
-        background-color: #14dbba;
+        background-color: #d9fcf6;
         cursor: pointer;
 
         :hover{
-            background-color: #11b69a;
+            background-color: #9decdb;
         }
         
     }
@@ -91,9 +98,9 @@ export const profileHeader= css`
 
 export const imgBox = css`
     display: flex;
-    width: 152px;
-    height: 152px;
-    border-radius: 8px;
+    width: 150px;
+    height: 150px;
+    border-radius: 5px;
     border: 1px solid #dbdbdb;
     justify-content: center;
     align-items: center;
@@ -107,9 +114,11 @@ export const profileContent = css`
     margin-top: 20px;
     div:nth-of-type(1) {
         font-size: 20px;
+        font-weight: 700;
+        color: #5d5d5d;
     }
     div:nth-of-type(2) {
-        font-size: 16px;
+        font-size: 15px;
         margin-top: 5px;
     }
     div:nth-of-type(3) {
@@ -141,23 +150,23 @@ export const profileContent = css`
       span:nth-of-type(2) {
         font-size: 14px;
       }
-        
     }
 `;
+
 
 export const applyButton = css`
     margin-top: 10px;
     padding: 12px 16px;
     width: 100%;
     height: 55px;
-    background-color: #14dbba;
+    background-color: #d9fcf6;
     border: none;
     border-radius: 8px;
     font-size: 16px;
-    color: white;
+    color: #11b69a;
     cursor: pointer;
     :hover {
-        background-color: #11b69a;
+        background-color: #9decdb;
     }
 `;
 
@@ -179,10 +188,10 @@ export const teacherInfotitle = css`
     
     & > div {
         margin-left: 20px;
-
-        padding-bottom: 20px;
+        padding-bottom: 10px;
         font-size: 16px;
         font-weight: 600;
+        color: #242424;
         height: 25px;
         border-bottom: 2px solid black ;
     }
@@ -196,15 +205,23 @@ export const teacherInfotitle = css`
 `;
 export const teacherInfoLayout = css`
     box-sizing: border-box;
-    padding: 20px 16px 24px;
+    padding: 20px 16px 5px 20px;
     width: 100%;
     min-height: 144px;
+    min-width: 700px;
     border-bottom: 1px solid #dbdbdb;
 
+    div:nth-of-type(4){
+        margin-bottom: 20px;
+    }
+    /* border: 1px solid black; */
 `;
+
 export const teacherInfo = css`
     font-size: 16px;
-    font-weight: 500;
+    font-weight: 600;
+    margin-bottom: 15px;
+    color: #242424;
 `;
 export const teacherInfoContent = css`
     display: flex;
@@ -212,12 +229,175 @@ export const teacherInfoContent = css`
     margin-top: 16px;
 
     div:nth-of-type(1) {
-        width: 84px;
+        width: 100px;
         font-size: 15px;
-        
+        color: #aaaaaa;
     }
     div:nth-of-type(2) {
         margin-left: 5px;
+        font-weight: 700;
         font-size: 15px;
     }
 `;
+
+export const teacherInfoContent5 = css`
+    display: flex;
+    width: 100%;
+    margin-top: 16px;
+
+    div:nth-of-type(1) {
+        width: 700px;
+        font-size: 15px;
+        color: #5d5d5d;
+    }
+    div:nth-of-type(2) {
+        margin-left: 5px;
+        font-weight: 700;
+        font-size: 15px;
+    }
+`;
+
+export const subject = css`
+    color: #11b69a;
+`;
+
+export const teacherInfoContent6 = css`
+    display: flex;
+    width: 100%;
+
+    div:nth-of-type(1) {
+        width: 200px;
+        font-size: 16px;
+        color: #aaaaaa;
+    }
+    div:nth-of-type(2) {
+        margin-left: 25px;
+        font-weight: 700;
+        font-size: 15px;
+    }
+`;
+
+export const teacherInfoLayout6 = css`
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    box-sizing: border-box;
+    padding: 0px 16px 5px 20px;
+    width: 100%;
+    min-height: 100px;
+    min-width: 700px;
+    
+    /* border: 1px solid black; */
+`;
+
+export const modal = css`
+    z-index: 999;
+
+    position: fixed;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    
+    width: 500px;
+    height: 570px;
+
+    border: 1px solid #dbdbdb;
+    border-radius: 5px;
+    background-color: white;
+
+    animation: modaldown 0.3s;
+    @keyframes modaldown {
+        from {
+            opacity: 0;
+            transform: translate(-50%, -55%);
+        }
+        to {
+            opacity: 1;
+            transform: translate(-50%, -50%);
+        }
+    }
+`;
+
+export const modalHead = css`
+
+    display: flex;
+    justify-content: space-between;
+
+    width: 90%;
+    height: 35px;
+    color: #808080;
+    font-size: 25px;
+    font-weight: 700;
+
+    margin-top: 20px;
+    & > button{
+        background-color: transparent;
+        border: none;
+        font-size: 20px;
+        cursor: pointer;
+    }
+
+    // 다하고 지우기 -----------------------
+    /* border: 1px solid black; */
+`; 
+
+export const modalContent = css`
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    width: 90%;
+    height: 40%;
+    color: #808080;
+
+    // 다하고 지우기 ----------------------------
+    /* border: 1px solid black; */
+    border-radius: 5px;
+    
+`;
+
+export const modalButton = css`
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    margin-bottom: 20px;
+
+    width: 430px;
+
+    // 다하고 지우기 ----------------------------
+    /* border: 1px solid black; */
+
+    & > button{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        margin-top: 10px;
+        
+        width: 100%;
+        height: 35px;
+        
+        cursor: pointer;
+        
+        border: none;
+        border-radius: 5px;
+
+        font-size: 13px;
+        
+        color: #11b69a;
+        background-color: #d9fcf6;
+
+        :hover {
+            background-color: #9decdb;
+        }
+    }
+`;
+

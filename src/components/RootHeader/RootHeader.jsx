@@ -4,6 +4,7 @@ import logo from "./3.png"
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Modal from 'react-modal';
+import NAME from "./이름.png";
 import { GrClose } from "react-icons/gr";
 
 function RootHeader({children}) {
@@ -69,7 +70,7 @@ function RootHeader({children}) {
         <div css={s.headerLayout}>
             <div css={s.header}>
                 <div css={s.logoLayout}>
-                    <img onClick={() => handelPageMove("")} src={logo}/>
+                    <img onClick={() => handelPageMove("")} src={NAME}/>
                 </div>
                 <div css={s.headerItemLayout}>
                     <div css={s.headerInfoLayout}>

@@ -23,6 +23,7 @@ import communication from "./communication.png";
 import juhwan from "./전주환증명사진.jpg";
 import gunhi from "./정건희 증명사진.jpg";
 import dogyun from "./김도균 증명사진.jpg";
+import tree from "./mainpage.png";
 import { getStudentProfile } from "../../apis/api/profileApi";
 import { useAuthEmailCheck } from "../../hooks/useAuthEmailCheck";
 
@@ -80,7 +81,13 @@ function Homepage(props) {
     }
     
     return (
+        <>
+        <div css={s.treelayout}>
+            <img src={tree} alt="" />
+        </div>
         <div css={s.layout}>
+            
+            
             <div css={s.main}>
                 <div css={s.mainLeftItem}>
                     <div css={s.leftTitle}>
@@ -369,6 +376,7 @@ function Homepage(props) {
                 </div>
             }
         </div>
+        </>
     );
 }
 

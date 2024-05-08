@@ -13,6 +13,9 @@ import { useAuthCheck } from "../../hooks/useAuthCheck";
 import { useTeacherCheck } from "../../hooks/useTeacherCheck";
 import { useAuthEmailCheck } from "../../hooks/useAuthEmailCheck";
 import { CgBorderRight } from "react-icons/cg";
+import { BiSolidBookAlt } from "react-icons/bi";
+import { IoLocationSharp } from "react-icons/io5";
+import { IoPersonSharp } from "react-icons/io5";
 
 
 function StudentPostersPage(props) {
@@ -68,6 +71,7 @@ function StudentPostersPage(props) {
             }
             console.log(params)
             const response = await getTuteePosters(params);
+            console.log(response.data);
             setStudentPosters(response.data)
         } catch (error) {
             console.log("에러", error);
@@ -248,8 +252,15 @@ function StudentPostersPage(props) {
                                 <div css={s.studentPoster}>
                                     <div css={s.studentPosterContent}>
                                         <div>{studentPoster.title}</div>
+                                        <div>
+                                            <span><IoPersonSharp /> </span>
+                                            <span>{studentPoster.studentType}</span>
+                                            <span> | </span>
+                                            <span>{studentPoster.genderType}학생</span>
+                                        </div>
                                         <div css={s.subjects}>
                                             <span>
+                                                <span><BiSolidBookAlt /> </span>
                                                 {studentPoster.subjectName.map((value, index) => (
                                                     <span key={index}>
                                                         {value}
@@ -258,10 +269,11 @@ function StudentPostersPage(props) {
                                                 ))}
                                             </span>
                                         </div>
-                                        <div css={s.studnetinfo}>
-                                            <span>{studentPoster.studentType}</span>
-                                            <span>{studentPoster.genderType}</span>
+                                        <div>
+                                            <span><IoLocationSharp /> </span>
                                             <span>{studentPoster.regionName}</span>
+                                        </div>
+                                        <div css={s.studnetinfo}>
                                             {
                                                 studentPoster.classType.map(value => <span>{value}</span>)
                                             }

@@ -34,7 +34,8 @@ export const profile = css`
         display: block;
         position: absolute;
         font-size: 20px;
-        font-size: 700;
+        font-weight: 700;
+        color: #5d5d5d;
         top: 190px;
     }
     & > div:nth-of-type(3) {

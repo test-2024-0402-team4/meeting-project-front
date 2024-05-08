@@ -94,7 +94,6 @@ export const filterContentLayout = css`
 
 export const filiterModal = (filterNum) => css`
     position: absolute;
-    background-color: white;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -105,13 +104,13 @@ export const filiterModal = (filterNum) => css`
     /* border: 1px solid black; */
 
     justify-content: ${filterNum === 1 ? "space-between" : ""};
-    top: ${filterNum === 1 ? '145px' :
-          filterNum === 2 ? '190px' :
-          filterNum === 3 ? '235px' :
-          filterNum === 4 ? '280px' :
-          filterNum === 5 ? '325px' : '110px'};
+    top: ${filterNum === 1 ? '143px' :
+          filterNum === 2 ? '188px' :
+          filterNum === 3 ? '233px' :
+          filterNum === 4 ? '278px' :
+          filterNum === 5 ? '321px' : '110px'};
     left: 180px;
-    border: 1px solid #dbdbdb;
+    border: 1px solid #808080;
     width: ${filterNum === 1 ? "200px" : "250px"};
     height: ${filterNum === 1 ? "35px" : "38px"};
     border-radius: 5px;
