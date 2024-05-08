@@ -10,7 +10,7 @@ import { getPrincipalRequest } from "../../apis/api/principal";
 import { getStudentProfile } from "../../apis/api/profileApi";
 import GetTime from "../GetTime/GetTime";
 
-function StudentComment(props) {
+function StudentComment({userId, roleId}) {
     const params = useParams();
     const [comments, setComments] = useState([]);
     const [inputValue, handleInputChange,setInputValue] = useMaxValueValidateInput(150);
@@ -25,27 +25,11 @@ function StudentComment(props) {
     const queryClient = useQueryClient();
     const commentInputRef = useRef(null);
     const [timeStamp,setTimeStamp] = useState([]);
-    const [userId, setUserId] = useState("");
     const [studentId, setStudentId] = useState();
     const [nickName , setNickName] = useState();
     const [genderType, setGenderType] = useState([]);
 
-    const principalQuery = useQuery(
-        ["principalQuery"],
-        getPrincipalRequest,
-        {
-            retry: 0,
-            refetchOnWindowFocus: false,
-            onSuccess: response => {
-                console.log("principal Success");
-                console.log(response);
-                setUserId(response.data.userId);
-            },
-            onError: error => {
-                console.log("principal Error");
-            }
-        }
-    );
+
   
     const getStudentId = useQuery(
       ["getStudentId",userId],
@@ -160,7 +144,13 @@ function StudentComment(props) {
             comment : inputValue
         };
         console.log(comment);
+        if (!inputValue.trim()) { 
+            alert("내용을 작성해 주세요!"); 
+            return; 
+        }
+        if(window.confirm("댓글을 등록하시겠습니까?")){
         registerStudentCommentMutation.mutate(comment);
+        }
     }
 
     const deleteStudentCommentMutation = useMutation({
@@ -266,18 +256,25 @@ function StudentComment(props) {
                                             isShowDropDownById === comment.studentCommentId &&
                                             <div css={s.commentItem}>
                                                     {
-                                                        comment.studentUserId === studentUserId &&
+                                                        roleId === 3 ? 
+                                                            <>
+                                                                <button css={s.commentOptionButton} onClick={() => handleDeleteClick(comment.studentCommentId)}> 삭제 </button>
+                                                            </>
+                                                    :
+                                                        comment.studentUserId === studentUserId ?
                                                             <>
                                                                 <button css={s.commentOptionButton} onClick={() => handleUpdateClick(comment.studentCommentId,comment.comment)}> 수정 </button>
                                                                 <button css={s.commentOptionButton} onClick={() => handleDeleteClick(comment.studentCommentId)}> 삭제 </button>
                                                             </>
-                                                    }
-                                                    {
-                                                        comment.studentUserId !== studentUserId &&
+                                                    :
+                                                        comment.studentUserId !== studentUserId ?
                                                             <>
                                                                 
                                                                 <button css={s.commentOptionButton} onClick={() => handleDeclareClick(comment.studentCommentId)}> 신고 </button>
                                                             </>
+                                                    :
+                                                        <>
+                                                        </>
                                                     }
                                             </div>
                                         }

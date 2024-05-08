@@ -17,7 +17,6 @@ import { useAuthEmailCheck } from "../../hooks/useAuthEmailCheck";
 function TeacherBoardListPage(props) {
     useAuthCheck();
     useTeacherCheck();
-    useAuthEmailCheck();
     const [searchParams, setSearchParams] = useSearchParams();
     const searchCount = 11;
     const [boardList, setBoardList] = useState([]);

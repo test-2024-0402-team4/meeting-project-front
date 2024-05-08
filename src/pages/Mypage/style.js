@@ -96,6 +96,12 @@ export const roleName = css`
     font-size: 11px;
     margin-left: 7px;
 `;
+export const gender = css`
+margin-left: 30px;
+`;
+export const email = css`
+margin-top: 10px;
+`;
 
 export const mypageContentLayout = css`
 
@@ -115,8 +121,9 @@ export const mypageContentTitle = () => css`
         font-size: 16px;
         font-weight: 600;
         height: 25px;
-        text-decoration: underline;
+        text-decoration: none;
         min-width: 80px;
+        cursor: pointer;
 
     }
 
@@ -131,7 +138,6 @@ export const mypageContent = css`
     box-sizing: border-box;
     width: 100%;
     min-height: 554px;
-    background-color: rgb(248 248 248);
 `;
 
 export const contentListLayout = css`
@@ -163,6 +169,12 @@ export const searchContainer = css`
 export const inputBox = css`
     outline: none;
     border: none;
+`;
+
+export const noSearch = css`
+display: flex;
+align-items: center;
+justify-content: center;
 `;
 
 export const boardListHeader = css`
@@ -272,7 +284,7 @@ export const boardListItem = css`
         width: 100%;
         border-bottom:1px solid #dbdbdb ;
         &:hover{
-            background-color: beige;
+            background-color: #e1f5fd;
         }
 
         & > div{

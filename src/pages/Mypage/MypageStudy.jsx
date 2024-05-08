@@ -21,7 +21,6 @@ function MypageStudy(props) {
     useAuthCheck();
     useStudentCheck();
 
-
     const [searchParams, setSearchParams] = useSearchParams();
     const queryClient = useQueryClient();
     const [profile,setProfile] = useState({});
@@ -29,6 +28,7 @@ function MypageStudy(props) {
     const [boardList, setBoardList] = useState([]);
     const [timeStamp,setTimeStamp] = useState([]);
     const [userId , setUserId] =useState(profile?.data?.userId || ""); 
+    
 
     const principalQuery = useQuery(
         ["principalQuery"],
@@ -126,6 +126,9 @@ function MypageStudy(props) {
 
 console.log(profile);
 console.log(searchParams.get("page"));
+const myBoard = () => {
+    window.location.replace(`/student/${userId}/mypage?page=1`);
+}
 
     return (
         <div css={s.layout}>
@@ -149,21 +152,24 @@ console.log(searchParams.get("page"));
                             </span>
                         </div>
                         <div>
-                            <span>
-                            {profile.data?.genderType}
+                            <span css={s.gender}>
+                            {profile.data?.genderType}학생
                             </span>
                             <span>
                             {profile.data?.regionName}
                             </span>
+                            <div css={s.email}>
+                                이메일 : {profile.data?.email}
+                            </div>
                         </div>
                     </div>
                 </div>
                 <div css={s.mypageContentLayout}>
                     <div css={s.mypageContentTitle}>
-                        <div>
+                        <div onClick={() => myBoard()}>
                             신청 내역
                         </div>
-                        <div>
+                        <div onClick={() => myBoard()}>
                             내가 쓴 글
                         </div>
                         <div css={s.searchInput}>
