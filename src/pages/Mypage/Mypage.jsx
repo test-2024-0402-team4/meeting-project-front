@@ -17,11 +17,10 @@ import { useStudentCheck } from "../../hooks/useStudentCheck";
 import { useAuthEmailCheck } from "../../hooks/useAuthEmailCheck";
 
 function Mypage(props) {
+    const { userId } = useParams();
     useAuthCheck();
     useStudentCheck();
 
-
-    const { userId } = useParams();
     const [searchParams, setSearchParams] = useSearchParams();
     const searchCount = 5;
     const [boardList, setBoardList] = useState([]);
@@ -31,7 +30,7 @@ function Mypage(props) {
     const navigate = useNavigate();
 
     const studentProfileQuery = useQuery(
-        ["studentProfileQuery"],
+        ["studentProfileQuery", userId],
         async() => await getStudentProfile(userId),
         {
             refetchOnWindowFocus: false
@@ -61,8 +60,6 @@ function Mypage(props) {
             }
         }
     );
-
-    
 
     const searchSubmit = () => {
         if(userId){
@@ -160,26 +157,26 @@ function Mypage(props) {
                             <button onClick={handleModifyOnClick}>정보 수정</button> 
                         </div>
                         
-                        <ProfileImg userId={studentProfileQuery.data?.data?.userId} profileUrl={studentProfileQuery?.data.data?.userImgUrl}/>
+                        <ProfileImg userId={studentProfileQuery.data?.data?.userId} profileUrl={studentProfileQuery?.data?.data?.userImgUrl}/>
 
                         <div>
                             <span>
-                                {studentProfileQuery.data.data?.nickname}
+                                {studentProfileQuery.data?.data?.nickname}
                             </span>
                             <span css={s.roleName}>
-                                {studentProfileQuery.data.data?.roleNameKor}
+                                {studentProfileQuery.data?.data?.roleNameKor}
                             </span>
                         </div>
                         <div>
                             
                             <span css={s.gender}>
-                            {studentProfileQuery.data.data?.genderType}학생
+                            {studentProfileQuery.data?.data?.genderType}학생
                             </span>
                             <span>
-                            {studentProfileQuery.data.data?.regionName}
+                            {studentProfileQuery.data?.data?.regionName}
                             </span>
                             <div css={s.email}>
-                                이메일 : {studentProfileQuery.data.data?.email}
+                                이메일 : {studentProfileQuery.data?.data?.email}
                             </div>
                         </div>
                         
