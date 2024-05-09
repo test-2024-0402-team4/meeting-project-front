@@ -9,7 +9,7 @@ export const useStudentCheck = () => {
             const tokenPayLoad = token.split('.')[1];
             try {
                 const decodedPayload = JSON.parse(atob(tokenPayLoad));
-                if(decodedPayload.roleId !== 1) {
+                if(decodedPayload.roleId === 2) {
                     alert("권한이 없습니다.")
                     window.location.replace(`/`);
                 }

@@ -135,10 +135,24 @@ export const studentInfoRootLayout = css`
     padding-top: 28px;
 `;
 
-export const studentInfoContainer = css`
-    width: 70%;
-    height: 100%;
-`;
+export const buttonLayout = css`
+    & > button {
+        font-size: 15px;
+        width: 80px;
+        height: 30px;
+        background-color: #d9fcf6;
+        color: #11b69a;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        :hover {
+            background-color: #9decdb;
+        }
+    }
+    button:nth-of-type(2) {
+        margin-left: 10px;
+    }
+`
 export const studentInfotitle = css`
     box-sizing: border-box;
     display: flex;
@@ -148,6 +162,7 @@ export const studentInfotitle = css`
     & > div {
         margin-left: 17px;
         padding-bottom: 10px;
+        justify-content: space-between;
         height: 25px;
         border-bottom: 2px solid black ;
     }
@@ -155,9 +170,12 @@ export const studentInfotitle = css`
     & > div:nth-of-type(0) {
         text-decoration: underline;
     }
-    & > div:nth-of-type(1) {
 
-    }
+`;
+
+export const studentInfoContainer = css`
+    width: 70%;
+    height: 100%;
 `;
 export const studentInfoLayout = css`
     box-sizing: border-box;

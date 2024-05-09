@@ -1,8 +1,7 @@
 import { css } from "@emotion/react";
 
 export const testLayout = css`
-margin-left: 700px;
-margin-top: 120px;
+
 
 `
 

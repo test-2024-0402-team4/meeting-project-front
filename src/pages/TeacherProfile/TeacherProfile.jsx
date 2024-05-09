@@ -15,6 +15,7 @@ import { saveApplicationDetail, sendApplyEmail } from '../../apis/api/emailApi';
 import { useAuthCheck } from '../../hooks/useAuthCheck';
 import { useStudentCheck } from '../../hooks/useStudentCheck';
 import { useAuthEmailCheck } from '../../hooks/useAuthEmailCheck';
+import { disableAccount } from '../../apis/api/adminApi';
 
 function TeacherProfile() {
     useAuthCheck();
@@ -31,6 +32,7 @@ function TeacherProfile() {
     const [ region, setRegion ] = useState([]);
     const [ date, setDate ] = useState([]);
     const [ classType, setClassType ] = useState([]);
+    const [ roleId, setRoleId ] = useState(0);
     const [ studentProfile, setStudentProfile ] = useState();
     const [ createDate, setCreateDate ] = useState();
     const [ updateDate, setUpdateDate ] = useState();
@@ -48,6 +50,9 @@ function TeacherProfile() {
             classTypes: []
         }
     );
+    const queryClient = useQueryClient();
+
+    const principalData = queryClient.getQueryData("principalQuery");
 
     useEffect(()=> {
         getTeacherProfileData();
@@ -55,6 +60,7 @@ function TeacherProfile() {
         getRegions();
         getDates();
         getClassTypes();
+        setRoleId(principalData.data.roleId);
         console.log(teacherProfile)
         console.log(studentProfile)
 
@@ -246,6 +252,17 @@ function TeacherProfile() {
         }
         
     }
+    const handleDisableAccount = () => {
+        if(window.confirm("계정을 비활성화 하시겠습니까?")) {
+            try {
+                disableAccount(userId);
+                alert("계정이 비활성화 되었습니다")
+            } catch (error) {
+                alert(error.response.data)
+            }
+            
+        }
+    }
 
     return (
         <>
@@ -338,6 +355,14 @@ function TeacherProfile() {
                                 <div>
                                     회원 정보
                                 </div>
+                                {
+                                    roleId === 3 ?                                     
+                                    <div css={s.buttonLayout}>
+                                        <button onClick={handleDisableAccount}>계정 비활성화</button>
+                                    </div>                                    
+                                    :
+                                    <></>
+                                }
                             </div>
                             <div css={s.teacherInfoLayout}>
                                 <div css={s.teacherInfo}>

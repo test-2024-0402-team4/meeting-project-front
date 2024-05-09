@@ -41,6 +41,7 @@ import DeclareTeacherPage from '../pages/DeclarePage/DeclareTeacherPage';
 import DeclareTeacherCommentPage from '../pages/DeclarePage/DeclareTeacherCommentPage';
 import DeclareStudyCommentPage from '../pages/DeclarePage/DeclareStudyCommentPage';
 import DeclareStudyPage from '../pages/DeclarePage/DeclareStudyPage';
+import AdminDeclare from '../pages/AdminDeclare/AdminDeclare';
 
 
 function MeetingRoute(props) {
@@ -83,6 +84,7 @@ function MeetingRoute(props) {
               <Route path='/student/mypage/modify' element={ <ModifyStudentProfilePage />} />
               <Route path='/teacher/mypage/modify' element={ <ModifyTeacherProfilePage />} />
 
+              <Route path='/admin/declare' element={<AdminDeclare />} />
 
               <Route path='/student/tutor/list' element={<TeacherProfiles />} />
               <Route path='/student/tutor' element={<TeacherProfile />} />

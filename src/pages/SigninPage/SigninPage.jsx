@@ -22,7 +22,6 @@ function SigninPage() {
             username,
             password
         }).then(response => {
-            console.log(response.data);
             const accessToken = response.data;
 
             localStorage.setItem("AccessToken", accessToken);
@@ -30,7 +29,6 @@ function SigninPage() {
 
         }).catch(error => {
             alert(error.response.data);
-            console.log(error.response.data);
         })
     }
 

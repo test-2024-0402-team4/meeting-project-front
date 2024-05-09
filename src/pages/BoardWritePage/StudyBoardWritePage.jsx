@@ -96,6 +96,15 @@ function StudyBoardWritePage(props) {
     });
 
     const handleSubmitClick = () => {
+      if (!inputValue.trim()) {
+        alert("제목을 입력해 주세요.");
+        return;
+      }
+      
+      if (!quillValue.trim()) {
+        alert("내용을 입력해 주세요.");
+        return;
+      }
       
       const board = {
         userId: userId,

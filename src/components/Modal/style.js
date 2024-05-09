@@ -27,7 +27,9 @@ export const modalListItem = css`
   margin-bottom: 5px;
   border-radius: 3px;
   transition: background-color 0.3s ease;
-
+  font-style: normal;
+  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+  font-size: 18px;
   &:hover {
     background-color: #f0f0f0;
   }
@@ -39,7 +41,7 @@ export const modalCloseButton = css`
   width: 100%;
   padding: 10px;
   border: none;
-  background-color: #007bff;
+  background-color: #65e6ac;
   color: #fff;
   font-size: 16px;
   border-radius: 3px;
@@ -47,6 +49,6 @@ export const modalCloseButton = css`
   transition: background-color 0.3s ease;
 
   &:hover {
-    background-color: #0056b3;
+    background-color: #5ccb99ff;
   }
 `;

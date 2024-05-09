@@ -34,17 +34,14 @@ export const titleButtons = css`
 `;
 
 export const titleButton = css`
-background-color: #86e8bf;
+background-color: #14dbba;
 outline: none;
 border: none;
 transition: background-color 0.3s ease;
 border-radius: 6px;
 color: white;
 &:hover {
-    background-color: #59dbba;
-}
-&:active {
-background-color: #28b290; 
+    background-color: #11b69a;
 }
 `;
 

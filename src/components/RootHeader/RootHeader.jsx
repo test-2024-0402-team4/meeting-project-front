@@ -99,10 +99,17 @@ function RootHeader({children}) {
                                         (
                                             <span onClick={() => handelPageMove(`student/${userId}/mypage?page=1`)}>내 정보</span>
                                         )
-                                        : 
+                                        
+                                        : roleId === 2 ?
                                         (
                                             <span onClick={() => handelPageMove(`teacher/${userId}/mypage?page=1`)}>내 정보</span>
                                         )
+                                        : roleId === 3 ?
+                                        (
+                                            <></>
+                                        )
+                                        :
+                                        <></>
                                     }
                                     <span onClick={() => handelPageMove("notice/boards?page=1")}>공지사항</span>
                                     </>
@@ -117,24 +124,31 @@ function RootHeader({children}) {
                     </div>
                     <div css={s.headerItem}>
                         {
-                            roleId === 1 ? (
+                            roleId === 1 ?                             
                                 <>
                                     <span onClick={() => handelPageMove("student/tutor/list")} >선생님 찾기</span>
                                     <span onClick={() => handelPageMove(`student/myposters?userId=${userId}`)}>공고 조회</span>
                                     <span onClick={() => handelPageMove("student/boards?page=1")}>커뮤니티</span>
                                 </>
-                            ) : (
-                                roleId === 2 ? (
-                                    <>
-                                        <span onClick={() => handelPageMove(`teacher/tutee/poster/list`)}>과외 학생 찾기</span>
-                                        <span onClick={() => handelPageMove("teacher/boards?page=1")}>커뮤니티</span>
-                                    </>
-                                ) : (
-                                    <>
-                                        <span onClick={() => handelPageMove("study/boards?page=1")} >공부방</span>
-                                    </>
-                                )
-                            )
+                            :                             
+                            roleId === 2 ? 
+                                <>
+                                    <span onClick={() => handelPageMove(`teacher/tutee/poster/list`)}>과외 학생 찾기</span>
+                                    <span onClick={() => handelPageMove("teacher/boards?page=1")}>커뮤니티</span>
+                                </>
+                            :                            
+                            roleId === 3 ?
+                                <>
+                                    <span onClick={() => handelPageMove("student/tutor/list")} >전체 회원 조회</span>
+                                    <span onClick={() => handelPageMove(`teacher/tutee/poster/list`)}>학생 포스터 조회</span>
+                                    <span onClick={() => handelPageMove("student/boards?page=1")}>학생 커뮤니티</span>
+                                    <span onClick={() => handelPageMove("teacher/boards?page=1")}>선생님 커뮤니티</span>
+                                    <span onClick={() => handelPageMove("admin/declare")}>신고 관리</span>
+                                </>
+                                :
+                                <>
+                                    <span onClick={() => handelPageMove("study/boards?page=1")}>공부방</span>
+                                </>
                         }
                     </div>
                         

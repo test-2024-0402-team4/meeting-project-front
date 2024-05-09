@@ -82,6 +82,7 @@ export const headerItem = css`
     
 
     & > span {
+        margin-left: 20px;            
         color: #aaaaaa;
         font-size:  16px;
         cursor: pointer;
@@ -91,12 +92,8 @@ export const headerItem = css`
         }
     }
 
-    & span:nth-of-type(2) {
-        margin-left: 20px;            
-    }
-    
-    & span:nth-of-type(3) {
-        margin-left: 20px;
+    & span:nth-of-type(1) {
+        margin-left: 0px;            
     }
 `;
 

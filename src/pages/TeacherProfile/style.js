@@ -184,25 +184,45 @@ export const teacherInfoContainer = css`
 export const teacherInfotitle = css`
     box-sizing: border-box;
     display: flex;
-    border-bottom: 1px solid #e5e7eb;
+    justify-content: space-between;
+    border-bottom: 1px solid #dbdbdb;
     
-    & > div {
+    & > div:nth-of-type(1) {
         margin-left: 20px;
         padding-bottom: 10px;
         font-size: 16px;
         font-weight: 600;
         color: #242424;
         height: 25px;
-        border-bottom: 2px solid black ;
+        border-bottom: 2px solid black;
     }
 
     & > div:nth-of-type(0) {
         text-decoration: underline;
     }
-    & > div:nth-of-type(1) {
-
-    }
 `;
+
+export const buttonLayout = css`
+        display: flex;
+        justify-content: flex-end;
+        margin-bottom: 10px;
+    & > button {
+        font-size: 15px;
+        width: 100%;
+        height: 30px;
+        background-color: #d9fcf6;
+        color: #11b69a;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        :hover {
+            background-color: #9decdb;
+        }
+    }
+    button:nth-of-type(2) {
+        margin-left: 10px;
+    }
+`
 export const teacherInfoLayout = css`
     box-sizing: border-box;
     padding: 20px 16px 5px 20px;
