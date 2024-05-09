@@ -142,10 +142,11 @@ function RootHeader({children}) {
                             :                            
                             roleId === 3 ?
                                 <>
-                                    <span onClick={() => handelPageMove("student/tutor/list")} >전체 회원 조회</span>
+                                    <span onClick={() => handelPageMove("student/tutor/list")} >선생님 조회</span>
                                     <span onClick={() => handelPageMove(`teacher/tutee/poster/list`)}>학생 포스터 조회</span>
                                     <span onClick={() => handelPageMove("student/boards?page=1")}>학생 커뮤니티</span>
                                     <span onClick={() => handelPageMove("teacher/boards?page=1")}>선생님 커뮤니티</span>
+                                    <span onClick={() => handelPageMove("study/boards?page=1")}>공부방 커뮤니티</span>
                                     <span onClick={() => handelPageMove("admin/declare")}>신고 관리</span>
                                 </>
                                 :

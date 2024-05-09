@@ -83,7 +83,7 @@ function Homepage(props) {
     return (
         <>
         <div css={s.treelayout}>
-            <img src={tree} alt="" />
+                <img src={tree} alt="" />
         </div>
         <div css={s.layout}>
             <div css={s.main}>

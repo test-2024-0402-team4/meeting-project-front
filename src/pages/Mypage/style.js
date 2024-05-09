@@ -14,10 +14,13 @@ export const mypageLayout = css`
 export const profileLayout = css`
     position: relative;
     box-sizing: border-box;
-    padding: 28px 20px 0px 0px;
+    padding: 28px 20px 0px 30px;
     width: 300px;
+    height: 350px;
     min-width: 255px;
-    border-right: 1px solid #dbdbdb;
+    border: 1px solid #dbdbdb;
+    margin-top: 63px;
+    border-radius: 4px;
 
 `;
 export const profile = css`
@@ -52,10 +55,10 @@ export const profile = css`
 `;
 export const profileUpdateButton = css`
     position: absolute;
-    right: 10px;
+    right: -5px;
     align-items: flex-end;
     & > button {
-        width: 66px;
+        width: 100%;
         height: 28px;
         color: #444444;
         font-size: 12px;
@@ -115,7 +118,7 @@ export const mypageContentTitle = () => css`
     box-sizing: border-box;
     display: flex;
     padding-top: 28px;
-  //  border-bottom: 1px solid #e5e7eb;
+    border-bottom: 1px solid #e5e7eb;
     & > div {
         padding: 0px 20px 10px;
         font-size: 16px;
@@ -136,7 +139,7 @@ export const mypageContentTitle = () => css`
 
 export const mypageContent = css`
     box-sizing: border-box;
-    border: 1px solid #85d3d6;
+    border: 1px solid #dbdbdb;
     width: 100%;
     min-height: 400px;
     border-radius: 4px;
@@ -186,7 +189,7 @@ export const boardListHeader = css`
 box-sizing: border-box;
 display: flex;
 width: 100%;
-border-bottom:2px solid #b3d4d4 ;
+border-bottom:2px solid #dbdbdb ;
 & > div{
     display: flex;
     justify-content: center;
@@ -237,9 +240,8 @@ export const teacherProfile = css`
     box-sizing: border-box;
     width: 100%;
     height: 122px;
-    padding: 10px 0px 10px 0px;
+    padding: 10px 0px 10px 10px;
     border-bottom: 1px solid #dbdbdb;
-    margin-left: 10px;
 `;
 
 export const teacherProfileContent = css`
@@ -289,7 +291,7 @@ export const boardListItem = css`
         width: 100%;
         border-bottom:1px solid #dbdbdb ;
         &:hover{
-            background-color: #e1f5fd;
+            background-color: #e9ebeb;
         }
 
         & > div{

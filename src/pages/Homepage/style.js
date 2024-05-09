@@ -7,8 +7,10 @@ export const treelayout =css`
     width: 70%;
     min-width: 1328px;
     & > img {
-        width: 100%;
+        width: 70%;
+        min-width: 1156px;
     }
+    
 `
 
 export const layout = css`

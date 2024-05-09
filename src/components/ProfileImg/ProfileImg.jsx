@@ -49,9 +49,20 @@ function ProfileImg({ userId, profileUrl }) {
     return (
         
         <div css={s.testLayout}>
-            <div css={s.imgBox} onClick={imgChangeClick} >
+          {
+            profileUrl === null ?
+            (
+              <div css={s.imgBox} onClick={imgChangeClick} >
+                <img src="https://as1.ftcdn.net/v2/jpg/03/53/11/00/1000_F_353110097_nbpmfn9iHlxef4EDIhXB1tdTD0lcWhG9.jpg" alt="" />
+              </div>
+            )
+            :
+            (
+              <div css={s.imgBox} onClick={imgChangeClick} >
                 <img src={profileUrl} alt="" />
-            </div>
+              </div>
+            )
+          }
         </div> 
     );
 }
