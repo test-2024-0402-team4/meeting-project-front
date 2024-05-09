@@ -16,12 +16,14 @@ import { useAuthCheck } from "../../hooks/useAuthCheck";
 import { useStudentCheck } from "../../hooks/useStudentCheck";
 import { useAuthEmailCheck } from "../../hooks/useAuthEmailCheck";
 import StudentProfileStudyCount from "../../components/BoardPageCount/StudentProfileStudyCount";
+import { disableAccount } from "../../apis/api/adminApi";
 
 function Mypage(props) {
     const { userId } = useParams();
     useAuthCheck();
     useStudentCheck();
-
+    
+    const [roleId, setRoleId] = useState();
     const [searchParams, setSearchParams] = useSearchParams();
     const searchCount = 5;
     const [boardList, setBoardList] = useState([]);
@@ -49,7 +51,7 @@ function Mypage(props) {
 
 
     const principalQuery = useQuery(
-        ["principalQuery"],
+        ["principalQuery", userId],
         getPrincipalRequest,
         {
             retry: 0,
@@ -57,6 +59,7 @@ function Mypage(props) {
             onSuccess: response => {
                 console.log("principal Success");
                 console.log(response);
+                setRoleId(response.data.roleId)
             },
             onError: error => {
                 console.log("principal Error");
@@ -204,6 +207,18 @@ function Mypage(props) {
             
     }
 
+    const handleDisableAccount = () => {
+        if(window.confirm("계정을 비활성화 하시겠습니까?")) {
+            try {
+                disableAccount(userId);
+                alert("계정이 비활성화 되었습니다")
+            } catch (error) {
+                alert(error.response.data)
+            }
+            
+        }
+    }
+ 
     return (
         <div css={s.layout}>
             <div css={s.mypageLayout}>
@@ -213,7 +228,12 @@ function Mypage(props) {
                     ) : (
                         <div css={s.profile}>
                             <div css={s.profileUpdateButton}>
-                                <button onClick={handleModifyOnClick}>정보 수정</button> 
+                                {
+                                    roleId === 3 ?
+                                    <button onClick={handleDisableAccount}>계정 비활성화</button> 
+                                    :
+                                    <button onClick={handleModifyOnClick}>정보 수정</button> 
+                                }
                             </div>
                             
                             <ProfileImg userId={studentProfileQuery.data?.data?.userId} profileUrl={studentProfileQuery?.data.data?.userImgUrl}/>

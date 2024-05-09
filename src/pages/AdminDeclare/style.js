@@ -28,6 +28,25 @@ border-top: 1px solid #dbdbdb;
     cursor: default;
 }
 `;
+
+export const boardListCommentHeader = css`
+box-sizing: border-box;
+display: flex;
+font-size: 14px;
+font-weight: 600;
+border-bottom: 2px solid #dbdbdb;
+border-top: 1px solid #dbdbdb;
+& > div{
+    display: flex;
+    margin: 0;
+    width: 15%;
+    justify-content: center;
+    align-items: center;
+    border-right: 1px solid #dbdbdb;
+    cursor: default;
+}
+`;
+
 export const boardList = css`
     display: flex;
     justify-content: center;

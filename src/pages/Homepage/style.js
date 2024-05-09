@@ -4,10 +4,13 @@ export const treelayout =css`
     display: flex;
     margin: 0 auto;
     justify-content: center;
-    width: 70%;
+    width: 100%;
+    height: 626px;
     & > img {
-        width: 100%;
+        width: 70%;
+        min-width: 1156px;
     }
+    
 `
 
 export const layout = css`
