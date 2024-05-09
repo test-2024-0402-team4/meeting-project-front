@@ -18,6 +18,7 @@ import { useTeacherCheck } from "../../hooks/useTeacherCheck";
 import Age from "../../components/GetAge/Age";
 import { RiArrowDropRightLine } from "react-icons/ri";
 import TeacherProfileStudyCount from "../../components/BoardPageCount/TeacherProfileStudyCount";
+import { disableAccount } from "../../apis/api/adminApi";
 
 function MypageTeacher(props) {
     useAuthCheck();
@@ -32,8 +33,12 @@ function MypageTeacher(props) {
     const [timeStamp1,setTimeStamp1] = useState([]);
     const queryClient = useQueryClient();
     const [content, setContent] = useState(0);
+    const [roleId, setRoleId] = useState(0);
 
     const principalData = queryClient.getQueryData("principalQuery");
+    useEffect(() => {
+        setRoleId(principalData?.data.roleId)
+    }, [userId])
 
     const teacherProfileQuery = useQuery(
         ["teacherProfileQuery"],
@@ -175,8 +180,17 @@ function MypageTeacher(props) {
     const myBoard = () => {
         window.location.replace(`/teacher/${userId}/mypage/study?page=1`);
     }
-    
-    
+    const handleDisableAccount = () => {
+        if(window.confirm("계정을 비활성화 하시겠습니까?")) {
+            try {
+                disableAccount(userId);
+                alert("계정이 비활성화 되었습니다")
+            } catch (error) {
+                alert(error.response.data)
+            }
+            
+        }
+    }
 
     return (
         <div css={s.layout}>
@@ -193,7 +207,12 @@ function MypageTeacher(props) {
                                     <ProfileImg userId={teacherProfileQuery.data?.data?.userId} profileUrl={teacherProfileQuery.data?.data?.userImgUrl}/>
                                 </div>
                                 <div css={s.profileUpdateButton}>
-                                    <button onClick={handleModifyOnClick}>정보 수정</button> 
+                                    {
+                                        roleId === 3 ? 
+                                        <button onClick={handleDisableAccount}>계정 비활성화</button> 
+                                        :
+                                        <button onClick={handleModifyOnClick}>정보 수정</button> 
+                                    }
                                 </div>
                                 <div css={s.profileContent}>
                                     <div css={s.nickname}>{teacherProfileQuery?.data.data.nickname}</div>
