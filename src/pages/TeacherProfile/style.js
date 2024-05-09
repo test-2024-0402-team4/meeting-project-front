@@ -432,3 +432,19 @@ export const modalButton = css`
         }
     }
 `;
+
+export const declareButtonLayout = css`
+    width: 100%;
+    margin-top: 20px;
+    display: flex;
+    & > button {
+        padding: 5px;
+        border-radius: 4px;
+        border: none;
+        background-color: #f0f0f0f0;
+        cursor: pointer;
+        :hover {
+            background-color: #dbdbdb;
+        }
+    }
+`;

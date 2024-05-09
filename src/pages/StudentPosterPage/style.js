@@ -25,7 +25,7 @@ export const profile = css`
     display: flex;
     justify-content: center;
     box-sizing: border-box;
-    height: 100%;
+    height: 370px;
 
     // 다하고 지우기 --------------------------------
     /* border: 1px solid black; */
@@ -126,7 +126,23 @@ export const mypageContentLayout = css`
     box-sizing: border-box;
 
 `;
-
+export const declareButtonLayout = css`
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    & > button {
+        padding: 5px;
+        border-radius: 4px;
+        border: none;
+        background-color: #f0f0f0f0;
+        cursor: pointer;
+        :hover {
+            background-color: #dbdbdb;
+        }
+    }
+`;
 
 export const studentInfoRootLayout = css`
     box-sizing: border-box;
@@ -138,7 +154,7 @@ export const studentInfoRootLayout = css`
 export const buttonLayout = css`
     & > button {
         font-size: 15px;
-        width: 80px;
+        width: 100px;
         height: 30px;
         background-color: #d9fcf6;
         color: #11b69a;
@@ -159,16 +175,16 @@ export const studentInfotitle = css`
     color: #242424;
     font-size: 16px;
     font-weight: 600;
+    justify-content: space-between;
     & > div {
         margin-left: 17px;
         padding-bottom: 10px;
         justify-content: space-between;
         height: 25px;
-        border-bottom: 2px solid black ;
     }
 
-    & > div:nth-of-type(0) {
-        text-decoration: underline;
+    & > div:nth-of-type(1) {
+        border-bottom: 2px solid black ;
     }
 
 `;

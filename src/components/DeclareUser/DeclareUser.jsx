@@ -5,6 +5,7 @@ import Modal from 'react-modal';
 import DeclareModal from '../Modal/DeclareModal';
 import { GrClose } from "react-icons/gr";
 import { declareUser } from "../../apis/api/accountApi";
+import { PiSiren } from "react-icons/pi";
 Modal.setAppElement("#root");
 
 
@@ -31,7 +32,7 @@ function DeclareUser({isOpen, setDeclareModal, userId}) {
             userId: userId,
             theme: selectedTitle,
             content: declareContent
-        };
+        }; 
         declareUser(param)
         .then(() => {                
             alert("신고가 정상적으로 처리 되었습니다");
@@ -44,7 +45,10 @@ function DeclareUser({isOpen, setDeclareModal, userId}) {
         <div>
             <Modal css={s.modal} isOpen={isOpen} onRequestClose={closeDeclareModal}>
                 <div css={s.modalHead}>
-                    <span>유저 신고하기</span>
+                    <div>
+                        <div><PiSiren/></div>
+                        <div>유저 신고하기</div>
+                    </div>
                     <button onClick={closeDeclareModal}><GrClose /></button>
                 </div>
                 <input
@@ -63,9 +67,11 @@ function DeclareUser({isOpen, setDeclareModal, userId}) {
                         value={declareContent}
                     ></textarea>
                 </div>
-                <div css={s.declareButton}>
-                    <button onClick={handleDeclareUser}>확인</button>
-                    <button>취소</button>
+                <div css={s.declareButtonLayout}>
+                    <div css={s.declareButton}>
+                        <button onClick={handleDeclareUser}>확인</button>
+                        <button onClick={closeDeclareModal}>취소</button>
+                    </div>
                 </div>
             </Modal>
         </div>
