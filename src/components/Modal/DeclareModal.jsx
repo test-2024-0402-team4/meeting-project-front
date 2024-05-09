@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
-import React, { useState } from 'react';
 import * as s from "./style";
+import React, { useState } from 'react';
 function DeclareModal({ onClose, onSelect }) {
 
     const [selectedTitle, setSelectedTitle] = useState("");

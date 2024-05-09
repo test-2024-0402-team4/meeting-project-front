@@ -3,8 +3,7 @@ import { css } from "@emotion/react";
 export const layout = css`
     margin: 0px auto;
     width: 70%;
-    min-height: 800px;
-    height: 100%;
+    height: 800px;
     border: 1px solid #dbdbdb;
     background-color: #fafafa;
     overflow-y: auto;
@@ -18,6 +17,7 @@ font-size: 16px;
 font-weight: 600;
 border-bottom: 2px solid #dbdbdb;
 border-top: 1px solid #dbdbdb;
+
 & > div{
     display: flex;
     margin: 0;
@@ -53,11 +53,13 @@ export const boardList = css`
     align-items: center;
     font-size: 14px;
     border-bottom: 1px solid #dbdbdb;
+
 & > div{
+    padding: 5px 0 5px 0;
     display: flex;
     overflow-y: auto;
-    height: 70px;
-    margin: 0;
+    height: 40px;
+    margin: 0 auto;
     width: 16%;
     justify-content: center;
     align-items: center;

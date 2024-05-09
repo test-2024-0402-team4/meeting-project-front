@@ -16,6 +16,9 @@ import { useAuthCheck } from '../../hooks/useAuthCheck';
 import { useStudentCheck } from '../../hooks/useStudentCheck';
 import { useAuthEmailCheck } from '../../hooks/useAuthEmailCheck';
 import { disableAccount } from '../../apis/api/adminApi';
+import DeclareModal from '../../components/Modal/DeclareModal';
+import { declareUser } from '../../apis/api/accountApi';
+import DeclareUser from '../../components/DeclareUser/DeclareUser';
 
 function TeacherProfile() {
     useAuthCheck();
@@ -36,6 +39,9 @@ function TeacherProfile() {
     const [ studentProfile, setStudentProfile ] = useState();
     const [ createDate, setCreateDate ] = useState();
     const [ updateDate, setUpdateDate ] = useState();
+    const [ selectedTitle, setSelectedTitle] = useState('');
+    const [ declareContent, setDeclareContent ] = useState();
+    const [ titleModalOpen ,setTitleModalOpen] = useState(false);
     const [ applyData, setApplyDate ] = useState(
         {
             name: null,
@@ -80,9 +86,17 @@ function TeacherProfile() {
     }, [])
 
     const [ modalIsOpen, setModalIsOpen ] = useState(false);
+    const [ declareModal, setDeclareModal ] = useState(false);
     const openModal = () => {
         setModalIsOpen(true);
         getStudentProfileData.mutate(studentUserId)
+    }
+    const openDeclareModal = () => {
+        setDeclareModal(true);
+    }
+
+    const closeDeclareModal = () => {
+        setDeclareModal(false);
     }
     const closeModal = () => {
         setModalIsOpen(false);
@@ -264,6 +278,28 @@ function TeacherProfile() {
         }
     }
 
+    const handleTitleSelect = (title) => {
+        setSelectedTitle(title);
+        setTitleModalOpen(false);
+    };
+
+    const handleContent = (e) => {
+        setDeclareContent(e.target.value)
+    }
+
+    const handleDeclareUser = () => {
+        const param = {
+            userId: userId,
+            theme: selectedTitle,
+            content: declareContent
+        };
+        declareUser(param)
+        .then(() => {                
+            alert("신고가 정상적으로 처리 되었습니다");
+            setDeclareModal(false);
+        })
+        .catch(()=> alert("신고가 정상적으로 처리 되지 못했습니다"));
+    }
     return (
         <>
             <div css={s.layout}>
@@ -345,6 +381,11 @@ function TeacherProfile() {
                                 <button onClick={() => handelSendApplyMailOnClick()}>메일 보내기</button>
                                 </div>
                             </Modal>
+                            <div>
+                                <button onClick={openDeclareModal}>신고하기</button>
+                                {declareModal && <DeclareUser isOpen={declareModal} setDeclareModal={setDeclareModal} userId={userId} />}
+                            </div>
+
 
                         </div>
                     </div>

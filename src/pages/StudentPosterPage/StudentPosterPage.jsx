@@ -13,6 +13,7 @@ import { useTeacherCheck } from '../../hooks/useTeacherCheck';
 import { useAuthEmailCheck } from '../../hooks/useAuthEmailCheck';
 import Modal from 'react-modal';
 import { GrClose } from "react-icons/gr";
+import DeclareUser from '../../components/DeclareUser/DeclareUser';
 
 
 function StudentPosterPage(props) {
@@ -26,6 +27,7 @@ function StudentPosterPage(props) {
     const [userId, setUserId] = useState(0);
     const [roleId, setRoleId] = useState(0);
     const [email, setEmail] = useState();
+    const [ declareModal, setDeclareModal ] = useState(false);
 
     const [ createDate, setCreateDate ] = useState();
     const [ updateDate, setUpdateDate ] = useState();
@@ -33,6 +35,11 @@ function StudentPosterPage(props) {
     const queryClient = useQueryClient();
     const [profile,setProfile] = useState({});
     const navigate = useNavigate();
+
+    const openDeclareModal = () => {
+        console.log(declareModal)
+        setDeclareModal(true);
+    }
 
     const principalData = queryClient.getQueryData("principalQuery");
     
@@ -115,8 +122,6 @@ function StudentPosterPage(props) {
             navigate(`list`);
         })
     }
-    
-    
     return (
         <div css={s.layout}>
             <div css={s.mypageLayout}>
@@ -125,7 +130,6 @@ function StudentPosterPage(props) {
                         <div css={s.profileImgLayout}>
                            <img src={profile?.userImgUrl} />
                         </div>
-                        
                         <div>
                             <span>
                                 {profile?.nickname}
@@ -142,7 +146,6 @@ function StudentPosterPage(props) {
                                 {profile?.regionName}
                             </span>
                         </div>
-
                         <button onClick={openModal} css={s.applyButton} >프로필 보내기</button>
                         <Modal css={s.modal} isOpen={modalIsOpen} onRequestClose={closeModal}>
                             <div css={s.modalHead}>
@@ -172,26 +175,11 @@ function StudentPosterPage(props) {
                             }
                             </button>
                             </div>
-                        </Modal>
-{/* 
-                        <button onClick={() => handleSendTeacherProfile()} css={s.applyButton}>
-                            {
-                                !sendTeacherProfile.isLoading ?
-                                <div>
-                                    프로필 보내기
-                                </div>
-                                :
-                                <div>
-                                    메일 보내는 중
-                                    <PulseLoader 
-                                    color="#11b69a"
-                                    loading
-                                    size={10}
-                                    />
-                                </div>
-                            }
-                        </button> */}
-
+                        </Modal> 
+                        <div>
+                            <button onClick={openDeclareModal}>신고하기</button>
+                            {declareModal && <DeclareUser isOpen={declareModal} setDeclareModal={setDeclareModal} userId={userId} />}
+                        </div>
                     </div>
                 </div>
                 <div css={s.studentInfoRootLayout}>
