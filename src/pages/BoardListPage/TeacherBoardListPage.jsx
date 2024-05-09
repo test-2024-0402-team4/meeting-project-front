@@ -13,12 +13,13 @@ import GetTime from "../../components/GetTime/GetTime";
 import { useAuthCheck } from "../../hooks/useAuthCheck";
 import { useTeacherCheck } from "../../hooks/useTeacherCheck";
 import { useAuthEmailCheck } from "../../hooks/useAuthEmailCheck";
+import { GrView } from "react-icons/gr";
 
 function TeacherBoardListPage(props) {
     useAuthCheck();
     useTeacherCheck();
     const [searchParams, setSearchParams] = useSearchParams();
-    const searchCount = 11;
+    const searchCount = 5;
     const [boardList, setBoardList] = useState([]);
     const queryClient = useQueryClient();
     const principalData = queryClient.getQueryData("principalQuery");
@@ -101,12 +102,6 @@ function TeacherBoardListPage(props) {
             </div>
 
             <div css={s.boardListLayout}>
-                <li css={s.boardListHeader}>
-                    <div>제목</div>
-                    <div>글쓴이</div>
-                    <div>작성시간</div>
-                    <div>조회수</div>
-                </li>
                 {
                 boardList.map(
                     board => 
@@ -116,11 +111,40 @@ function TeacherBoardListPage(props) {
                     key={board.teacherBoardId}
                     >
 
-                        <li >
-                            <div>{board.title}</div>
-                            <div>{board.nickname}</div>
-                            <div>{GetTime(new Date(board.createDate))}</div>
-                            <div>{board.viewCount}</div>
+<li>
+                            <div css={s.boardTitle}>{board.title}</div>
+
+                            <div css={s.lc}>
+
+                                <div css={s.listBottom1}>
+                                {
+                                board.genderId === 1 ? 
+                                    (
+                                    <div css={s.genderImg}>
+                                        <img src="https://kimstudy.com/_next/static/media/circle_profile_boy.d886bf1c.svg" alt="" />
+                                    </div>
+                                    ) 
+                                    : 
+                                    (
+                                    <div css={s.genderImg}>
+                                        <img src="https://kimstudy.com/_next/static/media/circle_profile_girl.93ffff47.svg" alt="" />
+                                    </div>
+                                    )
+                                }
+                                    <div css={s.nick}>{board.nickname}</div>
+                                    <div css={s.date}>{GetTime(new Date(board.createDate))}</div>
+                                </div>
+
+                                <div css={s.viewCount}> 
+                                    <div css={s.view}>
+                                        <GrView /> 
+                                    </div>
+                                    <div >
+                                        {board.viewCount}
+                                    </div>
+                                </div>
+                                
+                            </div>
                          </li>
                     </Link>
                     

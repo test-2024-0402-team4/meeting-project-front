@@ -113,6 +113,24 @@ export const commentTitle = css`
     margin-top: 20px;
 `;
 
+export const imgBox = css`
+display: flex;
+justify-content: center;
+align-items: center;
+width: 48px;
+height: 48px;
+border: 1px solid #dbdbdb;
+border-radius: 50px;
+overflow: hidden;
+& > img {
+    width: 100%;
+}
+`;
+
+export const commentDiv = css`
+display: flex;
+justify-content: center;
+`;
 export const commentMain = css`
     box-sizing: border-box;
     border-bottom: 1px solid #dbdbdb;
@@ -121,8 +139,15 @@ export const commentMain = css`
 
 export const commentOption = css`
     display: flex;
-    justify-content: space-between;
     height: 70px;
+    justify-content: space-between;
+`;
+export const commentNick = css`
+margin-left: 10px;
+margin-top: 5px;
+font-size: 14.5px;
+font-family: Arial, Helvetica, sans-serif;
+font-weight: 500;
 `;
 
 export const commentOptionButton = css`

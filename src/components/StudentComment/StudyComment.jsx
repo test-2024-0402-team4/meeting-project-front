@@ -263,7 +263,23 @@ useEffect(() => {
                         <li key={comment.studyCommentId} css={s.commentItems}>
                             <div css={s.commentTitle}>
                                 <div css={s.commentOption}>
-                                {comment.nickname}
+                                <div css={s.commentDiv}>
+                                    {comment.userImgUrl !== null ? 
+                                        (
+                                            <div css={s.imgBox}>
+                                                <img src={comment.userImgUrl} alt="" />
+                                            </div>
+                                        ) : 
+                                        (
+                                            <div css={s.imgBox}>
+                                                <img src="https://as1.ftcdn.net/v2/jpg/03/53/11/00/1000_F_353110097_nbpmfn9iHlxef4EDIhXB1tdTD0lcWhG9.jpg" alt="" />
+                                            </div>
+                                        )} 
+                                        <div css={s.commentNick}>
+                                            {comment.nickname}
+                                        </div>                                                                               
+                                    </div>
+
                                     <div css={s.headerRight}>
                                     <div css={s.commentDate}>{GetTime(new Date(comment.createDate))}</div>
                                     <div css={s.optionButtonBox}>

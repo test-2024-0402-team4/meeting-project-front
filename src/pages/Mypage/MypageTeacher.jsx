@@ -187,7 +187,8 @@ function MypageTeacher(props) {
                         <></>
                         :
                         <div css={s.teacherProfile}>
-                            <div css={s.profileHeader}>                                
+                            <div css={s.profileHeader}> 
+                                                           
                                 <div css={s.imgBox}> 
                                     <ProfileImg userId={teacherProfileQuery.data?.data?.userId} profileUrl={teacherProfileQuery.data?.data?.userImgUrl}/>
                                 </div>

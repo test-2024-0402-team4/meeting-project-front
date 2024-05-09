@@ -13,11 +13,14 @@ export const layout = css`
 export const profileLayout = css`
     position: relative;
     box-sizing: border-box;
-    padding: 28px 20px 0px 0px;
+    padding: 28px 20px 0px 30px;
     width: 255px;
-    height: 618px;
+    height: 350px;
     min-width: 255px;
-    border-right: 1px solid #dbdbdb;
+    border: 1px solid #dbdbdb;
+    margin-top: 63px;
+    border-radius: 4px;
+
 
 `;
 export const email = css`

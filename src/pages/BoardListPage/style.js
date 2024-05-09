@@ -4,7 +4,6 @@ export const layout = css`
 margin: 0px auto;
 display: flex;
 flex-direction: column;
-justify-content: center;
 align-items: center;
 width: 80%;
 max-width: 1100px;
@@ -43,12 +42,10 @@ export const authorityButton = css`
     export const boardListLayout = css`
     box-sizing: border-box;
     width: 100%;
-    height: 510px;
+    max-height: 1510px;
     max-width: 1100px;
-    border: 1px solid #85d3d6;
-    border-radius: 7px;
     overflow: hidden;
-    margin-left: 35px;
+    margin-left: 55px;
     
     `;
 export const headerTitle = css`
@@ -64,7 +61,7 @@ export const searchInput = css`
 display: flex;
 justify-content: flex-end;
 width: 100%;
-padding-bottom: 10px;
+padding-bottom: 15px;
 margin-left: 25px;
 `;
 export const searchContainer = css`
@@ -120,22 +117,24 @@ border-bottom:2px solid #b3d4d4 ;
 `;
 export const boardListItem = css`
 
-   
     cursor: pointer;
     color: #222;
     text-decoration: none;
     &>li{
-        display: flex;
-        width: 100%;
-        border-bottom:1px solid #dbdbdb ;
+        width: 99%;
+        border: 2px solid #ebebeb ;
         font-family: Arial, sans-serif;
-        &:hover{
-            background-color: #e1f5fd;
-        }
+        list-style: none;
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 15px;
+        border-radius: 4px;
+       
+        
 
         & > div{
             display: flex;
-            justify-content: center;
+            justify-content: flex-start;
             align-items: center;
             
             height: 51.2px;
@@ -145,23 +144,61 @@ export const boardListItem = css`
             
         }
         & > div:nth-of-type(1){
-            border-right: 1px solid #dbdbdb ;
+            border-bottom: 1px solid #dbdbdb ;
             flex-grow: 0;
-            width: 630px;
+            width: 99%;
         }
         & > div:nth-of-type(2){
-            border-right: 1px solid #dbdbdb ;
             flex-grow: 0;
-            width: 130px;
-        }
-        & > div:nth-of-type(3){
-            border-right: 1px solid #dbdbdb ;
-            flex-grow: 0;
-            width: 180px;
+            width: 99%;
         }
     }
 `;
 
+export const boardTitle = css`
+min-height: 75px;
+padding-left: 10px;
+`;
+export const genderImg = css`
+
+& > img {
+    width: 33px;
+    height: 33px;
+    margin-right: 10px;
+}
+`;
+
+export const listBottom1 = css`
+ display: flex;
+ justify-content: space-between;
+ padding-left: 5px;
+`;
+export const nick = css`
+margin-right: 10px;
+border-right: 1px solid #dbdbdb;
+padding-right: 10px;
+margin-top: 8px;
+
+`
+export const lc = css`
+display: flex;
+flex-direction: row;
+justify-content: space-between;
+
+`;
+export const date = css`
+margin-top: 8px;
+`;
+export const viewCount = css`
+display: flex;
+color: #979797;
+margin-left: auto;
+margin-top: 6px;
+`
+export const view = css`
+margin-right: 6px;
+margin-top: 2px;
+`;
 export const test1 = css`
 background-color: #97e5e7;
 `
