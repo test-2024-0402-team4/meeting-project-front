@@ -30,3 +30,7 @@ export const getDeclareTeacherComment = async() => {
 export const getUserStatus = async(userId) => {
     return await instance.get(`admin/api/users/${userId}`)
 } 
+
+export const getDeclareUser = async() => {
+    return await instance.get(`admin/declare/user`)
+} 

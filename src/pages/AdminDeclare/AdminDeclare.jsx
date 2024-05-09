@@ -1,13 +1,18 @@
 import React, { useState } from 'react';
 /** @jsxImportSource @emotion/react */
 import * as s from "./style";
-import { getDeclareStudentBoard, getDeclareStudentComment, getDeclareStudyBoard, getDeclareStudyComment, getDeclareTeacherBoard, getDeclareTeacherComment, getUserStatus } from '../../apis/api/adminApi';
+import { getDeclareStudentBoard, getDeclareStudentComment, getDeclareStudyBoard, getDeclareStudyComment, getDeclareTeacherBoard, getDeclareTeacherComment, getDeclareUser, getUserStatus } from '../../apis/api/adminApi';
 import { useNavigate } from 'react-router-dom';
+import { useAuthCheck } from '../../hooks/useAuthCheck';
+import { useTeacherCheck } from '../../hooks/useTeacherCheck';
+import { useAdminCheck } from '../../hooks/useAdminCheck';
 
 function AdminDeclare(props) {
-
+    useAuthCheck();
+    useAdminCheck();
     const [ declareBoard, setDeclareBoard ] = useState([]);
     const [ declareComment, setDeclareComment ] =useState([]);
+    const [declareUser, setDeclareUser] = useState();
     const [boardContent, setBoardContent] = useState(0);
     const [ content, setContent ] = useState(0);
     
@@ -77,8 +82,11 @@ function AdminDeclare(props) {
         setContent(0)
         setBoardContent(2)
     }
+
     const handleDeclareUserList = async () => {
-        setContent(3)
+        const response = await getDeclareUser()
+        setContent(2)
+        setDeclareUser(response.data)
     }
 
 
@@ -185,8 +193,24 @@ function AdminDeclare(props) {
                         ))}
                     {
                         content === 2 &&
-                        <div></div>
+                        declareUser?.map((user, index) => (
+                            <li css={s.boardList} key={index}>
+                                <div>{user.name}</div>
+                                <div>{user.email}</div>
+                                <div>{user.nickname}</div>
+                                <div>
+                                    {user.roleId === 1 ? "학생" : user.roleId === 2 ? "선생님" : "관리자"}
+                                </div>
+                                <div>
+                                    <button onClick={() => handleMoveToMyPage(user.userId)}>프로필로 이동</button>
+                                </div>
+                                <div>{user.theme}</div>
+                                <div dangerouslySetInnerHTML={{ __html: user.content }}></div>
+                                <div>{user.createDate}</div>
+                            </li>
+                        ))
                     }
+                    
             </div>
         </div>
     );
