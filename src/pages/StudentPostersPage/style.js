@@ -82,10 +82,10 @@ export const filiterModal = (filterNum) => css`
     position: absolute;
     background-color: rgb(248 248 248);
 
-    top: ${filterNum === 1 ? '35px' :
-          filterNum === 2 ? '80px' :
-          filterNum === 3 ? '125px' :
-          filterNum === 4 ? '170px' :
+    top: ${filterNum === 1 ? '60px' :
+          filterNum === 2 ? '105px' :
+          filterNum === 3 ? '150px' :
+          filterNum === 4 ? '190px' :
           filterNum === 5 ? '215px' : '110px'};
     left: 180px;
     
@@ -120,7 +120,6 @@ export const studentPosters = css`
     padding: 10px;
     margin-top: 20px;
     margin-right: 20px;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.20);
 
     border: 1px solid #dbdbdb;
     border-radius: 5px;
@@ -165,23 +164,23 @@ export const studentPosterContent = css`
 
     div:nth-of-type(1) {
         font-size: 16px;
-        color: #444444;
+        color: #242424;
         font-weight: 700;
     }
     div:nth-of-type(2) {
         margin-top: 5px;
-        font-size: 15px;
-        color: #444444;
+        font-size: 13px;
+        color: #5d5d5d;
     }
     div:nth-of-type(3) {
         margin-top: 5px;
-        font-size: 14px;
-        color: #444444;
+        font-size: 13px;
+        color: #5d5d5d;
     }
     div:nth-of-type(4) {
         margin-top: 5px;
-        font-size: 14px;
-        color: #444444;
+        font-size: 13px;
+        color: #5d5d5d;
     }
 
 `;
@@ -195,13 +194,14 @@ export const subjects =css`
 
 `;
 export const studnetinfo =css`
+    margin-top: 10px;
     & > span {
         font-size: 12px;
         color: #5d5d5d;
-        padding: 2px;
+        padding: 3px;
         width: 100%;
         background-color: #f0f0f0;
-        border-radius: 4px;
+        border-radius: 5px;
         margin-right: 10px;
     }
 `;

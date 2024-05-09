@@ -1,5 +1,15 @@
 import { css } from "@emotion/react";
 
+export const treelayout =css`
+    display: flex;
+    margin: 0 auto;
+    justify-content: center;
+    width: 70%;
+    & > img {
+        width: 100%;
+    }
+`
+
 export const layout = css`
     margin: 10px auto ;
     width: 70%;

@@ -2,10 +2,12 @@
 import React, { useEffect, useState } from 'react';
 import { getTeacherProfile } from '../../apis/api/teacherProfile';
 import { CiLocationOn } from "react-icons/ci";
-import { FiBook } from "react-icons/fi";
+import { BiSolidBookAlt } from "react-icons/bi";
 import { useParams, useSearchParams } from 'react-router-dom';
 import * as s from "./style";
 import Select from "react-select";
+import Modal from 'react-modal';
+import { GrClose } from "react-icons/gr";
 import { getClassType, getDate, getRegion, getSubject } from '../../apis/api/Option';
 import { getStudentProfile } from '../../apis/api/profileApi';
 import { useMutation, useQueryClient } from 'react-query';
@@ -32,6 +34,8 @@ function TeacherProfile() {
     const [ classType, setClassType ] = useState([]);
     const [ roleId, setRoleId ] = useState(0);
     const [ studentProfile, setStudentProfile ] = useState();
+    const [ createDate, setCreateDate ] = useState();
+    const [ updateDate, setUpdateDate ] = useState();
     const [ applyData, setApplyDate ] = useState(
         {
             name: null,
@@ -67,16 +71,22 @@ function TeacherProfile() {
                 const decodedPayload = JSON.parse(atob(tokenPayLoad));
                 setStudentUserId(decodedPayload.userId)
                 console.log(decodedPayload)
-
             } catch (error) {
                 console.error("Failed to decode AccessToken:", error);
-
             } 
         } else {
             console.error("AccessToken not found in localStorage");
-
         }
     }, [])
+
+    const [ modalIsOpen, setModalIsOpen ] = useState(false);
+    const openModal = () => {
+        setModalIsOpen(true);
+        getStudentProfileData.mutate(studentUserId)
+    }
+    const closeModal = () => {
+        setModalIsOpen(false);
+    }
 
     // 선생님 만 나이 계산기
     const birthDate = (teacherProfile?.birthDate)
@@ -114,6 +124,9 @@ function TeacherProfile() {
             const response = await getTeacherProfile({ userId: userId });
             setTeacherProfile(response.data);
             console.log(response);
+            setCreateDate(response.data.createDate.substr(0, 10));
+            setUpdateDate(response.data.updateDate.substr(0, 10));
+            
         } catch (error) {
             console.log("에러", error);
         }
@@ -209,7 +222,7 @@ function TeacherProfile() {
         control: baseStyles => ({
             ...baseStyles,
             border: "1px solid #9decdb",
-            borderRadius: "4px",
+            borderRadius: "5px",
             width: "100%",
             heighy:"100%"
         })
@@ -232,7 +245,7 @@ function TeacherProfile() {
                 sendApplyEmail(params);
                 alert("메일을 성공적으로 보냈습니다!")
                 saveApplicationDetail(studentUserId, teacherProfile.userId);
-                setModal(0)
+                setModalIsOpen(false);
             }
         } catch (error) {
             alert("메일전송에 실패했습니다.")
@@ -255,50 +268,7 @@ function TeacherProfile() {
         <>
             <div css={s.layout}>
                 <div css={s.teacherProfileRootLayout}>
-                    {
-                        modal === 1 ? 
-                        <div css={s.emailApplyLayout}>
-                            <h1>과외 신청하기</h1>
-                            <div css={s.studentInfo}>
-                                이름 : {applyData?.name}
-                            </div>
-                            <div css={s.studentInfo}>
-                                이메일 : {applyData?.email}
-                            </div>
-                            <div css={s.studentInfo}>
-                                성별 : {applyData?.gender}
-                            </div> 
-                            <div css={s.studentInfo}>
-                                학생 유형 : {applyData?.studentType}
-                            </div>
-                            <div css={s.selectLayout}>
-                                <Select styles={selectStyle} key={"subjects"} options={subjects} placeholder="과목명" onChange={handleSubjectOption} isMulti/>
-                            </div>
-                            <div css={s.selectLayout}>
-                                <Select styles={selectStyle} key={"region"} options={region} placeholder="지역" onChange={handleRegionOption}/>                        
-                            </div>
-                            <div css={s.selectLayout}>
-                                <Select styles={selectStyle} key={"date"} options={date} placeholder="요일" onChange={handleDateOption} isMulti/>
-                            </div>
-                            <div css={s.selectLayout}>
-                                <Select styles={selectStyle} key={"classType"} options={classType}  placeholder="수업방식" onChange={handleClassTypeOption}isMulti/>
-                            </div>
-                            <div css={s.selectLayout}>
-                                <input type="text" placeholder='만 나이를 입력해주세요' onChange={handleStudentAge}/>
-                            </div>
-                            <div css={s.applyButtonLayout}>
-                                <button css={s.applyButton} onClick={handelSendApplyMailOnClick}>
-                                    메일 보내기
-                                </button>
-                                <button onClick={() => setModal(0)} css={s.applyButton}>
-                                    취소
-                                </button>
-                            </div>
-                        </div>
-                        :
-                        <>
-                        </>
-                    }
+
                     <div css={s.teacherProfile}>
                         <div css={s.profileHeader}>
                             <div css={s.imgBox}>
@@ -322,7 +292,7 @@ function TeacherProfile() {
                                 </div>
                                 <div>
                                     <div>
-                                        <FiBook />
+                                        <BiSolidBookAlt />
                                     </div>
                                     <div>
                                         <span>
@@ -334,9 +304,48 @@ function TeacherProfile() {
                                     </div>
                                 </div>
                             </div>
-                            <button onClick={() => handleApplyLesson()} css={s.applyButton}>
-                                과외 신청하기
-                            </button>
+
+                            <button onClick={openModal} css={s.applyButton} >과외 신청하기</button>
+                            <Modal css={s.modal} isOpen={modalIsOpen} onRequestClose={closeModal}>
+                                <div css={s.modalHead}>
+                                    <span>과외 신청하기</span>
+                                    <button onClick={closeModal}><GrClose /></button>
+                                </div>
+
+                                <div css={s.modalContent}>
+                                    <div css={s.studentInfo}>
+                                        이름 : {applyData?.name}
+                                    </div>
+                                    <div css={s.studentInfo}>
+                                        이메일 : {applyData?.email}
+                                    </div>
+                                    <div css={s.studentInfo}>
+                                        성별 : {applyData?.gender}
+                                    </div> 
+                                    <div css={s.studentInfo}>
+                                        학생 유형 : {applyData?.studentType}
+                                    </div>
+                                    <div css={s.selectLayout}>
+                                        <Select styles={selectStyle} key={"subjects"} options={subjects} placeholder="과목명" onChange={handleSubjectOption} isMulti/>
+                                    </div>
+                                    <div css={s.selectLayout}>
+                                        <Select styles={selectStyle} key={"region"} options={region} placeholder="지역" onChange={handleRegionOption}/>                        
+                                    </div>
+                                    <div css={s.selectLayout}>
+                                        <Select styles={selectStyle} key={"date"} options={date} placeholder="요일" onChange={handleDateOption} isMulti/>
+                                    </div>
+                                    <div css={s.selectLayout}>
+                                        <Select styles={selectStyle} key={"classType"} options={classType}  placeholder="수업방식" onChange={handleClassTypeOption}isMulti/>
+                                    </div>
+                                    <div css={s.selectLayout}>
+                                        <input type="text" placeholder='만 나이를 입력해주세요' onChange={handleStudentAge}/>
+                                    </div>
+                                </div>
+                                <div css={s.modalButton}>
+                                <button onClick={() => handelSendApplyMailOnClick()}>메일 보내기</button>
+                                </div>
+                            </Modal>
+
                         </div>
                     </div>
                 </div>
@@ -344,7 +353,7 @@ function TeacherProfile() {
                         <div css={s.teacherInfoContainer}>
                             <div css={s.teacherInfotitle}>
                                 <div>
-                                    선생님 정보
+                                    회원 정보
                                 </div>
                                 {
                                     roleId === 3 ?                                     
@@ -398,7 +407,7 @@ function TeacherProfile() {
                                 </div>
                                 <div css={s.teacherInfoContent}>
                                     <div>
-                                        재학상태
+                                        졸업유무
                                     </div>
                                     <div>
                                         {teacherProfile?.graduateState}
@@ -413,11 +422,20 @@ function TeacherProfile() {
                                     <div>
                                         지역
                                     </div>
+                                    <div css={s.subject}>
+                                        {teacherProfile?.regionNames.map(regionName => regionName).join(", ")}
+                                    </div>
+                                </div>
+                                <div css={s.teacherInfoContent}>
                                     <div>
-                                    {teacherProfile?.regionNames.map(regionName => regionName).join(", ")}
+                                        요일
+                                    </div>
+                                    <div css={s.subject}>
+                                        {teacherProfile?.dateNames.map(subjectName => subjectName).join(", ")}
                                     </div>
                                 </div>
                             </div>
+
                             <div css={s.teacherInfoLayout}>
                                 <div css={s.teacherInfo}>
                                     수업 과목
@@ -426,37 +444,34 @@ function TeacherProfile() {
                                     <div>
                                         과목
                                     </div>
-                                    <div>
+                                    <div css={s.subject}>
                                         {teacherProfile?.subjectNames.map(subjectName => subjectName).join(", ")}
                                     </div>
                                 </div>
                             </div>
-                            <div css={s.teacherInfoLayout}>
-                                <div css={s.teacherInfo}>
-                                    대면 수업 가능 요일
-                                </div>
-                                <div css={s.teacherInfoContent}>
-                                    <div>
-                                        요일
-                                    </div>
-                                    <div>
-                                        {teacherProfile?.dateNames.map(subjectName => subjectName).join(", ")}
-                                    </div>
-                                </div>
-                            </div>
+
                             <div css={s.teacherInfoLayout}>
                                 <div css={s.teacherInfo}>
                                     수업 소개
                                 </div>
-                                <div css={s.teacherInfoContent}>
-                                    <div>
-                                        한줄 소개
-                                    </div>
-                                    <div>
+                                <div css={s.teacherInfoContent5}>
+                                    <div >
                                         {teacherProfile?.teacherIntroduceContent}
                                     </div>
                                 </div>
                             </div>
+
+                            <div css={s.teacherInfoLayout6}>
+                                <div css={s.teacherInfoContent6}>
+                                    <div>프로필 등록일</div>
+                                    <div>{createDate}</div>
+                                </div>
+                                <div css={s.teacherInfoContent6}>
+                                    <div>최종 프로필 수정일</div>
+                                    <div>{updateDate}</div>
+                                </div>
+                            </div>
+
                         </div>
                     </div>
             </div>
