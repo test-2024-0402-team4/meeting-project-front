@@ -23,12 +23,11 @@ function SigninPage() {
             password
         }).then(response => {
             const accessToken = response.data;
-
             localStorage.setItem("AccessToken", accessToken);
             window.location.replace("/");
 
         }).catch(error => {
-            alert(error.response.data);
+            alert(error?.response.data);
         })
     }
 

@@ -381,10 +381,10 @@ function TeacherProfile() {
                                 <button onClick={() => handelSendApplyMailOnClick()}>메일 보내기</button>
                                 </div>
                             </Modal>
-                            <div>
-                                <button onClick={openDeclareModal}>신고하기</button>
-                                {declareModal && <DeclareUser isOpen={declareModal} setDeclareModal={setDeclareModal} userId={userId} />}
-                            </div>
+                                <div css={s.declareButtonLayout}>
+                                    <button onClick={openDeclareModal}>신고하기</button>
+                                    {declareModal && <DeclareUser isOpen={declareModal} setDeclareModal={setDeclareModal} userId={userId} />}
+                                </div>
 
 
                         </div>

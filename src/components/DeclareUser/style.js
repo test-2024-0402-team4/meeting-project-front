@@ -14,7 +14,7 @@ export const modal = css`
     transform: translate(-50%, -50%);
     
     width: 500px;
-    height: 440px;
+    height: 420px;
 
     border: 1px solid #dbdbdb;
     border-radius: 5px;
@@ -33,7 +33,7 @@ export const modal = css`
     }
 `;
 export const mainInput = css`
-    margin-top: 20px;
+    margin-top: 10px;
     width: 80%;
     height: 40px;
     outline: none;
@@ -53,15 +53,48 @@ export const writeContent = css`
     margin-bottom: 20px;
 `;
 
-export const declareButton = css`
-    display: flex;
-    align-items: flex-end;
-    justify-content: flex-end;
+export const declareButtonLayout = css`
     width: 80%;
-    & > button {
-        
-    }
+    display: flex;
+    justify-content: flex-end;
 `
+
+export const declareButton = css`
+    box-sizing: border-box;
+    display: flex;
+
+    & > button:first-child {
+        margin-right: 10px; 
+    }
+
+    & > button{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        
+        width: 100px;
+        height: 32px;
+        
+        cursor: pointer;
+        
+        border: none;
+        border-radius: 5px;
+
+        font-size: 13px;
+        
+        color: #808080;
+        background-color: #f0f0f0;
+
+        :hover {
+            background-color: #e1e1e1;
+        }
+        :active{
+            background-color: #f1f1f1;
+        }
+    }
+    
+`;
+
 
 export const contentInput = css`
     border-radius: 4px;
@@ -78,22 +111,35 @@ export const contentInput = css`
 `;
 
 export const modalHead = css`
-
     display: flex;
     justify-content: space-between;
 
-    width: 90%;
+    width: 80%;
     height: 35px;
     color: #808080;
     font-size: 25px;
     font-weight: 700;
-
-    margin-top: 20px;
+    margin-top: 15px;
     & > button{
+        box-sizing: border-box;
         background-color: transparent;
         border: none;
         font-size: 20px;
         cursor: pointer;
+    }
+
+    & > div{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        & > div:nth-of-type(1) {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-right: 5px;
+            font-size: 30px;
+            margin-top: 5px;
+        }
     }
 
 `; 

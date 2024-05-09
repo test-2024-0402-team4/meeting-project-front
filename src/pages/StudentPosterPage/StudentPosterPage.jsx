@@ -176,7 +176,7 @@ function StudentPosterPage(props) {
                             </button>
                             </div>
                         </Modal> 
-                        <div>
+                        <div css={s.declareButtonLayout}>
                             <button onClick={openDeclareModal}>신고하기</button>
                             {declareModal && <DeclareUser isOpen={declareModal} setDeclareModal={setDeclareModal} userId={userId} />}
                         </div>
