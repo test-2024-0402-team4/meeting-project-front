@@ -14,10 +14,14 @@ export const mypageLayout = css`
 export const profileLayout = css`
     position: relative;
     box-sizing: border-box;
-    padding: 28px 20px 0px 0px;
+    padding: 28px 20px 0px 5px;
     width: 300px;
+    height: 325px;
+    max-height: 375px;
     min-width: 255px;
-    border-right: 1px solid #dbdbdb;
+    border: 1px solid #dbdbdb;
+    margin-top: 60px;
+    border-radius: 4px;
 
 `;
 export const profile = css`
@@ -53,7 +57,7 @@ export const profile = css`
 export const profileUpdateButton = css`
     position: absolute;
     top: 20px;
-    right: 20px;
+    right: 10px;
     align-items: flex-end;
     & > button {
         width: 66px;
@@ -210,7 +214,7 @@ export const mypageContentTitle = () => css`
 `;
 
 export const mypageContent = css`
-    border: 1px solid #85d3d6;
+    border: 1px solid #dbdbdb;
     border-radius: 4px;
     box-sizing: border-box;
     width: 100%;
@@ -264,7 +268,7 @@ export const boardListHeader = css`
 box-sizing: border-box;
 display: flex;
 width: 100%;
-border-bottom:2px solid #b3d4d4 ;
+border-bottom:2px solid #dbdbdb ;
 & > div{
     display: flex;
     justify-content: center;
