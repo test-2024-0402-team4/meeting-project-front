@@ -5,6 +5,7 @@ export const treelayout =css`
     margin: 0 auto;
     justify-content: center;
     width: 70%;
+    min-width: 1328px;
     & > img {
         width: 100%;
     }
