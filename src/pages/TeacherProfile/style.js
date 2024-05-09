@@ -191,6 +191,11 @@ export const teacherInfotitle = css`
     display: flex;
     justify-content: space-between;
     border-bottom: 1px solid #dbdbdb;
+    width: 100%;
+    min-width: 700px;
+
+    // 다하고 지우기 ---------------------------------------
+    /* border: 1px solid black; */
     
     & > div:nth-of-type(1) {
         margin-left: 20px;
@@ -232,13 +237,14 @@ export const teacherInfoLayout = css`
     box-sizing: border-box;
     padding: 20px 16px 5px 20px;
     width: 100%;
-    min-height: 144px;
     min-width: 700px;
+    min-height: 144px;
     border-bottom: 1px solid #dbdbdb;
 
     div:nth-of-type(4){
         margin-bottom: 20px;
     }
+    // 다하고 지우기 ------------------------------------
     /* border: 1px solid black; */
 `;
 

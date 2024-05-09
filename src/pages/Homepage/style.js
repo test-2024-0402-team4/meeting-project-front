@@ -10,6 +10,8 @@ export const treelayout =css`
         width: 70%;
         min-width: 1156px;
     }
+    // 다하고 지우기 ------------------------------------------
+    /* border: 1px solid black; */
     
 `
 
