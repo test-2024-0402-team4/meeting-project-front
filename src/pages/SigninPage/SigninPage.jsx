@@ -32,6 +32,12 @@ function SigninPage() {
         })
     }
 
+    const handleKeyPress = (e) => {
+        if(e.key === 'Enter') {
+            handleSignin();
+        }
+    }
+
 
     return (
         <div css={s.layout}>
@@ -46,9 +52,8 @@ function SigninPage() {
             <div css={s.body}>
                 <div css={s.bodyBox1}>
                     <div>
-                        <AuthPageInput type={"text"} name={"username"} placeholder={"아이디"} value={username} onChange={usernameChange}/>
-                        <AuthPageInput type={"password"} name={"password"} placeholder={"비밀번호"} value={password} onChange={passwordChange}/>
-                       
+                        <AuthPageInput type={"text"} name={"username"} placeholder={"아이디"} value={username} onChange={usernameChange} onKeyDown={handleKeyPress}/>
+                        <AuthPageInput type={"password"} name={"password"} placeholder={"비밀번호"} value={password} onChange={passwordChange} onKeyDown={handleKeyPress} />
                         <button onClick={handleSignin}>로그인하기</button>
 
                         <div css={s.linkBox}>

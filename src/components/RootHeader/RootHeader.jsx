@@ -70,8 +70,11 @@ function RootHeader({children}) {
         <div css={s.headerLayout}>
             <div css={s.header}>
                 <div css={s.logoLayout}>
-                    <img onClick={() => handelPageMove("")} src={NAME}/>
+                    <div css={s.logo}>
+                        <img onClick={() => handelPageMove("")} src={NAME}/>
+                    </div>
                 </div>
+
                 <div css={s.headerItemLayout}>
                     <div css={s.headerInfoLayout}>
                         <div css={s.roleName}>

@@ -4,8 +4,8 @@ export const treelayout =css`
     display: flex;
     margin: 0 auto;
     justify-content: center;
-    width: 100%;
-    height: 626px;
+    width: 70%;
+    min-width: 1328px;
     & > img {
         width: 70%;
         min-width: 1156px;

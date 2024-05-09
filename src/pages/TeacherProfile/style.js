@@ -10,7 +10,9 @@ export const layout = css`
 export const teacherProfileRootLayout = css`
     box-sizing: border-box;
     height: 100%;
-    border-right: 1px solid #dbdbdb;
+
+    //다하고 지우기 ------------------------
+    /* border: 1px solid black; */
 `;
 
 
@@ -175,11 +177,14 @@ export const teacherInfoRootLayout = css`
     width: 100%;
     min-height: 620px;
     padding-top: 28px;
+
+    border-left: 1px solid #dbdbdb;
 `;
 
 export const teacherInfoContainer = css`
     width: 70%;
     height: 100%;
+
 `;
 export const teacherInfotitle = css`
     box-sizing: border-box;
@@ -309,6 +314,7 @@ export const teacherInfoLayout6 = css`
     min-height: 100px;
     min-width: 700px;
     
+    // 다하고 지우기 ------------------------
     /* border: 1px solid black; */
 `;
 
@@ -326,7 +332,7 @@ export const modal = css`
     transform: translate(-50%, -50%);
     
     width: 500px;
-    height: 570px;
+    height: 600px;
 
     border: 1px solid #dbdbdb;
     border-radius: 5px;
@@ -357,6 +363,7 @@ export const modalHead = css`
     font-weight: 700;
 
     margin-top: 20px;
+    padding-bottom: 10px;
     & > button{
         background-color: transparent;
         border: none;
@@ -364,8 +371,7 @@ export const modalHead = css`
         cursor: pointer;
     }
 
-    // 다하고 지우기 -----------------------
-    /* border: 1px solid black; */
+    border-bottom: 1px solid #dbdbdb;
 `; 
 
 export const modalContent = css`
@@ -403,7 +409,7 @@ export const modalButton = css`
         margin-top: 10px;
         
         width: 100%;
-        height: 35px;
+        height: 40px;
         
         cursor: pointer;
         
