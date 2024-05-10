@@ -12,7 +12,7 @@ import { registerDeclare, registerTeacherDeclare } from "../../apis/api/boardApi
 import { useMaxValueValidateInput } from "../../hooks/inputHook";
 import { QUILL_MODULES } from "../../constants/quillModules";
 import DeclareModal from "../../components/Modal/DeclareModal";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useAuthCheck } from "../../hooks/useAuthCheck";
 import { useTeacherCheck } from "../../hooks/useTeacherCheck";
 import { useAuthEmailCheck } from "../../hooks/useAuthEmailCheck";
@@ -29,6 +29,7 @@ function DeclareTeacherPage(props) {
 
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [selectedTitle, setSelectedTitle] = useState('');
+    const navigate = useNavigate();
 
     const principalQuery = useQuery(
         ["principalQuery"],
@@ -51,7 +52,7 @@ function DeclareTeacherPage(props) {
         mutationFn: registerTeacherDeclare,
         onSuccess: response => {
           alert("신고가 완료되었습니다");
-          window.location.replace("/");
+          navigate("/");
         }
       });
       console.log(userId);
@@ -72,7 +73,7 @@ function DeclareTeacherPage(props) {
 
       const handleCancelClick = () => {
         if(window.confirm("정말 취소하시겠습니까?")){
-          window.location.replace("/");
+          navigate("/");
         }
       }
       const handleTitleSelect = (title) => {

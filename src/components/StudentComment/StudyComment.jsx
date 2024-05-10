@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import * as s from "./style";
-import { useParams, useSearchParams } from "react-router-dom";
+import { useNavigate, useParams, useSearchParams } from "react-router-dom";
 import React, { useEffect, useRef, useState } from 'react';
 import { useMutation, useQuery, useQueryClient } from "react-query";
 import { useMaxValueValidateInput } from "../../hooks/inputHook";
@@ -28,28 +28,11 @@ function StudyComment({userId1, roleId}) {
     const [timeStamp,setTimeStamp] = useState([]);
     const [nickName , setNickName] = useState();
     const [role , setRole] = useState();
-
+    const buttonRef = useRef();
     const queryClient = useQueryClient();
+    const navigate = useNavigate();
 
 
-
-    const studentProfileQuery = useQuery(
-        ["studentProfileQuery"],
-        async() => await getStudentProfile(userId1),
-        {
-            refetchOnWindowFocus: false,
-            retry: 0,
-            onSuccess: response => {
-                console.log("프로필 가져오기");
-                setProfile(response);
-            },
-            onError: error => {
-                console.log("에러");
-            },
-            enabled: !!userId1
-        }
-    )
-console.log(profile);
 
 useEffect(() => {
     if (userId1 && role) {
@@ -110,18 +93,25 @@ useEffect(() => {
     }
 }, []);
 
-    useEffect(() => {
-        function handleClickOutside(event) {
-            if (commentRef.current && !commentRef.current.contains(event.target)) {
-                setShowDropDownById(0);
-            }
-        }
+const handleButtonClick = (e, id) => {
+    console.log(e.target)
+    buttonRef.current = e.target;
+    setShowDropDownById(prevId => prevId === id ? 0 : id)
+    console.log("나 버튼 아이콘");
+}
 
-        document.addEventListener("click", handleClickOutside);
-        return () => {
-            document.removeEventListener("click", handleClickOutside);
-        };
-    }, []);
+useEffect(() => {
+    function handleClickOutside(event) {
+        if (event.target !== buttonRef.current) {
+            setShowDropDownById(0);
+        }
+    }
+    document.addEventListener("click", handleClickOutside);
+    return () => {
+        document.removeEventListener("click", handleClickOutside);
+    };
+}, [buttonRef.current]);
+
 
     const getStudyCommentQuery = useQuery(
         ["getStudyCommentQuery"],
@@ -230,7 +220,7 @@ useEffect(() => {
     }
 
     const handleDeclareClick = (studyCommentId) => {
-        window.location.replace(`/notice/declare/study/comment/${studyCommentId}`);
+        navigate(`/notice/declare/study/comment/${studyCommentId}`);
     }
   
    
@@ -283,7 +273,7 @@ useEffect(() => {
                                     <div css={s.headerRight}>
                                     <div css={s.commentDate}>{GetTime(new Date(comment.createDate))}</div>
                                     <div css={s.optionButtonBox}>
-                                        <button css={s.beforeChangeButton} onClick={() => setShowDropDownById(id => id === comment.studyCommentId ? 0 : comment.studyCommentId)}><BsThreeDotsVertical /></button>
+                                        <button css={s.beforeChangeButton} onClick={(e) => handleButtonClick(e, comment.studyCommentId)}><BsThreeDotsVertical /></button>
                                         {
                                             isShowDropDownById === comment.studyCommentId &&
                                             <div css={s.commentItem}>

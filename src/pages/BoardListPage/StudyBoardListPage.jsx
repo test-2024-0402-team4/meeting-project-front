@@ -1,5 +1,5 @@
 /** @jsxImportSource @emotion/react */
-import { Link, useSearchParams } from "react-router-dom";
+import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import * as s from "./style";
 
 import React, { useState } from 'react';
@@ -14,6 +14,8 @@ import GetTime from "../../components/GetTime/GetTime";
 import { getPrincipalRequest } from "../../apis/api/principal";
 import { useAuthCheck } from "../../hooks/useAuthCheck";
 import { GrView } from "react-icons/gr";
+import { FaRegComment } from "react-icons/fa";
+
 
 
 function StudyBoardListPage(props) {
@@ -23,6 +25,7 @@ function StudyBoardListPage(props) {
     const [boardList, setBoardList] = useState([]);
 
     const [roleId , setRoleId] = useState();
+    const navigate = useNavigate();
 
     const principalQuery = useQuery(
         ["principalQuery"],
@@ -67,6 +70,7 @@ function StudyBoardListPage(props) {
                         }
                     }
                 ));
+                console.log(response.data);
             }
         }
     );
@@ -89,13 +93,13 @@ function StudyBoardListPage(props) {
     );
 
     const linkToStudy = () => {
-        window.location.replace("/study/boards?page=1")
+        navigate("/study/boards?page=1")
     }
     const linkToStudent = () => {
-        window.location.replace("/student/boards?page=1")
+        navigate("/student/boards?page=1")
     }
     const linkToTeacher = () => {
-        window.location.replace("/teacher/boards?page=1")
+        navigate("/teacher/boards?page=1")
     }
     
     return (
@@ -160,12 +164,18 @@ function StudyBoardListPage(props) {
                                     <div css={s.date}>{GetTime(new Date(board.createDate))}</div>
                                 </div>
 
-                                <div css={s.viewCount}> 
-                                    <div css={s.view}>
-                                        <GrView /> 
+                                <div css={s.Count}> 
+                                    <div css={s.commentCount}>
+                                        <div css={s.commentIcon}><FaRegComment /></div>
+                                        <div>{board.commentCount}</div>
                                     </div>
-                                    <div >
-                                        {board.viewCount}
+                                    <div css={s.viewCount}>
+                                        <div css={s.view}>
+                                            <GrView /> 
+                                        </div>
+                                        <div >
+                                            {board.viewCount}
+                                        </div>
                                     </div>
                                 </div>
                                 

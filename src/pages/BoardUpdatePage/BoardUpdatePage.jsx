@@ -10,7 +10,7 @@ import { QUILL_MODULES } from "../../constants/quillModules";
 import {v4 as uuid} from "uuid"
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import { storage } from "../../apis/firebase/firebaseConfig";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useAuthCheck } from "../../hooks/useAuthCheck";
 import { useStudentCheck } from "../../hooks/useStudentCheck";
 import { useAuthEmailCheck } from "../../hooks/useAuthEmailCheck";
@@ -25,6 +25,7 @@ function BoardUpdatePage(props) {
     const [quillValue , handleQuillValueChange, setQuillValue] = useQuill();
     const [inputValue , handleInputChange, setInputValue] = useMaxValueValidateInput(20);
     const reactQuillRef = useRef();
+    const navigate = useNavigate();
 
     const getBoardQuery = useQuery(
         ["getBoardQuery"],
@@ -66,7 +67,7 @@ function BoardUpdatePage(props) {
       mutationFn: updateBoardRequest,
       onSuccess: response => {
         alert("변경이 완료되었습니다!");
-        window.location.replace("/student/boards?page=1");
+        navigate("/student/boards?page=1");
       },
       onError: error =>{
         console.log(error)
@@ -96,7 +97,7 @@ function BoardUpdatePage(props) {
 
     const handleCancelClick = () => {
       if(window.confirm("정말 취소하시겠습니까?")){
-        window.location.replace("/student/boards?page=1")
+        navigate("/student/boards?page=1")
       }
     }
    

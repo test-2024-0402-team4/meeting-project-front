@@ -3,7 +3,7 @@ import { useMutation, useQuery } from "react-query";
 import * as s from "./style";
 import React, { useState } from 'react';
 import { deleteBoardRequest, getSingleBoardReqeust, getSingleNoticeBoardReqeust, updateNoticeBoardViewCountRequest } from "../../apis/api/boardApi";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import GetTime from "../../components/GetTime/GetTime";
 import { GrView } from "react-icons/gr";
 import { useAuthCheck } from "../../hooks/useAuthCheck";
@@ -13,6 +13,7 @@ function NoticeBoardPage(props) {
     const [singleBoard , setSingleBoard] = useState("");
     const [timeStamp,setTimeStamp] = useState("");
     const formattedTime = GetTime(new Date(timeStamp));
+    
 
     const getNoticeBoardQuery = useQuery(
         ["getNoticeBoardQuery"],
