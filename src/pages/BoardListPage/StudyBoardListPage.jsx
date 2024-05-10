@@ -2,8 +2,8 @@
 import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import * as s from "./style";
 
-import React, { useState } from 'react';
-import { useMutation, useQuery } from "react-query";
+import React, { useEffect, useState } from 'react';
+import { useMutation, useQuery, useQueryClient } from "react-query";
 import { useSearchBoardInput } from "../../hooks/useSearchBoardInput";
 import BoardPageCount from "../../components/BoardPageCount/BoardPageCount";
 import { getTeacherCount, searchTeacherBoardListRequest } from "../../apis/api/teacherBoardApi";
@@ -20,6 +20,8 @@ import { FaRegComment } from "react-icons/fa";
 
 function StudyBoardListPage(props) {
 
+    const queryClient = useQueryClient();
+    const principalData = queryClient.getQueryData("principalQuery");
     const [searchParams, setSearchParams] = useSearchParams();
     const searchCount = 5;
     const [boardList, setBoardList] = useState([]);
@@ -27,22 +29,9 @@ function StudyBoardListPage(props) {
     const [roleId , setRoleId] = useState();
     const navigate = useNavigate();
 
-    const principalQuery = useQuery(
-        ["principalQuery"],
-        getPrincipalRequest,
-        {
-            retry: 0,
-            refetchOnWindowFocus: false,
-            onSuccess: response => {
-                console.log("principal Success");
-                console.log(response);
-                setRoleId(response.data.roleId);
-            },
-            onError: error => {
-                console.log("principal Error");
-            }
-        }
-    );
+    useEffect(() => {
+        setRoleId(principalData?.data?.roleId);
+    }, [])
 
     const searchSubmit = () => {
         setSearchParams({
@@ -61,6 +50,7 @@ function StudyBoardListPage(props) {
             searchText: searchText.value 
         }),
         {
+            retry: 0,
             refetchOnWindowFocus : false,
             onSuccess: response => {
                 setBoardList(() => response.data?.map(
@@ -82,6 +72,7 @@ function StudyBoardListPage(props) {
             searchText: searchText.value
         }),
         {
+            enabled: !!searchStudyBoardQuery?.data?.data,
             refetchOnWindowFocus: false,
             onSuccess: response => {
                 console.log(response);

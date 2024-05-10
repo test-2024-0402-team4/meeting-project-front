@@ -17,6 +17,7 @@ export const useTeacherCheck = () => {
             }
         } else {
             console.error("AccessToken not found in localStorage");
+            return;  
         }
 
     }, []);

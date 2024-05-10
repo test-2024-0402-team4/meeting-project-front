@@ -63,7 +63,7 @@ export const declareButton = css`
     box-sizing: border-box;
     display: flex;
 
-    & > button:first-child {
+    & > button:first-of-type {
         margin-right: 10px; 
     }
 
@@ -105,7 +105,6 @@ export const contentInput = css`
     resize: none;
     padding-top: 20px;
     font-size: 15px;
-    font-family: monospace;
     font-style: normal;
 
 `;

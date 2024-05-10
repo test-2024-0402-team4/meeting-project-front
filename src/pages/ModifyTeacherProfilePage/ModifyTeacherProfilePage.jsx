@@ -61,7 +61,7 @@ function ModifyTeacherProfilePage(props) {
     const [ universityId, setUniversityId ] = useState();
     const [ graduateStateId, setGraduateStateId ] = useState();
 
-    const [ infoState, setInfoState ] = useState();
+    const [ infoState, setInfoState ] = useState(1);
 
     const [isActive, setIsActive] = useState(false);
     const [isEssentialActive, setIsEssentialActive] = useState(false);
@@ -79,6 +79,8 @@ function ModifyTeacherProfilePage(props) {
     }
 
     const [ textLength, setTextLength ] = useState(0);
+
+ 
 
 
     const principalQuery = useQuery(
@@ -335,7 +337,6 @@ function ModifyTeacherProfilePage(props) {
     return (
         <div css={s.layout}>
             <div css={s.body}>
-
                 <div css={s.bodyBox1}>
                     <div css={s.head1}>
                         <div css={s.head2}>

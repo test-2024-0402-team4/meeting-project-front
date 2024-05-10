@@ -270,12 +270,12 @@ function StudentPostersPage(props) {
                                             </span>
                                         </div>
                                         <div>
-                                            <span><IoLocationSharp /> </span>
-                                            <span>{studentPoster.regionName}</span>
+                                            <span key={"logo"}><IoLocationSharp /> </span>
+                                            <span key={"region"}>{studentPoster.regionName}</span>
                                         </div>
                                         <div css={s.studnetinfo}>
                                             {
-                                                studentPoster.classType.map(value => <span>{value}</span>)
+                                                studentPoster.classType.map((value, index) => <span key={index}>{value}</span>)
                                             }
                                         </div>
                                     </div>

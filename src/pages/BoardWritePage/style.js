@@ -22,7 +22,6 @@ export const writePageTitle = css`
     border-bottom: 1px solid #dbdbdb;
     font-size: 25px;
     font-weight: 600;
-    font-family: Arial, sans-serif;
 `;
 export const titleButtons = css`
     

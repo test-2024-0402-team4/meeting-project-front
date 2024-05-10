@@ -55,6 +55,7 @@ useEffect(() => {
         },
         onError: error => {
           console.log(userId1);
+          console.log(error);
         },
         enabled: !!userId1
     }

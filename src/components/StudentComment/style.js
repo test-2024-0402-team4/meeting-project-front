@@ -140,7 +140,6 @@ export const commentMain = css`
     min-height: 25px;
     font-size: 18px;
     font-weight: 500;
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
     & > pre{
         margin-top: 0px;
         margin-bottom: 10px;
@@ -156,7 +155,6 @@ export const commentNick = css`
 margin-left: 10px;
 margin-top: 12px;
 font-size: 13px;
-font-family: Arial, Helvetica, sans-serif;
 font-weight: 500;
 `;
 

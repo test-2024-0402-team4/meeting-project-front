@@ -123,7 +123,6 @@ export const boardListItem = css`
     &>li{
         width: 99%;
         border: 2px solid #ebebeb ;
-        font-family: Arial, sans-serif;
         list-style: none;
         display: flex;
         flex-direction: column;

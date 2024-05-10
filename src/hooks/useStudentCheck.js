@@ -18,6 +18,7 @@ export const useStudentCheck = () => {
             }
         } else {
             console.error("AccessToken not found in localStorage");
+            return;
         }
 
     }, []);
