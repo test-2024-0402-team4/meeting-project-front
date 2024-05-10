@@ -5,6 +5,7 @@ export const headerLayout = css`
     width: 100%;
     box-sizing: border-box;
     border-bottom: 1px solid #dbdbdb;
+    /* border: 1px solid black; */
     
 `;
 export const header = css`
@@ -13,6 +14,9 @@ export const header = css`
     width: 70%;
     min-width: 550px;
     margin: 0 auto;
+
+    //다하고 지우기 ----------------------------------
+    /* border: 1px solid black; */
 `;
 
 export const headerAcoountLayout = css`
@@ -35,6 +39,8 @@ export const headerAcoountLayout = css`
     & span:nth-of-type(3) {
         margin-left: 20px;
     }
+
+    //다하고 지우기 ----------------------------------
     /* border: 1px solid black; */
 `;
 
@@ -42,6 +48,10 @@ export const headerInfoLayout = css`
     height: 40px;
     display: flex;
     justify-content: space-between;
+    padding-top: 10px;
+
+    //다하고 지우기 ----------------------------------
+    /* border: 1px solid black; */
 `;
 
 export const roleName = css`
@@ -50,6 +60,8 @@ export const roleName = css`
     font-weight: 600;
     color: rgb(128, 128, 128);
     pointer-events: none;
+    //다하고 지우기 ----------------------------------
+    /* border: 1px solid black; */
 
 `;
 
@@ -59,28 +71,46 @@ export const headerItemLayout = css`
     width: 100%;
     min-height: 100px;
     justify-content: space-between;
+    margin-left: 10px;
+
+    //다하고 지우기 ----------------------------------
+    /* border: 1px solid black; */
 `;
 
 export const logoLayout = css`
-    margin-right: 20px;
-    margin-top: 30px;
-    width: 100px;
-    height: 40px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    //다하고 지우기 ----------------------------------
+    /* border: 1px solid #524c42; */
+    border-radius: 5px;
+`;
+
+export const logo = css`
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    height: 40px;
+
     & > img {
         height: 100%;
+        margin: 0px 5px 0px 5px;
         cursor: pointer;
+        border-bottom: 2px solid #524c42;
+
     }
+
+    /* border: 1px solid black; */
 `;
 
 export const headerItem = css`
     display: flex;
     max-width: 1024px;
-    padding-bottom: 10px;
     
-
+    //다하고 지우기 ----------------------------------
+    /* border: 1px solid black; */
+    
     & > span {
         margin-left: 20px;            
         color: #aaaaaa;

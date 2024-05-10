@@ -18,7 +18,7 @@ export const header = css`
     /* border: 1px solid black; */
 
     width: 100%;
-    height: 150px;
+    height: 120px;
 
     & > span {
         font-size: 56px;
@@ -46,16 +46,16 @@ export const headerBox1 = css`
 
 export const body = css`
     display: flex;
-    align-items: center;
     justify-content: center;
-    margin: 0 auto;
+    align-items: center;
+    margin: 0px auto;
 
 
     // 다하고 없애기 --------------------------------
     /* border: 1px solid black; */
 
     width: 100%;
-    height: 500px;
+    height: 550px;
 `;
 
 
@@ -79,6 +79,53 @@ export const inputBox = css`
 
         &:hover{
             background-color: #9decdb;
+        }
+    }
+`;
+
+export const inputBox2 = css`
+    width: 250px;
+
+
+    // 다 하고 없애기 --------------------------------
+    /* border: 1px solid black; */
+    * > input {
+        color: #a5a5a5;
+    }
+
+    * > button {
+        width: 250px;
+        height: 40px;
+        font-size: 15px;
+
+        border: none;
+        border-radius: 5px;
+
+        background-color: #d9fcf6;
+        color: #11b69a;
+
+        &:hover{
+            background-color: #9decdb;
+        }
+    }
+`;
+
+export const email = css`
+    display: flex;
+
+    /* border: 1px solid black; */
+    button{
+        cursor: pointer;
+        background-color: #f0f0f0;
+        color: #5d5d5d;
+        margin-left: 5px;
+        width: 50px;
+        height: 50px;
+        :hover{
+            background-color: #dbdbdb;
+        }
+        :active{
+            background-color: #c9c9c9;
         }
     }
 `;

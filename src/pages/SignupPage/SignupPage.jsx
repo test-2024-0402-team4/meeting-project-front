@@ -6,7 +6,7 @@ import { useQuery } from "react-query"
 import AuthPageInput from "../../components/AuthPageInput/AuthPageInput";
 import { useSignupInput } from "../../hooks/useSignupInput";
 import * as s from "./style";
-import { signupRequest } from "../../apis/api/signup";
+import { checkEmail, signupRequest } from "../../apis/api/signup";
 import { getGraduateState, getRegion, getStudentType, getUniversity } from "../../apis/api/Option";
 import { Link, useNavigate } from "react-router-dom";
 
@@ -17,7 +17,7 @@ function SignupPage() {
     const [ password, passwordChange, passwordMessage ] = useSignupInput("password");
     const [ checkPassword, checkPasswordChange ] = useSignupInput("checkPassword");
     const [ nickname, nicknameChange, nicknameMessage ] = useSignupInput("nickname");
-    const [ email, emailChange, emailMessage ] = useSignupInput("email");
+    const [ email, emailChange, emailMessage, setEmailValue, setEmailMessage  ] = useSignupInput("email");
 
     const [ birthDate, birthDateChange, birthDateMessage ] = useSignupInput("birthDate");
     const [ phoneNumber, phoneNumberChange, phoneNumberMessage ] = useSignupInput("phoneNumber");
@@ -61,7 +61,10 @@ function SignupPage() {
                 }
             });
         }
+        
     },[password, checkPassword]);
+
+
     
     const regionQuery = useQuery(
         ["regionQuery"],getRegion,
@@ -158,6 +161,22 @@ function SignupPage() {
     }
 
     const handleAddInfo = () => {
+        const checkFlags = [
+            name,
+            username,
+            password,
+            checkPassword,
+            nickname,
+            email,
+            roleId
+        ];
+        // 만약 checkFlags 안에 error 타입이랑 undefined, null이 하나라도 포함되있다면
+        if(checkFlags.includes("")) {
+            alert("빈 칸이 있는지 다시 확인하세요.");
+            return;
+        }
+        
+
         if(roleId === 1) {
             setAddInfo(() => true);
         }else if(roleId === 2) {
@@ -221,6 +240,13 @@ function SignupPage() {
                                 text: v
                             }
                         })
+                    } else if(k === "email") {
+                        setEmailMessage(() => {
+                            return {
+                                type: "error",
+                                text: v
+                            }
+                        })
                     }
                 }
             }else {
@@ -228,7 +254,6 @@ function SignupPage() {
             }
         })
     }
-
 
     return (
         <div css={s.layout}>
@@ -254,7 +279,6 @@ function SignupPage() {
                                 <AuthPageInput type={"password"} name={"checkPassword"} placeholder={"비밀번호확인"} value={checkPassword} onChange={checkPasswordChange} message={checkPasswordMessage}/>
                                 <AuthPageInput type={"text"} name={"nickname"} placeholder={"닉네임"} value={nickname} onChange={nicknameChange} message={nicknameMessage}/>
                                 <AuthPageInput type={"text"} name={"email"} placeholder={"이메일"} value={email} onChange={emailChange} message={emailMessage}/>
-                                
                                 <div css={s.radioBox}>
                                     <input id="radio1" type="radio" name="Role" value="student" onClick={handleStudentOnClick}/>
                                     <label htmlFor="radio1">학생</label>
@@ -283,13 +307,13 @@ function SignupPage() {
                             <div css={s.body}>
 
                                 <div css={s.bodyBox1}>
-                                    <div css={s.inputBox}>
-                                        <AuthPageInput type={"text"} name={"name"} placeholder={"사용자이름"} value={name} onChange={nameChange} message={nameMessage} />
-                                        <AuthPageInput type={"text"} name={"username"} placeholder={"아이디"} value={username} onChange={usernameChange} message={usernameMessage}/>
-                                        <AuthPageInput type={"password"} name={"password"} placeholder={"비밀번호"} value={password} onChange={passwordChange} message={passwordMessage}/>
-                                        <AuthPageInput type={"password"} name={"checkPassword"} placeholder={"비밀번호확인"} value={checkPassword} onChange={checkPasswordChange} message={checkPasswordMessage}/>
-                                        <AuthPageInput type={"text"} name={"nickname"} placeholder={"닉네임"} value={nickname} onChange={nicknameChange} message={nicknameMessage}/>
-                                        <AuthPageInput type={"text"} name={"email"} placeholder={"이메일"} value={email} onChange={emailChange} message={emailMessage}/>
+                                    <div css={s.inputBox2}>
+                                        <AuthPageInput type={"text"} name={"name"} placeholder={"사용자이름"} value={name} onChange={nameChange} message={nameMessage} disabled/>
+                                        <AuthPageInput type={"text"} name={"username"} placeholder={"아이디"} value={username} onChange={usernameChange} message={usernameMessage} disabled/>
+                                        <AuthPageInput type={"password"} name={"password"} placeholder={"비밀번호"} value={password} onChange={passwordChange} message={passwordMessage} disabled/>
+                                        <AuthPageInput type={"password"} name={"checkPassword"} placeholder={"비밀번호확인"} value={checkPassword} onChange={checkPasswordChange} message={checkPasswordMessage} disabled/>
+                                        <AuthPageInput type={"text"} name={"nickname"} placeholder={"닉네임"} value={nickname} onChange={nicknameChange} message={nicknameMessage} disabled/>
+                                        <AuthPageInput type={"text"} name={"email"} placeholder={"이메일"} value={email} onChange={emailChange} message={emailMessage} disabled/>
                                         
                                         <div css={s.radioBox2}>
                                             <input id="radio1" type="radio" name="Role" value="student" onClick={handleStudentOnClick} disabled/>

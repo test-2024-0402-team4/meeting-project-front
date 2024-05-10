@@ -10,7 +10,9 @@ export const layout = css`
 export const teacherProfileRootLayout = css`
     box-sizing: border-box;
     height: 100%;
-    border-right: 1px solid #dbdbdb;
+
+    //다하고 지우기 ------------------------
+    /* border: 1px solid black; */
 `;
 
 
@@ -175,17 +177,25 @@ export const teacherInfoRootLayout = css`
     width: 100%;
     min-height: 620px;
     padding-top: 28px;
+
+    border-left: 1px solid #dbdbdb;
 `;
 
 export const teacherInfoContainer = css`
     width: 70%;
     height: 100%;
+
 `;
 export const teacherInfotitle = css`
     box-sizing: border-box;
     display: flex;
     justify-content: space-between;
     border-bottom: 1px solid #dbdbdb;
+    width: 100%;
+    min-width: 700px;
+
+    // 다하고 지우기 ---------------------------------------
+    /* border: 1px solid black; */
     
     & > div:nth-of-type(1) {
         margin-left: 20px;
@@ -227,13 +237,14 @@ export const teacherInfoLayout = css`
     box-sizing: border-box;
     padding: 20px 16px 5px 20px;
     width: 100%;
-    min-height: 144px;
     min-width: 700px;
+    min-height: 144px;
     border-bottom: 1px solid #dbdbdb;
 
     div:nth-of-type(4){
         margin-bottom: 20px;
     }
+    // 다하고 지우기 ------------------------------------
     /* border: 1px solid black; */
 `;
 
@@ -309,6 +320,7 @@ export const teacherInfoLayout6 = css`
     min-height: 100px;
     min-width: 700px;
     
+    // 다하고 지우기 ------------------------
     /* border: 1px solid black; */
 `;
 
@@ -326,7 +338,7 @@ export const modal = css`
     transform: translate(-50%, -50%);
     
     width: 500px;
-    height: 570px;
+    height: 600px;
 
     border: 1px solid #dbdbdb;
     border-radius: 5px;
@@ -357,6 +369,7 @@ export const modalHead = css`
     font-weight: 700;
 
     margin-top: 20px;
+    padding-bottom: 10px;
     & > button{
         background-color: transparent;
         border: none;
@@ -364,8 +377,7 @@ export const modalHead = css`
         cursor: pointer;
     }
 
-    // 다하고 지우기 -----------------------
-    /* border: 1px solid black; */
+    border-bottom: 1px solid #dbdbdb;
 `; 
 
 export const modalContent = css`
@@ -403,7 +415,7 @@ export const modalButton = css`
         margin-top: 10px;
         
         width: 100%;
-        height: 35px;
+        height: 40px;
         
         cursor: pointer;
         
@@ -421,3 +433,18 @@ export const modalButton = css`
     }
 `;
 
+export const declareButtonLayout = css`
+    width: 100%;
+    margin-top: 20px;
+    display: flex;
+    & > button {
+        padding: 5px;
+        border-radius: 4px;
+        border: none;
+        background-color: #f0f0f0f0;
+        cursor: pointer;
+        :hover {
+            background-color: #dbdbdb;
+        }
+    }
+`;
