@@ -187,7 +187,7 @@ function Mypage(props) {
     );
 
     const handleModifyOnClick = () => {
-        window.location.replace(`/student/mypage/modify?userId=${userId}`);
+        navigate(`/student/mypage/modify?userId=${userId}`);
     }
 
     const handleApplicationDetails = () => {

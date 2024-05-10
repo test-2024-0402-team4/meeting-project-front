@@ -14,6 +14,7 @@ import { registerStudyBoard } from "../../apis/api/studyBoardApi";
 import { getPrincipalRequest } from "../../apis/api/principal";
 import { useAuthCheck } from "../../hooks/useAuthCheck";
 import { getUserNickname } from "../../apis/api/boardApi";
+import { useNavigate } from "react-router-dom";
 
 function StudyBoardWritePage(props) {
     useAuthCheck();
@@ -24,6 +25,7 @@ function StudyBoardWritePage(props) {
     const [userId, setUserId] = useState("");
     const [nickName , setNickName] = useState();
     const [role , setRole] = useState();
+    const navigate = useNavigate();
 
 
     const principalQuery = useQuery(
@@ -91,7 +93,7 @@ function StudyBoardWritePage(props) {
       mutationFn: registerStudyBoard,
       onSuccess: response => {
         alert("글이 작성되었습니다");
-        window.location.replace("/study/boards?page=1");
+        navigate("/study/boards?page=1");
       }
     });
 
@@ -145,7 +147,7 @@ function StudyBoardWritePage(props) {
     }, []);
     const handleCancelClick = () => {
       if(window.confirm("정말 취소하시겠습니까?")){
-        window.location.replace("/study/boards?page=1");
+        navigate("/study/boards?page=1");
       }
     }
    

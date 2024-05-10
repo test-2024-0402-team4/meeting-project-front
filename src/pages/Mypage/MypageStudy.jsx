@@ -5,7 +5,7 @@ import { getPrincipalRequest } from "../../apis/api/principal";
 import { getStudentMypageCount, getStudentProfile, getStudyMypageCount, searchStudentMypageBoardsRequest, searchStudyMypageBoardsRequest } from "../../apis/api/profileApi";
 import React, { useState } from 'react';
 import { useQuery, useQueryClient } from 'react-query';
-import { Link, useSearchParams } from "react-router-dom";
+import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import { useSearchBoardInput } from "../../hooks/useSearchBoardInput";
 import { IoSearchOutline } from "react-icons/io5";
 import GetTime from "../../components/GetTime/GetTime";
@@ -28,7 +28,7 @@ function MypageStudy(props) {
     const [boardList, setBoardList] = useState([]);
     const [timeStamp,setTimeStamp] = useState([]);
     const [userId , setUserId] =useState(profile?.data?.userId || ""); 
-    
+    const navigate = useNavigate(); 
 
     const principalQuery = useQuery(
         ["principalQuery"],
@@ -127,7 +127,7 @@ function MypageStudy(props) {
 console.log(profile);
 console.log(searchParams.get("page"));
 const myBoard = () => {
-    window.location.replace(`/student/${userId}/mypage?page=1`);
+    navigate(`/student/${userId}/mypage?page=1`);
 }
 
     return (

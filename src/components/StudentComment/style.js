@@ -94,6 +94,7 @@ export const afterChangeButtons = css`
 
 export const commentItems = css`
     list-style-type: none;
+    
     & > pre {
         box-sizing: border-box;
         border-bottom: 1px solid red;
@@ -109,16 +110,16 @@ export const commentTitle = css`
     flex-direction: column;
     width: 100%;
     height: 50px;
-    padding: 10px 0px;
-    margin-top: 20px;
+    padding: 5px 0px;
+    margin-top: 15px;
 `;
 
 export const imgBox = css`
 display: flex;
 justify-content: center;
 align-items: center;
-width: 48px;
-height: 48px;
+width: 40px;
+height: 40px;
 border: 1px solid #dbdbdb;
 border-radius: 50px;
 overflow: hidden;
@@ -135,6 +136,15 @@ export const commentMain = css`
     box-sizing: border-box;
     border-bottom: 1px solid #dbdbdb;
     margin-bottom: 10px;
+    padding-left: 53px;
+    min-height: 25px;
+    font-size: 18px;
+    font-weight: 500;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    & > pre{
+        margin-top: 0px;
+        margin-bottom: 10px;
+    }
 `;
 
 export const commentOption = css`
@@ -144,8 +154,8 @@ export const commentOption = css`
 `;
 export const commentNick = css`
 margin-left: 10px;
-margin-top: 5px;
-font-size: 14.5px;
+margin-top: 12px;
+font-size: 13px;
 font-family: Arial, Helvetica, sans-serif;
 font-weight: 500;
 `;

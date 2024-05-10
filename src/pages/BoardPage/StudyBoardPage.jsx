@@ -2,7 +2,7 @@
 import { useMutation, useQuery } from "react-query";
 import * as s from "./style";
 import React, { useState } from 'react';
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { deleteStudyBoardRequest, getSingleStudyBoardReqeust, getUserGenderType, getUserIdByStudyBoardIdRequest, updateStudyBoardViewCountRequest } from "../../apis/api/studyBoardApi";
 import StudyComment from "../../components/StudentComment/StudyComment";
 import GetTime from "../../components/GetTime/GetTime";
@@ -23,6 +23,7 @@ function StudyBoardPage(props) {
     const [userIdByBoard , setUserIdByBoard] = useState();
     const [genderType , setGenderType] = useState();
     const [roleId , setRoleId] = useState();
+    const navigate = useNavigate();
 
     const principalQuery = useQuery(
         ["principalQuery"],
@@ -106,7 +107,7 @@ function StudyBoardPage(props) {
         mutationFn: deleteStudyBoardRequest,
         onSuccess: response => {
             alert("삭제 완료")
-            window.location.replace("/study/boards?page=1");
+            navigate("/study/boards?page=1");
 
         }
     });
@@ -118,17 +119,17 @@ function StudyBoardPage(props) {
     }
 
     const handleDeclareClick = () => {
-        window.location.replace(`/notice/declare/study/${params.studyBoardId}`);
+        navigate(`/notice/declare/study/${params.studyBoardId}`);
     }
     
     const linkToStudy = () => {
-        window.location.replace("/study/boards?page=1")
+        navigate("/study/boards?page=1")
     }
     const linkToStudent = () => {
-        window.location.replace("/student/boards?page=1")
+        navigate("/student/boards?page=1")
     }
     const linkToTeacher = () => {
-        window.location.replace("/teacher/boards?page=1")
+        navigate("/teacher/boards?page=1")
     }
 
     return (

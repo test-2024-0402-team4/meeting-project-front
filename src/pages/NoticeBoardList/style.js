@@ -48,7 +48,7 @@ export const authorityButton = css`
     width: 100%;
     height: 510px;
     max-width: 1100px;
-    border: 1px solid #85d3d6;
+    border: 1px solid #dbdbdb;
     border-radius: 18px;
     overflow: hidden;
     
@@ -92,7 +92,7 @@ export const boardListHeader = css`
 box-sizing: border-box;
 display: flex;
 width: 100%;
-border-bottom:2px solid #b3d4d4 ;
+border-bottom:2px solid #dbdbdb ;
 & > div{
     display: flex;
     justify-content: center;
@@ -131,7 +131,7 @@ export const boardListItem = css`
         width: 100%;
         border-bottom:1px solid #dbdbdb ;
         &:hover{
-            background-color: #e1f5fd;
+            background-color: #eeefef;
         }
 
         & > div{

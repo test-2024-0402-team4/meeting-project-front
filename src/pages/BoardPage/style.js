@@ -144,7 +144,8 @@ margin-left: 28px;
 
 export const viewIcon = css`
 margin-top: 7px;
-margin-right: 7px;
+margin-right: 5px;
+margin-left: 4px;
 `;
 
 export const title = css`

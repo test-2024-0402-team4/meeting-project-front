@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import * as s from "./style";
-import { useParams, useSearchParams } from "react-router-dom";
+import { useNavigate, useParams, useSearchParams } from "react-router-dom";
 import React, { useEffect, useRef, useState } from 'react';
 import { useMutation, useQuery, useQueryClient } from "react-query";
 import { useMaxValueValidateInput } from "../../hooks/inputHook";
@@ -11,25 +11,27 @@ import { getStudentProfile } from "../../apis/api/profileApi";
 import GetTime from "../GetTime/GetTime";
 import { getTeacherIdRequest } from "../../apis/api/boardApi";
 
-function TeacherComment(props) {
+function TeacherComment({roleId}) {
     const params = useParams();
     const [comments, setComments] = useState([]);
     const [inputValue, handleInputChange,setInputValue] = useMaxValueValidateInput(150);
-    const [isShow, setShow] = useState(false);
+    
     const [currentCommentId , setCurrentCommentId] = useState();
     const [changeButton, setChangeButton] = useState(0);
     const [isShowDropDownById, setShowDropDownById] = useState(0);
-    const commentRef = useRef();
+    const buttonRef = useRef();
     const commentInputRef = useRef(null);
 
     const [ lsTeacherId, setLsTeacherId ] =useState(0);
     const teacherUserId = lsTeacherId;
     const queryClient = useQueryClient();
-    const [profile,setProfile] = useState({});
     const [timeStamp,setTimeStamp] = useState([]);
     const [userId, setUserId] = useState("");
     const [teacherId, setTeacherId] = useState();
     const [nickName , setNickName] = useState();
+    const [genderType, setGenderType] = useState([]);
+    const navigate = useNavigate();
+
 
     const principalQuery = useQuery(
         ["principalQuery"],
@@ -65,22 +67,6 @@ function TeacherComment(props) {
   );
 
 
-    const studentProfileQuery = useQuery(
-        ["studentProfileQuery"],
-        async() => await getStudentProfile(principalQuery.data.data.userId),
-        {
-            refetchOnWindowFocus: false,
-            retry: 0,
-            onSuccess: response => {
-                console.log("프로필 가져오기");
-                setProfile(response);
-            },
-            onError: error => {
-                console.log("에러");
-            },
-            enabled: !!principalQuery?.data?.data
-        }
-    )
 
     const getTeacherNicknameRequest = useQuery(
         ["getTeacherNicknameRequest",userId],
@@ -115,18 +101,25 @@ function TeacherComment(props) {
         }
     }, []);
 
+    const handleButtonClick = (e, id) => {
+        console.log(e.target)
+        buttonRef.current = e.target;
+        setShowDropDownById(prevId => prevId === id ? 0 : id)
+        console.log("나 버튼 아이콘");
+    }
+
     useEffect(() => {
         function handleClickOutside(event) {
-            if (commentRef.current && !commentRef.current.contains(event.target)) {
+            if (event.target !== buttonRef.current) {
                 setShowDropDownById(0);
             }
         }
-
         document.addEventListener("click", handleClickOutside);
         return () => {
             document.removeEventListener("click", handleClickOutside);
         };
-    }, []);
+    }, [buttonRef.current]);
+
 
     const getTeacherCommentQuery = useQuery(
         ["getTeacherCommentQuery"],
@@ -234,7 +227,7 @@ function TeacherComment(props) {
         setChangeButton(() => 0);
     }
     const handleDeclareClick = (teacherCommentId) => {
-        window.location.replace(`/notice/declare/teacher/comment/${teacherCommentId}`);
+        navigate(`/notice/declare/teacher/comment/${teacherCommentId}`);
     }
 
   
@@ -288,23 +281,31 @@ function TeacherComment(props) {
                                     <div css={s.headerRight}>
                                     <div css={s.commentDate}>{GetTime(new Date(comment.createDate))}</div>
                                     <div css={s.optionButtonBox}>
-                                        <button css={s.beforeChangeButton} onClick={() => setShowDropDownById(id => id === comment.teacherCommentId ? 0 : comment.teacherCommentId)}><BsThreeDotsVertical /></button>
+                                        <button css={s.beforeChangeButton} onClick={(e) => handleButtonClick(e, comment.teacherCommentId)}><BsThreeDotsVertical /></button>
                                         {
                                             isShowDropDownById === comment.teacherCommentId &&
                                             <div css={s.commentItem}>
                                                 {
-                                                    comment.teacherId === teacherUserId &&
-                                                    <>
-                                                        <button css={s.commentOptionButton} onClick={() => handleUpdateClick(comment.teacherCommentId,comment.comment)}> 수정 </button>
-                                                        <button css={s.commentOptionButton} onClick={() => handleDeleteClick(comment.teacherCommentId)}> 삭제 </button>
-                                                    </>
-                                                }
-                                                {
-                                                    comment.teacherId !== teacherUserId &&
-                                                    <>
-                                                        <button css={s.commentOptionButton} onClick={() => handleDeclareClick(comment.teacherCommentId)}> 신고 </button>
-                                                    </>
-                                                }
+                                                        roleId === 3 ? 
+                                                            <>
+                                                                <button css={s.commentOptionButton} onClick={() => handleDeleteClick(comment.teacherCommentId)}> 삭제 </button>
+                                                            </>
+                                                    :
+                                                        comment.teacherUserId === teacherUserId ?
+                                                            <>
+                                                                <button css={s.commentOptionButton} onClick={() => handleUpdateClick(comment.teacherCommentId,comment.comment)}> 수정 </button>
+                                                                <button css={s.commentOptionButton} onClick={() => handleDeleteClick(comment.teacherCommentId)}> 삭제 </button>
+                                                            </>
+                                                    :
+                                                        comment.teacherUserId !== teacherUserId ?
+                                                            <>
+                                                                
+                                                                <button css={s.commentOptionButton} onClick={() => handleDeclareClick(comment.teacherCommentId)}> 신고 </button>
+                                                            </>
+                                                    :
+                                                        <>
+                                                        </>
+                                                    }
                                             </div>
                                         }
                                     </div>

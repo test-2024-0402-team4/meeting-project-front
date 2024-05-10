@@ -15,6 +15,7 @@ import { getTeacherIdRequest } from "../../apis/api/boardApi";
 import { useAuthCheck } from "../../hooks/useAuthCheck";
 import { useTeacherCheck } from "../../hooks/useTeacherCheck";
 import { useAuthEmailCheck } from "../../hooks/useAuthEmailCheck";
+import { useNavigate } from "react-router-dom";
 
 
 function TeacherBoardWritePage(props) {
@@ -27,6 +28,7 @@ function TeacherBoardWritePage(props) {
     const [userId, setUserId] = useState("");
     const [teacherId, setTeacherId] = useState();
     const [nickName , setNickName] = useState();
+    const navigate = useNavigate();
 
     const principalQuery = useQuery(
       ["principalQuery"],
@@ -83,7 +85,7 @@ const getTeacherNicknameRequest = useQuery(
       mutationFn: registerTeacherBoard,
       onSuccess: response => {
         alert("글이 작성되었습니다");
-        window.location.replace("/teacher/boards?page=1");
+        navigate("/teacher/boards?page=1");
       }
     });
 
@@ -138,7 +140,7 @@ const getTeacherNicknameRequest = useQuery(
     }, []);
     const handleCancelClick = () => {
       if(window.confirm("정말 취소하시겠습니까?")){
-        window.location.replace("/teacher/boards?page=1");
+        navigate("/teacher/boards?page=1");
       }
     }
    

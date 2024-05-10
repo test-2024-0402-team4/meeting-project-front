@@ -4,7 +4,7 @@ import * as s from "./teacherStyle";
 import { getPrincipalRequest } from "../../apis/api/principal";
 import React, { useEffect, useState } from 'react';
 import { QueryClient, useQuery, useQueryClient } from 'react-query';
-import { Link, useParams, useSearchParams } from "react-router-dom";
+import { Link, useNavigate, useParams, useSearchParams } from "react-router-dom";
 import { useSearchBoardInput } from "../../hooks/useSearchBoardInput";
 import { IoSearchOutline } from "react-icons/io5";
 import GetTime from "../../components/GetTime/GetTime";
@@ -32,6 +32,7 @@ function MypageTeacher(props) {
     const [timeStamp1,setTimeStamp1] = useState([]);
     const queryClient = useQueryClient();
     const [content, setContent] = useState(0);
+    const navigate = useNavigate(); 
 
     const principalData = queryClient.getQueryData("principalQuery");
 
@@ -169,11 +170,11 @@ function MypageTeacher(props) {
 
 
     const handleModifyOnClick = () => {
-        window.location.replace(`/teacher/mypage/modify?userId=${userId}`);
+        navigate(`/teacher/mypage/modify?userId=${userId}`);
     }
 
     const myBoard = () => {
-        window.location.replace(`/teacher/${userId}/mypage/study?page=1`);
+        navigate(`/teacher/${userId}/mypage/study?page=1`);
     }
     
     

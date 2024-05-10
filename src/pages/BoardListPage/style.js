@@ -156,8 +156,9 @@ export const boardListItem = css`
 `;
 
 export const boardTitle = css`
-min-height: 75px;
+min-height: 85px;
 padding-left: 10px;
+font-size: 18px;
 `;
 export const genderImg = css`
 
@@ -178,6 +179,8 @@ margin-right: 10px;
 border-right: 1px solid #dbdbdb;
 padding-right: 10px;
 margin-top: 8px;
+font-size: 15px;
+color: #5a5a5a;
 
 `
 export const lc = css`
@@ -187,16 +190,29 @@ justify-content: space-between;
 
 `;
 export const date = css`
+color: #5a5a5a;
 margin-top: 8px;
 `;
-export const viewCount = css`
+export const Count = css`
 display: flex;
 color: #979797;
 margin-left: auto;
 margin-top: 6px;
+
 `
+export const commentCount = css`
+display: flex;
+margin-right: 13px;
+`;
+export const commentIcon = css`
+margin-right: 5px;
+margin-top: 2px;
+`;
+export const viewCount = css`
+display: flex;
+`;
 export const view = css`
-margin-right: 6px;
+margin-right: 4px;
 margin-top: 2px;
 `;
 export const test1 = css`

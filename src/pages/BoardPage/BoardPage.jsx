@@ -3,7 +3,7 @@ import { useMutation, useQuery } from "react-query";
 import * as s from "./style";
 import React, { useState } from 'react';
 import { deleteBoardRequest, getSingleBoardReqeust, getStudentGenderType, getStudentIdByStudentBoardIdRequest, getStudentIdRequest, updateBoardViewCountRequest } from "../../apis/api/boardApi";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import StudentComment from "../../components/StudentComment/StudentComment";
 import GetTime from "../../components/GetTime/GetTime";
 import { GrView } from "react-icons/gr";
@@ -26,7 +26,7 @@ function BoardPage(props) {
     const [studentId, setStudentId] = useState();
     const [userIdByBoard , setUserIdByBoard] = useState();
     const [genderType , setGenderType] = useState();
-    
+    const navigate = useNavigate();
 
     const principalQuery = useQuery(
         ["principalQuery"],
@@ -123,7 +123,7 @@ const getStudentGender = useQuery(
         mutationFn: deleteBoardRequest,
         onSuccess: response => {
                 alert("삭제 완료")
-                window.location.replace("/student/boards?page=1");
+                navigate("/student/boards?page=1");
         }
     });
     
@@ -134,14 +134,14 @@ const getStudentGender = useQuery(
     }
 
     const handleDeclareClick = () => {
-        window.location.replace(`/notice/declare/${params.studentBoardId}`);
+        navigate(`/notice/declare/${params.studentBoardId}`);
     }
 
     const linkToStudy = () => {
-        window.location.replace("/study/boards?page=1")
+        navigate("/study/boards?page=1")
     }
     const linkToStudent = () => {
-        window.location.replace("/student/boards?page=1")
+        navigate("/student/boards?page=1")
     }
     
 

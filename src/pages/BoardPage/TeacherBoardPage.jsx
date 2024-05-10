@@ -2,7 +2,7 @@
 import { useMutation, useQuery } from "react-query";
 import * as s from "./style";
 import React, { useState } from 'react';
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { deleteTeacherBoardRequest, getSingleTeacherBoardReqeust, getTeacherGenderType, updateTeacherBoardViewCountRequest } from "../../apis/api/teacherBoardApi";
 import TeacherComment from "../../components/StudentComment/TeacherComment";
 import GetTime from "../../components/GetTime/GetTime";
@@ -25,6 +25,7 @@ function TeacherBoardPage(props) {
     const [userIdByBoard , setUserIdByBoard] = useState();
     const [genderType , setGenderType] = useState();
     const [ roleId, setRoleId ] = useState(0);
+    const navigate = useNavigate();
 
     const principalQuery = useQuery(
         ["principalQuery"],
@@ -118,7 +119,7 @@ const getTeacherGender = useQuery(
         mutationFn: deleteTeacherBoardRequest,
         onSuccess: response => {
             alert("삭제 완료")
-            window.location.replace("/teacher/boards?page=1");
+            navigate("/teacher/boards?page=1");
 
         }
     });
@@ -133,7 +134,7 @@ const getTeacherGender = useQuery(
     console.log(userIdByBoard);
 
     const handleDeclareClick = () => {
-        window.location.replace(`/notice/declare/teacher/${params.teacherBoardId}`);
+        navigate(`/notice/declare/teacher/${params.teacherBoardId}`);
     }
     
 
@@ -214,7 +215,7 @@ const getTeacherGender = useQuery(
         <div>
             
         </div>
-            <TeacherComment />
+            <TeacherComment roleId={roleId} userId={userId}/>
     </div>
     );
 }

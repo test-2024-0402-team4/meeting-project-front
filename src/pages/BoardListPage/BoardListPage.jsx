@@ -1,5 +1,5 @@
 /** @jsxImportSource @emotion/react */
-import { Link, useSearchParams } from "react-router-dom";
+import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import * as s from "./style";
 
 import React, { useEffect, useState } from 'react';
@@ -13,6 +13,7 @@ import { useAuthCheck } from "../../hooks/useAuthCheck";
 import { useStudentCheck } from "../../hooks/useStudentCheck";
 import { useAuthEmailCheck } from "../../hooks/useAuthEmailCheck";
 import { GrView } from "react-icons/gr";
+import { FaRegComment } from "react-icons/fa";
 
 function BoardListPage(props) {
     useAuthCheck();
@@ -22,6 +23,7 @@ function BoardListPage(props) {
     const searchCount = 5;
     const [boardList, setBoardList] = useState([]);
     const [timeStamp,setTimeStamp] = useState([]);
+    const navigate = useNavigate();
     
     const updateBoardViewCountMutation = useMutation({
         mutationKey:"updateBoardViewCountMutation",
@@ -88,10 +90,10 @@ function BoardListPage(props) {
         }
     );
     const linkToStudy = () => {
-        window.location.replace("/study/boards?page=1")
+        navigate("/study/boards?page=1")
     }
     const linkToStudent = () => {
-        window.location.replace("/student/boards?page=1")
+        navigate("/student/boards?page=1")
     }
 
     
@@ -150,12 +152,18 @@ function BoardListPage(props) {
                                     <div css={s.date}>{GetTime(new Date(board.createDate))}</div>
                                 </div>
 
-                                <div css={s.viewCount}> 
-                                    <div css={s.view}>
-                                        <GrView /> 
+                                <div css={s.Count}> 
+                                    <div css={s.commentCount}>
+                                        <div css={s.commentIcon}><FaRegComment /></div>
+                                        <div>{board.commentCount}</div>
                                     </div>
-                                    <div >
-                                        {board.viewCount}
+                                    <div css={s.viewCount}>
+                                        <div css={s.view}>
+                                            <GrView /> 
+                                        </div>
+                                        <div >
+                                            {board.viewCount}
+                                        </div>
                                     </div>
                                 </div>
                                 

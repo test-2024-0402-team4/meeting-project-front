@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import * as s from "./style";
-import { useParams, useSearchParams } from "react-router-dom";
+import { useNavigate, useParams, useSearchParams } from "react-router-dom";
 import React, { useEffect, useRef, useState } from 'react';
 import { useMutation, useQuery, useQueryClient } from "react-query";
 import { deleteStudentCommentRequest, getStudentCommentRequest, getStudentGenderType, getStudentIdRequest, getUserNickname, registerStudentComment, registerStudentCommentRequest, updateStudentCommentRequest } from "../../apis/api/boardApi";
@@ -14,20 +14,20 @@ function StudentComment({userId, roleId}) {
     const params = useParams();
     const [comments, setComments] = useState([]);
     const [inputValue, handleInputChange,setInputValue] = useMaxValueValidateInput(150);
-    const [isShow, setShow] = useState(false);
+    
     const [currentCommentId , setCurrentCommentId] = useState();
     const [changeButton, setChangeButton] = useState(0);
     const [isShowDropDownById, setShowDropDownById] = useState(0);
     const buttonRef = useRef();
-    const [profile,setProfile] = useState({});
+    const commentInputRef = useRef(null);
     const [ lsStudentId, setLsStudentId ] =useState(0);
     const studentUserId = lsStudentId;
     const queryClient = useQueryClient();
-    const commentInputRef = useRef(null);
     const [timeStamp,setTimeStamp] = useState([]);
     const [studentId, setStudentId] = useState();
     const [nickName , setNickName] = useState();
     const [genderType, setGenderType] = useState([]);
+    const navigate = useNavigate();
 
 
   
@@ -79,6 +79,7 @@ function StudentComment({userId, roleId}) {
             setLsStudentId(0); // AccessToken이 없을 경우 roleId를 기본값으로 설정
         }
     }, []);
+
 
     const handleButtonClick = (e, id) => {
         console.log(e.target)
@@ -211,7 +212,7 @@ function StudentComment({userId, roleId}) {
         setChangeButton(() => 0);
     }
     const handleDeclareClick = (studentCommentId) => {
-        window.location.replace(`/notice/declare/student/comment/${studentCommentId}`);
+        navigate(`/notice/declare/student/comment/${studentCommentId}`);
     }
 
     
@@ -264,6 +265,7 @@ function StudentComment({userId, roleId}) {
                                             {comment.nickname}
                                         </div>                                                                               
                                     </div>
+                                    
                                     <div css={s.headerRight}>
                                     <div css={s.commentDate}>{GetTime(new Date(comment.createDate))}</div>
                                     <div css={s.optionButtonBox}>
