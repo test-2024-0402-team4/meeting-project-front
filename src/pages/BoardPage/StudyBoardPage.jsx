@@ -1,7 +1,7 @@
 /** @jsxImportSource @emotion/react */
-import { useMutation, useQuery } from "react-query";
+import { useMutation, useQuery, useQueryClient } from "react-query";
 import * as s from "./style";
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { deleteStudyBoardRequest, getSingleStudyBoardReqeust, getUserGenderType, getUserIdByStudyBoardIdRequest, updateStudyBoardViewCountRequest } from "../../apis/api/studyBoardApi";
 import StudyComment from "../../components/StudentComment/StudyComment";
@@ -19,12 +19,20 @@ function StudyBoardPage(props) {
     
     const [timeStamp,setTimeStamp] = useState("");
     const formattedTime = GetTime(new Date(timeStamp));
-    const [userId, setUserId] = useState("");
+    const [userId, setUserId] = useState(0);
     const [userIdByBoard , setUserIdByBoard] = useState();
     const [genderType , setGenderType] = useState();
-    const [roleId , setRoleId] = useState();
+    const [roleId , setRoleId] = useState(0);
     const navigate = useNavigate();
 
+    const queryClient = useQueryClient();
+
+    const principalData = queryClient.getQueryData("principalQuery");
+
+    useEffect(() => {
+        setUserId(principalData?.data.userId)
+
+    },[]);
 
     const updateViewCount = useQuery(
         ["updateViewCount"],
@@ -44,12 +52,11 @@ function StudyBoardPage(props) {
         {
             refetchOnWindowFocus : false,
             onSuccess: response => {
-                console.log(response.data.userId);
                 setUserIdByBoard(response.data.userId);
             }
         }
     );
-
+    
     const getBoardQuery = useQuery(
         ["getBoardQuery"],
         async() => await getSingleStudyBoardReqeust(params.studyBoardId),
@@ -69,16 +76,14 @@ function StudyBoardPage(props) {
         {
             refetchOnWindowFocus : false,
             onSuccess: response => {
-                  console.log(response);
                   setGenderType(() => response.data.genderType);
             },
             onError: error => {
-              console.log(userIdByBoard);
             },
             enabled: !!userIdByBoard
         }
     );
-    console.log(genderType);
+
 
 
 

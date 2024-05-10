@@ -18,7 +18,7 @@ export const profileLayout = css`
     height: 350px;
     min-width: 255px;
     border: 1px solid #dbdbdb;
-    margin-top: 63px;
+    margin-top: 20px;
     border-radius: 4px;
 
 
@@ -30,6 +30,7 @@ margin-top: 10px;
 export const gender = css`
 margin-left: 30px;
 `;
+
 export const profile = css`
     position: sticky;
     display: flex;
@@ -64,6 +65,41 @@ export const profileUpdateButton = css`
     position: absolute;
     right: 10px;
     align-items: flex-end;
+`;
+
+
+export const registerButtonLayout = css`
+    position: absolute;
+    display: flex;
+    left: 0;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 55px;
+    background-color: #d9fcf6;
+    border-radius: 5px;
+    margin-top: 10px;
+`
+
+export const registerButton = css`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+    width: 100%;
+    height: 55px;
+    
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    color: #11b69a;
+    background-color: #d9fcf6;
+
+    cursor: pointer;
+
+    :hover {
+        background-color: #9decdb;
+    }
 `;
 
 export const profileImgLayout = css`

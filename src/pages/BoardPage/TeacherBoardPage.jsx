@@ -136,13 +136,18 @@ const getTeacherGender = useQuery(
     const handleDeclareClick = () => {
         navigate(`/notice/declare/teacher/${params.teacherBoardId}`);
     }
-    
+    const linkToStudy = () => {
+        navigate("/study/boards?page=1")
+    }
+    const linkToTeacher = () => {
+        navigate("/teacher/boards?page=1")
+    }
 
     return (
     <div css={s.layout}>
         <div css={s.authority}>
-            <button css={s.authorityButton}>선생님용</button>
-            <button css={s.authorityButton}>공부방</button>
+            <button onClick={linkToStudy} css={s.authorityButton}>선생님용</button>
+            <button onClick={linkToTeacher} css={s.authorityButton}>공부방</button>
         </div>
 
         <div css={s.boardListLayout}>
