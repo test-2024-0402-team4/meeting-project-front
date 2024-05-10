@@ -14,7 +14,7 @@ import { useAuthCheck } from "../../hooks/useAuthCheck";
 function NoticeBoardListPage(props) {
 
     const [searchParams, setSearchParams] = useSearchParams();
-    const searchCount = 5;
+    const searchCount = 7;
     const [boardList, setBoardList] = useState([]);
     const [timeStamp,setTimeStamp] = useState([]);
 
