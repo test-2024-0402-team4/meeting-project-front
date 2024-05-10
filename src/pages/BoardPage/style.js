@@ -129,7 +129,6 @@ display: flex;
 width: 95%;
 height: 80%;
 align-items: flex-start;
-font-family: Arial, sans-serif;
 margin: 10px 20px 15px 23px;
 `;
 
@@ -154,7 +153,6 @@ margin-bottom: 6px;
 `;
 export const nick = css`
 font-size: 13px;
-font-family: Arial, sans-serif;
 display: flex;
 & > div:nth-of-type(1){
     margin-right: 8px;
