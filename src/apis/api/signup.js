@@ -17,3 +17,7 @@ export const oAuth2SignupRequest = async (data) => {
 export const oAuth2MergeRequest = async (data) => {
     return await instance.post("/auth/oauth2/merge", data);
 }
+
+export const checkEmail = async (data) => {
+    return await instance.get("/auth/checkEmail", data);
+}

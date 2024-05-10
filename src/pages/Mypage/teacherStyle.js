@@ -60,7 +60,7 @@ export const profileUpdateButton = css`
     right: 10px;
     align-items: flex-end;
     & > button {
-        width: 66px;
+        width: 100%;
         height: 28px;
         color: #444444;
         font-size: 12px;

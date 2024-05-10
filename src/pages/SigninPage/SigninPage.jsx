@@ -23,13 +23,18 @@ function SigninPage() {
             password
         }).then(response => {
             const accessToken = response.data;
-
             localStorage.setItem("AccessToken", accessToken);
             window.location.replace("/");
 
         }).catch(error => {
-            alert(error.response.data);
+            alert(error?.response.data);
         })
+    }
+
+    const handleKeyPress = (e) => {
+        if(e.key === 'Enter') {
+            handleSignin();
+        }
     }
 
 
@@ -46,9 +51,8 @@ function SigninPage() {
             <div css={s.body}>
                 <div css={s.bodyBox1}>
                     <div>
-                        <AuthPageInput type={"text"} name={"username"} placeholder={"아이디"} value={username} onChange={usernameChange}/>
-                        <AuthPageInput type={"password"} name={"password"} placeholder={"비밀번호"} value={password} onChange={passwordChange}/>
-                       
+                        <AuthPageInput type={"text"} name={"username"} placeholder={"아이디"} value={username} onChange={usernameChange} onKeyDown={handleKeyPress}/>
+                        <AuthPageInput type={"password"} name={"password"} placeholder={"비밀번호"} value={password} onChange={passwordChange} onKeyDown={handleKeyPress} />
                         <button onClick={handleSignin}>로그인하기</button>
 
                         <div css={s.linkBox}>

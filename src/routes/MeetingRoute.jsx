@@ -42,35 +42,10 @@ import DeclareTeacherCommentPage from '../pages/DeclarePage/DeclareTeacherCommen
 import DeclareStudyCommentPage from '../pages/DeclarePage/DeclareStudyCommentPage';
 import DeclareStudyPage from '../pages/DeclarePage/DeclareStudyPage';
 import AdminDeclare from '../pages/AdminDeclare/AdminDeclare';
+import { useAuthCheck } from '../hooks/useAuthCheck';
 
 
 function MeetingRoute(props) {
-
-  const queryClient = useQueryClient();
-  const principalData = queryClient.getQueryData("principalQuery");
-
-  const principalQuery = useQuery(
-    ["principalQuery"],
-    getPrincipalRequest,
-    {
-        retry: 0,
-        refetchOnWindowFocus: false,
-        onSuccess: response => {
-            console.log("principal Success");
-        },
-        onError: error => {
-            console.log("principal Error");
-        }
-    }
-);
-
-  // useEffect(() => {
-  //     if(!!principalData) {
-  //         alert("잘못된 접근입니다.");
-  //         window.location.replace("/");
-  //     }
-  // },[]);
-
 
     return (
       <>
