@@ -5,7 +5,7 @@ import * as s from "./style";
 import Select from "react-select";
 import { getMyPoster, getMyPosters, studentMyPosterModifyRequest } from "../../apis/api/posterApi";
 import { useNavigate, useSearchParams } from "react-router-dom";
-import { useQuery } from "react-query";
+import { useQuery, useQueryClient } from "react-query";
 import { getClassType, getDate, getRegion, getStudentType, getSubject } from "../../apis/api/Option";
 import { getPrincipalRequest } from "../../apis/api/principal";
 import { getStudentProfile } from "../../apis/api/profileApi";
@@ -41,29 +41,17 @@ function StudentMyPosterModifyPage(props) {
 
     const [ textLength, setTextLength ] = useState(0);
 
-    const principalQuery = useQuery(
-        ["principalQuery"],
-        getPrincipalRequest,
-        {
-            retry: 0,
-            refetchOnWindowFocus: false,
-            onSuccess: response => {
-                // console.log(response);
-                setUserId(response.data.uesrId);
-            },
-            onError: error => {
-                console.log("principal Error");
-            }
-        }
-    );
+    const queryClient = useQueryClient();
 
-    // posterId 가져오기 필요
+    const principalData = queryClient.getQueryData("principalQuery");
+
     useEffect(() => {
         setPosterId(() => searchParams.get("posterId"));
+        setUserId(principalData?.data.userId)
+
     },[]);
     
 
- 
     const studentTypeQuery = useQuery(
         ["studentTypeQuery"],
         getStudentType,

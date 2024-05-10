@@ -103,7 +103,6 @@ border: 1px solid #dbdbdb;
 resize: none;
 padding-top: 20px;
 font-size: 15px;
-font-family: monospace;
 font-style: normal;
 
 `;

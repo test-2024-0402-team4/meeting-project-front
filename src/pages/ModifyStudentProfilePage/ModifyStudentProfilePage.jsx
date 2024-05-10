@@ -26,18 +26,18 @@ function ModifyStudentProfilePage(props) {
 
     const [searchParams] = useSearchParams();
     const userId = parseInt(searchParams.get("userId"));
-    const [email, setEmail] = useState();
-    const [auth, setAuth] = useState();
+    const [email, setEmail] = useState("");
+    const [auth, setAuth] = useState("");
     
     const [ nickname, nicknameChange, nicknameMessage, setNickname ] = useSignupInput();
     const [ phoneNumber, phoneNumberChange ] = useSignupInput();
 
     const [ name, setName ] = useState("");
     const [ username, setUsername ] = useState("");
-    const [ regionName, setregionName ] = useState("");
+    const [ regionName, setregionName ] = useState(null);
     const [ genderType, setGenderType ] = useState("");
 
-    const [ regionId, setRegionId ] = useState();
+    const [ regionId, setRegionId ] = useState(0);
     
     const [ regionOptions, setRegionOptions ] = useState([]);
 
@@ -180,8 +180,6 @@ function ModifyStudentProfilePage(props) {
                         </div>
                     </div>
                 </div>
-
-
                 <div css={s.bodyBox}>
                     <div css={s.box2}>
                         <div css={s.spanBox}>

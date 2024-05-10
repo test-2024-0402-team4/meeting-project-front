@@ -25,23 +25,6 @@ function StudyBoardPage(props) {
     const [roleId , setRoleId] = useState();
     const navigate = useNavigate();
 
-    const principalQuery = useQuery(
-        ["principalQuery"],
-        getPrincipalRequest,
-        {
-            retry: 0,
-            refetchOnWindowFocus: false,
-            onSuccess: response => {
-                console.log("principal Success");
-                console.log(response);
-                setUserId(response.data.userId);
-                setRoleId(response.data.roleId);
-            },
-            onError: error => {
-                console.log("principal Error");
-            }
-        }
-    );
 
     const updateViewCount = useQuery(
         ["updateViewCount"],
@@ -66,9 +49,7 @@ function StudyBoardPage(props) {
             }
         }
     );
-    console.log(userId);
-    console.log(userIdByBoard);
-    
+
     const getBoardQuery = useQuery(
         ["getBoardQuery"],
         async() => await getSingleStudyBoardReqeust(params.studyBoardId),

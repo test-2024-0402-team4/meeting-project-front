@@ -36,7 +36,7 @@ function ModifyPasswordPage(){
                 }
             });
         }
-    },[newPassword, newPasswordChange]);
+    },[newPassword, newPasswordCheck]);
 
     const modifyPasswordMutation = useMutation({
         mutationKey: "modifyPasswordMutation",
