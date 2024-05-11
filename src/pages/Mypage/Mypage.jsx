@@ -17,6 +17,8 @@ import { useStudentCheck } from "../../hooks/useStudentCheck";
 import { useAuthEmailCheck } from "../../hooks/useAuthEmailCheck";
 import StudentProfileStudyCount from "../../components/BoardPageCount/StudentProfileStudyCount";
 import { disableAccount } from "../../apis/api/adminApi";
+import { FaUniversity } from "react-icons/fa";
+import { BiSolidBookAlt } from "react-icons/bi";
 
 function Mypage(props) {
     const { userId } = useParams();
@@ -45,7 +47,7 @@ function Mypage(props) {
     useEffect(() => {
         if (studentProfileQuery.data?.data?.userId) {
             handleApplicationDetails();
-            console.log(teacherProfile)
+            // console.log(teacherProfile)
         }
     }, [studentProfileQuery.data?.data?.userId]);
 
@@ -57,8 +59,8 @@ function Mypage(props) {
             retry: 0,
             refetchOnWindowFocus: false,
             onSuccess: response => {
-                console.log("principal Success");
-                console.log(response);
+                // console.log("principal Success");
+                // console.log(response);
                 setRoleId(response.data.roleId)
             },
             onError: error => {
@@ -105,7 +107,7 @@ function Mypage(props) {
                     }
                 ))
                
-                console.log(response.data);
+                // console.log(response.data);
             }
         }
     );
@@ -120,7 +122,7 @@ function Mypage(props) {
             refetchOnWindowFocus: false,
             enabled: !!userId,
             onSuccess: response => {
-                console.log(response);
+                // console.log(response);
             },
             onError: error => {
                 console.log(error);
@@ -166,7 +168,7 @@ function Mypage(props) {
                     }
                 ))
                
-                console.log(response.data);
+                // console.log(response.data);
             }
         }
     );
@@ -181,7 +183,7 @@ function Mypage(props) {
             refetchOnWindowFocus: false,
             enabled: !!userId,
             onSuccess: response => {
-                console.log(response);
+                // console.log(response);
             },
             onError: error => {
                 console.log(error);
@@ -197,7 +199,7 @@ function Mypage(props) {
         getApplicationDetails(studentProfileQuery.data?.data?.userId)
             .then(response => {
                 setTeacherProfile(response.data);
-                console.log(response.data)
+                // console.log(response.data)
                 
             })
             .catch(error => {
@@ -287,11 +289,10 @@ function Mypage(props) {
                                             <div onClick={() => navigate(`/student/tutor?userId=${teacherProfile.userId}`)} css={s.teacherProfileContent}>
                                                 <div>{teacherProfile.nickname}</div>
                                                 <div>
-                                                    <span>{teacherProfile.universityName} </span>
+                                                    <span><FaUniversity /> {teacherProfile.universityName} </span>
                                                     <span>{teacherProfile.departmentName} </span>
-                                                    <span>학번 </span>
                                                 </div>
-                                                <div>
+                                                <div><BiSolidBookAlt /> 
                                                     수업 과목: {teacherProfile.subjectNames.map((subjectName, index) => (
                                                         <span key={index}>
                                                             {subjectName}

@@ -148,6 +148,8 @@ export const modal = css`
     border-radius: 5px;
     background-color: white;
 
+    outline: none;
+    
     animation: modaldown 0.3s;
     @keyframes modaldown {
         from {

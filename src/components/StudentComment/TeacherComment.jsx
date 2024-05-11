@@ -240,18 +240,22 @@ function TeacherComment({roleId}) {
                 css={s.inputComment}
                  placeholder="댓글을 입력해 주세요"
                  onChange={handleInputChange}
-                 value={inputValue} />
+                 value={inputValue} 
+                 />
+                 
                  
                 
                 {
-                changeButton === 1 
-                ?
-                <div css={s.afterChangeButton}>
-                    <button  css={s.afterChangeButtons} onClick={() => handleUpdateCompleteClick(currentCommentId)}> 완료 </button>
-                    <button  css={s.afterChangeButtons} onClick={() => handleCancelClick()}> 취소 </button>
-                </div>
-                :
-                    <button css={s.inputButton} onClick={handleRegisterClick}> 등록 </button>
+                    changeButton === 1 
+                    ?
+                    <div css={s.afterChangeButton}>
+                        <button  css={s.afterChangeButtons} onClick={() => handleUpdateCompleteClick(currentCommentId)}> 완료 </button>
+                        <button  css={s.afterChangeButtons} onClick={() => handleCancelClick()}> 취소 </button>
+                    </div>
+                    :
+                    <div css={s.afterChangeButton}>
+                        <button css={s.inputButton} onClick={handleRegisterClick}> 등록 </button>
+                    </div>
                 }
             </div>
             <div>

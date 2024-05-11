@@ -12,13 +12,15 @@ import TeacherProfileCount from "../../components/BoardPageCount/TeacherprofileC
 import { getTeacherMypageCount, getTeacherMypageProfile, getTeacherStudyMypageCount, searchTeacherMypageBoardsRequest, searchTeacherStudyMypageBoardsRequest } from "../../apis/api/teacherProfile";
 import ProfileImg from "../../components/ProfileImg/ProfileImg";
 import { CiLocationOn } from "react-icons/ci";
-import { FiBook } from "react-icons/fi";
+import { BiSolidBookAlt } from "react-icons/bi";
 import { useAuthCheck } from "../../hooks/useAuthCheck";
 import { useTeacherCheck } from "../../hooks/useTeacherCheck";
 import Age from "../../components/GetAge/Age";
 import { RiArrowDropRightLine } from "react-icons/ri";
 import TeacherProfileStudyCount from "../../components/BoardPageCount/TeacherProfileStudyCount";
 import { disableAccount } from "../../apis/api/adminApi";
+import { FaUniversity } from "react-icons/fa";
+import { IoLocationSharp } from "react-icons/io5";
 
 function MypageTeacher(props) {
     useAuthCheck();
@@ -103,7 +105,7 @@ function MypageTeacher(props) {
             refetchOnWindowFocus: false,
             enabled: !!userId,
             onSuccess: response => {
-                console.log(response);
+                // console.log(response);
             },
             onError: error => {
                 console.log(error);
@@ -149,7 +151,7 @@ function MypageTeacher(props) {
                     }
                 ))
                
-                console.log(response.data);
+                // console.log(response.data);
             }
         }
     );
@@ -164,7 +166,7 @@ function MypageTeacher(props) {
             refetchOnWindowFocus: false,
             enabled: !!userId,
             onSuccess: response => {
-                console.log(response);
+                // console.log(response);
             },
             onError: error => {
                 console.log(error);
@@ -198,7 +200,8 @@ function MypageTeacher(props) {
             <div css={s.mypageLayout}>                
                 <div css={s.profileLayout}>
                     {
-                        teacherProfileQuery.isLoading ? 
+                        teacherProfileQuery.isLoading
+                        ? 
                         <></>
                         :
                         <div css={s.teacherProfile}>
@@ -207,6 +210,7 @@ function MypageTeacher(props) {
                                 <div css={s.imgBox}> 
                                     <ProfileImg userId={teacherProfileQuery.data?.data?.userId} profileUrl={teacherProfileQuery.data?.data?.userImgUrl}/>
                                 </div>
+                                
                                 <div css={s.profileUpdateButton}>
                                     {
                                         roleId === 3 ? 
@@ -217,36 +221,27 @@ function MypageTeacher(props) {
                                 </div>
                                 <div css={s.profileContent}>
                                     <div css={s.nickname}>{teacherProfileQuery?.data.data.nickname}</div>
-                                    <div>
-                                        <span>{teacherProfileQuery?.data.data.universityName}</span>
-                                        <span>{teacherProfileQuery?.data.data.departmentName}</span>
-                                    </div>
-                                    <div>
-                                        <div>
-                                            <CiLocationOn />
+                                        <div css={s.a}>
+                                            <span><FaUniversity /> {teacherProfileQuery?.data.data.universityName}</span>
+                                            <span>{teacherProfileQuery?.data.data.departmentName}</span>
                                         </div>
-                                        <div>
-                                            <span>
-                                                지역 : 
-                                            </span>
+                                    <div>
+                                        <div css={s.b}>
+                                            <span><IoLocationSharp /> 지역 :</span>
                                             <span>
                                             {
-                                                teacherProfileQuery?.data.data.dateNames.length === 0 ?
+                                                teacherProfileQuery?.data.data.regionNames.length === 0 ?
                                                 "필수정보를 입력하세요" 
                                                 :
-                                                teacherProfileQuery?.data.data.dateNames.map(regionName => regionName).join(", ")
+                                                teacherProfileQuery?.data.data.regionNames.map(regionName => regionName).join(", ")
                                             }
                                             </span>
                                         </div>
                                     </div>
+
                                     <div>
-                                        <div>
-                                            <FiBook />
-                                        </div>
-                                        <div>
-                                            <span>
-                                                과목 :
-                                            </span>
+                                        <div css={s.c}>
+                                            <span><BiSolidBookAlt /> 과목 :</span>
                                             <span>                                                
                                             {
                                                 teacherProfileQuery?.data.data.subjectNames.length === 0 ?
@@ -257,6 +252,7 @@ function MypageTeacher(props) {
                                             </span>
                                         </div>
                                     </div>
+
                                 </div>
                             </div>
                         </div>
@@ -296,81 +292,64 @@ function MypageTeacher(props) {
                             {teacherProfileQuery.isLoading ? 
                                 <> </> :
                                 <>
-                                    <div css={s.teacherInfoLayout}>
+                                    <div css={s.teacherInfoLayout1}>
                                         <div css={s.teacherInfo}>
                                             선생님 정보
                                         </div>
                                         <div css={s.teacherInfoContent}>
-                                            <div>
-                                                <RiArrowDropRightLine />성별 :  
-                                            </div>
+                                            <div>성별</div>
                                             <div>
                                                 {teacherProfileQuery?.data.data.genderType}
                                             </div>
                                         </div>
                                         <div css={s.teacherInfoContent}>
-                                            <div>
-                                                <RiArrowDropRightLine />나이 : 
-                                            </div>
+                                            <div>나이</div>
                                             <div>
                                                 만 {Age(teacherProfileQuery?.data.data.birthDate)} 세
                                             </div>
                                         </div>
                                     </div>
+
                                     <div css={s.teacherInfoLayout}>
                                         <div css={s.teacherInfo}>
                                             대학 정보
                                         </div>
                                         <div css={s.teacherInfoContent}>
-                                            <div>
-                                                <RiArrowDropRightLine />대학명 :
-                                            </div>
+                                            <div>대학명</div>
                                             <div>
                                                 {teacherProfileQuery?.data.data.universityName}
                                             </div>
                                         </div>
                                         <div css={s.teacherInfoContent}>
-                                            <div>
-                                                <RiArrowDropRightLine />학과명 :
-                                            </div>
+                                            <div>학과명</div>
                                             <div>
                                                 {teacherProfileQuery?.data.data.departmentName}
                                             </div>
                                         </div>
                                         <div css={s.teacherInfoContent}>
-                                            <div>
-                                                <RiArrowDropRightLine />재학상태 :
-                                            </div>
+                                            <div>졸업유무</div>
                                             <div>
                                                 {teacherProfileQuery?.data.data.graduateState}
                                             </div>
                                         </div>
                                     </div>
+                                    
                                     <div css={s.teacherInfoLayout}>
                                         <div css={s.teacherInfo}>
                                             대면 수업 가능 지역
                                         </div>
                                         <div css={s.teacherInfoContent}>
-                                            <div css={s.arrowLocation}>
-                                                <RiArrowDropRightLine />
-                                            </div>
-                                            <div>
+                                            <div css={s.arrowLocation}>지역</div>
+                                            <div css={s.subject}>
                                                 {teacherProfileQuery?.data.data.regionNames.length === 0 ?
                                                     "필수정보를 입력하세요" :
                                                     teacherProfileQuery?.data.data.regionNames.map(regionName => regionName).join(", ")
                                                 }
                                             </div>
                                         </div>
-                                    </div>
-                                    <div css={s.teacherInfoLayout}>
-                                        <div css={s.teacherInfo}>
-                                            대면 수업 가능 요일
-                                        </div>
                                         <div css={s.teacherInfoContent}>
-                                            <div css={s.arrowLocation}>
-                                                <RiArrowDropRightLine />
-                                            </div>
-                                            <div>
+                                            <div css={s.arrowLocation}>요일</div>
+                                            <div css={s.subject}>
                                                 {teacherProfileQuery?.data.data.dateNames.length === 0 ?
                                                     "필수정보를 입력하세요" :
                                                     teacherProfileQuery?.data.data.dateNames.map(regionName => regionName).join(", ")
@@ -378,15 +357,14 @@ function MypageTeacher(props) {
                                             </div>
                                         </div>
                                     </div>
+                                    
                                     <div css={s.teacherInfoLayout}>
                                         <div css={s.teacherInfo}>
                                             수업 과목
                                         </div>
                                         <div css={s.teacherInfoContent}>
-                                            <div css={s.arrowLocation}>
-                                                <RiArrowDropRightLine />
-                                            </div>
-                                            <div>
+                                            <div >과목</div>
+                                            <div css={s.subject}>
                                                 {teacherProfileQuery?.data.data.subjectNames.length === 0 ?
                                                     "필수정보를 입력하세요" :
                                                     teacherProfileQuery?.data.data.subjectNames.map(regionName => regionName).join(", ")
@@ -394,15 +372,13 @@ function MypageTeacher(props) {
                                             </div>
                                         </div>
                                     </div>
-                                    <div css={s.teacherInfoLayout}>
+
+                                    <div css={s.teacherInfoLayout2}>
                                         <div css={s.teacherInfo}>
-                                            수업 한줄 소개
+                                            수업 소개
                                         </div>
-                                        <div css={s.teacherInfoContent}>
-                                            <div css={s.arrowLocation}>
-                                                <RiArrowDropRightLine />
-                                            </div>
-                                            <div>
+                                        <div css={s.introduce}>
+                                            <div css={s.teacherInfoLayout6}>
                                                 {teacherProfileQuery?.data.data.teacherIntroduceContent === null ?
                                                     "필수정보를 입력하세요" :
                                                     teacherProfileQuery?.data.data.teacherIntroduceContent

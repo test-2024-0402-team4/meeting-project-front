@@ -209,7 +209,8 @@ function StudyBoardPage(props) {
         <div>
             
         </div>
-            <StudyComment userId1={userId} roleId={roleId}/>
+
+                <StudyComment userId1={userId} roleId={roleId}/>
     </div>
     );
 }

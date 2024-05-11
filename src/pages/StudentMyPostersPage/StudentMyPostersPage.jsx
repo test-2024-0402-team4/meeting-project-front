@@ -10,6 +10,13 @@ import { getMyPosters } from "../../apis/api/posterApi";
 import { useAuthCheck } from "../../hooks/useAuthCheck";
 import { useStudentCheck } from "../../hooks/useStudentCheck";
 import { useAuthEmailCheck } from "../../hooks/useAuthEmailCheck";
+import { IoPersonSharp } from "react-icons/io5";
+import { BiSolidBookAlt } from "react-icons/bi";
+import { IoLocationSharp } from "react-icons/io5";
+
+
+
+
 function StudentMyPostersPage(props) {
     useAuthCheck();
     useStudentCheck();
@@ -114,11 +121,21 @@ function StudentMyPostersPage(props) {
                     <div key={poster.posterId} css={s.studentPosterLayout}>
                     <div onClick={() => handelPageMove(`student/myposter?posterId=${poster.posterId}`)} css={s.studentPosters}>
                         <div css={s.studentPosterContainer}>
+                            
                             <div css={s.studentPoster}>
                                 <div css={s.studentPosterContent}>
                                     <div>{poster.title}</div>
+
+                                    <div>
+                                        <span><IoPersonSharp /> </span>
+                                        <span>{poster.studentType}</span>
+                                        <span> | </span>
+                                        <span>{poster.genderType}학생</span>
+                                    </div>
+
                                     <div css={s.subjects}>
                                         <span>
+                                            <span><BiSolidBookAlt /> </span>
                                             {poster.subjectName.map((value, index) => (
                                                 <span key={index}>
                                                     {value}
@@ -127,19 +144,24 @@ function StudentMyPostersPage(props) {
                                             ))}
                                         </span>
                                     </div>
+
+                                    <div>
+                                        <span key={"logo"}><IoLocationSharp /> </span>
+                                        <span key={"region"}>{poster.regionName}</span>
+                                    </div>
+
                                     <div css={s.studnetinfo}>
-                                        <span>{poster.studentType}</span>
-                                        <span>{poster.genderType}</span>
-                                        <span>{poster.regionName}</span>
                                         {
                                             poster.classType.map((value, index) => <span key={index}>{value}</span>)
                                         }
                                     </div>
-                                    <div css={s.buttonLayout}>
+
+                                    {/* <div css={s.buttonLayout}>
                                         <button onClick={() => handelPageMove(`/student/myposter/modify?posterId=${poster.posterId}`)}>수정</button>
                                         <button>삭제</button>
-                                    </div>
+                                    </div> */}
                                 </div>
+
                             </div>
     
                         </div>

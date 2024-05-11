@@ -6,30 +6,45 @@ export const layout = css`
     min-height: 618px;
     display: flex;
     justify-content: space-between;
+    // 다하고 지우기 ----------------------------
+    /* border: 1px solid black; */
 `;
 export const mypageLayout = css`
     display: flex;
-    width: 100%;
+    width: 1300px;
+
+    // 다하고 지우기 ----------------------------
+    /* border: 1px solid black; */
 `;
 export const profileLayout = css`
     position: relative;
     box-sizing: border-box;
-    padding: 28px 20px 0px 5px;
     width: 300px;
-    height: 325px;
+    height: 305px;
+    
     max-height: 375px;
     min-width: 255px;
-    border: 1px solid #dbdbdb;
+
     margin-top: 60px;
-    border-radius: 4px;
+    padding-top: 30px;
+
+    border: 1px solid #dbdbdb;
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+    border-right: none;
+
+    // 다하고 지우기 ----------------------------
+    /* border: 1px solid black; */
 
 `;
 export const profile = css`
-    position: sticky;
     display: flex;
     justify-content: center;
     box-sizing: border-box;
     height: 100%;
+
+    // 다하고 지우기 ----------------------------
+    /* border: 1px solid black; */
 
 
     & > div:nth-of-type(3) {
@@ -38,6 +53,8 @@ export const profile = css`
         font-size: 20px;
         font-size: 700;
         top: 170px;
+
+        /* border: 1px solid black; */
     }
     & > div:nth-of-type(4) {
         position: absolute;
@@ -58,15 +75,20 @@ export const profileUpdateButton = css`
     position: absolute;
     top: 20px;
     right: 10px;
-    align-items: flex-end;
+
+    // 다하고 지우기 -----------------------------
+    /* border: 1px solid black; */
+
     & > button {
         width: 100%;
         height: 28px;
         color: #444444;
         font-size: 12px;
+
         background-color: transparent;
         border: 1px solid #dbdbdb;
         border-radius: 5px;
+
         cursor: pointer;
 
         :hover {
@@ -88,6 +110,10 @@ export const profileImgLayout = css`
     justify-content: center;
     align-items: center;
     overflow: hidden;
+
+    // 다하고 지우기 -----------------------------
+    /* border: 1px solid black; */
+
     & > img{
         height: 100%;
     }
@@ -107,11 +133,16 @@ export const mypageContentLayout = css`
     width: 100%;
     min-width: 700px;
     box-sizing: border-box;
+    border-left: 1px solid #dbdbdb;
 
+    // 다하고 지우기 ---------------------------
+    /* border: 1px solid black; */
 `;
 
 export const mypageContentTitle = () => css`
     display: flex;
+
+    // 다하고 지우기 ---------------------------
     /* border: 1px solid black; */
 
     div:nth-of-type(1) {
@@ -215,10 +246,12 @@ export const mypageContentTitle = () => css`
 
 export const mypageContent = css`
     border: 1px solid #dbdbdb;
-    border-radius: 4px;
+    border-left: none;
     box-sizing: border-box;
     width: 100%;
     min-height: 400px;
+
+    /* border: 1px solid black; */
 `;
 
 export const contentListLayout = css`
@@ -258,7 +291,7 @@ export const inputBox = css`
     border-bottom-right-radius: none;
     border-bottom-left-radius: 5px;
     border-top-left-radius: 5px;
-    height: 27px;
+    height: 26px;
     outline: none;
     padding-left: 10px;
     border-right: none;
@@ -319,6 +352,9 @@ export const teacherProfile = css`
     display: flex;
     flex-direction: column;
     padding: 28px 20px 40px 0px;
+
+    // 다하고 지우기 ---------------------
+    /* border: 1px solid black; */
 `;
 
 export const profileHeader= css`
@@ -333,57 +369,85 @@ export const imgBox = css`
         height: 100%;
     }
 `;
-export const nickname = css`
-display: flex;
-justify-content: center;
-margin-right: 20px;
-`;
 
 export const profileContent = css`
 
     width: 100%;
     margin-top: 103px;
-    margin-left: 60px;
-    div:nth-of-type(1) {
-        font-size: 20px;
+    margin-left: 35px;
+
+    // 다하고 지우기 ---------------------
+    /* border: 1px solid black; */
+`;
+
+export const nickname = css`
+    display: flex;
+    justify-content: center;
+    padding-right: 15px;
+
+    font-size: 20px;
+    font-weight: 700;
+    color: #5d5d5d;
+
+    margin-bottom: 15px;
+
+    // 다하고 지우기 ---------------------
+    /* border: 1px solid black; */
+`;
+
+export const a = css`
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    font-size: 16px;
+    color: #5d5d5d;
+
+    margin-bottom: 5px;
+
+    /* border: 1px solid black; */
+
+    span:nth-of-type(1) {
+        /* border: 1px solid black; */
+
     }
-    div:nth-of-type(2) {
+    span:nth-of-type(2) {
+        padding-left: 20px;
+        /* border: 1px solid black; */
+    }
+`;
+export const b = css`
+    display: flex;
+    color: #5d5d5d;
+
+    margin-bottom: 5px;
+
+    /* border: 1px solid black; */
+
+    span:nth-of-type(1) {
+        /* border: 1px solid black; */
         font-size: 16px;
-        margin-top: 5px;
-        & > span:nth-of-type(1) {
-            margin-right: 5px;
-        }
     }
-    div:nth-of-type(3) {
-        display: flex;
-        margin-top: 5px;
-        font-size: 14px;
-      span:nth-of-type(1) {
-        font-size: 14px;
-        box-sizing: border-box;
-        width: 52px;
-        height: 20px;
-        margin: 0px 5px;
-      }
-      span:nth-of-type(2) {
-        font-size: 14px;
-      }
+    span:nth-of-type(2) {
+        /* border: 1px solid black; */
+        padding-left: 10px;
+        font-size: 15px;
     }
-    div:nth-of-type(4) {
-        display: flex;
-        margin-top: 3px;
-        font-size: 14px;
-      span:nth-of-type(1) {
-        font-size: 14px;
-        box-sizing: border-box;
-        width: 52px;
-        height: 20px;
-        margin: 0px 5px;
-      }
-      span:nth-of-type(2) {
-        font-size: 14px;
-      }
-        
+`;
+
+export const c = css`
+    display: flex;
+    color: #5d5d5d;
+
+    /* border: 1px solid black; */
+
+    span:nth-of-type(1) {
+        /* border: 1px solid black; */
+        font-size: 16px;
+    }
+    span:nth-of-type(2) {
+        /* border: 1px solid black; */
+        padding-left: 10px;
+        font-size: 15px;
     }
 `;
 
@@ -465,44 +529,100 @@ export const boardListItem = css`
     }
 `;
 export const pageNumber = css`
-width: 100%;
-box-sizing: border-box;
-display: flex;
-justify-content: center;
-align-items: center;
-padding: 15px;
+    width: 100%;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 15px;
+
+    // 다하고 지우기 ---------------------------------
+    /* border: 1px solid black; */
 `;
 
 export const page = css`
+    display: flex;
+    justify-content: center;
+    align-items: center;
 
+    // 다하고 지우기 ---------------------------------
+    /* border: 1px solid black; */
 `
+
+export const teacherInfoLayout1 = css`
+    width: 100%;
+    min-height: 144px;
+
+    border-bottom: 1px solid #dbdbdb;
+    border-top: 1px solid #dbdbdb;
+
+
+    // 다하고 지우기 ------------------------------
+    /* border: 1px solid black; */
+`;
+
+export const teacherInfoLayout2 = css`
+    box-sizing: border-box;
+    width: 100%;
+    min-height: 144px;
+    border-bottom: none;
+
+    // 다하고 지우기 ------------------------------
+    /* border: 1px solid black; */
+`;
 
 export const teacherInfoLayout = css`
     box-sizing: border-box;
-    padding: 20px 16px 24px;
     width: 100%;
     min-height: 144px;
     border-bottom: 1px solid #dbdbdb;
-    border-top: 1px solid #dbdbdb;
-   
+
+    // 다하고 지우기 ------------------------------
+    /* border: 1px solid black; */
 `;
 
 export const teacherInfo = css`
-margin-left: 5px;
     font-size: 16px;
-    font-weight: 500;
+    font-weight: 600;
+
+    margin: 15px;
+    color: #242424;
+
+    // 다하고 지우기 ------------------------------
+    /* border: 1px solid black; */
 `;
 export const arrowLocation = css`
-margin-top: 3px;
+    
+`;
+
+export const subject = css`
+    color: #11b69a;
 `;
 
 export const teacherInfoContent = css`
     display: flex;
+    margin-left: 15px;
+    margin-bottom: 10px;
     width: 100%;
-    margin-top: 16px;
+
+    // 다하고 지우기 ------------------------------
+    /* border: 1px solid black; */
+
     div:nth-of-type(1) {
+        width: 100px;
+        font-size: 16px;
+        color: #aaaaaa;
+
+        // 다하고 지우기 ------------------------------
+        /* border: 1px solid black; */
+    }
+    div:nth-of-type(2) {
         margin-left: 5px;
+        font-weight: 700;
         font-size: 15px;
+
+        // 다하고 지우기 ------------------------------
+        /* border: 1px solid black; */
     }
 `;
 
@@ -524,3 +644,25 @@ export const teacherInfoContent2 = css`
 `;
 
 
+export const teacherInfoLayout6 = css`
+
+    box-sizing: border-box;
+    width: 100%;
+    min-height: 100px;
+    min-width: 700px;
+    
+    // 다하고 지우기 ------------------------
+    /* border: 1px solid black; */
+`;
+
+export const introduce = css`
+    box-sizing: border-box;
+    display: flex;
+    width: 100%;
+    padding-left: 15px;
+    font-size: 15px;
+    color: #5d5d5d;
+
+    /* border: 1px solid black; */
+
+`;

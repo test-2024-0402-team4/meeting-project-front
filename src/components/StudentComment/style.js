@@ -4,52 +4,67 @@ export const commentLayout = css`
     margin: 0 auto;
     display: flex;
     flex-direction: column;
-    margin-right: 180px;
-    margin-top: 15px;
     width: 100%;
+    
+    // 다하고 지우기 ------------------------------
+    /* border: 1px solid black; */
 `;
 
 export const inputContainer = css`
-    border-radius: 3px;
-    width: 99.5%;
-    border: 1px solid #9be7a9;
-    margin-bottom: 5px;
-    border-radius: 5px;
-    margin-left: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: end;
+
+    width: 100%;
+    border-top: 1px solid #dbdbdb;
+    border-bottom: 1px solid #dbdbdb;
+
+    // 다하고 지우기 ------------------------------
+    /* border: 1px solid black; */
 `;
 
 export const inputComment = css`
     box-sizing: border-box;
-    border-radius: 5px;
     display: flex;
     flex-wrap: wrap;
     flex-direction: column;
     flex-grow: 1;
     padding: 13px;
-    width: 900px;
-    height: 140px;
+    width: 100%;
+    height: 100%;
+
     outline: none;
     border: none;
     background-color: white;
     resize: none;
+
     &::-webkit-scrollbar {
         display: none;
     }
 `;
 
 export const inputButton = css`
-    margin-bottom: 12px;
-    margin-left: 1030px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    background-color: #d9fcf6;
+    
     width: 50px;
     height: 30px;
-    background-color: #14dbba;
-    border: none;
-    color: white;
-    border-radius: 5px;
+    margin-right: 20px;
+    margin-bottom: 20px;
+    
+    color: #11b69a;
     transition: background-color 0.3s ease;
+    
+    border-radius: 5px;
+    border: none;
+
     cursor: pointer;
+    
     &:hover {
-        background-color: #11b69a;
+        background-color: #9decdb;
     }
 `;
 
@@ -71,10 +86,13 @@ export const beforeChangeButton = css`
 `;
 
 export const afterChangeButton = css`
-    margin-bottom: 12px;
-    &:nth-of-type(1){
-        margin-left: 973px;
-    }
+
+    display: flex;
+    justify-content: end;
+
+    margin-right: 20px;
+    margin-bottom: 20px;
+
 `;
 
 export const afterChangeButtons = css`
@@ -90,6 +108,9 @@ export const afterChangeButtons = css`
     &:hover {
         background-color: #11b69a;
     }
+
+    // 다하고 지우기 --------------------------------------
+    /* border: 1px solid black; */
 `;
 
 export const commentItems = css`
@@ -101,8 +122,14 @@ export const commentItems = css`
         height: 50px;
         white-space: pre-wrap;
     }
-    margin-left: 23px;
-    width: 99.5%;
+
+    div:nth-of-type(1){
+        /* border-top: 1px solid #dbdbdb; */
+    }
+
+
+    // 다하고 지우기 --------------------------------------
+    /* border: 1px solid black; */
 `;
 
 export const commentTitle = css`
@@ -112,25 +139,34 @@ export const commentTitle = css`
     height: 50px;
     padding: 5px 0px;
     margin-top: 15px;
+
+    // 다하고 지우기 --------------------------------------
+    /* border: 1px solid black; */
 `;
 
 export const imgBox = css`
-display: flex;
-justify-content: center;
-align-items: center;
-width: 40px;
-height: 40px;
-border: 1px solid #dbdbdb;
-border-radius: 50px;
-overflow: hidden;
-& > img {
-    width: 100%;
-}
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 40px;
+    height: 40px;
+    margin-left: 10px;
+    border: 1px solid #dbdbdb;
+    border-radius: 50px;
+    overflow: hidden;
+    & > img {
+        width: 100%;
+    }
+    // 다하고 지우기 --------------------------------------
+    /* border: 1px solid black; */
 `;
 
 export const commentDiv = css`
-display: flex;
-justify-content: center;
+    display: flex;
+    justify-content: center;
+
+    // 다하고 지우기 --------------------------------------
+    /* border: 1px solid black; */
 `;
 export const commentMain = css`
     box-sizing: border-box;
@@ -144,6 +180,9 @@ export const commentMain = css`
         margin-top: 0px;
         margin-bottom: 10px;
     }
+
+    // 다하고 지우기 --------------------------------------
+    /* border: 1px solid black; */
 `;
 
 export const commentOption = css`

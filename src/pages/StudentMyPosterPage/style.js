@@ -111,6 +111,7 @@ export const studentInfotitle = css`
     box-sizing: border-box;
     display: flex;
     justify-content: space-between;
+    min-width: 500px;
     
     div:nth-of-type(1) {
         margin-left: 20px;
@@ -120,6 +121,9 @@ export const studentInfotitle = css`
         height: 25px;
         border-bottom: 2px solid black ;
     }
+
+    // 다하고 지우기 ------------------------
+    /* border: 1px solid black; */
 
 
 `;

@@ -19,6 +19,8 @@ import { disableAccount } from '../../apis/api/adminApi';
 import DeclareModal from '../../components/Modal/DeclareModal';
 import { declareUser } from '../../apis/api/accountApi';
 import DeclareUser from '../../components/DeclareUser/DeclareUser';
+import { IoLocationSharp } from "react-icons/io5";
+
 
 function TeacherProfile() {
     useAuthCheck();
@@ -315,7 +317,7 @@ function TeacherProfile() {
                                 <div>{teacherProfile?.universityName}</div>
                                 <div>
                                     <div>
-                                        <CiLocationOn />
+                                        <IoLocationSharp /> 
                                     </div>
                                     <div>
                                         <span>

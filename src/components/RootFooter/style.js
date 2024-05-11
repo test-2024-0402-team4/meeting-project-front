@@ -1,11 +1,12 @@
 import { css } from "@emotion/react";
 
 export const layout = css`
+  font-family: "GmarketSansMedium";
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-
+  margin-top: 10px;
   background-color: white;
   text-align: center;
   left: 0;

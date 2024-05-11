@@ -11,6 +11,7 @@ import { getStudentProfile } from "../../apis/api/profileApi";
 import GetTime from "../GetTime/GetTime";
 import { getTeacherNickname } from "../../apis/api/teacherBoardApi";
 import { getUserNickname } from "../../apis/api/boardApi";
+import { MdSubdirectoryArrowRight } from "react-icons/md";
 
 function StudyComment({roleId}) {
     const params = useParams();
@@ -303,7 +304,7 @@ useEffect(() => {
                                 
                             </div>
                             <div css={s.commentMain}>
-                                <pre>{comment.comment}</pre>
+                                <pre><MdSubdirectoryArrowRight /> {comment.comment}</pre>
                             </div>
                         </li>
                     )

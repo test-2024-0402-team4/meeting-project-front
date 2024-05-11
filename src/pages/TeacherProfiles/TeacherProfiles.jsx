@@ -15,6 +15,8 @@ import { getClassType, getDate, getRegion, getSubject } from "../../apis/api/Opt
 import { useAuthCheck } from "../../hooks/useAuthCheck";
 import { useStudentCheck } from "../../hooks/useStudentCheck";
 import { useAuthEmailCheck } from "../../hooks/useAuthEmailCheck";
+import { FaUniversity } from "react-icons/fa";
+import cautionicon from "./caution.png";
 
 function TeacherProfiles() {
     useAuthCheck();
@@ -56,7 +58,7 @@ function TeacherProfiles() {
             ...baseStyles,
             border: "none",
             width: "210px",
-            height: "36px"
+            height: "auto"
         })
     }
 
@@ -290,7 +292,12 @@ function TeacherProfiles() {
                     <div css={s.teacherProfileContainer}>
                         {
                             teacherProfiles.length === 0 
-                            ? <h1>검색 결과가 없습니다.</h1>
+                            ?
+                            <div css={s.none}>
+                                <img src={cautionicon} alt="" />
+                                <span>검색한 결과를 찾을 수가 없어요...</span>
+                                <span>다른 키워드로 검색해주세요!</span>
+                            </div>
                             :
                             teacherProfiles?.map(
                                 teacherProfile => 
@@ -301,9 +308,8 @@ function TeacherProfiles() {
                                     <div onClick={() => navigate(`/student/tutor?userId=${teacherProfile.userId}`)} css={s.teacherProfileContent}>
                                         <div>{teacherProfile.nickname}</div>
                                         <div>
-                                            <span>{teacherProfile.universityName} </span>
+                                            <span><FaUniversity /> {teacherProfile.universityName} </span>
                                             <span>{teacherProfile.departmentName} </span>
-                                            <span>학번 </span>
                                         </div>
                                         <div>
                                             <BiSolidBookAlt />전문 과목: {teacherProfile.subjectNames.map((subjectName, index) => (

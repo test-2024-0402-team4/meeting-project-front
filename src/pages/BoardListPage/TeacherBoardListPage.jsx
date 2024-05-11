@@ -86,8 +86,12 @@ function TeacherBoardListPage(props) {
     
     return (
         <div css={s.layout}>
+            <div css={s.head}>
+                <span>커뮤니티</span>
+            </div>
             <div css={s.authority}>
                 <button css={s.authorityButton} onClick={() => linkToTeacher()}>선생님용</button>
+                <div></div>
                 <button css={s.authorityButton} onClick={() => linkToStudy()}>공부방</button>
             </div>
         
@@ -104,69 +108,65 @@ function TeacherBoardListPage(props) {
 
             <div css={s.boardListLayout}>
                 {
-                boardList.map(
-                    board => 
-                    <Link to=
-                    {`/teacher/board/${board.teacherBoardId}`} 
-                    css={s.boardListItem} 
-                    key={board.teacherBoardId}
-                    >
-
-<li>
+                    boardList.map(board => 
+                    <Link to={`/teacher/board/${board.teacherBoardId}`} css={s.boardListItem} key={board.teacherBoardId} >
+                        <>
                             <div css={s.boardTitle}>{board.title}</div>
-
                             <div css={s.lc}>
 
-                                <div css={s.listBottom1}>
-                                {
-                                board.genderId === 1 ? 
-                                    (
-                                    <div css={s.genderImg}>
-                                        <img src="https://kimstudy.com/_next/static/media/circle_profile_boy.d886bf1c.svg" alt="" />
+                                <div css={s.f}>
+                                    <div css={s.listBottom1}>
+                                        {
+                                            board.genderId === 1
+                                            ?
+                                            <div css={s.a}>
+                                                {
+                                                    <div css={s.genderImg}>
+                                                        <img src="https://kimstudy.com/_next/static/media/circle_profile_boy.d886bf1c.svg" alt="" />
+                                                    </div>
+                                                }
+                                            </div>
+                                            :
+                                            <div>
+                                                {
+                                                    <div css={s.genderImg}>
+                                                        <img src="https://kimstudy.com/_next/static/media/circle_profile_girl.93ffff47.svg" alt="" />
+                                                    </div>
+                                                }
+                                            </div>
+                                        }
                                     </div>
-                                    ) 
-                                    : 
-                                    (
-                                    <div css={s.genderImg}>
-                                        <img src="https://kimstudy.com/_next/static/media/circle_profile_girl.93ffff47.svg" alt="" />
-                                    </div>
-                                    )
-                                }
                                     <div css={s.nick}>{board.nickname}</div>
-                                    <div css={s.date}>{GetTime(new Date(board.createDate))}</div>
                                 </div>
 
-                                <div css={s.Count}> 
-                                    <div css={s.commentCount}>
-                                        <div css={s.commentIcon}><FaRegComment /></div>
-                                        <div>{board.commentCount}</div>
-                                    </div>
-                                    <div css={s.viewCount}>
-                                        <div css={s.view}>
-                                            <GrView /> 
-                                        </div>
-                                        <div >
-                                            {board.viewCount}
-                                        </div>
-                                    </div>
-                                </div>
                                 
+                                <div css={s.d}>
+                                    <div css={s.e}>
+                                        <div css={s.viewCount}>
+                                            <div><GrView /> {board.viewCount}</div>
+                                        </div>
+                                        <div css={s.commentCount}>
+                                            <div><FaRegComment /> {board.commentCount}</div>
+                                        </div>
+                                    </div>
+
+                                    <div css={s.date}>{GetTime(new Date(board.createDate))}</div>
+                                </div>
                             </div>
-                         </li>
+                        </>
                     </Link>
-                    
-                    
                     )
                 }
-            
             </div>
+
+            <div css={s.submit}>
                 <Link to={"/teacher/board"} css={s.writeButtonLayout}>
                     <button css={s.writeButton}>작성하기</button>
                 </Link>
+            </div>
                 
             <div css={s.pageNumber}>
-                
-              <TeacherBoardPageCount boardCount={getStudentCountQuery.data?.data}/>
+                <TeacherBoardPageCount boardCount={getStudentCountQuery.data?.data}/>
             </div>
         </div>
     );

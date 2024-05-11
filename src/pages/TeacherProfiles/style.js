@@ -84,36 +84,40 @@ export const SearchBox = css`
 `;
 export const filterContentLayout = css`
     
-    margin-top: 10px;
     width: 100%;
     height: 100%;
+    max-width: 1000px;
+    margin-top: 25px;
 
     //다하고 지우기 ---------------------------------------
     /* border: 1px solid black; */
 `;
 
 export const filiterModal = (filterNum) => css`
-    position: absolute;
     display: flex;
-    justify-content: center;
     align-items: center;
-    background-color: white;
+    position: absolute;
+    justify-content: ${filterNum === 1 ? "space-around" : ""};
+
+    background-color: rgb(248 248 248);
+
+    top: ${filterNum === 1 ? '158px' :
+          filterNum === 2 ? '202px' :
+          filterNum === 3 ? '247px' :
+          filterNum === 4 ? '290px' :
+          filterNum === 5 ? '335px' : '110px'};
+    left: 180px;
+
+    height: ${filterNum === 1 ? "35px" : "auto"};
+
     font-size: 13px;
+    
+    border: 1px solid #5d5d5d;
+    border-radius: 5px;
+    width:250px;
 
     //다하고 지우기 ---------------------------------------
     /* border: 1px solid black; */
-
-    justify-content: ${filterNum === 1 ? "space-between" : ""};
-    top: ${filterNum === 1 ? '143px' :
-          filterNum === 2 ? '188px' :
-          filterNum === 3 ? '233px' :
-          filterNum === 4 ? '278px' :
-          filterNum === 5 ? '321px' : '110px'};
-    left: 180px;
-    border: 1px solid #808080;
-    width: ${filterNum === 1 ? "200px" : "250px"};
-    height: ${filterNum === 1 ? "35px" : "38px"};
-    border-radius: 5px;
 `;
 
 export const xMark = css`
@@ -121,14 +125,17 @@ export const xMark = css`
     justify-content: center;
     align-items: center;
     
+    
     //다하고 지우기 ---------------------------------------
     /* border: 1px solid black; */
     margin-left: 10px;
 
     cursor: pointer;
+
     & > * {
         color: #aaaaaa;
         font-size: 18px;
+
         :hover{
             color: #5d5d5d;
         }
@@ -136,22 +143,26 @@ export const xMark = css`
 `
 
 export const filterBox = css`
+
+    box-sizing: border-box;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    box-sizing: border-box;
-
-    padding: 8px;
-    font-size: 14px;
+    
     width: 100%;
     height: 35px;
+    margin-top: 10px;
+    padding: 8px;
+    
+    color: #5d5d5d;
+    background-color: rgb(248 248 248);
+    
+    font-size: 14px;
+    border-radius: 5px;
 
     //다하고 지우기 ---------------------------------------
     /* border: 1px solid black; */
-    border-radius: 5px;
-    margin-top: 10px;
-    color: #5d5d5d;
-    background-color: rgb(248 248 248);
+
     cursor: pointer;
 
     :hover {
@@ -267,4 +278,23 @@ export const teacherProfileContent = css`
         }
     }
 
+`;
+
+export const none = css`
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    margin-top: 20px;
+
+    width: 1000px;
+    min-width: 1000px;
+    height: 500px;
+
+    span{
+        font-size: 20px;
+    }
+
+    border-top: 1px solid #dbdbdb;
 `;
