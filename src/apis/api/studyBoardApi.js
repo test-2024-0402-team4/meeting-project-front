@@ -52,3 +52,7 @@ export const getUserIdByStudyBoardIdRequest = async(studyBoardId) => {
 export const getUserGenderType = async(userId) => {
     return await instance.get(`/study/board/genderImg/${userId}`)
 }
+
+export const getUserNicknameByStuduBoard = async(userId) => {
+    return await instance.get(`/study/board/nickname/${userId}`)
+}

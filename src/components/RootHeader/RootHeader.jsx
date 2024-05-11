@@ -34,11 +34,11 @@ function RootHeader({children}) {
                 // console.log(decodedPayload.userId)
 
             } catch (error) {
-                console.error("Failed to decode AccessToken:", error);
+                console.log("Failed to decode AccessToken:", error);
                 setRoleId(0); // 예외 발생 시 roleId를 기본값으로 설정
             }
         } else {
-            console.error("AccessToken not found in localStorage");
+            console.log("AccessToken not found in localStorage");
             setRoleId(0); // AccessToken이 없을 경우 roleId를 기본값으로 설정
         }
     }, [roleId, userId]);

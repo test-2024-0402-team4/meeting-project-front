@@ -4,14 +4,14 @@ export const treelayout =css`
     display: flex;
     margin: 0 auto;
     justify-content: center;
-    width: 70%;
+    width: 100%;
     min-width: 1328px;
+    background-color: #EEFCFA;
     & > img {
-        width: 70%;
+        width: 60%;
         min-width: 1156px;
     }
     // 다하고 지우기 ------------------------------------------
-    /* border: 1px solid black; */
     
 `
 
@@ -112,8 +112,7 @@ export const dataInputItem = css`
 `;
 
 export const mainRightLayout = css`
-    width: 60%;
-    min-width: 700px;
+    width: 755px;
     margin-top: 20px;
 
     // 다하고 지우기 ----------------------------------------
@@ -121,14 +120,13 @@ export const mainRightLayout = css`
     
 `;
 export const serviceTitle = css`
-    min-width: 150px;
+    width: 755px;
     /* border: 1px solid black; */
 `;
 
 export const serviceBox = css`
     display: flex;
     justify-content: space-between;
-
     width: 100%;
     height: 400px;
 

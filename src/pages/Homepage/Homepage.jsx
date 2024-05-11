@@ -81,7 +81,7 @@ function Homepage(props) {
     }
     
     return (
-        <>
+        <div>
         <div css={s.treelayout}>
             <img src={tree} alt="" />
         </div>
@@ -374,7 +374,7 @@ function Homepage(props) {
                 </div>
             }
         </div>
-        </>
+        </div>
     );
 }
 

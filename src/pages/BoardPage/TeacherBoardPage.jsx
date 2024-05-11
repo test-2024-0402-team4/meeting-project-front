@@ -136,7 +136,12 @@ const getTeacherGender = useQuery(
     const handleDeclareClick = () => {
         navigate(`/notice/declare/teacher/${params.teacherBoardId}`);
     }
-    
+    const linkToStudy = () => {
+        navigate("/study/boards?page=1")
+    }
+    const linkToTeacher = () => {
+        navigate("/teacher/boards?page=1")
+    }
 
     return (
     <div css={s.layout}>

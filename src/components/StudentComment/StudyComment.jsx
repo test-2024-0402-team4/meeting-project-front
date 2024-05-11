@@ -5,7 +5,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { useMutation, useQuery, useQueryClient } from "react-query";
 import { useMaxValueValidateInput } from "../../hooks/inputHook";
 import { BsThreeDotsVertical } from "react-icons/bs";
-import { deleteStudyCommentRequest, getStudyCommentRequest, registerStudyCommentRequest, updateStudyCommentRequest } from "../../apis/api/studyBoardApi";
+import { deleteStudyCommentRequest, getStudyCommentRequest, getUserNicknameByStuduBoard, registerStudyCommentRequest, updateStudyCommentRequest } from "../../apis/api/studyBoardApi";
 import { getPrincipalRequest } from "../../apis/api/principal";
 import { getStudentProfile } from "../../apis/api/profileApi";
 import GetTime from "../GetTime/GetTime";
@@ -13,10 +13,11 @@ import { getTeacherNickname } from "../../apis/api/teacherBoardApi";
 import { getUserNickname } from "../../apis/api/boardApi";
 import { MdSubdirectoryArrowRight } from "react-icons/md";
 
-function StudyComment({userId1, roleId}) {
+function StudyComment({roleId}) {
     const params = useParams();
     const [comments, setComments] = useState([]);
     const [inputValue, handleInputChange,setInputValue] = useMaxValueValidateInput(150);
+    const [userId1, setUserId] = useState();
     const [isShow, setShow] = useState(false);
     const [currentCommentId , setCurrentCommentId] = useState();
     const [changeButton, setChangeButton] = useState(0);
@@ -33,6 +34,12 @@ function StudyComment({userId1, roleId}) {
     const queryClient = useQueryClient();
     const navigate = useNavigate();
 
+    const principalData = queryClient.getQueryData("principalQuery");
+
+    useEffect(() => {
+        setUserId(principalData?.data.userId)
+
+    },[]);
 
 
 useEffect(() => {
@@ -46,33 +53,28 @@ useEffect(() => {
   }, [userId1, role]);
 
   const getUserNicknameRequest = useQuery(
-    ["getUserNicknameRequest",userId1],
-    async() => await getUserNickname(userId1),
+    ["getUserNicknameRequest", userId1],
+    async() => await getUserNicknameByStuduBoard(userId1),
     {
         refetchOnWindowFocus : false,
+        enabled: !!userId1,
         onSuccess: response => {
-              console.log(response);
-              setNickName(response.data.nickname);
+            setNickName(response.data.nickname);
         },
         onError: error => {
-          console.log(userId1);
-          console.log(error);
         },
-        enabled: !!userId1
     }
   );
 
   const getTeacherNicknameRequest = useQuery(
     ["getTeacherNicknameRequest",userId1],
-    async() => await getTeacherNickname(userId1),
+    async() => await getUserNicknameByStuduBoard(userId1),
     {
         refetchOnWindowFocus : false,
         onSuccess: response => {
-              console.log(response);
               setNickName(response.data.nickname);
         },
         onError: error => {
-          console.log(userId1);
         },
         enabled: !!userId1
     }
@@ -86,20 +88,19 @@ useEffect(() => {
             const decodedPayload = JSON.parse(atob(tokenPayLoad));
             setLsUsertId(decodedPayload.userId);
         } catch (error) {
-            console.error("Failed to decode AccessToken:", error);
+            console.log("Failed to decode AccessToken:", error);
             setLsUsertId(0); // 예외 발생 시 roleId를 기본값으로 설정
         }
     } else {
-        console.error("AccessToken not found in localStorage");
+        console.log("AccessToken not found in localStorage");
         setLsUsertId(0); // AccessToken이 없을 경우 roleId를 기본값으로 설정
     }
 }, []);
 
 const handleButtonClick = (e, id) => {
-    console.log(e.target)
     buttonRef.current = e.target;
     setShowDropDownById(prevId => prevId === id ? 0 : id)
-    console.log("나 버튼 아이콘");
+
 }
 
 useEffect(() => {
@@ -135,7 +136,6 @@ useEffect(() => {
                         }
                     }
                 ));
-                console.log(response.data);
             }
         }
     );
@@ -156,7 +156,6 @@ useEffect(() => {
             nickname: nickName,
             comment : inputValue
         };
-        console.log(comment);
         if (!inputValue.trim()) { 
             alert("내용을 작성해 주세요!"); 
             return; 
@@ -195,13 +194,10 @@ useEffect(() => {
             studyCommentId,
             comment: inputValue
         };
-        console.log(updateComment);
         updateStudyCommentMutation.mutate(updateComment);
     }
 
     const handleUpdateClick = (studyCommentId, comment) => {
-        console.log(studyCommentId);
-        console.log(comment);
         setCurrentCommentId(studyCommentId);
         setInputValue(() => comment);
         setChangeButton(() => 1);

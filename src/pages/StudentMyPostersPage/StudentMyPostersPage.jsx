@@ -111,6 +111,9 @@ function StudentMyPostersPage(props) {
                         </div>
                     </div>
                 </div>
+                <div css={s.registerButtonLayout}>
+                    <button onClick={() => handelPageMove(`student/register/poster`)} css={s.registerButton}>공고 등록하기</button>
+                </div>
             </div>
             {
                 posters?.map(
