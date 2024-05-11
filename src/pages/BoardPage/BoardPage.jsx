@@ -148,8 +148,8 @@ const getStudentGender = useQuery(
     return (
     <div css={s.layout}>
         <div css={s.authority}>
-            <button css={s.authorityButton} onClick={() => linkToStudent()}>학생용</button>
-            <button css={s.authorityButton} onClick={() => linkToStudy()}>공부방</button>
+            <span onClick={linkToStudent}>학생용</span>
+            <span onClick={() => linkToStudy()}>공부방</span>
         </div>
 
         <div css={s.boardListLayout}>
@@ -157,18 +157,20 @@ const getStudentGender = useQuery(
             <div css={s.boardPageProfile}>
                 <div css={s.boardPageMainHeader}>
 
-                {genderType === "남" ? 
-                (
-                <div css={s.boardPageProfileImg}>
-                    <img src="https://kimstudy.com/_next/static/media/circle_profile_boy.d886bf1c.svg" alt="" />
-                </div>
-                ) 
-                : 
-                (
-                <div css={s.boardPageProfileImg}>
-                    <img src="https://kimstudy.com/_next/static/media/circle_profile_girl.93ffff47.svg" alt="" />
-                </div>
-                )}
+                {
+                    genderType === "남" ? 
+                    (
+                    <div css={s.boardPageProfileImg}>
+                        <img src="https://kimstudy.com/_next/static/media/circle_profile_boy.d886bf1c.svg" alt="" />
+                    </div>
+                    ) 
+                    : 
+                    (
+                    <div css={s.boardPageProfileImg}>
+                        <img src="https://kimstudy.com/_next/static/media/circle_profile_girl.93ffff47.svg" alt="" />
+                    </div>
+                    )
+                }
 
                     <div>
                         <div css={s.title}> {singleBoard.title}</div>
@@ -201,12 +203,12 @@ const getStudentGender = useQuery(
                         </>                       
                     :
                     studentId === userIdByBoard ?
-                        <>
+                        <div css={s.buttonBox}>
                             <Link to={`/student/board/update/${singleBoard.studentBoardId}`}>
-                            <button css={s.optionButton}>수정</button>
+                                <button css={s.optionButton}>수정</button>
                             </Link>
                             <button onClick={handleDeleteClick} css={s.optionButton}>삭제</button>
-                        </>
+                        </div>
                     :
                     <div css={s.blank}>
                         <button onClick={handleDeclareClick} css={s.optionButton}>신고</button>

@@ -16,6 +16,7 @@ import { CgBorderRight } from "react-icons/cg";
 import { BiSolidBookAlt } from "react-icons/bi";
 import { IoLocationSharp } from "react-icons/io5";
 import { IoPersonSharp } from "react-icons/io5";
+import cautionicon from "./caution.png";
 
 
 function StudentPostersPage(props) {
@@ -57,7 +58,7 @@ function StudentPostersPage(props) {
             ...baseStyles,
             border: "none",
             width: "210px",
-            height: "36px"
+            height: "auto"
         })
     }
 
@@ -164,8 +165,8 @@ function StudentPostersPage(props) {
             <div css={s.studentPosterRootLayout}>
                 <div css = {s.filterLayout}>
                 <div css={s.filterContentLayout}>
-                            <div onClick={() => setFilterModal(() => 0)} >
-                                필터로 검색
+                    <div onClick={() => setFilterModal(() => 0)} >
+                            필터로 검색
                             </div>
                             {filterModal === 1 ? (
                                 <>
@@ -243,8 +244,12 @@ function StudentPostersPage(props) {
                 </div>
                 <div css={s.posterBox}>
                     {
-                        !studentPosters ? 
-                            <h1>조건에 해당하는 결과가 없습니다</h1>
+                        !studentPosters ?
+                            <div css={s.none}>
+                                <img src={cautionicon} alt="" />
+                                <span>검색한 결과를 찾을 수가 없어요...</span>
+                                <span>다른 키워드로 검색해주세요!</span>
+                            </div>
                         :
                         studentPosters.map(studentPoster => 
                         <div key={studentPoster.posterId} onClick={() => navigate(`/teacher/tutee/poster?posterId=${studentPoster.posterId}`)} css={s.studentPosters}>
@@ -252,12 +257,14 @@ function StudentPostersPage(props) {
                                 <div css={s.studentPoster}>
                                     <div css={s.studentPosterContent}>
                                         <div>{studentPoster.title}</div>
+
                                         <div>
                                             <span><IoPersonSharp /> </span>
                                             <span>{studentPoster.studentType}</span>
                                             <span> | </span>
                                             <span>{studentPoster.genderType}학생</span>
                                         </div>
+
                                         <div css={s.subjects}>
                                             <span>
                                                 <span><BiSolidBookAlt /> </span>
@@ -269,6 +276,7 @@ function StudentPostersPage(props) {
                                                 ))}
                                             </span>
                                         </div>
+                                        
                                         <div>
                                             <span key={"logo"}><IoLocationSharp /> </span>
                                             <span key={"region"}>{studentPoster.regionName}</span>

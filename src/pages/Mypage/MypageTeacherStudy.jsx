@@ -34,7 +34,7 @@ function MypageTeacherStudy(props) {
             retry: 0,
             refetchOnWindowFocus: false,
             onSuccess: response => {
-                console.log("principal Success");
+                // console.log("principal Success");
                 setUserId(response.data.userId);
             },
             onError: error => {
@@ -110,7 +110,7 @@ function MypageTeacherStudy(props) {
             refetchOnWindowFocus: false,
             enabled: !!userId,
             onSuccess: response => {
-                console.log(response);
+                // console.log(response);
             },
             onError: error => {
                 console.log(error);
@@ -118,7 +118,7 @@ function MypageTeacherStudy(props) {
         }
     );
 
-console.log(profile);
+// console.log(profile.data.data.genderType);
 console.log(searchParams.get("page"));
 
 const myBoard = () => {
@@ -128,6 +128,7 @@ const myBoard = () => {
     return (
         <div css={s.layout}>
             <div css={s.mypageLayout}>
+
                 <div css={s.profileLayout}>
                     <div css={s.profile}>
                         <div css={s.profileUpdateButton}>
@@ -137,25 +138,27 @@ const myBoard = () => {
                         </div>
                         <div css={s.profileImgLayout}>
                             <img src={profile?.data?.userImgUrl} />
+                            
                         </div>
                         <div>
                             <span>
                                 {profile.data?.nickname}
                             </span>
                             <span css={s.roleName}>
-                            {profile.data?.roleNameKor}
+                                {profile.data?.roleNameKor}
                             </span>
                         </div>
                         <div>
                             <span>
-                            {profile.data?.genderType}
+                                {profile.data?.genderType}
                             </span>
                             <span>
-                            {profile.data?.regionName}
+                                {profile.data?.regionName}
                             </span>
                         </div>
                     </div>
                 </div>
+
                 <div css={s.mypageContentLayout}>
                     <div css={s.mypageContentTitle}>
                         <div onClick={() => myBoard()}>

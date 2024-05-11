@@ -30,8 +30,7 @@ function TeacherBoardPageCount({boardCount}) {
                 <div css={s.sideBox1}>
                     {
                         page !== 1 &&
-                    <Link css={s.pageButton(false)} 
-                    to={`/teacher/boards?page=1`}>처음으로</Link>
+                        <Link css={s.pageButton(false)} to={`/teacher/boards?page=1`}>처음으로</Link>
                     }
 
                     {

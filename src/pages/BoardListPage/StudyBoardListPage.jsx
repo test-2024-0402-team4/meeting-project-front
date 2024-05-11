@@ -95,18 +95,31 @@ function StudyBoardListPage(props) {
     
     return (
         <div css={s.layout}>
+            <div css={s.head}>
+                <span>커뮤니티</span>
+            </div>
             <div css={s.authority}>
-            {roleId === 1 ? (
-        <>
-            <button css={s.authorityButton} onClick={() => linkToStudent()}>학생용</button>
-            <button css={s.authorityButton} onClick={() => linkToStudy()}>공부방</button>
-        </>
-    ) : roleId === 2 ? (
-        <>
-            <button css={s.authorityButton} onClick={() => linkToTeacher()}>선생님용</button>
-            <button css={s.authorityButton} onClick={() => linkToStudy()}>공부방</button>
-        </>
-    ) : null}
+            {
+                roleId === 1
+                ?
+                (
+                <>
+                    <button css={s.authorityButton} onClick={() => linkToStudent()}>학생용</button>
+                    <div></div>
+                    <button css={s.authorityButton} onClick={() => linkToStudy()}>공부방</button>
+                </>
+                )
+                : roleId === 2
+                ?
+                (
+                <>
+                    <button css={s.authorityButton} onClick={() => linkToTeacher()}>선생님용</button>
+                    <div></div>
+                    <button css={s.authorityButton} onClick={() => linkToStudy()}>공부방</button>
+                </>
+                )
+                : null
+            }
             </div>
         
             <div css={s.searchInput}>
@@ -121,70 +134,68 @@ function StudyBoardListPage(props) {
             </div>
 
             <div css={s.boardListLayout}>
-
                 {
-                boardList?.map(
-                    board => 
-                    <Link to=
-                    {`/study/board/${board.studyBoardId}`} 
-                    css={s.boardListItem} 
-                    key={board.studyBoardId}
-                    >
-
-<li>
+                    boardList.map(board => 
+                        <Link to={`/study/board/${board.studyBoardId}`} css={s.boardListItem} key={board.studyBoardId}>
+                        <>
                             <div css={s.boardTitle}>{board.title}</div>
-
                             <div css={s.lc}>
 
-                                <div css={s.listBottom1}>
-                                {
-                                board.genderId === 1 ? 
-                                    (
-                                    <div css={s.genderImg}>
-                                        <img src="https://kimstudy.com/_next/static/media/circle_profile_boy.d886bf1c.svg" alt="" />
+                                <div css={s.f}>
+                                    <div css={s.listBottom1}>
+                                        {
+                                            board.genderId === 1
+                                            ?
+                                            <div css={s.a}>
+                                                {
+                                                    <div css={s.genderImg}>
+                                                        <img src="https://kimstudy.com/_next/static/media/circle_profile_boy.d886bf1c.svg" alt="" />
+                                                    </div>
+                                                }
+                                            </div>
+                                            :
+                                            <div>
+                                                {
+                                                    <div css={s.genderImg}>
+                                                        <img src="https://kimstudy.com/_next/static/media/circle_profile_girl.93ffff47.svg" alt="" />
+                                                    </div>
+                                                }
+                                            </div>
+                                        }
                                     </div>
-                                    ) 
-                                    : 
-                                    (
-                                    <div css={s.genderImg}>
-                                        <img src="https://kimstudy.com/_next/static/media/circle_profile_girl.93ffff47.svg" alt="" />
-                                    </div>
-                                    )
-                                }
                                     <div css={s.nick}>{board.nickname}</div>
-                                    <div css={s.date}>{GetTime(new Date(board.createDate))}</div>
                                 </div>
 
-                                <div css={s.Count}> 
-                                    <div css={s.commentCount}>
-                                        <div css={s.commentIcon}><FaRegComment /></div>
-                                        <div>{board.commentCount}</div>
-                                    </div>
-                                    <div css={s.viewCount}>
-                                        <div css={s.view}>
-                                            <GrView /> 
+                                
+                                <div css={s.d}>
+                                    <div css={s.e}>
+                                        <div css={s.viewCount}>
+                                            <div><GrView /> {board.viewCount}</div>
                                         </div>
-                                        <div >
-                                            {board.viewCount}
+                                        
+                                        <div css={s.commentCount}>
+                                            <div><FaRegComment /> {board.commentCount}</div>
                                         </div>
                                     </div>
+
+                                    <div css={s.date}>{GetTime(new Date(board.createDate))}</div>
                                 </div>
                                 
                             </div>
-                         </li>
+                        </>
                     </Link>
-                    
-                    
                     )
                 }
-            
             </div>
-                <Link to={"/study/board"} css={s.writeButtonLayout}>
+
+            <div css={s.submit}>
+                <Link to={"/student/board"} css={s.writeButtonLayout}>
                     <button css={s.writeButton}>작성하기</button>
                 </Link>
+            </div>
                 
             <div css={s.pageNumber}>
-              <StudyBoardPageCount boardCount={getStudyCountQuery.data?.data}/>
+                <StudyBoardPageCount boardCount={getStudyCountQuery.data?.data}/>
             </div>
         </div>
     );

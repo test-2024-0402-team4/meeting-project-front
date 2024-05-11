@@ -142,27 +142,29 @@ const getTeacherGender = useQuery(
     <div css={s.layout}>
         <div css={s.authority}>
             <button css={s.authorityButton}>선생님용</button>
+            <div></div>
             <button css={s.authorityButton}>공부방</button>
         </div>
 
         <div css={s.boardListLayout}>
            <div css={s.boardPageProfile}>
                 <div css={s.boardPageMainHeader}>
-
-                {genderType === "남" ? 
-                (
-                <div css={s.boardPageProfileImg}>
-                    <img src="https://kimstudy.com/_next/static/media/circle_profile_boy.d886bf1c.svg" alt="" />
-                </div>
-                ) 
-                : 
-                (
-                <div css={s.boardPageProfileImg}>
-                    <img src="https://kimstudy.com/_next/static/media/circle_profile_girl.93ffff47.svg" alt="" />
-                </div>
-                )}                       
-                 <div>
-                    <div css={s.title}> {singleBoard.title}</div>
+                    {
+                        genderType === "남" ? 
+                        (
+                        <div css={s.boardPageProfileImg}>
+                            <img src="https://kimstudy.com/_next/static/media/circle_profile_boy.d886bf1c.svg" alt="" />
+                        </div>
+                        ) 
+                        : 
+                        (
+                        <div css={s.boardPageProfileImg}>
+                            <img src="https://kimstudy.com/_next/static/media/circle_profile_girl.93ffff47.svg" alt="" />
+                        </div>
+                        )
+                    }                       
+                    <div>
+                        <div css={s.title}> {singleBoard.title}</div>
                             <div css={s.nick}> 
                                 <div>
                                     {singleBoard.nickname}  
@@ -173,15 +175,17 @@ const getTeacherGender = useQuery(
                                 <div>
                                     {formattedTime} 
                                 </div>
+                            </div>
                         </div>
-                        </div>
-                </div>
-                <div css={s.optionButtons}>
-                <div css={s.boardPageViewCount}>
-                <div css={s.viewIcon}>
-                        <GrView />
                     </div>
-                    {singleBoard.viewCount}</div>
+                    
+                <div css={s.optionButtons}>
+                    <div css={s.boardPageViewCount}>
+                        <div css={s.headbutton}>
+                            <div css={s.viewIcon}><GrView /></div>
+                            {singleBoard.viewCount}
+                        </div>
+                    </div>
 
                     {
                         roleId === 3 ? 
@@ -190,12 +194,12 @@ const getTeacherGender = useQuery(
                         </>
                         :
                         teacherId === userIdByBoard ?
-                        <>    
+                        <div css={s.modi}>    
                             <Link to={`/teacher/board/update/${singleBoard.teacherBoardId}`}>
                                 <button css={s.optionButton}>수정</button>
                             </Link>
                             <button css={s.optionButton} onClick={handleDeleteClick}>삭제</button>
-                        </>
+                        </div>
                     :
                         <div css={s.blank}>
                             <button onClick={handleDeclareClick} css={s.optionButton}>신고</button>

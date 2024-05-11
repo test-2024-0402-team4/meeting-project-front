@@ -1,248 +1,393 @@
 import { css } from "@emotion/react";
 
 export const layout = css`
-margin: 0px auto;
-display: flex;
-flex-direction: column;
-align-items: center;
-width: 80%;
-max-width: 1100px;
-`
+    margin: 0px auto;
+    display: flex;
+    flex-direction: column;
+
+    width: 80%;
+    max-width: 1100px;
+
+    border-bottom: 1px solid #dbdbdb;
+
+    // 다하고 지우기 -------------------------------
+    /* border: 1px solid black; */
+`;
+
+export const head = css`
+    text-align: center;
+    font-size: 38px;
+    align-items: center;
+    margin-top: 10px;
+
+    span{
+        color: #333333;
+        font-weight: 700;
+    }
+`;
 
 export const authority = css`
-width: 100%;
-margin-right: 270px;
-justify-content: space-evenly;
+    display: flex;
+    align-items: center;
+
+    font-size: 20px;
+    font-weight: 700;
+
+    width: 100%;
+    height: 50px;
+
+    div{
+        height: 30px;
+        border: 1px solid #dbdbdb;
+    }
+
+
+    // 다하고 지우기 -------------------------------
+    /* border: 1px solid black; */
 `;
 
 
 export const authorityButton = css`
-    width: 100px;
-    height: 40px;
-    margin-top: 5px;
-    margin-left: 20px;
-    margin-bottom: 20px;
-    background-color: #14dbba;
-    outline: none;
-    border: none;
-    border-radius: 6px;
-    color: white;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    height: 50px;
+    font-size: 20px;
+    font-weight: 700;
+    color: #b8b8b8;
+
+    background-color: transparent;
+
     transition: background-color 0.3s ease;
-    font-weight: 600;
+
     cursor: pointer;
-    &:nth-of-type(1){
-    margin-left: 150px;
+
+    :hover{
+        color: #808080;
     }
-    &:hover {
-        background-color: #11b69a;
-    }
+
+    border: none;
     
 `;
 
-    export const boardListLayout = css`
-    box-sizing: border-box;
-    width: 100%;
-    max-height: 1510px;
+export const boardListLayout = css`
+    display: flex;
+    flex-direction: column;
+
+    max-height: 1500px;
     max-width: 1100px;
-    overflow: hidden;
-    margin-left: 55px;
-    
-    `;
+
+    // 다하고 지우기 -------------------------------
+    /* border: 1px solid black; */
+`;
+
 export const headerTitle = css`
     text-align: center;
-    font-size: 38px;
+    font-size: 35px;
     align-items: center;
-    margin-bottom: 10px;
-    margin-top: 10px;
     color: #333333;
+
+    // 다하고 지우기 -------------------------------
+    /* border: 1px solid black; */
 `;
 
 export const searchInput = css`
-display: flex;
-justify-content: flex-end;
-width: 100%;
-padding-bottom: 15px;
-margin-left: 25px;
+    display: flex;
+    justify-content: end;
+
+    // 다하고 지우기 -------------------------------
+    /* border: 1px solid #dbdbdb; */
 `;
 export const searchContainer = css`
-border: 1px solid #a19c9c;
-width: 201px;
-padding-left: 2px;
-padding-bottom:1px ;
-border-radius: 6px;
+    display: flex;
+    justify-content: center;
+
+    width: 200px;
+    height: 26px;
+    margin-bottom: 10px;
+    
+    border: 1px solid #dbdbdb;
+    border-radius: 5px;
+
+    // 다하고 지우기 ------------------------
+    /* border: 1px solid black; */
 `;
 export const inputBox = css`
-outline: none;
-border: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    outline: none;
+    border: none;
+
+    // 다하고 지우기 -------------------------------
+    /* border: 1px solid black; */
 `;
 export const searchButton = css`
-box-sizing: border-box;
-padding: 0px 0px 0px 13px;
-background-color: white;
-border: none;
-cursor: pointer;
-`;
 
-export const boardListHeader = css`
-box-sizing: border-box;
-display: flex;
-width: 100%;
-border-bottom:2px solid #b3d4d4 ;
-& > div{
     display: flex;
     justify-content: center;
     align-items: center;
     
-    height: 40px;
-    width: 80px;
-    flex-grow: 1;
-    font-weight: 700;
-    cursor: default;
-}
-& > div:nth-of-type(1){
-    border-right: 1px solid #dbdbdb ;
-    flex-grow: 0;
-    width: 630px;
-}
-& > div:nth-of-type(2){
-    border-right: 1px solid #dbdbdb ;
-    flex-grow: 0;
-    width: 130px;
-}
-& > div:nth-of-type(3){
-    border-right: 1px solid #dbdbdb ;
-    flex-grow: 0;
-    width: 180px;
-}
+    background-color: transparent;
+    border: none;
+
+    cursor: pointer;
+
+    // 다하고 지우기 -------------------------------
+    /* border: 1px solid black; */
+`;
+
+export const boardListHeader = css`
+    display: flex;
+
+    // 다하고 지우기 -------------------------------
+    /* border: 1px solid black; */
+
+    
 `;
 export const boardListItem = css`
 
-    cursor: pointer;
-    color: #222;
-    text-decoration: none;
-    &>li{
-        width: 99%;
-        border: 2px solid #ebebeb ;
-        list-style: none;
-        display: flex;
-        flex-direction: column;
-        margin-bottom: 15px;
-        border-radius: 4px;
-       
-        
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 
-        & > div{
-            display: flex;
-            justify-content: flex-start;
-            align-items: center;
-            
-            height: 51.2px;
-            width: 80px;
-            flex-grow: 1;
-           
-            
-        }
-        & > div:nth-of-type(1){
-            border-bottom: 1px solid #dbdbdb ;
-            flex-grow: 0;
-            width: 99%;
-        }
-        & > div:nth-of-type(2){
-            flex-grow: 0;
-            width: 99%;
-        }
+    color: #5d5d5d;
+    text-decoration: none;
+
+    cursor: pointer;
+    margin-bottom: 10px;
+
+    /* border-bottom: 1px solid #dbdbdb; */
+
+    :hover{
+        background-color: #e1f5fd;
     }
 `;
 
 export const boardTitle = css`
-min-height: 85px;
-padding-left: 10px;
-font-size: 18px;
+    display: flex;
+    align-items: center;
+
+    padding: 0px 10px;
+
+    height: 50px;
+
+    font-size: 16px;
+
+    border: 1px solid #dbdbdb;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+
+    // 다하고 지우기 -------------------------------
+    /* border: 1px solid black; */
 `;
 export const genderImg = css`
+    display: flex;
+    justify-content: center;
+    align-items: center;
 
-& > img {
-    width: 33px;
-    height: 33px;
-    margin-right: 10px;
-}
+    margin: 5px;
+
+    img {
+        width: 40px;
+        height: 40px;
+    }
+        
+    // 다하고 지우기 -------------------------------
+    /* border: 1px solid black; */
 `;
 
 export const listBottom1 = css`
- display: flex;
- justify-content: space-between;
- padding-left: 5px;
-`;
-export const nick = css`
-margin-right: 10px;
-border-right: 1px solid #dbdbdb;
-padding-right: 10px;
-margin-top: 8px;
-font-size: 15px;
-color: #5a5a5a;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 
+    /* border: 1px solid black; */
+`;
+
+export const a = css`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    // 다하고 지우기 -------------------------------
+    /* border: 1px solid black; */
+`;
+
+export const f = css`
+    display: flex;
+
+    /* border: 1px solid black; */
+`;
+
+export const nick = css`
+    display: flex;
+    align-items: end;
+    
+    margin-left: 10px;
+
+    font-size: 15px;
+    color: #808080;
+
+
+    // 다하고 지우기 -------------------------------
+    /* border: 1px solid black; */
 `
+
+export const d = css`
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    /* border: 1px solid #dbdbdb; */
+`;
+
 export const lc = css`
-display: flex;
-flex-direction: row;
-justify-content: space-between;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    border: 1px solid #dbdbdb;
+    border-top: none;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
 
 `;
 export const date = css`
-color: #5a5a5a;
-margin-top: 8px;
+    display: flex;
+    justify-content: end;
+    align-items: center;
+
+    margin-right: 20px;
+
+    width: 100%;
+    height: 100%;
+
+    color: #808080;
+
+    // 다하고 지우기 -------------------------------
+    /* border: 1px solid black; */
 `;
 export const Count = css`
-display: flex;
-color: #979797;
-margin-left: auto;
-margin-top: 6px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
 
+    width: 100%;
+    height: 100%;
+
+    color: #808080;
+
+    // 다하고 지우기 -------------------------------
+    /* border: 1px solid black; */
 `
 export const commentCount = css`
-display: flex;
-margin-right: 13px;
+    display: flex;
+    align-items: center;
+    padding-top: 5px;
+    width: 80px;
+
+    // 다하고 지우기 -------------------------------
+    /* border: 1px solid black; */
 `;
 export const commentIcon = css`
-margin-right: 5px;
-margin-top: 2px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    // 다하고 지우기 -------------------------------
+    /* border: 1px solid black; */
 `;
+
 export const viewCount = css`
-display: flex;
+    display: flex;
+    
+    padding-top: 5px;
+    align-items: center;
+    width: 80px;
+
+    // 다하고 지우기 -------------------------------
+    /* border: 1px solid black; */
 `;
 export const view = css`
-margin-right: 4px;
-margin-top: 2px;
+    // 다하고 지우기 -------------------------------
+    /* border: 1px solid black; */
 `;
-export const test1 = css`
-background-color: #97e5e7;
-`
+
+export const c = css`
+    display: flex;
+
+    /* border: 1px solid black; */
+`;
 
 export const pageNumber = css`
-box-sizing: border-box;
-padding: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    // 다하고 지우기 -------------------------------
+    /* border: 1px solid black; */
 `;
 
 export const writeButtonLayout =css`
-display: flex;
-justify-content: flex-end;
-width: 100%;
-margin-top: 10px;
-text-decoration: none;
-margin-left: 25px;
+    display: flex;
+    justify-content: end;
+    padding: 10px;
+    align-items: center;
+
+    text-decoration: none;
+
+    // 다하고 지우기 -------------------------------
+    /* border: 1px solid black; */
 `;
 export const writeButton = css`
-width: 90px;
-height: 40px;
-background-color: #14dbba;
-border: none;
-color: white;
-font-size: 14px;
-font-weight: 600;
-border-radius: 5px;
-transition: background-color 0.3s ease;
-cursor: pointer;
-&:hover {
-        background-color: #11b69a;
-    }
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    width: 100px;
+    height: 40px;
+
+    background-color: #d9fcf6;
+    border: none;
+    color: #11b69a;
+
+    font-size: 15px;
+    font-weight: 700;
+    border-radius: 5px;
+
+    transition: background-color 0.3s ease;
+    
+    /* border: 1px solid black; */
+
+    cursor: pointer;
+
+    &:hover {
+            background-color: #9decdb;
+        }
+`;
+
+export const submit = css`
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: end;
+
+    padding: 10px;
+
+    border: 1px solid #dbdbdb;
+    border-radius: 5px;
+`;
+
+export const e = css`
+    display: flex;
+    justify-content: end;
+
+    width: 100%;
+    // 다하고 지우기 ------------------------
+    /* border: 1px solid black; */
 `;

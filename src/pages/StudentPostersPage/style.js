@@ -55,7 +55,7 @@ export const filterBox = css`
     justify-content: space-between;
     align-items: center;
     
-    width: 100;
+    width: 100%;
     height: 35px;
     margin-top: 10px;
     padding: 8px;
@@ -249,4 +249,23 @@ export const posterBox = css`
     // 다하고 지우기 -----------------------------------
     /* border: 1px solid black; */
 
+`;
+
+export const none = css`
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    margin-top: 20px;
+
+    width: 1000px;
+    min-width: 1000px;
+    height: 500px;
+
+    span{
+        font-size: 20px;
+    }
+
+    border-top: 1px solid #dbdbdb;
 `;

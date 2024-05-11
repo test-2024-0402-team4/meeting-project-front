@@ -1,19 +1,19 @@
 import { css } from "@emotion/react";
 
 export const layout = css`
-margin: 0px auto;
-display: flex;
-flex-direction: column;
-justify-content: center;
-align-items: center;
-width: 80%;
-max-width: 1100px;
+    margin: 0px auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 80%;
+    max-width: 1100px;
 `
 
 export const authority = css`
-width: 100%;
-margin-right: 270px;
-justify-content: space-evenly;
+    width: 100%;
+    margin-right: 270px;
+    justify-content: space-evenly;
 `;
 
 
@@ -43,16 +43,17 @@ export const authorityButton = css`
     
 `;
 
-    export const boardListLayout = css`
+export const boardListLayout = css`
     box-sizing: border-box;
     width: 100%;
     height: 510px;
     max-width: 1100px;
     border: 1px solid #dbdbdb;
-    border-radius: 18px;
+    border-radius: 5px;
     overflow: hidden;
     
-    `;
+`;
+
 export const headerTitle = css`
     text-align: center;
     font-size: 38px;
@@ -63,29 +64,29 @@ export const headerTitle = css`
 `;
 
 export const searchInput = css`
-display: flex;
-justify-content: flex-end;
-width: 100%;
-padding-bottom: 10px;
-margin-right: 20px;
+    display: flex;
+    justify-content: flex-end;
+    width: 100%;
+    padding-bottom: 10px;
+    margin-right: 20px;
 `;
 export const searchContainer = css`
-border: 1px solid #a19c9c;
-width: 199px;
-padding-left: 2px;
-padding-bottom:1px ;
-border-radius: 4px;
+    border: 1px solid #a19c9c;
+    width: 199px;
+    padding-left: 2px;
+    padding-bottom:1px ;
+    border-radius: 5px;
 `;
 export const inputBox = css`
-outline: none;
-border: none;
+    outline: none;
+    border: none;
 `;
 export const searchButton = css`
-box-sizing: border-box;
-padding: 0px 0px 0px 7px;
-background-color: white;
-border: none;
-cursor: pointer;
+    box-sizing: border-box;
+    padding: 0px 0px 0px 7px;
+    background-color: white;
+    border: none;
+    cursor: pointer;
 `;
 
 export const boardListHeader = css`
@@ -122,7 +123,6 @@ border-bottom:2px solid #dbdbdb ;
 `;
 export const boardListItem = css`
 
-   
     cursor: pointer;
     color: #222;
     text-decoration: none;
@@ -164,37 +164,37 @@ export const boardListItem = css`
 `;
 
 export const test1 = css`
-background-color: #97e5e7;
+    background-color: #97e5e7;
 `
 
 export const pageNumber = css`
-box-sizing: border-box;
-padding: 15px;
+    box-sizing: border-box;
+    padding: 15px;
 `;
 
 export const writeButtonLayout =css`
-display: flex;
-justify-content: flex-end;
-width: 100%;
-margin-top: 10px;
-margin-right: 70px;
-text-decoration: none;
+    display: flex;
+    justify-content: flex-end;
+    width: 100%;
+    margin-top: 10px;
+    margin-right: 70px;
+    text-decoration: none;
 `;
 export const writeButton = css`
-width: 90px;
-height: 40px;
-background-color: #86e8bf;
-border: none;
-color: white;
-font-size: 14px;
-font-weight: 600;
-border-radius: 5px;
-transition: background-color 0.3s ease;
-cursor: pointer;
-&:hover {
-        background-color: #59dbba;
+    width: 90px;
+    height: 40px;
+    background-color: #86e8bf;
+    border: none;
+    color: white;
+    font-size: 14px;
+    font-weight: 600;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+    cursor: pointer;
+    &:hover {
+            background-color: #59dbba;
+        }
+    &:active {
+        background-color: #28b290; 
     }
-&:active {
-    background-color: #28b290; 
-}
 `;

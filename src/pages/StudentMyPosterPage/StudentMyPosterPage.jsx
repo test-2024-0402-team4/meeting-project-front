@@ -9,6 +9,8 @@ import { getMyPoster, getMyposter, studentMyPosterDeleteRequest } from "../../ap
 import { useAuthCheck } from "../../hooks/useAuthCheck";
 import { useStudentCheck } from "../../hooks/useStudentCheck";
 import { useAuthEmailCheck } from "../../hooks/useAuthEmailCheck";
+import { IoPersonSharp } from "react-icons/io5";
+
 
 function StudentMyPosterPage(props) {
     useAuthCheck();
@@ -88,14 +90,16 @@ function StudentMyPosterPage(props) {
         })
     }
 
+    const handleMyInfoModifyOnClick = () => {
+        navigate(`/student/mypage/modify?userId=${userId}`);
+    }
+
     return (
         <div css={s.layout}>
             <div css={s.profileLayout}>
                 <div css={s.profile}>
                     <div css={s.profileUpdateButton}>
-                        <button>
-                            정보 수정
-                        </button> 
+                        <button onClick={handleMyInfoModifyOnClick}>정보 수정</button> 
                     </div>
                     <div css={s.profileImgLayout}>
                         <img src={profile?.data?.userImgUrl} />
@@ -104,14 +108,12 @@ function StudentMyPosterPage(props) {
                         <span>
                             {profile.data?.nickname}
                         </span>
-                        <span css={s.roleName}>
+                        {/* <span css={s.roleName}>
                             {profile.data?.roleNameKor}
-                        </span>
+                        </span> */}
                     </div>
                     <div>
-                        <span>
-                            {profile.data?.genderType}학생
-                        </span>
+                        <span><IoPersonSharp /> {profile.data?.genderType}학생</span>
                         <span>
                             {profile.data?.regionName}
                         </span>
@@ -122,7 +124,7 @@ function StudentMyPosterPage(props) {
                 <div css={s.studentInfoContainer}>
                     <div css={s.studentInfotitle}>
                         <div>
-                            학생 정보
+                            회원 정보
                         </div>
                         <div css={s.buttonLayout}>
                             <button onClick={handleModifyOnClick}>수정</button>
