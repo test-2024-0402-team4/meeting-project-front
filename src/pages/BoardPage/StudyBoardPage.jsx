@@ -180,17 +180,17 @@ function StudyBoardPage(props) {
                     {singleBoard.viewCount}</div>
                     {
                         roleId === 3 ? 
-                        <>
+                        <div css={s.buttonLayout}>
                             <button css={s.optionButton} onClick={handleDeleteClick}>삭제</button>                    
-                        </>
+                        </div>
                     :
                         userId === userIdByBoard ?
-                        <>
+                        <div css={s.buttonLayout}>
                             <Link to={`/study/board/update/${singleBoard.studyBoardId}`}>
                             <button css={s.optionButton}>수정</button>
                             </Link>
                             <button css={s.optionButton} onClick={handleDeleteClick}>삭제</button>
-                        </>
+                        </div>
                     :
                         <div css={s.blank}>
                             <button onClick={handleDeclareClick} css={s.optionButton}>신고</button>

@@ -196,6 +196,15 @@ export const buttonBox = css`
 
     /* border: 1px solid black; */
 `;
+export const buttonLayout = css`
+    display: flex;
+    justify-content: flex-end;
+    margin-right: 10px;
+
+    & > a {
+        text-decoration-line: none;
+    }
+`;
 
 export const blank = css`
 

@@ -198,12 +198,12 @@ const getStudentGender = useQuery(
                     </div>
                     {                        
                     roleId === 3 ?
-                        <>
+                        <div css={s.buttonLayout}>
                             <button onClick={handleDeleteClick} css={s.optionButton}>삭제</button>                    
-                        </>                       
+                        </div>                       
                     :
                     studentId === userIdByBoard ?
-                        <div css={s.buttonBox}>
+                        <div css={s.buttonLayout}>
                             <Link to={`/student/board/update/${singleBoard.studentBoardId}`}>
                                 <button css={s.optionButton}>수정</button>
                             </Link>
