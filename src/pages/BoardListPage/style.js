@@ -118,7 +118,8 @@ export const inputBox = css`
     display: flex;
     justify-content: center;
     align-items: center;
-
+    width: 100%;
+    border-radius: 5px;
     outline: none;
     border: none;
 

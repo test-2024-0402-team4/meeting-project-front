@@ -143,7 +143,7 @@ function StudyBoardPage(props) {
         <div css={s.boardListLayout}>
 
            <div css={s.boardPageProfile}>
-                <div css={s.boardPageMainHeader}>
+                <div css={s.boardPageMainHeader}>   
                     
                 {genderType === "남" ? 
                 (

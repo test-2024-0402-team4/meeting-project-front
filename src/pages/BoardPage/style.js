@@ -6,8 +6,7 @@ export const layout = css`
     flex-direction: column;
     width: 80%;
     max-width: 1100px;
-
-    border: 1px solid #dbdbdb;
+    /* border: 1px solid #dbdbdb; */
     border-top: none;
     border-bottom: none;
 
@@ -90,14 +89,14 @@ export const boardPageTitle = css`
 export const boardListLayout = css`
     display: flex;
     flex-direction: column;
-
+    
     width: 100%;
     height: 100%;
     min-height: 500px;
     max-width: 1100px;
-
     // 다하고 지우기 -----------------------------------
-    /* border: 1px solid black; */
+    margin-bottom: 10px;
+    border: 1px solid #dbdbdb;
 `;
 
 export const boardPageProfile = css`

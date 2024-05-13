@@ -5,7 +5,8 @@ export const commentLayout = css`
     display: flex;
     flex-direction: column;
     width: 100%;
-    
+    border-left: 1px solid #dbdbdb;
+    border-right: 1px solid #dbdbdb;
     // 다하고 지우기 ------------------------------
     /* border: 1px solid black; */
 `;
@@ -215,7 +216,7 @@ export const commentOptionButton = css`
 
 export const optionButtonBox = css`
     position: relative;
-    margin-left: 123px;
+    margin-left: 113px;
 `;
 
 export const commentItem = css`
