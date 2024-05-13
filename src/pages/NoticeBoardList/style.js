@@ -71,22 +71,30 @@ export const searchInput = css`
     margin-right: 20px;
 `;
 export const searchContainer = css`
+    display: flex;
     border: 1px solid #a19c9c;
     width: 199px;
     padding-left: 2px;
     padding-bottom:1px ;
     border-radius: 5px;
+    justify-content: space-between;
 `;
 export const inputBox = css`
     outline: none;
     border: none;
+    width: 120px;
 `;
 export const searchButton = css`
     box-sizing: border-box;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     padding: 0px 0px 0px 7px;
     background-color: white;
+    border-radius: 5px;
     border: none;
     cursor: pointer;
+    margin-right: 7px;
 `;
 
 export const boardListHeader = css`

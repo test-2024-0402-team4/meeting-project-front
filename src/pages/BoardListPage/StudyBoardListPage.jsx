@@ -189,7 +189,7 @@ function StudyBoardListPage(props) {
             </div>
 
             <div css={s.submit}>
-                <Link to={"/student/board"} css={s.writeButtonLayout}>
+                <Link to={"/study/board"} css={s.writeButtonLayout}>
                     <button css={s.writeButton}>작성하기</button>
                 </Link>
             </div>
