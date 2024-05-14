@@ -148,8 +148,9 @@ const getStudentGender = useQuery(
     return (
     <div css={s.layout}>
         <div css={s.authority}>
-            <span onClick={linkToStudent}>학생용</span>
-            <span onClick={() => linkToStudy()}>공부방</span>
+        <button css={s.authorityButton}  onClick={() => linkToStudent()}>학생용</button>
+                <div></div>
+                <button css={s.authorityButton} onClick={() => linkToStudy()}>공부방</button>
         </div>
 
         <div css={s.boardListLayout}>

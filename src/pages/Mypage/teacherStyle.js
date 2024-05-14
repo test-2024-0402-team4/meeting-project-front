@@ -262,7 +262,7 @@ export const searchButton = css`
     align-items: center;
     font-size: 15px;
     border: 1px solid #dbdbdb;
-    height: 30px;
+    height: 26px;
     background-color: white;
     border-top-right-radius: 5px;
     border-bottom-right-radius: 5px;
@@ -291,7 +291,7 @@ export const inputBox = css`
     border-bottom-right-radius: none;
     border-bottom-left-radius: 5px;
     border-top-left-radius: 5px;
-    height: 26px;
+    height: 23px;
     outline: none;
     padding-left: 10px;
     border-right: none;

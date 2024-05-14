@@ -86,13 +86,13 @@ function TeacherBoardListPage(props) {
     
     return (
         <div css={s.layout}>
-            <div css={s.head}>
-                <span>커뮤니티</span>
-            </div>
             <div css={s.authority}>
                 <button css={s.authorityButton} onClick={() => linkToTeacher()}>선생님용</button>
                 <div></div>
                 <button css={s.authorityButton} onClick={() => linkToStudy()}>공부방</button>
+            </div>
+            <div css={s.head}>
+                <span>커뮤니티</span>
             </div>
         
             <div css={s.searchInput}>
@@ -136,21 +136,24 @@ function TeacherBoardListPage(props) {
                                             </div>
                                         }
                                     </div>
+                                    <div css={s.nickLayout}>
                                     <div css={s.nick}>{board.nickname}</div>
+                                    <div css={s.date}>{GetTime(new Date(board.createDate))}</div>
+                                    </div>
                                 </div>
 
                                 
                                 <div css={s.d}>
                                     <div css={s.e}>
-                                        <div css={s.viewCount}>
-                                            <div><GrView /> {board.viewCount}</div>
-                                        </div>
                                         <div css={s.commentCount}>
                                             <div><FaRegComment /> {board.commentCount}</div>
                                         </div>
+                                        <div css={s.viewCount}>
+                                            <div><GrView /> {board.viewCount}</div>
+                                        </div>
                                     </div>
 
-                                    <div css={s.date}>{GetTime(new Date(board.createDate))}</div>
+                                   
                                 </div>
                             </div>
                         </>

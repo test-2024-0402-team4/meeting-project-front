@@ -74,6 +74,7 @@ export const searchContainer = css`
     display: flex;
     border: 1px solid #a19c9c;
     width: 199px;
+    height: 23px;
     padding-left: 2px;
     padding-bottom:1px ;
     border-radius: 5px;

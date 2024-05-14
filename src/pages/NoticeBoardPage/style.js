@@ -43,7 +43,7 @@ export const authorityButton = css`
 export const showDate = css`
     display: flex;
     justify-content: flex-end;
-    width: 96.5%;
+    width: 99%;
     color: rgb(128,128,128);
     margin-bottom: 3px;
 `;
@@ -143,7 +143,7 @@ export const boardPageViewCount = css`
     margin-bottom: 3px;
     margin-left: 35px;
     margin-right: 20px;
-    width: 95%;
+    width: 97.5%;
 `;
 
 export const viewIcon = css`

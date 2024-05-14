@@ -95,9 +95,6 @@ function StudyBoardListPage(props) {
     
     return (
         <div css={s.layout}>
-            <div css={s.head}>
-                <span>커뮤니티</span>
-            </div>
             <div css={s.authority}>
             {
                 roleId === 1
@@ -120,6 +117,9 @@ function StudyBoardListPage(props) {
                 )
                 : null
             }
+            </div>
+            <div css={s.head}>
+                <span>커뮤니티</span>
             </div>
         
             <div css={s.searchInput}>
@@ -163,22 +163,26 @@ function StudyBoardListPage(props) {
                                             </div>
                                         }
                                     </div>
+                                    <div css={s.nickLayout}>
                                     <div css={s.nick}>{board.nickname}</div>
+                                    <div css={s.date}>{GetTime(new Date(board.createDate))}</div>
+                                    </div>
                                 </div>
 
                                 
                                 <div css={s.d}>
                                     <div css={s.e}>
+                                        <div css={s.commentCount}>
+                                            <div><FaRegComment /> {board.commentCount}</div>
+                                        </div>
+
                                         <div css={s.viewCount}>
                                             <div><GrView /> {board.viewCount}</div>
                                         </div>
                                         
-                                        <div css={s.commentCount}>
-                                            <div><FaRegComment /> {board.commentCount}</div>
-                                        </div>
                                     </div>
 
-                                    <div css={s.date}>{GetTime(new Date(board.createDate))}</div>
+                                   
                                 </div>
                                 
                             </div>
@@ -196,6 +200,7 @@ function StudyBoardListPage(props) {
                 
             <div css={s.pageNumber}>
                 <StudyBoardPageCount boardCount={getStudyCountQuery.data?.data}/>
+                
             </div>
         </div>
     );

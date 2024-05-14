@@ -4,11 +4,11 @@ export const layout = css`
     margin: 0px auto;
     display: flex;
     flex-direction: column;
+    height: 100%;
 
     width: 80%;
     max-width: 1100px;
 
-    border-bottom: 1px solid #dbdbdb;
 
     // 다하고 지우기 -------------------------------
     /* border: 1px solid black; */
@@ -18,7 +18,7 @@ export const head = css`
     text-align: center;
     font-size: 38px;
     align-items: center;
-    margin-top: 10px;
+    margin-bottom: 8px;
 
     span{
         color: #333333;
@@ -39,11 +39,10 @@ export const authority = css`
     div{
         height: 30px;
         border: 1px solid #dbdbdb;
+        margin-left: 10px;
+        margin-right: 10px;
     }
 
-
-    // 다하고 지우기 -------------------------------
-    /* border: 1px solid black; */
 `;
 
 
@@ -75,12 +74,11 @@ export const authorityButton = css`
 export const boardListLayout = css`
     display: flex;
     flex-direction: column;
-
+    
+    // min-height: 720px;
     max-height: 1500px;
     max-width: 1100px;
 
-    // 다하고 지우기 -------------------------------
-    /* border: 1px solid black; */
 `;
 
 export const headerTitle = css`
@@ -174,9 +172,9 @@ export const boardTitle = css`
 
     padding: 0px 10px;
 
-    height: 50px;
+    min-height: 75px;
 
-    font-size: 16px;
+    font-size: 18px;
 
     border: 1px solid #dbdbdb;
     border-top-left-radius: 5px;
@@ -220,22 +218,26 @@ export const a = css`
 
 export const f = css`
     display: flex;
+    width: 100%;
 
     /* border: 1px solid black; */
 `;
-
+export const nickLayout = css`
+width: 100%;
+display: flex;
+justify-content: flex-start;
+padding-left: 10px;
+`;
 export const nick = css`
-    display: flex;
-    align-items: end;
     
-    margin-left: 10px;
-
+    margin-top: 17px;
+    padding-right: 9px;
+    border-right: 1px solid #dbdbdb;
+    height: 22px;
     font-size: 15px;
     color: #808080;
 
 
-    // 다하고 지우기 -------------------------------
-    /* border: 1px solid black; */
 `
 
 export const d = css`
@@ -244,14 +246,13 @@ export const d = css`
     justify-content: center;
     align-items: center;
 
-    /* border: 1px solid #dbdbdb; */
 `;
 
 export const lc = css`
     display: flex;
     justify-content: space-between;
     align-items: center;
-
+    min-height: 57px;
     border: 1px solid #dbdbdb;
     border-top: none;
     border-bottom-left-radius: 5px;
@@ -259,13 +260,11 @@ export const lc = css`
 
 `;
 export const date = css`
-    display: flex;
-    justify-content: end;
-    align-items: center;
+    
+    font-size: 15px;
+    margin-left: 9px;
+    margin-top: 17px;
 
-    margin-right: 20px;
-
-    width: 100%;
     height: 100%;
 
     color: #808080;
@@ -283,17 +282,15 @@ export const Count = css`
 
     color: #808080;
 
-    // 다하고 지우기 -------------------------------
-    /* border: 1px solid black; */
 `
 export const commentCount = css`
     display: flex;
     align-items: center;
     padding-top: 5px;
-    width: 80px;
+    width: 50px;
+    
+    font-size: 16px;
 
-    // 다하고 지우기 -------------------------------
-    /* border: 1px solid black; */
 `;
 export const commentIcon = css`
     display: flex;
@@ -309,29 +306,24 @@ export const viewCount = css`
     
     padding-top: 5px;
     align-items: center;
-    width: 80px;
+    width: 60px;
+    font-size: 16px;
 
-    // 다하고 지우기 -------------------------------
-    /* border: 1px solid black; */
 `;
 export const view = css`
-    // 다하고 지우기 -------------------------------
-    /* border: 1px solid black; */
 `;
 
 export const c = css`
     display: flex;
 
-    /* border: 1px solid black; */
 `;
 
 export const pageNumber = css`
     display: flex;
+    height: 100%;
     justify-content: center;
-    align-items: center;
+    margin-top: auto;
 
-    // 다하고 지우기 -------------------------------
-    /* border: 1px solid black; */
 `;
 
 export const writeButtonLayout =css`
@@ -341,9 +333,8 @@ export const writeButtonLayout =css`
     align-items: center;
 
     text-decoration: none;
+    margin-left: 25px;
 
-    // 다하고 지우기 -------------------------------
-    /* border: 1px solid black; */
 `;
 export const writeButton = css`
     display: flex;
@@ -377,16 +368,17 @@ export const submit = css`
     display: flex;
     flex-direction: column;
     align-items: end;
+    width: 100%;
+    margin-left: 8px;
 
-    padding: 10px;
-
-    border: 1px solid #dbdbdb;
     border-radius: 5px;
 `;
 
 export const e = css`
     display: flex;
     justify-content: end;
+    box-sizing: border-box;
+    margin-left: 25px;
 
     width: 100%;
     // 다하고 지우기 ------------------------

@@ -161,6 +161,7 @@ display: flex;
 justify-content: flex-end;
 width: 100%;
 padding-bottom: 10px;
+padding-right: 0px;
 `;
 
 export const searchContainer = css`
@@ -180,7 +181,6 @@ export const noSearch = css`
 display: flex;
 align-items: center;
 justify-content: center;
-border-top: 1px solid #dbdbdb;
 margin-top: 5px;
 padding-top: 25px;
 `;
@@ -238,6 +238,16 @@ export const imgLayout = css`
 export const teacherProfile = css`
     display: flex;
     box-sizing: border-box;
+    width: 100%;
+    height: 122px;
+    padding: 10px 0px 10px 10px;
+    border-bottom: 1px solid #dbdbdb;
+`;
+
+export const teacherProfile2 = css`
+    display: flex;
+    box-sizing: border-box;
+    justify-content: center;
     width: 100%;
     height: 122px;
     padding: 10px 0px 10px 10px;

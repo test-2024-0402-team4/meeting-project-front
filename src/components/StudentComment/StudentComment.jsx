@@ -9,6 +9,8 @@ import { BsThreeDotsVertical } from "react-icons/bs";
 import { getPrincipalRequest } from "../../apis/api/principal";
 import { getStudentProfile } from "../../apis/api/profileApi";
 import GetTime from "../GetTime/GetTime";
+import { MdSubdirectoryArrowRight } from "react-icons/md";
+
 
 function StudentComment({userId, roleId}) {
     const params = useParams();
@@ -302,8 +304,8 @@ function StudentComment({userId, roleId}) {
                                 
                             </div>
                                 <div css={s.commentMain}>
+                                    <div><MdSubdirectoryArrowRight /></div>
                                     <pre>{comment.comment}</pre>
-
                                 </div>
                         </li>
                     )

@@ -2,6 +2,7 @@ import { css } from "@emotion/react";
 
 export const commentLayout = css`
     margin: 0 auto;
+    margin-left: 5px;
     display: flex;
     flex-direction: column;
     width: 100%;
@@ -15,7 +16,7 @@ export const inputContainer = css`
     display: flex;
     flex-direction: column;
     align-items: end;
-
+    min-height: 120px;
     width: 100%;
     border-top: 1px solid #dbdbdb;
     border-bottom: 1px solid #dbdbdb;
@@ -53,8 +54,8 @@ export const inputButton = css`
     
     width: 50px;
     height: 30px;
-    margin-right: 20px;
-    margin-bottom: 20px;
+    margin-right: 8px;
+    margin-bottom: 10px;
     
     color: #11b69a;
     transition: background-color 0.3s ease;
@@ -139,7 +140,7 @@ export const commentTitle = css`
     width: 100%;
     height: 50px;
     padding: 5px 0px;
-    margin-top: 15px;
+    margin-top: 10px;
 
     // 다하고 지우기 --------------------------------------
     /* border: 1px solid black; */
@@ -166,24 +167,28 @@ export const commentDiv = css`
     display: flex;
     justify-content: center;
 
-    // 다하고 지우기 --------------------------------------
-    /* border: 1px solid black; */
 `;
 export const commentMain = css`
+    display: flex;
     box-sizing: border-box;
     border-bottom: 1px solid #dbdbdb;
-    margin-bottom: 10px;
     padding-left: 53px;
-    min-height: 25px;
-    font-size: 18px;
+    min-height: 55.5px;
+    font-size: 15px;
     font-weight: 500;
+    width: 100%;
+    
     & > pre{
         margin-top: 0px;
         margin-bottom: 10px;
+        white-space: pre-wrap;
+    }
+    & > div{
+        margin-left: 5px;
+        height: 20px;
+        margin-right: 2px;
     }
 
-    // 다하고 지우기 --------------------------------------
-    /* border: 1px solid black; */
 `;
 
 export const commentOption = css`
@@ -216,7 +221,7 @@ export const commentOptionButton = css`
 
 export const optionButtonBox = css`
     position: relative;
-    margin-left: 113px;
+    margin-left: 123px;
 `;
 
 export const commentItem = css`
