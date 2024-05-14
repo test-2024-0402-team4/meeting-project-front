@@ -10,6 +10,7 @@ import { getPrincipalRequest } from "../../apis/api/principal";
 import { getStudentProfile } from "../../apis/api/profileApi";
 import GetTime from "../GetTime/GetTime";
 import { getTeacherIdRequest } from "../../apis/api/boardApi";
+import { MdSubdirectoryArrowRight } from "react-icons/md";
 
 function TeacherComment({roleId}) {
     const params = useParams();
@@ -253,9 +254,8 @@ function TeacherComment({roleId}) {
                         <button  css={s.afterChangeButtons} onClick={() => handleCancelClick()}> 취소 </button>
                     </div>
                     :
-                    <div css={s.afterChangeButton}>
                         <button css={s.inputButton} onClick={handleRegisterClick}> 등록 </button>
-                    </div>
+                    
                 }
             </div>
             <div>
@@ -318,8 +318,9 @@ function TeacherComment({roleId}) {
                                
                             </div>
                             <div css={s.commentMain}>
-                                <pre>{comment.comment}</pre>
-                            </div>
+                                    <div><MdSubdirectoryArrowRight /></div>
+                                    <pre>{comment.comment}</pre>
+                                </div>
                         </li>
                     )
                 }

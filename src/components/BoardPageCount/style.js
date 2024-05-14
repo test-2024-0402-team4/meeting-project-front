@@ -18,26 +18,22 @@ export const pageNumbers = css`
 
 export const pageButton = (isSelected) => css`
     display: flex;
-    box-sizing: border-box;
-    justify-content: center;
-    align-items: center;
-
-    margin-right:3px ;
-    padding: 2px 5px;
-
-    min-width: 25px;
-    height: 25px;
-
-    font-size: 20px;
-
-    /* background-color: ${isSelected ? "#75e9af" : "white"}; */
-    text-decoration: none;
-    color: #808080;
-
-    &:hover {
-        /* background-color: ${isSelected ? "#75e9af" : "#eeeeee"}; */
-        text-decoration: ${isSelected ? "underline" : "none"};
-    }
+box-sizing: border-box;
+justify-content: center;
+border-radius: 50px;
+align-items: center;
+margin-right:3px ;
+padding: 2px 5px;
+min-width: 25px;
+height: 25px;
+font-size: 10px;
+border: ${isSelected ? "none" : "none"};
+background-color: ${isSelected ? "#8ed6c7" : "white"};
+text-decoration: none;
+color: ${isSelected ? "white" : "#777777"};
+&:hover {
+    background-color: ${isSelected ? "#8ed6c7" : "#eeeeee"};
+}
 
 `;
 
@@ -69,8 +65,9 @@ export const count = css`
 
 export const sideBox1 = css`
     display: flex;
-    
+    width: 110px;
 `;
 export const sideBox2 = css`
     display: flex;
+    width: 120px;
 `;

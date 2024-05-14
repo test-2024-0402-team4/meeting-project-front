@@ -275,11 +275,28 @@ function Mypage(props) {
                         <div onClick={() =>setContent(2)}>
                             공부방
                         </div>
+                        {
+                            content === 0 ? <></> :
+                            <div css={s.searchInput}>
+                                <div css={s.searchContainer}>
+                                    <input css={s.inputBox} type="text" 
+                                    placeholder="검색어를 입력하세요"
+                                    value={searchText.value}
+                                    onChange={searchText.handleOnChange}
+                                    onKeyDown={searchText.handleOnKeyDown}/>
+                                    
+                                    <button onClick={searchSubmit} css={s.searchButton}><IoSearchOutline /></button>
+                                </div>
+                            </div>
+                        }
                         </div>
+                        
                         {content === 0 && (
                             <>
                                 {teacherProfile?.length === 0 ? (
-                                    <h2 css={s.noSearch}>검색 결과가 없습니다.</h2>
+                                    <div css={s.teacherProfile2}>
+                                        <h2 css={s.noSearch}>신청내역이 없습니다.</h2>
+                                    </div>
                                 ) : (
                                     teacherProfile?.map(teacherProfile => (
                                         <div key={teacherProfile.userId} css={s.teacherProfile}>

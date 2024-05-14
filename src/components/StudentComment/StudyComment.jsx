@@ -304,7 +304,8 @@ useEffect(() => {
                                 
                             </div>
                             <div css={s.commentMain}>
-                                <pre><MdSubdirectoryArrowRight /> {comment.comment}</pre>
+                                <div ><MdSubdirectoryArrowRight /></div>
+                                <pre> {comment.comment}</pre>
                             </div>
                         </li>
                     )

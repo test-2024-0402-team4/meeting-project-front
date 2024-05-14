@@ -4,6 +4,7 @@ export const layout = css`
     margin: 0px auto;
     display: flex;
     flex-direction: column;
+    
     width: 80%;
     max-width: 1100px;
     /* border: 1px solid #dbdbdb; */
@@ -26,9 +27,10 @@ export const authority = css`
     div{
         height: 30px;
         border: 1px solid #dbdbdb;
+        margin-left: 10px;
+        margin-right: 10px;
     }
 
-    border-bottom: 1px solid #dbdbdb;
 
     /* border: 1px solid black; */
 `;
@@ -47,18 +49,13 @@ export const authorityButton = css`
 
     transition: background-color 0.3s ease;
 
-    div{
-        width: 30px;
-        /* border: 1px solid black; */
-    }
+    cursor: pointer;
+
     :hover{
         color: #808080;
     }
 
-    // 다하고 지우기 ---------------------------
     border: none;
-
-    cursor: pointer;
 
 `;
 
@@ -89,7 +86,8 @@ export const boardPageTitle = css`
 export const boardListLayout = css`
     display: flex;
     flex-direction: column;
-    
+    margin-top: 7px;
+    margin-left: 5px;
     width: 100%;
     height: 100%;
     min-height: 500px;
@@ -229,7 +227,9 @@ export const boardPageViewCount = css`
     justify-content: end;
     align-items: center;
 
-    margin-right: 10px;
+    margin-right: 15px;
+    margin-bottom: 5px;
+    font-size: 14.6px;
 
     // 다하고 지우기 ---------------------------
     /* border: 1px solid black; */
@@ -256,6 +256,7 @@ export const viewIcon = css`
 
 export const title = css`
     font-size: 17px;
+    margin-top: 5px;
     margin-bottom: 6px;
 
     // 다하고 지우기 ---------------------------
