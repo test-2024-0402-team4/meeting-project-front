@@ -295,13 +295,13 @@ function TeacherComment({roleId}) {
                                                                 <button css={s.commentOptionButton} onClick={() => handleDeleteClick(comment.teacherCommentId)}> 삭제 </button>
                                                             </>
                                                     :
-                                                        comment.teacherUserId === teacherUserId ?
+                                                        comment.teacherId === teacherId ?
                                                             <>
                                                                 <button css={s.commentOptionButton} onClick={() => handleUpdateClick(comment.teacherCommentId,comment.comment)}> 수정 </button>
                                                                 <button css={s.commentOptionButton} onClick={() => handleDeleteClick(comment.teacherCommentId)}> 삭제 </button>
                                                             </>
                                                     :
-                                                        comment.teacherUserId !== teacherUserId ?
+                                                        comment.teacherId !== teacherId ?
                                                             <>
                                                                 
                                                                 <button css={s.commentOptionButton} onClick={() => handleDeclareClick(comment.teacherCommentId)}> 신고 </button>

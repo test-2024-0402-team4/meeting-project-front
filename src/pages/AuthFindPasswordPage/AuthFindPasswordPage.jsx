@@ -17,11 +17,11 @@ function AuthFindPasswordPage() {
             email
         }).then(response => {
             console.log(response.data)
-            alert(response.data);
+            alert("확인되었습니다!");
             window.location.replace("/auth/modifyPassword");
         }).catch(error => {
             console.log(error.data)
-            alert(error.response.data);
+            alert("정보를 다시 확인해주세요!");
         })
     }
 

@@ -1,3 +1,8 @@
+import ImageResize from 'quill-image-resize';
+import { Quill } from 'react-quill';
+Quill.register('modules/ImageResize', ImageResize);
+
+
 
 export const QUILL_MODULES = (quillImageHandler) => {
     return {
@@ -14,6 +19,9 @@ export const QUILL_MODULES = (quillImageHandler) => {
             handlers: {
                 image: quillImageHandler
             }
+        },
+        ImageResize: {
+            parchment: Quill.import('parchment')
         }
     }
 }
