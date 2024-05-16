@@ -209,7 +209,9 @@ export const commentOptionButton = css`
     height: 24px;
     background-color: white;
     border: none;
+    font-size: 14px;
     transition: background-color 0.3s ease;
+    border-radius: 5px;
     cursor: pointer;
     &:hover {
         background-color: #e9eded;
@@ -221,12 +223,13 @@ export const commentOptionButton = css`
 
 export const optionButtonBox = css`
     position: relative;
-    margin-left: 123px;
+    display: flex;
+    justify-content: flex-end;
 `;
 
 export const commentItem = css`
-    box-sizing: border-box;
     position: absolute;
+    box-sizing: border-box;
     display: flex;
     top: 25px;
     flex-direction: column;

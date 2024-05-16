@@ -54,10 +54,9 @@ export const boardPageTitle = css`
     align-items: center;
     width: 300px;
     height: 60px;
-    border: 1px solid #b9b4b4;
     margin-top: 25px;
     border-radius: 5px;
-    font-size: 24px;
+    font-size: 33px;
 `;
 
 export const boardListLayout = css`
