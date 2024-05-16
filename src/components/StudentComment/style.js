@@ -62,6 +62,7 @@ export const inputButton = css`
     
     border-radius: 5px;
     border: none;
+    font-size: 14px;
 
     cursor: pointer;
     
@@ -92,8 +93,7 @@ export const afterChangeButton = css`
     display: flex;
     justify-content: end;
 
-    margin-right: 20px;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
 
 `;
 
@@ -101,14 +101,15 @@ export const afterChangeButtons = css`
     width: 50px;
     height: 30px;
     margin-right: 7px;
-    background-color: #14dbba;
+    background-color: #d9fcf6;
     border: none;
-    color: white;
+    color: #11b69a;
     border-radius: 5px;
     transition: background-color 0.3s ease;
+    font-size: 14px;
     cursor: pointer;
     &:hover {
-        background-color: #11b69a;
+        background-color: #9decde;
     }
 
     // 다하고 지우기 --------------------------------------

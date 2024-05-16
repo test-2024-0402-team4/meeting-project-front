@@ -177,6 +177,7 @@ export const optionButton = css`
     
     background-color: #d9fcf6;
     color: #11b69a;
+    font-size: 14px;
     
     cursor: pointer;
 
